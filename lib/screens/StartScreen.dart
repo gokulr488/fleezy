@@ -1,4 +1,5 @@
 import 'package:fleezy/components/BaseCard.dart';
+import 'package:fleezy/screens/CreateCompanyScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -41,28 +42,18 @@ class _StartScreenState extends State<StartScreen> {
               ),
             ),
             BaseCard(
-              onTap: () {},
-              cardChild: SizedBox(
-                height: 50,
-                child: Center(
-                  child: Text(
-                    'Create Company',
-                    style: buttonTextStyle,
-                  ),
-                ),
+              onTap: () {
+                Navigator.pushNamed(context, CreateCompanyScreen.id);
+              },
+              cardChild: Button(
+                buttonText: 'Create Company',
               ),
               color: Color(0xFF9fb3d2),
             ),
             BaseCard(
               onTap: () {},
-              cardChild: SizedBox(
-                height: 50,
-                child: Center(
-                  child: Text(
-                    'Log In',
-                    style: buttonTextStyle,
-                  ),
-                ),
+              cardChild: Button(
+                buttonText: 'Log In',
               ),
               color: Color(0xFF1A54F8),
             ),
@@ -70,6 +61,25 @@ class _StartScreenState extends State<StartScreen> {
               height: 50,
             )
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class Button extends StatelessWidget {
+  final String buttonText;
+
+  const Button({this.buttonText});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 50,
+      child: Center(
+        child: Text(
+          buttonText,
+          style: buttonTextStyle,
         ),
       ),
     );
