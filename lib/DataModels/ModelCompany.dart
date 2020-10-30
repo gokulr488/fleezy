@@ -4,14 +4,14 @@ import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/DataModels/ModelVehicle.dart';
 
 class ModelCompany {
-  final String companyName;
-  final String companyEmail;
-  final String password;
-  final String phoneNumber;
-  final List<ModelVehicle> vehicles;
-  final List<ModelUser> users;
-  final List<ModelExpense> expenses;
-  final List<ModelTrip> trips;
+  String companyName;
+  String companyEmail;
+  String password;
+  String phoneNumber;
+  List<ModelVehicle> vehicles = [];
+  List<ModelUser> users = [];
+  List<ModelExpense> expenses = [];
+  List<ModelTrip> trips = [];
   ModelCompany(
       {this.trips,
       this.users,

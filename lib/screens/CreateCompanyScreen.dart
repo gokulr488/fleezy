@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fleezy/Common/UiConstants.dart';
+import 'package:fleezy/DataAccess/Authentication.dart';
+import 'package:fleezy/DataModels/ModelCompany.dart';
 import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +71,7 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
             RoundedButton(
               title: 'Log In',
               colour: Colors.blue,
-              onPressed: () {
+              onPressed: () async {
                 if (password != confirmPassword) {
                   print('Passwords does not match');
                   return;
@@ -77,7 +79,11 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
                 setState(() {
                   showSpinner = true;
                 });
-                createAndSaveCompany();
+                ModelCompany modelCompany = ModelCompany(
+                    companyEmail: emailId,
+                    password: password,
+                    companyName: companyName);
+                await Authentication().addNewCompany(modelCompany);
               },
             ),
           ],

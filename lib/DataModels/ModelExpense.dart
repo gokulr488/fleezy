@@ -1,25 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ModelExpense {
-  final String expenseType;
-  final double amount;
-  final Timestamp timestamp;
-  final String tripNo;
-  final String remarks;
+  String expenseType;
+  double amount;
+  Timestamp timestamp;
+  String tripNo;
+  String remarks;
   //Fuel specific
-  final double fuelUnitPrice;
-  final double fuelQty;
-  final bool isFullTank;
+  double fuelUnitPrice;
+  double fuelQty;
+  bool isFullTank;
   //Insurance Specific
-  final Timestamp insuranceExpiryDate;
-  final String policyNumber;
+  Timestamp insuranceExpiryDate;
+  String policyNumber;
   //Tax specific
-  final Timestamp taxExpiryDate;
+  Timestamp taxExpiryDate;
   //driver Specific
-  final String driverName;
+  String driverName;
   //Other Expense specific
-  final String expenseName; //provide type=OtherExpense
-  final String vehicleRegNo; //Doc ID of Model vehicle
+  String expenseName; //provide type=OtherExpense
+  String vehicleRegNo; //Doc ID of Model vehicle
 
   ModelExpense(
       {this.expenseType,

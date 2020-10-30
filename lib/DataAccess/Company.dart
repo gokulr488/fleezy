@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleezy/Common/Constants.dart';
+import 'package:fleezy/DataAccess/Roles.dart';
 import 'package:fleezy/DataModels/ModelCompany.dart';
+import 'package:fleezy/DataModels/ModelUser.dart';
 
 class Company {
   FirebaseFirestore fireStore;
@@ -20,7 +22,7 @@ class Company {
       return;
     }
 
-    return fireStore
+    fireStore
         .collection(Constants.COMPANIES)
         .doc(company.companyEmail)
         .set({
@@ -30,6 +32,7 @@ class Company {
         })
         .then((value) => print("Company Added"))
         .catchError((error) => print("Failed to add company: $error"));
+    Roles().addRole(company.users.first, company.companyEmail);
   }
 
   void updateCompany(ModelCompany company) async {

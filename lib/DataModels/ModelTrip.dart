@@ -1,19 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ModelTrip {
-  final Timestamp startDate;
-  final Timestamp endDate;
-  final Timestamp timestamp; //same as startdate
-  final int startReading;
-  final int endReading;
-  final int distance;
-  final double billAmount;
-  final double paidAmount;
-  final double balanceAmount;
-  final double driverSalary;
-  final String customerName;
-  final String tripNo;
-  final String vehicleRegNo;
+  Timestamp startDate;
+  Timestamp endDate;
+  Timestamp timestamp; //same as startdate
+  int startReading;
+  int endReading;
+  int distance;
+  double billAmount;
+  double paidAmount;
+  double balanceAmount;
+  double driverSalary;
+  String customerName;
+  String tripNo;
+  String vehicleRegNo;
 
   ModelTrip(
       {this.startDate,
