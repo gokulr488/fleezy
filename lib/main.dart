@@ -2,8 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fleezy/screens/CreateCompanyScreen.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
+import 'package:fleezy/screens/LoginScreen.dart';
 import 'package:fleezy/screens/StartScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,6 +16,10 @@ Future<void> main() async {
 class FleezyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.portraitUp,
+    ]);
     return MaterialApp(
         title: 'Fleezy',
         theme: ThemeData(
@@ -24,6 +30,7 @@ class FleezyApp extends StatelessWidget {
           HomeScreen.id: (context) => HomeScreen(),
           StartScreen.id: (context) => StartScreen(),
           CreateCompanyScreen.id: (context) => CreateCompanyScreen(),
+          LoginScreen.id: (context) => LoginScreen(),
         });
   }
 }

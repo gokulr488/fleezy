@@ -2,9 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/DataAccess/Authentication.dart';
 import 'package:fleezy/DataModels/ModelCompany.dart';
+import 'package:fleezy/components/LoadingDots.dart';
 import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
 import 'package:flutter/material.dart';
+
+const TextStyle kFleezyTextStyle =
+    TextStyle(fontSize: 35, fontWeight: FontWeight.bold);
 
 class CreateCompanyScreen extends StatefulWidget {
   static const String id = 'createCompanyScreen';
@@ -13,8 +17,6 @@ class CreateCompanyScreen extends StatefulWidget {
 }
 
 class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
-  static const TextStyle kFleezyTextStyle =
-      TextStyle(fontSize: 35, fontWeight: FontWeight.bold);
   final _auth = FirebaseAuth.instance;
   String companyName;
   String emailId;
@@ -48,7 +50,7 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
               onChanged: (value) {
                 emailId = value;
               },
-              decoration: kTextFieldDecoration.copyWith(hintText: 'email ID'),
+              decoration: kTextFieldDecoration.copyWith(hintText: 'Email ID'),
             ),
             TextField(
               obscureText: true,
@@ -68,10 +70,19 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
               decoration: kTextFieldDecoration.copyWith(
                   hintText: 'Confirm your password'),
             ),
+            showSpinner ? LoadingDots(size: 40) : SizedBox(width: 10),
             RoundedButton(
               title: 'Create Company',
               colour: Colors.blue,
               onPressed: () async {
+                if (companyName == null ||
+                    emailId == null ||
+                    password == null ||
+                    confirmPassword == null) {
+                  print('Some fields are left empty');
+                  return;
+                }
+                FocusScope.of(context).requestFocus(FocusNode());
                 if (password != confirmPassword) {
                   print('Passwords does not match');
                   return;

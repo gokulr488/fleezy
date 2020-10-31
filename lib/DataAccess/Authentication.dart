@@ -38,6 +38,36 @@ class Authentication {
   }
 
   void addNewUser() {}
-  void login() {}
-  void logout() {}
+  Future<bool> login(ModelUser user) async {
+    try {
+      if (user != null && user.password != null && user.userEmailId != null) {
+        await _auth.signInWithEmailAndPassword(
+            email: user.userEmailId, password: user.password);
+        if (_auth.currentUser != null) {
+          print('Sign In Successful');
+          return true;
+        }
+        return false;
+      } else {
+        print('Email ID or password is null');
+        return false;
+      }
+    } catch (e) {
+      print('Unable To Sign In');
+      print(e);
+      return false;
+    }
+  }
+
+  void logout() async {
+    try {
+      if (_auth.currentUser != null) {
+        await _auth.signOut();
+        print('Signed Out');
+      }
+    } catch (e) {
+      print('Unable to Sign Out');
+      print(e);
+    }
+  }
 }
