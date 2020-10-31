@@ -1,42 +1,34 @@
 {
   "project_info": {
-    "project_number": "497853894704",
-    "firebase_url": "https://fleezy-d2440.firebaseio.com",
-    "project_id": "fleezy-d2440",
-    "storage_bucket": "fleezy-d2440.appspot.com"
+    "project_number": "629527244095",
+    "firebase_url": "https://fleezy-2ff89.firebaseio.com",
+    "project_id": "fleezy-2ff89",
+    "storage_bucket": "fleezy-2ff89.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:497853894704:android:77368d1ae8ca46dbdeddf5",
+        "mobilesdk_app_id": "1:629527244095:android:a4af5bb248508b1a3bf78a",
         "android_client_info": {
           "package_name": "com.gokulr488.fleezy"
         }
       },
       "oauth_client": [
         {
-          "client_id": "497853894704-v0letr09b6f8icjfl3b43tr2djs3ltih.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.gokulr488.fleezy",
-            "certificate_hash": "350fe0d4332c67830160ff68954ad0bbe936f894"
-          }
-        },
-        {
-          "client_id": "497853894704-d3c9qgv46fvg1q8s6hrktjko48fgr5lh.apps.googleusercontent.com",
+          "client_id": "629527244095-tl2hi4o38pp1ggaktjutgdngvueukt6b.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCZ6tLrjivKG9AcZnpMJ-YCrqhOcmZABw8"
+          "current_key": "AIzaSyD4Bi3ijcvqmfGdE_c98yfURIWG14MB2OY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "497853894704-d3c9qgv46fvg1q8s6hrktjko48fgr5lh.apps.googleusercontent.com",
+              "client_id": "629527244095-tl2hi4o38pp1ggaktjutgdngvueukt6b.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

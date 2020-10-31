@@ -12,7 +12,7 @@ class Roles {
     callContext = CallContext();
   }
 
-  void addRole(ModelUser user, String companyId) async {
+  Future<void> addRole(ModelUser user, String companyId) async {
     DocumentSnapshot snapShot = await fireStore
         .collection(Constants.COMPANIES)
         .doc(companyId)
@@ -30,6 +30,7 @@ class Roles {
         .collection(Constants.USERS)
         .doc(user.userEmailId)
         .set({
+          'AuthUid': user.uid,
           'RoleName': user.roleName,
           'FullName': user.fullName,
           'EmailId': user.userEmailId,
@@ -42,6 +43,7 @@ class Roles {
       print(callContext.errorMessage);
       return;
     }
+    return;
   }
 
   void updateRole(ModelUser user, String companyId) async {

@@ -7,12 +7,16 @@ import 'package:fleezy/DataModels/ModelUser.dart';
 class Authentication {
   final _auth = FirebaseAuth.instance;
   Future<void> addNewCompany(ModelCompany modelCompany) async {
+    UserCredential userCredential;
     try {
-      final UserCredential userCredential =
-          await _auth.createUserWithEmailAndPassword(
-              email: modelCompany.companyEmail,
-              password: modelCompany.password);
-
+      userCredential = await _auth.createUserWithEmailAndPassword(
+          email: modelCompany.companyEmail, password: modelCompany.password);
+    } catch (e) {
+      print('Unable to create New Company');
+      print(e);
+      return;
+    }
+    try {
       if (userCredential != null) {
         print('Company Created. Adding to Database with default Admin user');
         ModelUser adminUser = ModelUser(
@@ -21,7 +25,7 @@ class Authentication {
             uid: userCredential.user.uid,
             userEmailId: modelCompany.companyEmail);
         modelCompany.users = [adminUser];
-        Company().addCompany(modelCompany);
+        await Company().addCompany(modelCompany);
         print('Company & Admin user added to DB');
       }
       return;

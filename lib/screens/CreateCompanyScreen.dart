@@ -69,7 +69,7 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
                   hintText: 'Confirm your password'),
             ),
             RoundedButton(
-              title: 'Log In',
+              title: 'Create Company',
               colour: Colors.blue,
               onPressed: () async {
                 if (password != confirmPassword) {
@@ -84,6 +84,10 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
                     password: password,
                     companyName: companyName);
                 await Authentication().addNewCompany(modelCompany);
+                setState(() {
+                  showSpinner = false;
+                });
+                Navigator.pushNamed(context, HomeScreen.id);
               },
             ),
           ],
