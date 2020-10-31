@@ -1,5 +1,6 @@
 import 'package:fleezy/components/BaseCard.dart';
 import 'package:fleezy/screens/CreateCompanyScreen.dart';
+import 'package:fleezy/screens/LoginScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -12,13 +13,8 @@ const TextStyle buttonTextStyle = TextStyle(
   fontWeight: FontWeight.bold,
 );
 
-class StartScreen extends StatefulWidget {
+class StartScreen extends StatelessWidget {
   static const String id = 'startScreen';
-  @override
-  _StartScreenState createState() => _StartScreenState();
-}
-
-class _StartScreenState extends State<StartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,11 +47,13 @@ class _StartScreenState extends State<StartScreen> {
               color: Color(0xFF9fb3d2),
             ),
             BaseCard(
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, LoginScreen.id);
+              },
               cardChild: Button(
                 buttonText: 'Log In',
               ),
-              color: Color(0xFF1A54F8),
+              color: Colors.blue,
             ),
             SizedBox(
               height: 50,
