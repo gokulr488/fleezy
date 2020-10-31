@@ -12,6 +12,7 @@ class ModelCompany {
   List<ModelUser> users = [];
   List<ModelExpense> expenses = [];
   List<ModelTrip> trips = [];
+
   ModelCompany(
       {this.trips,
       this.users,

@@ -57,7 +57,11 @@ class Company {
         .catchError((error) => print("Failed to update company: $error"));
   }
 
-  Future<ModelCompany> getCompany(String docId) async {
+  Future<ModelCompany> getCompany(String docId,
+      {bool getVehicle: false,
+      bool getUsers: false,
+      bool getExpenses: false,
+      bool getTrips: false}) async {
     final DocumentSnapshot snapShot =
         await fireStore.collection(Constants.COMPANIES).doc(docId).get();
     if (snapShot.data() == null) {
@@ -69,6 +73,13 @@ class Company {
         companyName: snapShot['CompanyName'],
         companyEmail: snapShot['CompanyEmail'],
         phoneNumber: snapShot['PhoneNumber']);
+    if (getVehicle) {
+      CollectionReference vehicles = fireStore
+          .collection(Constants.COMPANIES)
+          .doc(docId)
+          .collection(Constants.VEHICLES);
+      if(vehicles.)
+    }
     return result;
   }
 }
