@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ModelTrip {
+  String driverName;
+  String driverUid;
   Timestamp startDate;
   Timestamp endDate;
   Timestamp timestamp; //same as startdate
@@ -28,5 +30,7 @@ class ModelTrip {
       this.customerName,
       this.tripNo,
       this.vehicleRegNo,
-      this.timestamp});
+      this.timestamp,
+      this.driverName,
+      this.driverUid});
 }

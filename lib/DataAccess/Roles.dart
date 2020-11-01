@@ -12,21 +12,15 @@ class Roles {
     callContext = CallContext();
   }
 
-  Future<void> addRole(ModelUser user, String companyId) async {
-    DocumentSnapshot snapShot = await fireStore
-        .collection(Constants.COMPANIES)
-        .doc(companyId)
-        .collection(Constants.USERS)
-        .doc(user.userEmailId)
-        .get();
+  Future<void> addRole(ModelUser user) async {
+    DocumentSnapshot snapShot =
+        await fireStore.collection(Constants.USERS).doc(user.userEmailId).get();
     if (snapShot.data() != null) {
       print("User already exists");
       return;
     }
 
     fireStore
-        .collection(Constants.COMPANIES)
-        .doc(companyId)
         .collection(Constants.USERS)
         .doc(user.userEmailId)
         .set({
@@ -34,7 +28,8 @@ class Roles {
           'RoleName': user.roleName,
           'FullName': user.fullName,
           'EmailId': user.userEmailId,
-          'PhoneNumber': user.phoneNumber
+          'PhoneNumber': user.phoneNumber,
+          'CompanyId': user.companyId
         })
         .then(callContext.setSuccess('User added'))
         .catchError((error) => callContext.setError("$error"));
@@ -46,28 +41,23 @@ class Roles {
     return;
   }
 
-  void updateRole(ModelUser user, String companyId) async {
-    final DocumentSnapshot snapShot = await fireStore
-        .collection(Constants.COMPANIES)
-        .doc(companyId)
-        .collection(Constants.USERS)
-        .doc(user.userEmailId)
-        .get();
+  void updateRole(ModelUser user) async {
+    final DocumentSnapshot snapShot =
+        await fireStore.collection(Constants.USERS).doc(user.userEmailId).get();
     if (snapShot.data() == null) {
       print("User not found");
       return;
     }
 
     return fireStore
-        .collection(Constants.COMPANIES)
-        .doc(companyId)
         .collection(Constants.USERS)
         .doc(user.userEmailId)
         .update({
           'RoleName': user.roleName,
           'FullName': user.fullName,
           'EmailId': user.userEmailId,
-          'PhoneNumber': user.phoneNumber
+          'PhoneNumber': user.phoneNumber,
+          'CompanyId': user.companyId
         })
         .then((value) => print("User details updated"))
         .catchError((error) => print("Failed to update user: $error"));

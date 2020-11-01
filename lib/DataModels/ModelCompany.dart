@@ -8,10 +8,10 @@ class ModelCompany {
   String companyEmail;
   String password;
   String phoneNumber;
-  List<ModelVehicle> vehicles = [];
-  List<ModelUser> users = [];
-  List<ModelExpense> expenses = [];
-  List<ModelTrip> trips = [];
+  Map<String, ModelVehicle> vehicles;
+  Map<String, ModelUser> users;
+  Map<String, ModelExpense> expenses;
+  Map<String, ModelTrip> trips;
 
   ModelCompany(
       {this.trips,

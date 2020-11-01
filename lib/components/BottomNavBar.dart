@@ -1,9 +1,9 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:fleezy/Common/UiConstants.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavBar extends StatelessWidget {
-  static const Color kThemeColour = Colors.blue;
-  static const Color kBackGroundColour = Color(0xff212121);
+  static const Color kThemeColour = Color(0xFF1f0bdb);
   final Function onTap;
 
   const BottomNavBar({this.onTap});
@@ -11,7 +11,7 @@ class BottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return CurvedNavigationBar(
       color: kThemeColour,
-      backgroundColor: kBackGroundColour,
+      backgroundColor: kBackgroundColor,
       buttonBackgroundColor: kThemeColour,
       animationDuration: Duration(milliseconds: 300),
       height: 50,
@@ -20,27 +20,27 @@ class BottomNavBar extends StatelessWidget {
         Icon(
           Icons.location_pin,
           size: 20,
-          color: kBackGroundColour,
+          color: kBackgroundColor,
         ),
         Icon(
           Icons.shopping_cart,
           size: 20,
-          color: kBackGroundColour,
+          color: kBackgroundColor,
         ),
         Icon(
           Icons.home_rounded,
           size: 20,
-          color: kBackGroundColour,
+          color: kBackgroundColor,
         ),
         Icon(
           Icons.list,
           size: 20,
-          color: kBackGroundColour,
+          color: kBackgroundColor,
         ),
         Icon(
           Icons.logout,
           size: 20,
-          color: kBackGroundColour,
+          color: kBackgroundColor,
         )
       ],
       onTap: onTap,

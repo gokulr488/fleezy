@@ -9,7 +9,7 @@ class LoadingDots extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: SpinKitThreeBounce(
-        color: Colors.green,
+        color: Colors.green[900],
         size: size,
       ),
     );

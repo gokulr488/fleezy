@@ -21,11 +21,13 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
   String companyName;
   String emailId;
   String password;
+  String phoneNumber;
   String confirmPassword;
   bool showSpinner = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kBackgroundColor,
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -53,22 +55,12 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
               decoration: kTextFieldDecoration.copyWith(hintText: 'Email ID'),
             ),
             TextField(
-              obscureText: true,
               textAlign: TextAlign.center,
               onChanged: (value) {
-                password = value;
+                phoneNumber = value;
               },
-              decoration: kTextFieldDecoration.copyWith(
-                  hintText: 'Enter a new password'),
-            ),
-            TextField(
-              obscureText: true,
-              textAlign: TextAlign.center,
-              onChanged: (value) {
-                confirmPassword = value;
-              },
-              decoration: kTextFieldDecoration.copyWith(
-                  hintText: 'Confirm your password'),
+              decoration:
+                  kTextFieldDecoration.copyWith(hintText: 'Phone number'),
             ),
             showSpinner ? LoadingDots(size: 40) : SizedBox(width: 10),
             RoundedButton(
@@ -77,22 +69,18 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
               onPressed: () async {
                 if (companyName == null ||
                     emailId == null ||
-                    password == null ||
-                    confirmPassword == null) {
+                    phoneNumber == null) {
                   print('Some fields are left empty');
                   return;
                 }
                 FocusScope.of(context).requestFocus(FocusNode());
-                if (password != confirmPassword) {
-                  print('Passwords does not match');
-                  return;
-                }
+
                 setState(() {
                   showSpinner = true;
                 });
                 ModelCompany modelCompany = ModelCompany(
                     companyEmail: emailId,
-                    password: password,
+                    phoneNumber: phoneNumber,
                     companyName: companyName);
                 await Authentication().addNewCompany(modelCompany);
                 setState(() {

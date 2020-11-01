@@ -31,7 +31,7 @@ class Company {
         })
         .then((value) => print("Company Added"))
         .catchError((error) => print("Failed to add company: $error"));
-    Roles().addRole(company.users.first, company.companyEmail);
+    Roles().addRole(company.users.values.first);
     return;
   }
 
@@ -78,7 +78,7 @@ class Company {
           .collection(Constants.COMPANIES)
           .doc(docId)
           .collection(Constants.VEHICLES);
-      if(vehicles.)
+      //if(vehicles.)
     }
     return result;
   }

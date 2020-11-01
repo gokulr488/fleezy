@@ -1,11 +1,12 @@
+import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/components/BaseCard.dart';
 import 'package:fleezy/screens/CreateCompanyScreen.dart';
 import 'package:fleezy/screens/LoginScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-const TextStyle fleezyTextStyle = TextStyle(
-  color: Color(0xFFd17008),
+TextStyle fleezyTextStyle = TextStyle(
+  color: Colors.orange[900],
   fontSize: 60,
 );
 const TextStyle buttonTextStyle = TextStyle(
@@ -18,7 +19,7 @@ class StartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: kBackgroundColor,
       body: SafeArea(
         child: Column(
           children: [
@@ -44,7 +45,7 @@ class StartScreen extends StatelessWidget {
               cardChild: Button(
                 buttonText: 'Create Company',
               ),
-              color: Color(0xFF9fb3d2),
+              color: Colors.orange[900],
             ),
             BaseCard(
               onTap: () {
@@ -53,7 +54,7 @@ class StartScreen extends StatelessWidget {
               cardChild: Button(
                 buttonText: 'Log In',
               ),
-              color: Colors.blue,
+              color: Colors.blue[900],
             ),
             SizedBox(
               height: 50,
