@@ -77,4 +77,23 @@ class Trip {
         .then((value) => print("trip details updated"))
         .catchError((error) => print("Failed to update trip: $error"));
   }
+
+  Future<void> deleteTrip(String companyId, String docid) async {
+    DocumentSnapshot snapShot = await fireStore
+        .collection(Constants.COMPANIES)
+        .doc(companyId)
+        .collection(Constants.TRIP)
+        .doc(docid)
+        .get();
+    if (snapShot.data() == null) {
+      print("Trip not found");
+      return null;
+    }
+    return fireStore
+        .collection(Constants.COMPANIES)
+        .doc(companyId)
+        .collection(Constants.TRIP)
+        .doc(docid)
+        .delete();
+  }
 }

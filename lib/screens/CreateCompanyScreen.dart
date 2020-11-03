@@ -86,7 +86,7 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
                 setState(() {
                   showSpinner = false;
                 });
-                Navigator.pushNamed(context, HomeScreen.id);
+                // Navigator.pushNamed(context, HomeScreen.id);
               },
             ),
           ],

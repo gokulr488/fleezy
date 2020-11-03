@@ -62,4 +62,20 @@ class Roles {
         .then((value) => print("User details updated"))
         .catchError((error) => print("Failed to update user: $error"));
   }
+
+  Future<void> deleteUser(String docid) async {
+    DocumentSnapshot snapShot =
+        await fireStore.collection(Constants.USERS).doc(docid).get();
+    if (snapShot.data() == null) {
+      print("User not found");
+      return null;
+    }
+
+    QDreturn fireStore
+        .collection(Constants.COMPANIES)
+        .doc(companyId)
+        .collection(Constants.EXPENSE)
+        .doc(docid)
+        .delete();
+  }
 }
