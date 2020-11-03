@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fleezy/Common/Authentication.dart';
 import 'package:fleezy/Common/UiConstants.dart';
-import 'package:fleezy/DataAccess/Authentication.dart';
 import 'package:fleezy/components/BottomNavBar.dart';
 import 'package:fleezy/screens/StartScreen.dart';
 import 'package:flutter/material.dart';

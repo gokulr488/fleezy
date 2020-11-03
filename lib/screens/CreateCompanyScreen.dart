@@ -1,6 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fleezy/Common/Authentication.dart';
 import 'package:fleezy/Common/UiConstants.dart';
-import 'package:fleezy/DataAccess/Authentication.dart';
 import 'package:fleezy/DataModels/ModelCompany.dart';
 import 'package:fleezy/components/LoadingDots.dart';
 import 'package:fleezy/components/RoundedButton.dart';
@@ -17,13 +16,13 @@ class CreateCompanyScreen extends StatefulWidget {
 }
 
 class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
-  final _auth = FirebaseAuth.instance;
   String companyName;
   String emailId;
-  String password;
   String phoneNumber;
-  String confirmPassword;
+  String otp;
   bool showSpinner = false;
+  bool verified = false;
+  Authentication auth = Authentication();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,14 +61,31 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
               decoration:
                   kTextFieldDecoration.copyWith(hintText: 'Phone number'),
             ),
+            verified
+                ? TextField(
+                    textAlign: TextAlign.center,
+                    onChanged: (value) {
+                      otp = value;
+                    },
+                    decoration: kTextFieldDecoration.copyWith(hintText: 'OTP'),
+                  )
+                : SizedBox(
+                    width: 10,
+                  ),
             showSpinner ? LoadingDots(size: 40) : SizedBox(width: 10),
             RoundedButton(
-              title: 'Create Company',
+              title: verified ? 'Login' : 'Send OTP',
               colour: Colors.blue,
               onPressed: () async {
                 if (companyName == null ||
                     emailId == null ||
                     phoneNumber == null) {
+                  if (verified) {
+                    if (otp == null) {
+                      print('OTP is blank');
+                      return;
+                    }
+                  }
                   print('Some fields are left empty');
                   return;
                 }
@@ -78,15 +94,11 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
                 setState(() {
                   showSpinner = true;
                 });
-                ModelCompany modelCompany = ModelCompany(
-                    companyEmail: emailId,
-                    phoneNumber: phoneNumber,
-                    companyName: companyName);
-                await Authentication().addNewCompany(modelCompany);
+                verified ? await login() : await verify();
+
                 setState(() {
                   showSpinner = false;
                 });
-                // Navigator.pushNamed(context, HomeScreen.id);
               },
             ),
           ],
@@ -95,22 +107,22 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
     );
   }
 
-  void createAndSaveCompany() async {
-    try {
-      final UserCredential user = await _auth.createUserWithEmailAndPassword(
-        email: emailId,
-        password: password,
-      );
-
-      if (user != null) {
-        Navigator.pushNamed(context, HomeScreen.id);
-      }
-
+  Future<void> verify() async {
+    await auth.verifyPhone(phoneNumber);
+    if (auth.isLoggedIn()) {
+      Navigator.pushNamed(context, HomeScreen.id);
+    } else {
       setState(() {
-        showSpinner = false;
+        verified = true;
       });
-    } catch (e) {
-      print(e);
     }
+  }
+
+  Future<void> login() async {
+    await auth.signInWithOTP(otp);
+    ModelCompany modelCompany = ModelCompany(
+        companyEmail: emailId,
+        phoneNumber: phoneNumber,
+        companyName: companyName);
   }
 }

@@ -46,6 +46,7 @@ class StartScreen extends StatelessWidget {
                 buttonText: 'Create Company',
               ),
               color: Colors.orange[900],
+              elevation: 3,
             ),
             BaseCard(
               onTap: () {
@@ -55,6 +56,7 @@ class StartScreen extends StatelessWidget {
                 buttonText: 'Log In',
               ),
               color: Colors.blue[900],
+              elevation: 4,
             ),
             SizedBox(
               height: 50,

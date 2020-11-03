@@ -71,11 +71,6 @@ class Roles {
       return null;
     }
 
-    QDreturn fireStore
-        .collection(Constants.COMPANIES)
-        .doc(companyId)
-        .collection(Constants.EXPENSE)
-        .doc(docid)
-        .delete();
+    fireStore.collection(Constants.USERS).doc(docid).delete();
   }
 }

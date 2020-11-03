@@ -7,40 +7,46 @@ import 'package:fleezy/DataModels/ModelUser.dart';
 class Authentication {
   final _auth = FirebaseAuth.instance;
   String phoneNo, verificationId, smsCode;
-  Future<void> addNewCompany(ModelCompany modelCompany) async {
-    UserCredential userCredential;
+
+  User getUser() {
     try {
-      // userCredential = await _auth.createUserWithEmailAndPassword(
-      //     email: modelCompany.companyEmail, password: modelCompany.password);
-      verifyPhone(modelCompany.phoneNumber);
-    } catch (e) {
-      print('Unable to create New Company');
-      print(e);
-      return;
-    }
-    try {
-      if (userCredential != null) {
-        print('Company Created. Adding to Database with default Admin user');
-        ModelUser adminUser = ModelUser(
-            fullName: 'Admin',
-            roleName: Constants.ADMIN,
-            uid: userCredential.user.uid,
-            userEmailId: modelCompany.companyEmail,
-            companyId: modelCompany.companyEmail);
-        modelCompany.users = {adminUser.uid: adminUser};
-        await Company().addCompany(modelCompany);
-        print('Company & Admin user added to DB');
+      if (_auth.currentUser != null) {
+        return _auth.currentUser;
+      } else {
+        return null;
       }
-      return;
     } catch (e) {
-      print('Deleting User ${_auth.currentUser.email}');
-      await _auth.currentUser.delete();
       print(e);
-      return;
+      return null;
     }
   }
 
-  void addNewUser() {}
+  bool isLoggedIn() {
+    try {
+      if (_auth.currentUser != null) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<bool> deleteUser() async {
+    try {
+      if (_auth.currentUser != null) {
+        await _auth.currentUser.delete();
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
 
   Future<bool> login(ModelUser user) async {
     try {
@@ -63,45 +69,39 @@ class Authentication {
     }
   }
 
-  void logout() async {
+  Future<bool> logout() async {
     try {
       if (_auth.currentUser != null) {
         await _auth.signOut();
         print('Signed Out');
+        return true;
       }
     } catch (e) {
       print('Unable to Sign Out');
       print(e);
+      return false;
     }
   }
 
-  //Handles Auth
-  // handleAuth() {
-  //   return StreamBuilder(
-  //       stream: FirebaseAuth.instance.authStateChanges,
-  //       builder: (BuildContext context, snapshot) {
-  //         if (snapshot.hasData) {
-  //           return DashboardPage();
-  //         } else {
-  //           return LoginPage();
-  //         }
-  //       });
-  // }
-
-  //SignIn
-  signIn(AuthCredential authCreds) {
-    _auth.signInWithCredential(authCreds);
+  _signIn(AuthCredential authCreds) async {
+    try {
+      await _auth.signInWithCredential(authCreds);
+    } catch (e) {
+      print('Unable To Sign In');
+      print(e);
+      return false;
+    }
   }
 
-  signInWithOTP(smsCode, verId) {
-    AuthCredential authCreds =
-        PhoneAuthProvider.credential(verificationId: verId, smsCode: smsCode);
-    signIn(authCreds);
+  Future<void> signInWithOTP(smsCode) async {
+    AuthCredential authCreds = PhoneAuthProvider.credential(
+        verificationId: verificationId, smsCode: smsCode);
+    await _signIn(authCreds);
   }
 
-  Future<void> verifyPhone(phoneNo) async {
+  Future<void> verifyPhone(String phoneNo) async {
     final PhoneVerificationCompleted verified = (AuthCredential authResult) {
-      signIn(authResult);
+      _signIn(authResult);
     };
 
     final PhoneVerificationFailed verificationFailed =
@@ -111,6 +111,7 @@ class Authentication {
 
     final PhoneCodeSent smsSent = (String verId, [int forceResend]) {
       this.verificationId = verId;
+      print(verId);
     };
 
     final PhoneCodeAutoRetrievalTimeout autoTimeout = (String verId) {

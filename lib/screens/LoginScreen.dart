@@ -1,5 +1,5 @@
+import 'package:fleezy/Common/Authentication.dart';
 import 'package:fleezy/Common/UiConstants.dart';
-import 'package:fleezy/DataAccess/Authentication.dart';
 import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/components/LoadingDots.dart';
 import 'package:fleezy/components/RoundedButton.dart';
