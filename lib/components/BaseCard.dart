@@ -4,8 +4,9 @@ class BaseCard extends StatelessWidget {
   final Function onTap;
   final Widget cardChild;
   final Color color;
+  final double elevation;
 
-  BaseCard({this.onTap, this.cardChild, this.color});
+  BaseCard({this.onTap, this.cardChild, this.color, this.elevation});
   @override
   InkWell build(BuildContext context) {
     return InkWell(
@@ -16,7 +17,7 @@ class BaseCard extends StatelessWidget {
           child: cardChild,
         ),
         color: color,
-        elevation: 5,
+        elevation: elevation,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       ),
     );
