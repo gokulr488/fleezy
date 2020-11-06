@@ -1,6 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fleezy/Common/Authentication.dart';
 import 'package:fleezy/Common/UiConstants.dart';
+import 'package:fleezy/DataAccess/Company.dart';
+import 'package:fleezy/DataAccess/Roles.dart';
 import 'package:fleezy/DataModels/ModelCompany.dart';
+import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/components/LoadingDots.dart';
 import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
@@ -22,9 +26,28 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
   String otp;
   bool showSpinner = false;
   bool verified = false;
+  bool disableButton = false;
+  String messages = '';
   Authentication auth = Authentication();
   @override
   Widget build(BuildContext context) {
+    FirebaseAuth.instance.authStateChanges().listen((User user) async {
+      if (user == null) {
+        print('User is currently signed out!');
+      } else {
+        if (verified) {
+          setState(() {
+            verified = false; //to avoid multiple entry into this code
+            showSpinner = true;
+            disableButton = true;
+          });
+          await onVerificationCompleted();
+          Navigator.pushNamed(context, HomeScreen.id);
+        }
+        print('User signed in!');
+      }
+    });
+
     return Scaffold(
       backgroundColor: kBackgroundColor,
       body: SafeArea(
@@ -54,6 +77,7 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
               decoration: kTextFieldDecoration.copyWith(hintText: 'Email ID'),
             ),
             TextField(
+              keyboardType: TextInputType.phone,
               textAlign: TextAlign.center,
               onChanged: (value) {
                 phoneNumber = value;
@@ -73,33 +97,36 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
                     width: 10,
                   ),
             showSpinner ? LoadingDots(size: 40) : SizedBox(width: 10),
+            Text(messages),
             RoundedButton(
               title: verified ? 'Login' : 'Send OTP',
               colour: Colors.blue,
-              onPressed: () async {
-                if (companyName == null ||
-                    emailId == null ||
-                    phoneNumber == null) {
-                  if (verified) {
-                    if (otp == null) {
-                      print('OTP is blank');
-                      return;
-                    }
-                  }
-                  print('Some fields are left empty');
-                  return;
-                }
-                FocusScope.of(context).requestFocus(FocusNode());
+              onPressed: disableButton
+                  ? null
+                  : () async {
+                      if (companyName == null ||
+                          emailId == null ||
+                          phoneNumber == null) {
+                        if (verified) {
+                          if (otp == null) {
+                            print('OTP is blank');
+                            return;
+                          }
+                        }
+                        print('Some fields are left empty');
+                        return;
+                      }
+                      FocusScope.of(context).requestFocus(FocusNode());
 
-                setState(() {
-                  showSpinner = true;
-                });
-                verified ? await login() : await verify();
+                      setState(() {
+                        showSpinner = true;
+                      });
+                      verified ? await login() : verify();
 
-                setState(() {
-                  showSpinner = false;
-                });
-              },
+                      setState(() {
+                        showSpinner = false;
+                      });
+                    },
             ),
           ],
         ),
@@ -107,22 +134,42 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
     );
   }
 
-  Future<void> verify() async {
-    await auth.verifyPhone(phoneNumber);
-    if (auth.isLoggedIn()) {
-      Navigator.pushNamed(context, HomeScreen.id);
-    } else {
-      setState(() {
-        verified = true;
-      });
-    }
+  void verify() {
+    setState(() {
+      disableButton = true;
+    });
+    auth.verifyPhone(phoneNumber);
+    setState(() {
+      verified = true;
+      disableButton = true;
+    });
   }
 
   Future<void> login() async {
+    setState(() {
+      disableButton = true;
+      showSpinner = true;
+    });
     await auth.signInWithOTP(otp);
+    await onVerificationCompleted();
+    setState(() {
+      showSpinner = false;
+    });
+  }
+
+  Future<void> onVerificationCompleted() async {
+    disableButton = true;
+    ModelUser user = ModelUser(
+        companyId: emailId,
+        phoneNumber: phoneNumber,
+        userEmailId: emailId,
+        uid: auth.getUser().uid);
     ModelCompany modelCompany = ModelCompany(
         companyEmail: emailId,
         phoneNumber: phoneNumber,
         companyName: companyName);
+    modelCompany.users = {user.uid: user};
+    print('adding Company');
+    await Company().addCompany(modelCompany);
   }
 }

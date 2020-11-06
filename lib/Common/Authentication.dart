@@ -1,7 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fleezy/Common/Constants.dart';
-import 'package:fleezy/DataAccess/Company.dart';
-import 'package:fleezy/DataModels/ModelCompany.dart';
 import 'package:fleezy/DataModels/ModelUser.dart';
 
 class Authentication {
@@ -76,6 +73,7 @@ class Authentication {
         print('Signed Out');
         return true;
       }
+      return false;
     } catch (e) {
       print('Unable to Sign Out');
       print(e);
@@ -99,7 +97,8 @@ class Authentication {
     await _signIn(authCreds);
   }
 
-  Future<void> verifyPhone(String phoneNo) async {
+  void verifyPhone(String phoneNo) {
+    phoneNo = '+91' + phoneNo;
     final PhoneVerificationCompleted verified = (AuthCredential authResult) {
       _signIn(authResult);
     };
@@ -118,9 +117,9 @@ class Authentication {
       this.verificationId = verId;
     };
 
-    await _auth.verifyPhoneNumber(
+    _auth.verifyPhoneNumber(
         phoneNumber: phoneNo,
-        timeout: const Duration(seconds: 10),
+        timeout: const Duration(seconds: 60),
         verificationCompleted: verified,
         verificationFailed: verificationFailed,
         codeSent: smsSent,
