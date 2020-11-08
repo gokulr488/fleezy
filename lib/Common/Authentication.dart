@@ -125,4 +125,6 @@ class Authentication {
         codeSent: smsSent,
         codeAutoRetrievalTimeout: autoTimeout);
   }
+
+  loginWithPhone(String phoneNo) {}
 }

@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fleezy/Common/Authentication.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/DataAccess/Company.dart';
-import 'package:fleezy/DataAccess/Roles.dart';
 import 'package:fleezy/DataModels/ModelCompany.dart';
 import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/components/LoadingDots.dart';
@@ -12,6 +11,7 @@ import 'package:flutter/material.dart';
 
 const TextStyle kFleezyTextStyle =
     TextStyle(fontSize: 35, fontWeight: FontWeight.bold);
+const TextStyle kMessagesTextStyle = TextStyle(fontSize: 15);
 
 class CreateCompanyScreen extends StatefulWidget {
   static const String id = 'createCompanyScreen';
@@ -97,7 +97,10 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
                     width: 10,
                   ),
             showSpinner ? LoadingDots(size: 40) : SizedBox(width: 10),
-            Text(messages),
+            Text(
+              messages,
+              style: kMessagesTextStyle,
+            ),
             RoundedButton(
               title: verified ? 'Login' : 'Send OTP',
               colour: Colors.blue,
@@ -136,17 +139,19 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
 
   void verify() {
     setState(() {
+      messages = 'Verifying, Enter you OTP';
       disableButton = true;
     });
     auth.verifyPhone(phoneNumber);
     setState(() {
       verified = true;
-      disableButton = true;
+      disableButton = false;
     });
   }
 
   Future<void> login() async {
     setState(() {
+      messages = 'Signing Up...';
       disableButton = true;
       showSpinner = true;
     });
@@ -158,6 +163,9 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
   }
 
   Future<void> onVerificationCompleted() async {
+    setState(() {
+      messages = 'Creating Your Company...';
+    });
     disableButton = true;
     ModelUser user = ModelUser(
         companyId: emailId,

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fleezy/Common/Authentication.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/DataModels/ModelUser.dart';
@@ -7,6 +8,8 @@ import 'package:fleezy/screens/CreateCompanyScreen.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
 import 'package:flutter/material.dart';
 
+const TextStyle kMessagesTextStyle = TextStyle(fontSize: 15);
+
 class LoginScreen extends StatefulWidget {
   static const String id = 'loginScreen';
   @override
@@ -14,11 +17,31 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  String emailId;
-  String password;
+  String phoneNo;
+  String otp;
   bool showSpinner = false;
+  bool verified = false;
+  bool disableButton = false;
+  String message = '';
   @override
   Widget build(BuildContext context) {
+    FirebaseAuth.instance.authStateChanges().listen((User user) async {
+      if (user == null) {
+        print('User is currently signed out!');
+      } else {
+        if (verified) {
+          setState(() {
+            verified = false; //to avoid multiple entry into this code
+            showSpinner = true;
+            disableButton = true;
+          });
+          await onVerificationCompleted();
+          Navigator.pushNamed(context, HomeScreen.id);
+        }
+        print('User signed in!');
+      }
+    });
+
     return Scaffold(
       backgroundColor: kBackgroundColor,
       body: SafeArea(
@@ -27,55 +50,54 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text(
-              'Fleezy',
-              style: kFleezyTextStyle,
-            ),
+            Text('Fleezy', style: kFleezyTextStyle),
+            Visibility(visible: showSpinner, child: LoadingDots(size: 50)),
+            Text(message, style: kMessagesTextStyle),
             TextField(
-              keyboardType: TextInputType.emailAddress,
-              textAlign: TextAlign.center,
-              onChanged: (value) {
-                emailId = value;
-              },
-              decoration: kTextFieldDecoration.copyWith(hintText: 'Email ID'),
+                keyboardType: TextInputType.number,
+                textAlign: TextAlign.center,
+                onChanged: (value) {
+                  phoneNo = value;
+                },
+                decoration:
+                    kTextFieldDecoration.copyWith(hintText: 'Phone Number')),
+            Visibility(
+              visible: verified,
+              child: TextField(
+                obscureText: true,
+                textAlign: TextAlign.center,
+                onChanged: (value) {
+                  otp = value;
+                },
+                decoration:
+                    kTextFieldDecoration.copyWith(hintText: 'Enter the OTP'),
+              ),
             ),
-            TextField(
-              obscureText: true,
-              textAlign: TextAlign.center,
-              onChanged: (value) {
-                password = value;
-              },
-              decoration: kTextFieldDecoration.copyWith(
-                  hintText: 'Enter your Password'),
-            ),
-            showSpinner ? LoadingDots(size: 50) : SizedBox(height: 10),
             RoundedButton(
-              title: 'Log In',
+              title: verified ? 'Log In' : 'Send OTP',
               colour: Colors.blue,
-              onPressed: () async {
-                FocusScope.of(context).requestFocus(FocusNode());
-                if (emailId == null || password == null) {
-                  print('Email or password not Provided');
-                  return;
-                }
-                setState(() {
-                  showSpinner = true;
-                });
-                print(showSpinner);
-                ModelUser user =
-                    ModelUser(userEmailId: emailId, password: password);
-                bool loggedIn = await Authentication().login(user);
-                setState(() {
-                  showSpinner = false;
-                });
-                if (loggedIn) {
-                  Navigator.pushNamed(context, HomeScreen.id);
-                }
-              },
+              onPressed: disableButton
+                  ? null
+                  : () async {
+                      FocusScope.of(context).requestFocus(FocusNode());
+                      if (phoneNo == null) {
+                        print('Phone Number is not Valid');
+                        return;
+                      }
+                      setState(() {
+                        showSpinner = true;
+                      });
+                      await Authentication().loginWithPhone(phoneNo);
+                      setState(() {
+                        showSpinner = false;
+                      });
+                    },
             ),
           ],
         ),
       )),
     );
   }
+
+  onVerificationCompleted() {}
 }

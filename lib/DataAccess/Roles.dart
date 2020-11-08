@@ -23,14 +23,7 @@ class Roles {
     fireStore
         .collection(Constants.USERS)
         .doc(user.userEmailId)
-        .set({
-          'AuthUid': user.uid,
-          'RoleName': user.roleName,
-          'FullName': user.fullName,
-          'EmailId': user.userEmailId,
-          'PhoneNumber': user.phoneNumber,
-          'CompanyId': user.companyId
-        })
+        .set(user.getDocOf(user))
         .then(callContext.setSuccess('User added'))
         .catchError((error) => callContext.setError("$error"));
 
@@ -52,13 +45,7 @@ class Roles {
     return fireStore
         .collection(Constants.USERS)
         .doc(user.userEmailId)
-        .update({
-          'RoleName': user.roleName,
-          'FullName': user.fullName,
-          'EmailId': user.userEmailId,
-          'PhoneNumber': user.phoneNumber,
-          'CompanyId': user.companyId
-        })
+        .update(user.getDocOf(user))
         .then((value) => print("User details updated"))
         .catchError((error) => print("Failed to update user: $error"));
   }

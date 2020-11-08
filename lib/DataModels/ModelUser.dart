@@ -16,4 +16,20 @@ class ModelUser {
       this.password,
       this.companyId,
       this.state});
+
+  Map<String, dynamic> getDocOf(ModelUser user) {
+    return {
+      'Uid': user.uid,
+      'RoleName': user.roleName,
+      'FullName': user.fullName,
+      'EmailId': user.userEmailId,
+      'PhoneNumber': user.phoneNumber,
+      'CompanyId': user.companyId,
+      'State': user.state
+    };
+  }
+
+  ModelUser getUserOfDoc() {
+    return ModelUser()
+  }
 }
