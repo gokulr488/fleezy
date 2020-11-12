@@ -31,10 +31,18 @@ class ModelCompany {
       'Password': company.password,
       'Vehicles': company.vehicles,
       'PhoneNumber': company.phoneNumber,
-      'Users': company.users,
+      'Users': _getListOfUsers(company.users),
       'Expenses': company.expenses,
       'Trips': company.trips
     };
+  }
+
+  static List<String> _getListOfUsers(Map<String, ModelUser> users) {
+    List<String> userList = [];
+    for (ModelUser user in users.values) {
+      userList.add(user.phoneNumber);
+    }
+    return userList;
   }
 
   static ModelCompany getCompanyFromDoc(DocumentSnapshot doc) {

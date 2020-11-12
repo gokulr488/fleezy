@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fleezy/Common/Authentication.dart';
 import 'package:fleezy/Common/UiConstants.dart';
-import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/components/LoadingDots.dart';
 import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/screens/CreateCompanyScreen.dart';
@@ -27,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     FirebaseAuth.instance.authStateChanges().listen((User user) async {
       if (user == null) {
-        print('User is currently signed out!');
+        print('Login Screen :User is currently signed out!');
       } else {
         if (verified) {
           setState(() {
@@ -65,6 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
               visible: verified,
               child: TextField(
                 obscureText: true,
+                keyboardType: TextInputType.number,
                 textAlign: TextAlign.center,
                 onChanged: (value) {
                   otp = value;

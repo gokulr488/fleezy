@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fleezy/Common/Authentication.dart';
+import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/DataAccess/Company.dart';
 import 'package:fleezy/DataModels/ModelCompany.dart';
@@ -33,7 +34,7 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
   Widget build(BuildContext context) {
     FirebaseAuth.instance.authStateChanges().listen((User user) async {
       if (user == null) {
-        print('User is currently signed out!');
+        print('Create Company Screen: User is currently signed out!');
       } else {
         if (verified) {
           setState(() {
@@ -85,18 +86,19 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
               decoration:
                   kTextFieldDecoration.copyWith(hintText: 'Phone number'),
             ),
-            verified
-                ? TextField(
-                    textAlign: TextAlign.center,
-                    onChanged: (value) {
-                      otp = value;
-                    },
-                    decoration: kTextFieldDecoration.copyWith(hintText: 'OTP'),
-                  )
-                : SizedBox(
-                    width: 10,
-                  ),
-            showSpinner ? LoadingDots(size: 40) : SizedBox(width: 10),
+            Visibility(
+              visible: verified,
+              child: TextField(
+                textAlign: TextAlign.center,
+                obscureText: true,
+                keyboardType: TextInputType.number,
+                onChanged: (value) {
+                  otp = value;
+                },
+                decoration: kTextFieldDecoration.copyWith(hintText: 'OTP'),
+              ),
+            ),
+            Visibility(visible: showSpinner, child: LoadingDots(size: 40)),
             Text(
               messages,
               style: kMessagesTextStyle,
@@ -171,6 +173,8 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
         companyId: emailId,
         phoneNumber: phoneNumber,
         userEmailId: emailId,
+        roleName: Constants.ADMIN,
+        state: Constants.ACTIVE,
         uid: auth.getUser().uid);
     ModelCompany modelCompany = ModelCompany(
         companyEmail: emailId,

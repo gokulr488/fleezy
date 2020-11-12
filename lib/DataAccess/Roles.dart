@@ -14,7 +14,7 @@ class Roles {
 
   Future<void> addRole(ModelUser user) async {
     DocumentSnapshot snapShot =
-        await fireStore.collection(Constants.USERS).doc(user.userEmailId).get();
+        await fireStore.collection(Constants.USERS).doc(user.phoneNumber).get();
     if (snapShot.data() != null) {
       print("User already exists");
       return;
@@ -22,7 +22,7 @@ class Roles {
 
     fireStore
         .collection(Constants.USERS)
-        .doc(user.userEmailId)
+        .doc(user.phoneNumber)
         .set(ModelUser.getDocOf(user))
         .then(callContext.setSuccess('User added'))
         .catchError((error) => callContext.setError("$error"));
@@ -61,7 +61,7 @@ class Roles {
     fireStore.collection(Constants.USERS).doc(docid).delete();
   }
 
-  Future<ModelUser> checkUserExists(String phoneNumber) async {
+  Future<ModelUser> verifyUser(String phoneNumber) async {
     QuerySnapshot snapshot = await fireStore
         .collection(Constants.USERS)
         .where('PhoneNumber', isEqualTo: phoneNumber)

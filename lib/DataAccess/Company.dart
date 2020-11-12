@@ -21,16 +21,15 @@ class Company {
       return;
     }
 
-    fireStore
+    await fireStore
         .collection(Constants.COMPANIES)
         .doc(company.companyEmail)
-        .set({
-          'CompanyName': company.companyName,
-          'CompanyEmail': company.companyEmail,
-          'PhoneNumber': company.phoneNumber
-        })
+        .set(ModelCompany.getDocOf(company))
         .then((value) => print("Company Added"))
-        .catchError((error) => print("Failed to add company: $error"));
+        .catchError((error) {
+      print("Failed to add company: $error");
+      return;
+    });
     Roles().addRole(company.users.values.first);
     return;
   }
