@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class ModelUser {
   String uid;
   String roleName; //Avaiable roles Driver,Admin
@@ -17,7 +19,7 @@ class ModelUser {
       this.companyId,
       this.state});
 
-  Map<String, dynamic> getDocOf(ModelUser user) {
+  static Map<String, dynamic> getDocOf(ModelUser user) {
     return {
       'Uid': user.uid,
       'RoleName': user.roleName,
@@ -29,7 +31,30 @@ class ModelUser {
     };
   }
 
-  ModelUser getUserOfDoc() {
-    return ModelUser()
+  static ModelUser getUserFromDoc(DocumentSnapshot doc) {
+    Map data = doc.data();
+
+    return ModelUser(
+      uid: doc.id,
+      roleName: data['RoleName'] ?? '',
+      fullName: data['FullName'] ?? '',
+      userEmailId: data['EmailId'] ?? '',
+      phoneNumber: data['PhoneNumber'] ?? '',
+      companyId: data['CompanyId'] ?? '',
+      state: data['State'] ?? '',
+    );
+  }
+
+  static List<ModelUser> getUsersFrom(QuerySnapshot snapshot) {
+    List<ModelUser> users = [];
+    for (QueryDocumentSnapshot doc in snapshot.docs) {
+      users.add(getUserFromDoc(doc));
+    }
+    return users;
+  }
+
+  static ModelUser getUserFromSnapshot(QuerySnapshot snapshot) {
+    QueryDocumentSnapshot doc = snapshot.docs.first;
+    return getUserFromDoc(doc);
   }
 }

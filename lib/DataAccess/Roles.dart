@@ -23,7 +23,7 @@ class Roles {
     fireStore
         .collection(Constants.USERS)
         .doc(user.userEmailId)
-        .set(user.getDocOf(user))
+        .set(ModelUser.getDocOf(user))
         .then(callContext.setSuccess('User added'))
         .catchError((error) => callContext.setError("$error"));
 
@@ -45,7 +45,7 @@ class Roles {
     return fireStore
         .collection(Constants.USERS)
         .doc(user.userEmailId)
-        .update(user.getDocOf(user))
+        .update(ModelUser.getDocOf(user))
         .then((value) => print("User details updated"))
         .catchError((error) => print("Failed to update user: $error"));
   }
@@ -59,5 +59,14 @@ class Roles {
     }
 
     fireStore.collection(Constants.USERS).doc(docid).delete();
+  }
+
+  Future<ModelUser> checkUserExists(String phoneNumber) async {
+    QuerySnapshot snapshot = await fireStore
+        .collection(Constants.USERS)
+        .where('PhoneNumber', isEqualTo: phoneNumber)
+        .get();
+
+    return ModelUser.getUserFromSnapshot(snapshot);
   }
 }

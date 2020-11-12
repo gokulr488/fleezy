@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       setState(() {
                         showSpinner = true;
                       });
-                      await Authentication().loginWithPhone(phoneNo);
+                      verified ? await login() : await verify();
                       setState(() {
                         showSpinner = false;
                       });
@@ -100,4 +100,8 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   onVerificationCompleted() {}
+
+  login() {}
+
+  verify() {}
 }
