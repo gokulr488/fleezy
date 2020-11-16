@@ -98,7 +98,6 @@ class Authentication {
   }
 
   void verifyPhone(String phoneNo) {
-    phoneNo = '+91' + phoneNo;
     final PhoneVerificationCompleted verified = (AuthCredential authResult) {
       _signIn(authResult);
     };

@@ -1,6 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fleezy/Common/Authentication.dart';
 import 'package:fleezy/Common/UiConstants.dart';
+import 'package:fleezy/DataAccess/Roles.dart';
+import 'package:fleezy/DataModels/ModelUser.dart';
+import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/BottomNavBar.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/VehicleCard.dart';
@@ -24,18 +26,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final _authUser = FirebaseAuth.instance.currentUser;
+  ModelUser user;
+  int bottomNavBarIndex = 2;
   List<VehicleCard> vehicles = [];
   bool dataLoaded = false;
   @override
   void initState() {
     super.initState();
-    if (_authUser != null) {
-      print(_authUser.phoneNumber);
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      getUserData(context);
+    });
   }
 
-  int bottomNavBarIndex = 2;
   @override
   Widget build(BuildContext context) {
     vehicles = [
@@ -53,45 +55,27 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     ];
     String searchKeyword = '';
-    return Scaffold(
-      backgroundColor: kBackgroundColor,
-      body: SafeArea(
-          child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 10),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Text('Hi Gokul', style: kWelcomeUserTextStyle),
-              Text('Fleezy', style: _kFleezyTextStyle)
-            ]),
-            //
-            // SizedBox(
-            //   width: MediaQuery.of(context).size.width,
-            //   child: Text('Fleezy',
-            //       style: _kFleezyTextStyle, textAlign: TextAlign.center),
-            // ),
-            // SizedBox(height: 10),
-            // Text('Hi Gokul', style: kWelcomeUserTextStyle),
-            SizedBox(height: 10),
-            Text('Our Vehicles', style: _kOurVehiclesTextStyle),
-            SizedBox(height: 10),
-            Expanded(
-              child: ScrollableList(
-                childrenHeight: 120,
-                items: vehicles,
-              ),
+    return BaseScreen(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _HeaderWidget(
+            userName: user?.phoneNumber ?? '',
+          ),
+          Expanded(
+            child: ScrollableList(
+              childrenHeight: 120,
+              items: vehicles,
             ),
-            TextField(
-                onChanged: (value) {
-                  searchKeyword = value;
-                },
-                decoration: kTextFieldDecoration.copyWith(hintText: 'Search')),
-          ],
-        ),
-      )),
-      bottomNavigationBar: BottomNavBar(
+          ),
+          TextField(
+              onChanged: (value) {
+                searchKeyword = value;
+              },
+              decoration: kTextFieldDecoration.copyWith(hintText: 'Search')),
+        ],
+      ),
+      bottomNavBar: BottomNavBar(
         onTap: (index) {
           print(index);
           bottomNavBarIndex = index;
@@ -101,6 +85,40 @@ class _HomeScreenState extends State<HomeScreen> {
           }
         },
       ),
+    );
+  }
+
+  Future<void> getUserData(BuildContext context) async {
+    user = ModalRoute.of(context).settings.arguments;
+    if (user == null) {
+      print('Getting User basic Info.');
+      user = await Roles().getUser(Authentication().getUser().phoneNumber);
+    }
+    setState(() {});
+  }
+}
+
+class _HeaderWidget extends StatelessWidget {
+  final String userName;
+  final String screenName;
+
+  const _HeaderWidget({this.userName, this.screenName});
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(height: 10),
+        Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text('Hi $userName', style: kWelcomeUserTextStyle),
+              Text('Fleezy', style: _kFleezyTextStyle)
+            ]),
+        SizedBox(height: 10),
+        Text('Our Vehicles', style: _kOurVehiclesTextStyle),
+        SizedBox(height: 10),
+      ],
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/DataAccess/Roles.dart';
 import 'package:fleezy/DataModels/ModelUser.dart';
+import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/LoadingDots.dart';
 import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/screens/CreateCompanyScreen.dart';
@@ -20,6 +21,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   Authentication auth = Authentication();
+  ModelUser user = ModelUser();
   String phoneNo;
   String otp;
   bool showSpinner = false;
@@ -39,51 +41,46 @@ class _LoginScreenState extends State<LoginScreen> {
             disableButton = true;
           });
           await onVerificationCompleted();
+          print('Login Screen :User signed in!');
         }
-        print('Login Screen :User signed in!');
       }
     });
 
-    return Scaffold(
-      backgroundColor: kBackgroundColor,
-      body: SafeArea(
-          child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text('Fleezy', style: kFleezyTextStyle),
-            Visibility(visible: showSpinner, child: LoadingDots(size: 50)),
-            Text(message, style: kMessagesTextStyle),
-            TextField(
-                keyboardType: TextInputType.number,
-                textAlign: TextAlign.center,
-                onChanged: (value) {
-                  phoneNo = value;
-                },
-                decoration:
-                    kTextFieldDecoration.copyWith(hintText: 'Phone Number')),
-            Visibility(
-                visible: verified,
-                child: TextField(
-                    obscureText: true,
-                    keyboardType: TextInputType.number,
-                    textAlign: TextAlign.center,
-                    onChanged: (value) {
-                      otp = value;
-                    },
-                    decoration: kTextFieldDecoration.copyWith(
-                        hintText: 'Enter the OTP'))),
-            RoundedButton(
-              title: verified ? 'Log In' : 'Send OTP',
-              colour: kHighlightColour,
-              onPressed: () async {
-                onButtonPressed();
+    return BaseScreen(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Text('Fleezy', style: kFleezyTextStyle),
+          Visibility(visible: showSpinner, child: LoadingDots(size: 50)),
+          Text(message, style: kMessagesTextStyle),
+          TextField(
+              keyboardType: TextInputType.number,
+              textAlign: TextAlign.center,
+              onChanged: (value) {
+                phoneNo = '+91' + value; //TODO change this impl
               },
-            ),
-          ],
-        ),
-      )),
+              decoration:
+                  kTextFieldDecoration.copyWith(hintText: 'Phone Number')),
+          Visibility(
+              visible: verified,
+              child: TextField(
+                  obscureText: true,
+                  keyboardType: TextInputType.number,
+                  textAlign: TextAlign.center,
+                  onChanged: (value) {
+                    otp = value;
+                  },
+                  decoration: kTextFieldDecoration.copyWith(
+                      hintText: 'Enter the OTP'))),
+          RoundedButton(
+            title: verified ? 'Log In' : 'Send OTP',
+            colour: kHighlightColour,
+            onPressed: () async {
+              onButtonPressed();
+            },
+          ),
+        ],
+      ),
     );
   }
 
@@ -111,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   onVerificationCompleted() {
-    Navigator.pushNamed(context, HomeScreen.id);
+    Navigator.pushNamed(context, HomeScreen.id, arguments: user);
   }
 
   Future<void> login() async {
@@ -119,11 +116,10 @@ class _LoginScreenState extends State<LoginScreen> {
       message = 'Signing In...';
     });
     await auth.signInWithOTP(otp);
-    await onVerificationCompleted();
+    //await onVerificationCompleted();
   }
 
   Future<void> verify() async {
-    ModelUser user = ModelUser();
     setState(() {
       message = 'Gathering Account Info...';
     });

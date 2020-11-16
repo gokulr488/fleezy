@@ -1,4 +1,5 @@
 import 'package:fleezy/Common/UiConstants.dart';
+import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/cards/BaseCard.dart';
 import 'package:fleezy/screens/CreateCompanyScreen.dart';
 import 'package:fleezy/screens/LoginScreen.dart';
@@ -19,51 +20,48 @@ class StartScreen extends StatelessWidget {
   static const String id = 'startScreen';
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: kBackgroundColor,
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: Center(
-                child: Text(
-                  'FleeZy',
-                  style: fleezyTextStyle,
-                ),
+    return BaseScreen(
+      child: Column(
+        children: [
+          Expanded(
+            child: Center(
+              child: Text(
+                'FleeZy',
+                style: fleezyTextStyle,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 30),
-              child: Image.asset(
-                'assets/images/startPageImage.jpg',
-                colorBlendMode: BlendMode.darken,
-              ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 30),
+            child: Image.asset(
+              'assets/images/startPageImage.jpg',
+              colorBlendMode: BlendMode.darken,
             ),
-            BaseCard(
-              onTap: () {
-                Navigator.pushNamed(context, CreateCompanyScreen.id);
-              },
-              cardChild: Button(
-                buttonText: 'Create Company',
-              ),
-              color: kHighlightColour,
-              elevation: 3,
+          ),
+          BaseCard(
+            onTap: () {
+              Navigator.pushNamed(context, CreateCompanyScreen.id);
+            },
+            cardChild: Button(
+              buttonText: 'Create Company',
             ),
-            BaseCard(
-              onTap: () {
-                Navigator.pushNamed(context, LoginScreen.id);
-              },
-              cardChild: Button(
-                buttonText: 'Log In',
-              ),
-              color: Colors.blue[900],
-              elevation: 4,
+            color: kHighlightColour,
+            elevation: 3,
+          ),
+          BaseCard(
+            onTap: () {
+              Navigator.pushNamed(context, LoginScreen.id);
+            },
+            cardChild: Button(
+              buttonText: 'Log In',
             ),
-            SizedBox(
-              height: 50,
-            )
-          ],
-        ),
+            color: Colors.blue[900],
+            elevation: 4,
+          ),
+          SizedBox(
+            height: 50,
+          )
+        ],
       ),
     );
   }

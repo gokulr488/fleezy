@@ -28,7 +28,7 @@ class BottomNavBar extends StatelessWidget {
           color: kBackgroundColor,
         ),
         Icon(
-          Icons.home_rounded,
+          Icons.car_repair,
           size: 20,
           color: kBackgroundColor,
         ),

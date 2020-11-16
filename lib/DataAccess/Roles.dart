@@ -60,6 +60,10 @@ class Roles {
   }
 
   Future<ModelUser> verifyUser(String phoneNumber) async {
+    return getUser(phoneNumber);
+  }
+
+  Future<ModelUser> getUser(String phoneNumber) async {
     QuerySnapshot snapshot = await fireStore
         .collection(Constants.USERS)
         .where('PhoneNumber', isEqualTo: phoneNumber)

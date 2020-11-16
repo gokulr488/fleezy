@@ -5,6 +5,7 @@ import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/DataAccess/Company.dart';
 import 'package:fleezy/DataModels/ModelCompany.dart';
 import 'package:fleezy/DataModels/ModelUser.dart';
+import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/LoadingDots.dart';
 import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
@@ -50,59 +51,49 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
       }
     });
 
-    return Scaffold(
-        backgroundColor: kBackgroundColor,
-        body: SafeArea(
-            child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text('FleeZy', style: kFleezyTextStyle),
-                      TextField(
-                          textAlign: TextAlign.center,
-                          onChanged: (value) {
-                            company.companyName = value;
-                          },
-                          decoration: kTextFieldDecoration.copyWith(
-                              hintText: 'Company Name')),
-                      TextField(
-                          keyboardType: TextInputType.emailAddress,
-                          textAlign: TextAlign.center,
-                          onChanged: (value) {
-                            company.companyEmail = value;
-                          },
-                          decoration: kTextFieldDecoration.copyWith(
-                              hintText: 'Email ID')),
-                      TextField(
-                          keyboardType: TextInputType.phone,
-                          textAlign: TextAlign.center,
-                          onChanged: (value) {
-                            company.phoneNumber = value;
-                          },
-                          decoration: kTextFieldDecoration.copyWith(
-                              hintText: 'Phone number')),
-                      Visibility(
-                          visible: verified,
-                          child: TextField(
-                              textAlign: TextAlign.center,
-                              obscureText: true,
-                              keyboardType: TextInputType.number,
-                              onChanged: (value) {
-                                otp = value;
-                              },
-                              decoration: kTextFieldDecoration.copyWith(
-                                  hintText: 'OTP'))),
-                      Visibility(
-                          visible: showSpinner, child: LoadingDots(size: 40)),
-                      Text(messages, style: _kMessagesTextStyle),
-                      RoundedButton(
-                          title: verified ? 'Login' : 'Send OTP',
-                          colour: kHighlightColour,
-                          onPressed: () async {
-                            await onButtonPressed();
-                          })
-                    ]))));
+    return BaseScreen(
+        child:
+            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+      Text('FleeZy', style: kFleezyTextStyle),
+      TextField(
+          textAlign: TextAlign.center,
+          onChanged: (value) {
+            company.companyName = value;
+          },
+          decoration: kTextFieldDecoration.copyWith(hintText: 'Company Name')),
+      TextField(
+          keyboardType: TextInputType.emailAddress,
+          textAlign: TextAlign.center,
+          onChanged: (value) {
+            company.companyEmail = value;
+          },
+          decoration: kTextFieldDecoration.copyWith(hintText: 'Email ID')),
+      TextField(
+          keyboardType: TextInputType.phone,
+          textAlign: TextAlign.center,
+          onChanged: (value) {
+            company.phoneNumber = '+91' + value; //TODO change this impl
+          },
+          decoration: kTextFieldDecoration.copyWith(hintText: 'Phone number')),
+      Visibility(
+          visible: verified,
+          child: TextField(
+              textAlign: TextAlign.center,
+              obscureText: true,
+              keyboardType: TextInputType.number,
+              onChanged: (value) {
+                otp = value;
+              },
+              decoration: kTextFieldDecoration.copyWith(hintText: 'OTP'))),
+      Visibility(visible: showSpinner, child: LoadingDots(size: 40)),
+      Text(messages, style: _kMessagesTextStyle),
+      RoundedButton(
+          title: verified ? 'Login' : 'Send OTP',
+          colour: kHighlightColour,
+          onPressed: () async {
+            await onButtonPressed();
+          })
+    ]));
   }
 
   Future<void> onButtonPressed() async {
