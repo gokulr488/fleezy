@@ -54,6 +54,9 @@ class ModelUser {
   }
 
   static ModelUser getUserFromSnapshot(QuerySnapshot snapshot) {
+    if (snapshot.docs.isEmpty) {
+      return null;
+    }
     QueryDocumentSnapshot doc = snapshot.docs.first;
     return getUserFromDoc(doc);
   }

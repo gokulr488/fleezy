@@ -1,14 +1,15 @@
 import 'package:fleezy/Common/UiConstants.dart';
-import 'package:fleezy/components/BaseCard.dart';
+import 'package:fleezy/components/cards/BaseCard.dart';
 import 'package:fleezy/screens/CreateCompanyScreen.dart';
 import 'package:fleezy/screens/LoginScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 TextStyle fleezyTextStyle = TextStyle(
-  color: Colors.orange[900],
-  fontSize: 60,
-);
+    fontSize: 60,
+    fontFamily: 'DancingScript',
+    fontWeight: FontWeight.bold,
+    color: kHighlightColour);
 const TextStyle buttonTextStyle = TextStyle(
   fontSize: 25,
   fontWeight: FontWeight.bold,
@@ -26,7 +27,7 @@ class StartScreen extends StatelessWidget {
             Expanded(
               child: Center(
                 child: Text(
-                  'FLEEZY',
+                  'FleeZy',
                   style: fleezyTextStyle,
                 ),
               ),
@@ -45,7 +46,7 @@ class StartScreen extends StatelessWidget {
               cardChild: Button(
                 buttonText: 'Create Company',
               ),
-              color: Colors.orange[900],
+              color: kHighlightColour,
               elevation: 3,
             ),
             BaseCard(

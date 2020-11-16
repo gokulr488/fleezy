@@ -5,6 +5,7 @@ class ModelVehicle {
   String vehicleName;
   String registrationNo;
   String brand;
+  String currentDriver;
   Timestamp taxExpiryDate;
   Timestamp insuranceExpiryDate;
   int latestOdometerReading;
@@ -21,7 +22,8 @@ class ModelVehicle {
       this.latestOdometerReading,
       this.isInTrip,
       this.trips,
-      this.allowedDrivers});
+      this.allowedDrivers,
+      this.currentDriver});
 
   static Map<String, dynamic> getDocOf(ModelVehicle vehicle) {
     return {
@@ -33,6 +35,7 @@ class ModelVehicle {
       'LatestOdometerReading': vehicle.latestOdometerReading,
       'IsInTrip': vehicle.isInTrip,
       'Trips': vehicle.trips,
+      'CurrentDriver': vehicle.currentDriver,
       'AllowedDrivers': vehicle.allowedDrivers,
     };
   }
@@ -49,6 +52,7 @@ class ModelVehicle {
       latestOdometerReading: data['LatestOdometerReading'] ?? '',
       isInTrip: data['IsInTrip'] ?? '',
       trips: data['Trips'] ?? '',
+      currentDriver: data['CurrentDriver'],
       allowedDrivers: data['AllowedDrivers'],
     );
   }

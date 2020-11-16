@@ -3,7 +3,7 @@ import 'package:fleezy/Common/UiConstants.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavBar extends StatelessWidget {
-  static const Color kThemeColour = Color(0xFF1f0bdb);
+  static const Color kThemeColour = kHighlightColour;
   final Function onTap;
 
   const BottomNavBar({this.onTap});

@@ -7,6 +7,6 @@ class Constants {
   static const String ADMIN = "Admin";
   static const String DRIVER = "Driver";
   static const String SUPERUSER = "SuperUser";
-  static const String ACTIVE = "active";
+  static const String ACTIVE = "Active";
   static const String INACTIVE = "Inactive";
 }

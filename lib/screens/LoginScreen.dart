@@ -1,5 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fleezy/Common/Authentication.dart';
+import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/UiConstants.dart';
+import 'package:fleezy/DataAccess/Roles.dart';
+import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/components/LoadingDots.dart';
 import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/screens/CreateCompanyScreen.dart';
@@ -15,6 +19,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  Authentication auth = Authentication();
   String phoneNo;
   String otp;
   bool showSpinner = false;
@@ -34,9 +39,8 @@ class _LoginScreenState extends State<LoginScreen> {
             disableButton = true;
           });
           await onVerificationCompleted();
-          Navigator.pushNamed(context, HomeScreen.id);
         }
-        print('User signed in!');
+        print('Login Screen :User signed in!');
       }
     });
 
@@ -60,37 +64,22 @@ class _LoginScreenState extends State<LoginScreen> {
                 decoration:
                     kTextFieldDecoration.copyWith(hintText: 'Phone Number')),
             Visibility(
-              visible: verified,
-              child: TextField(
-                obscureText: true,
-                keyboardType: TextInputType.number,
-                textAlign: TextAlign.center,
-                onChanged: (value) {
-                  otp = value;
-                },
-                decoration:
-                    kTextFieldDecoration.copyWith(hintText: 'Enter the OTP'),
-              ),
-            ),
+                visible: verified,
+                child: TextField(
+                    obscureText: true,
+                    keyboardType: TextInputType.number,
+                    textAlign: TextAlign.center,
+                    onChanged: (value) {
+                      otp = value;
+                    },
+                    decoration: kTextFieldDecoration.copyWith(
+                        hintText: 'Enter the OTP'))),
             RoundedButton(
               title: verified ? 'Log In' : 'Send OTP',
-              colour: Colors.blue,
-              onPressed: disableButton
-                  ? null
-                  : () async {
-                      FocusScope.of(context).requestFocus(FocusNode());
-                      if (phoneNo == null) {
-                        print('Phone Number is not Valid');
-                        return;
-                      }
-                      setState(() {
-                        showSpinner = true;
-                      });
-                      verified ? await login() : await verify();
-                      setState(() {
-                        showSpinner = false;
-                      });
-                    },
+              colour: kHighlightColour,
+              onPressed: () async {
+                onButtonPressed();
+              },
             ),
           ],
         ),
@@ -98,9 +87,62 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  onVerificationCompleted() {}
+  Future<void> onButtonPressed() async {
+    if (disableButton) {
+      return;
+    }
+    FocusScope.of(context).requestFocus(FocusNode());
+    if (phoneNo == null || phoneNo.length != 10) {
+      setState(() {
+        message = 'Invalid Phone Number';
+      });
+      print('Phone Number is not Valid');
+      return;
+    }
+    setState(() {
+      showSpinner = true;
+      disableButton = true;
+    });
+    verified ? await login() : await verify();
+    setState(() {
+      showSpinner = false;
+      disableButton = false;
+    });
+  }
 
-  login() {}
+  onVerificationCompleted() {
+    Navigator.pushNamed(context, HomeScreen.id);
+  }
 
-  verify() {}
+  Future<void> login() async {
+    setState(() {
+      message = 'Signing In...';
+    });
+    await auth.signInWithOTP(otp);
+    await onVerificationCompleted();
+  }
+
+  Future<void> verify() async {
+    ModelUser user = ModelUser();
+    setState(() {
+      message = 'Gathering Account Info...';
+    });
+    user = await Roles().verifyUser(phoneNo);
+    if (user == null) {
+      setState(() {
+        message = 'This Phone Number is not Registered';
+      });
+      return;
+    } else if (user.state != Constants.ACTIVE) {
+      setState(() {
+        message = 'This Phone Number is in ${user.state} state';
+      });
+      return;
+    }
+    auth.verifyPhone(phoneNo);
+    setState(() {
+      message = 'Verifying, Enter your OTP';
+      verified = true;
+    });
+  }
 }

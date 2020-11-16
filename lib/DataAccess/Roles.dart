@@ -19,14 +19,12 @@ class Roles {
       print("User already exists");
       return;
     }
-
     fireStore
         .collection(Constants.USERS)
         .doc(user.phoneNumber)
         .set(ModelUser.getDocOf(user))
         .then(callContext.setSuccess('User added'))
         .catchError((error) => callContext.setError("$error"));
-
     if (callContext.isError) {
       print(callContext.errorMessage);
       return;
