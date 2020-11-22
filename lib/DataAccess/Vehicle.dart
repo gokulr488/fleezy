@@ -14,8 +14,6 @@ class Vehicle {
 
   void addVehicle(ModelVehicle vehicle, String companyId) async {
     DocumentSnapshot snapShot = await fireStore
-        .collection(Constants.COMPANIES)
-        .doc(companyId)
         .collection(Constants.VEHICLES)
         .doc(vehicle.registrationNo)
         .get();
@@ -25,8 +23,6 @@ class Vehicle {
     }
 
     fireStore
-        .collection(Constants.COMPANIES)
-        .doc(companyId)
         .collection(Constants.VEHICLES)
         .doc(vehicle.registrationNo)
         .set({
@@ -49,19 +45,16 @@ class Vehicle {
   }
 
   void updateVehicle(ModelVehicle vehicle, String companyId) async {
-    final snapShot = await fireStore
-        .collection(Constants.COMPANIES)
-        .doc(companyId)
+    DocumentSnapshot snapShot = await fireStore
         .collection(Constants.VEHICLES)
-        .doc(vehicle.registrationNo);
+        .doc(vehicle.registrationNo)
+        .get();
     if (snapShot == null) {
       print("Vehicle not found");
       return null;
     }
 
     return fireStore
-        .collection(Constants.COMPANIES)
-        .doc(companyId)
         .collection(Constants.VEHICLES)
         .doc(vehicle.registrationNo)
         .update({

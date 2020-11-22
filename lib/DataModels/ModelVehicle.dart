@@ -9,6 +9,7 @@ class ModelVehicle {
   Timestamp taxExpiryDate;
   Timestamp insuranceExpiryDate;
   int latestOdometerReading;
+  String companyId;
   bool isInTrip;
   List<String> allowedDrivers;
   List<ModelTrip> trips;
@@ -23,7 +24,8 @@ class ModelVehicle {
       this.isInTrip,
       this.trips,
       this.allowedDrivers,
-      this.currentDriver});
+      this.currentDriver,
+      this.companyId});
 
   static Map<String, dynamic> getDocOf(ModelVehicle vehicle) {
     return {
@@ -37,6 +39,7 @@ class ModelVehicle {
       'Trips': vehicle.trips,
       'CurrentDriver': vehicle.currentDriver,
       'AllowedDrivers': vehicle.allowedDrivers,
+      'CompanyId': vehicle.companyId,
     };
   }
 
@@ -54,6 +57,7 @@ class ModelVehicle {
       trips: data['Trips'] ?? '',
       currentDriver: data['CurrentDriver'],
       allowedDrivers: data['AllowedDrivers'],
+      companyId: data['CompanyId'],
     );
   }
 

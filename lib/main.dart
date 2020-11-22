@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fleezy/screens/AddVehicleScreen.dart';
 import 'package:fleezy/screens/CreateCompanyScreen.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
 import 'package:fleezy/screens/LoginScreen.dart';
@@ -31,6 +32,7 @@ class FleezyApp extends StatelessWidget {
           StartScreen.id: (context) => StartScreen(),
           CreateCompanyScreen.id: (context) => CreateCompanyScreen(),
           LoginScreen.id: (context) => LoginScreen(),
+          AddVehicleScreen.id: (context) => AddVehicleScreen(),
         });
   }
 }
