@@ -6,6 +6,7 @@ import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/BottomNavBar.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/VehicleCard.dart';
+import 'package:fleezy/screens/AddVehicleScreen.dart';
 import 'package:fleezy/screens/StartScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -57,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
     String searchKeyword = '';
     return BaseScreen(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           _HeaderWidget(
             userName: user?.phoneNumber ?? '',
@@ -67,6 +68,15 @@ class _HomeScreenState extends State<HomeScreen> {
               childrenHeight: 120,
               items: vehicles,
             ),
+          ),
+          IconButton(
+            icon: Icon(
+              Icons.add,
+              size: 40,
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, AddVehicleScreen.id);
+            },
           ),
           TextField(
               onChanged: (value) {
