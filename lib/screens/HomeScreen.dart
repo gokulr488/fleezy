@@ -21,13 +21,14 @@ const _kFleezyTextStyle = TextStyle(
     color: kHighlightColour);
 
 class HomeScreen extends StatefulWidget {
+  static ModelUser user;
   static const String id = 'homeScreen';
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  ModelUser user;
+  //ModelUser user;
   int bottomNavBarIndex = 2;
   List<VehicleCard> vehicles = [];
   bool dataLoaded = false;
@@ -61,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           _HeaderWidget(
-            userName: user?.phoneNumber ?? '',
+            userName: HomeScreen.user?.phoneNumber ?? '',
           ),
           Expanded(
             child: ScrollableList(
@@ -99,10 +100,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> getUserData(BuildContext context) async {
-    user = ModalRoute.of(context).settings.arguments;
-    if (user == null) {
+    HomeScreen.user = ModalRoute.of(context).settings.arguments;
+    if (HomeScreen.user == null) {
       print('Getting User basic Info.');
-      user = await Roles().getUser(Authentication().getUser().phoneNumber);
+      HomeScreen.user =
+          await Roles().getUser(Authentication().getUser().phoneNumber);
     }
     setState(() {});
   }

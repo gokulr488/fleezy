@@ -1,8 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleezy/Common/UiConstants.dart';
+import 'package:fleezy/Common/Utils.dart';
+import 'package:fleezy/DataAccess/Vehicle.dart';
 import 'package:fleezy/DataModels/ModelVehicle.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/cards/BaseCard.dart';
+import 'package:fleezy/screens/HomeScreen.dart';
 import 'package:flutter/material.dart';
 
 const _kHeaderTextStyle = TextStyle(
@@ -19,6 +21,8 @@ class AddVehicleScreen extends StatefulWidget {
 
 class _AddVehicleScreenState extends State<AddVehicleScreen> {
   ModelVehicle vehicle = ModelVehicle();
+  String message = '';
+
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
@@ -30,6 +34,7 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
           // SizedBox(height: 30),
 
           TextField(
+              textCapitalization: TextCapitalization.words,
               onChanged: (value) {
                 vehicle.registrationNo = value;
               },
@@ -58,16 +63,17 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
               decoration: kTextFieldDecoration.copyWith(
                   hintText: 'Current Odometer Reading in Kms')),
           DatePicker(
-              text:
-                  'Insurance Expiry Date: ${DateTime.fromMillisecondsSinceEpoch(vehicle.insuranceExpiryDate.millisecondsSinceEpoch) ?? ''}',
+              text: 'Insurance Expiry Date: ${_getInsuranceExpiryDate()}',
               onTap: () async {
-                vehicle.insuranceExpiryDate = await _selectDate(context);
+                vehicle.insuranceExpiryDate =
+                    Utils.getTimeStamp(await Utils.pickDate(context));
                 setState(() {});
               }),
           DatePicker(
-              text: 'Tax Expiry Date:  ${vehicle.taxExpiryDate ?? ''}',
+              text: 'Tax Expiry Date:  ${_getTaxExpiryDate()}',
               onTap: () async {
-                vehicle.taxExpiryDate = await _selectDate(context);
+                vehicle.taxExpiryDate =
+                    Utils.getTimeStamp(await Utils.pickDate(context));
                 setState(() {});
               }),
           BaseCard(
@@ -79,23 +85,41 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
                 style: _kButtonTextTextStyle,
               ),
             ),
+            onTap: _addVehicleToDb,
           )
         ],
       ),
     );
   }
 
-  Future<Timestamp> _selectDate(BuildContext context) async {
-    DateTime selectedDate = DateTime.now();
-    final DateTime picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: selectedDate,
-        lastDate: DateTime(2100));
-    if (picked != null && picked != selectedDate) {
-      return Timestamp.fromDate(picked);
+  void _addVehicleToDb() {
+    if (vehicle.registrationNo == null ||
+        vehicle.vehicleName == null ||
+        vehicle.latestOdometerReading == null) {
+      message = 'Some fields are missing';
+      print(message);
+      return;
     }
-    return Timestamp.fromDate(selectedDate);
+    vehicle.companyId = HomeScreen.user.companyId;
+    Vehicle().addVehicle(vehicle);
+    print('Adding vehicle');
+    setState(() {});
+  }
+
+  String _getInsuranceExpiryDate() {
+    String expiryDate = '';
+    if (vehicle != null && vehicle.insuranceExpiryDate != null) {
+      expiryDate = Utils.getFormattedTimeStamp(vehicle.insuranceExpiryDate);
+    }
+    return expiryDate;
+  }
+
+  String _getTaxExpiryDate() {
+    String expiryDate = '';
+    if (vehicle != null && vehicle.taxExpiryDate != null) {
+      expiryDate = Utils.getFormattedTimeStamp(vehicle.taxExpiryDate);
+    }
+    return expiryDate;
   }
 }
 

@@ -12,7 +12,11 @@ class Vehicle {
     callContext = CallContext();
   }
 
-  void addVehicle(ModelVehicle vehicle, String companyId) async {
+  void addVehicle(ModelVehicle vehicle) async {
+    if (vehicle.companyId == null) {
+      print('companyId is null for the vehicle');
+      return;
+    }
     DocumentSnapshot snapShot = await fireStore
         .collection(Constants.VEHICLES)
         .doc(vehicle.registrationNo)
@@ -25,16 +29,7 @@ class Vehicle {
     fireStore
         .collection(Constants.VEHICLES)
         .doc(vehicle.registrationNo)
-        .set({
-          'VehicleName': vehicle.vehicleName,
-          'RegistrationNo': vehicle.registrationNo,
-          'Brand': vehicle.brand,
-          'TaxExpiryDate': vehicle.taxExpiryDate,
-          'InsuranceExpiryDate': vehicle.insuranceExpiryDate,
-          'LatestOdometerReading': vehicle.latestOdometerReading,
-          'IsInTrip': vehicle.isInTrip,
-          'Drivers': vehicle.allowedDrivers
-        })
+        .set(ModelVehicle.getDocOf(vehicle))
         .then(callContext.setSuccess('Company added'))
         .catchError((error) => callContext.setError("$error"));
 
@@ -57,15 +52,7 @@ class Vehicle {
     return fireStore
         .collection(Constants.VEHICLES)
         .doc(vehicle.registrationNo)
-        .update({
-          'VehicleName': vehicle.vehicleName,
-          'RegistrationNo': vehicle.registrationNo,
-          'Brand': vehicle.brand,
-          'TaxExpiryDate': vehicle.taxExpiryDate,
-          'InsuranceExpiryDate': vehicle.insuranceExpiryDate,
-          'LatestOdometerReading': vehicle.latestOdometerReading,
-          'IsInTrip': vehicle.isInTrip,
-        })
+        .update(ModelVehicle.getDocOf(vehicle))
         .then((value) => print("Vehicle details updated"))
         .catchError((error) => print("Failed to update vehicle: $error"));
   }

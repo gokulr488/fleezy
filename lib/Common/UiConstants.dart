@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 const Color kBackgroundColor = Color(0xFF1a1a1a);
 const Color kHighlightColour = Color(0xFFE65100);
+const String kDateFormat = 'yyyy-MM-dd';
 
 const kTextFieldDecoration = InputDecoration(
   hintText: 'Enter a value',
