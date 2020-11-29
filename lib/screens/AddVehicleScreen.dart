@@ -101,6 +101,8 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
       return;
     }
     vehicle.companyId = HomeScreen.user.companyId;
+    vehicle.isInTrip = false;
+    vehicle.allowedDrivers = [HomeScreen.user.phoneNumber];
     Vehicle().addVehicle(vehicle);
     print('Adding vehicle');
     setState(() {});

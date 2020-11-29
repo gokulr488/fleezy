@@ -89,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
       return;
     }
     FocusScope.of(context).requestFocus(FocusNode());
-    if (phoneNo == null || phoneNo.length != 10) {
+    if (phoneNo == null || phoneNo.length != 13) {
       setState(() {
         message = 'Invalid Phone Number';
       });

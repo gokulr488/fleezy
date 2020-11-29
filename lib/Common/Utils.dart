@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -30,5 +31,14 @@ class Utils {
       return picked;
     }
     return selectedDate;
+  }
+
+  static bool isWarningPeriod(Timestamp timestamp) {
+    int currentTime = DateTime.now().millisecondsSinceEpoch;
+    if (currentTime + Constants.MILLISECONDS_PER_MONTH >=
+        timestamp.millisecondsSinceEpoch) {
+      return true;
+    }
+    return false;
   }
 }
