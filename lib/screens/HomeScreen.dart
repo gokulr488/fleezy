@@ -30,7 +30,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  //ModelUser user;
   int bottomNavBarIndex = 2;
   List<VehicleCard> vehicles = [];
   bool dataLoaded = false;
@@ -63,8 +62,11 @@ class _HomeScreenState extends State<HomeScreen> {
               Icons.add,
               size: 40,
             ),
-            onPressed: () {
-              Navigator.pushNamed(context, AddVehicleScreen.id);
+            onPressed: () async {
+              final vehicle =
+                  await Navigator.pushNamed(context, AddVehicleScreen.id);
+              vehicles.add(_getVehicleCard(vehicle));
+              setState(() {});
             },
           ),
           TextField(
@@ -102,15 +104,18 @@ class _HomeScreenState extends State<HomeScreen> {
         await Vehicle().getVehiclesForUser(HomeScreen.user);
     if (vehiclesData != null && vehiclesData.isNotEmpty) {
       for (ModelVehicle vehicle in vehiclesData) {
-        vehicles.add(VehicleCard(
-            registrationNumber: vehicle.registrationNo,
-            color:
-                vehicle.isInTrip ? kActiveVehicleColor : kInActiveVehicleColor,
-            currentDriver: vehicle.currentDriver,
-            message: ModelVehicle.getWarningMessage(vehicle)));
+        vehicles.add(_getVehicleCard(vehicle));
       }
       setState(() {});
     }
+  }
+
+  VehicleCard _getVehicleCard(ModelVehicle vehicle) {
+    return VehicleCard(
+        registrationNumber: vehicle.registrationNo,
+        color: vehicle.isInTrip ? kActiveVehicleColor : kInActiveVehicleColor,
+        currentDriver: vehicle.currentDriver ?? '',
+        message: ModelVehicle.getWarningMessage(vehicle));
   }
 }
 

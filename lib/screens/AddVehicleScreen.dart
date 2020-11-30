@@ -93,6 +93,7 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
   }
 
   void _addVehicleToDb() {
+    FocusScope.of(context).requestFocus(FocusNode());
     if (vehicle.registrationNo == null ||
         vehicle.vehicleName == null ||
         vehicle.latestOdometerReading == null) {
@@ -105,7 +106,7 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
     vehicle.allowedDrivers = [HomeScreen.user.phoneNumber];
     Vehicle().addVehicle(vehicle);
     print('Adding vehicle');
-    setState(() {});
+    Navigator.pop(context, vehicle);
   }
 
   String _getInsuranceExpiryDate() {
