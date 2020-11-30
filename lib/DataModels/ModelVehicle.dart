@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fleezy/Common/Utils.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
 
 class ModelVehicle {
@@ -44,7 +45,7 @@ class ModelVehicle {
   }
 
   static ModelVehicle getVehicleFromDoc(DocumentSnapshot doc) {
-    Map data = doc.data();
+    Map<String, dynamic> data = doc.data();
 
     return ModelVehicle(
       vehicleName: data['VehicleName'] ?? '',
@@ -53,11 +54,11 @@ class ModelVehicle {
       taxExpiryDate: data['TaxExpiryDate'] ?? '',
       insuranceExpiryDate: data['InsuranceExpiryDate'] ?? '',
       latestOdometerReading: data['LatestOdometerReading'] ?? '',
-      isInTrip: data['IsInTrip'] ?? '',
-      trips: data['Trips'] ?? '',
-      currentDriver: data['CurrentDriver'],
-      allowedDrivers: data['AllowedDrivers'],
-      companyId: data['CompanyId'],
+      isInTrip: data['IsInTrip'] ?? false,
+      trips: List<ModelTrip>.from(data['Trips'] ?? []),
+      currentDriver: data['CurrentDriver'] ?? '',
+      allowedDrivers: List<String>.from(data['AllowedDrivers'] ?? []),
+      companyId: data['CompanyId'] ?? '',
     );
   }
 
@@ -72,5 +73,18 @@ class ModelVehicle {
   static ModelVehicle getUserFromSnapshot(QuerySnapshot snapshot) {
     QueryDocumentSnapshot doc = snapshot.docs.first;
     return getVehicleFromDoc(doc);
+  }
+
+  static String getWarningMessage(ModelVehicle vehicle) {
+    String warning = '';
+    if (Utils.isWarningPeriod(vehicle.insuranceExpiryDate)) {
+      warning = 'Insurance Expires Soon';
+      // 'Insurance Expires on ${Utils.getFormattedTimeStamp(vehicle.insuranceExpiryDate)}';
+    }
+    if (Utils.isWarningPeriod(vehicle.taxExpiryDate)) {
+      warning =
+          'Tax Expires on ${Utils.getFormattedTimeStamp(vehicle.taxExpiryDate)}';
+    }
+    return warning;
   }
 }

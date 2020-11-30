@@ -1,7 +1,9 @@
 import 'package:fleezy/Common/Authentication.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/DataAccess/Roles.dart';
+import 'package:fleezy/DataAccess/Vehicle.dart';
 import 'package:fleezy/DataModels/ModelUser.dart';
+import 'package:fleezy/DataModels/ModelVehicle.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/BottomNavBar.dart';
 import 'package:fleezy/components/ScrollableList.dart';
@@ -21,13 +23,14 @@ const _kFleezyTextStyle = TextStyle(
     color: kHighlightColour);
 
 class HomeScreen extends StatefulWidget {
+  static ModelUser user;
   static const String id = 'homeScreen';
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  ModelUser user;
+  //ModelUser user;
   int bottomNavBarIndex = 2;
   List<VehicleCard> vehicles = [];
   bool dataLoaded = false;
@@ -41,27 +44,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    vehicles = [
-      VehicleCard(
-        color: Colors.green[800],
-        currentDriver: 'Rajesh',
-        registrationNumber: 'KL-01-BS-2036',
-        message: 'Insurance Due on 01/01/2021',
-      ),
-      VehicleCard(
-        color: Colors.grey[800],
-        currentDriver: 'Shine',
-        registrationNumber: 'KL-01-BF-1234',
-        message: 'Tax Due on 01/01/2021',
-      ),
-    ];
     String searchKeyword = '';
     return BaseScreen(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           _HeaderWidget(
-            userName: user?.phoneNumber ?? '',
+            userName: HomeScreen.user?.phoneNumber ?? '',
           ),
           Expanded(
             child: ScrollableList(
@@ -99,12 +88,29 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> getUserData(BuildContext context) async {
-    user = ModalRoute.of(context).settings.arguments;
-    if (user == null) {
+    HomeScreen.user = ModalRoute.of(context).settings.arguments;
+    if (HomeScreen.user == null) {
       print('Getting User basic Info.');
-      user = await Roles().getUser(Authentication().getUser().phoneNumber);
+      HomeScreen.user =
+          await Roles().getUser(Authentication().getUser().phoneNumber);
     }
-    setState(() {});
+    getVehicleList();
+  }
+
+  void getVehicleList() async {
+    List<ModelVehicle> vehiclesData =
+        await Vehicle().getVehiclesForUser(HomeScreen.user);
+    if (vehiclesData != null && vehiclesData.isNotEmpty) {
+      for (ModelVehicle vehicle in vehiclesData) {
+        vehicles.add(VehicleCard(
+            registrationNumber: vehicle.registrationNo,
+            color:
+                vehicle.isInTrip ? kActiveVehicleColor : kInActiveVehicleColor,
+            currentDriver: vehicle.currentDriver,
+            message: ModelVehicle.getWarningMessage(vehicle)));
+      }
+      setState(() {});
+    }
   }
 }
 
