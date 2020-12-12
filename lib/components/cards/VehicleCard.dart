@@ -1,4 +1,5 @@
 import 'package:fleezy/components/cards/BaseCard.dart';
+import 'package:fleezy/screens/VehicleOverViewScreen.dart';
 import 'package:flutter/material.dart';
 
 class VehicleCard extends StatelessWidget {
@@ -8,18 +9,18 @@ class VehicleCard extends StatelessWidget {
       TextStyle(fontWeight: FontWeight.bold, fontSize: 17);
   static const TextStyle _kMessagesTextStyle =
       TextStyle(fontSize: 15, color: Colors.red, fontWeight: FontWeight.bold);
-  final Function onTap;
   final Color color;
   final String registrationNumber;
   final String currentDriver;
   final String message;
+  final Function onTap;
 
   const VehicleCard(
-      {this.onTap,
-      this.color,
+      {this.color,
       this.currentDriver,
       this.message,
-      this.registrationNumber});
+      this.registrationNumber,
+      this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +57,9 @@ class VehicleCard extends StatelessWidget {
       ),
       elevation: 4,
       color: color,
-      onTap: onTap,
+      onTap: () {
+        Navigator.pushNamed(context, VehicleOverviewScreen.id, arguments: this);
+      },
     );
   }
 }

@@ -65,8 +65,10 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () async {
               final vehicle =
                   await Navigator.pushNamed(context, AddVehicleScreen.id);
-              vehicles.add(_getVehicleCard(vehicle));
-              setState(() {});
+              if (vehicle != null) {
+                vehicles.add(_getVehicleCard(vehicle));
+                setState(() {});
+              }
             },
           ),
           TextField(
