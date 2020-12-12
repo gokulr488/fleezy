@@ -6,6 +6,7 @@ import 'package:fleezy/screens/HomeScreen.dart';
 import 'package:fleezy/screens/LoginScreen.dart';
 import 'package:fleezy/screens/StartScreen.dart';
 import 'package:fleezy/screens/VehicleOverViewScreen.dart';
+import 'package:fleezy/screens/VehicleOverviewScreens/StartNewTripScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -35,6 +36,7 @@ class FleezyApp extends StatelessWidget {
           LoginScreen.id: (context) => LoginScreen(),
           AddVehicleScreen.id: (context) => AddVehicleScreen(),
           VehicleOverviewScreen.id: (context) => VehicleOverviewScreen(),
+          StartNewTripScreen.id: (context) => StartNewTripScreen(),
         });
   }
 }
