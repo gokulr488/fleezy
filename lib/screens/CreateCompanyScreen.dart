@@ -155,6 +155,6 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
     company.users = {user.uid: user};
     print('adding Company');
     await Company().addCompany(company);
-    Navigator.pushNamed(context, HomeScreen.id);
+    Navigator.pushNamed(context, HomeScreen.id, arguments: user);
   }
 }

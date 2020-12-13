@@ -10,7 +10,8 @@ class ButtonCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const TextStyle kButtonTextStyle = TextStyle(fontSize: 28);
+    const TextStyle kButtonTextStyle =
+        TextStyle(fontSize: 30, fontFamily: 'FundamentoRegular');
     return BaseCard(
       color: kHighlightColour,
       elevation: 4,

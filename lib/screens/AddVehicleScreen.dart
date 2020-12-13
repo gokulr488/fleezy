@@ -3,7 +3,10 @@ import 'package:fleezy/Common/Utils.dart';
 import 'package:fleezy/DataAccess/Vehicle.dart';
 import 'package:fleezy/DataModels/ModelVehicle.dart';
 import 'package:fleezy/components/BaseScreen.dart';
+import 'package:fleezy/components/DatePicker.dart';
+import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/BaseCard.dart';
+import 'package:fleezy/components/cards/ButtonCard.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -31,62 +34,56 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
         children: [
           // SizedBox(height: 20),
           Text('Vehicle Details', style: _kHeaderTextStyle),
-          // SizedBox(height: 30),
+          SizedBox(height: 30),
+          Expanded(
+            child: ScrollableList(childrenHeight: 80, items: [
+              TextField(
+                  textCapitalization: TextCapitalization.words,
+                  onChanged: (value) {
+                    vehicle.registrationNo = value;
+                  },
+                  decoration: kTextFieldDecoration.copyWith(
+                      hintText: 'Registration Number')),
+              TextField(
+                  onChanged: (value) {
+                    vehicle.vehicleName = value;
+                  },
+                  decoration:
+                      kTextFieldDecoration.copyWith(hintText: 'Vehicle Name')),
+              TextField(
+                  onChanged: (value) {
+                    vehicle.brand = value;
+                  },
+                  decoration: kTextFieldDecoration.copyWith(hintText: 'Brand')),
+              TextField(
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    try {
+                      vehicle.latestOdometerReading = int.parse(value);
+                    } catch (e) {
+                      print(e);
+                    }
+                  },
+                  decoration: kTextFieldDecoration.copyWith(
+                      hintText: 'Current Odometer Reading in Kms')),
+              DatePicker(
+                  text: 'Insurance Expiry Date: ${_getInsuranceExpiryDate()}',
+                  onTap: () async {
+                    vehicle.insuranceExpiryDate =
+                        Utils.getTimeStamp(await Utils.pickDate(context));
+                    setState(() {});
+                  }),
+              DatePicker(
+                  text: 'Tax Expiry Date:  ${_getTaxExpiryDate()}',
+                  onTap: () async {
+                    vehicle.taxExpiryDate =
+                        Utils.getTimeStamp(await Utils.pickDate(context));
+                    setState(() {});
+                  })
+            ]),
+          ),
 
-          TextField(
-              textCapitalization: TextCapitalization.words,
-              onChanged: (value) {
-                vehicle.registrationNo = value;
-              },
-              decoration: kTextFieldDecoration.copyWith(
-                  hintText: 'Registration Number')),
-          TextField(
-              onChanged: (value) {
-                vehicle.vehicleName = value;
-              },
-              decoration:
-                  kTextFieldDecoration.copyWith(hintText: 'Vehicle Name')),
-          TextField(
-              onChanged: (value) {
-                vehicle.brand = value;
-              },
-              decoration: kTextFieldDecoration.copyWith(hintText: 'Brand')),
-          TextField(
-              keyboardType: TextInputType.number,
-              onChanged: (value) {
-                try {
-                  vehicle.latestOdometerReading = int.parse(value);
-                } catch (e) {
-                  print(e);
-                }
-              },
-              decoration: kTextFieldDecoration.copyWith(
-                  hintText: 'Current Odometer Reading in Kms')),
-          DatePicker(
-              text: 'Insurance Expiry Date: ${_getInsuranceExpiryDate()}',
-              onTap: () async {
-                vehicle.insuranceExpiryDate =
-                    Utils.getTimeStamp(await Utils.pickDate(context));
-                setState(() {});
-              }),
-          DatePicker(
-              text: 'Tax Expiry Date:  ${_getTaxExpiryDate()}',
-              onTap: () async {
-                vehicle.taxExpiryDate =
-                    Utils.getTimeStamp(await Utils.pickDate(context));
-                setState(() {});
-              }),
-          BaseCard(
-            elevation: 3,
-            color: kHighlightColour,
-            cardChild: Center(
-              child: Text(
-                'Add Vehicle',
-                style: _kButtonTextTextStyle,
-              ),
-            ),
-            onTap: _addVehicleToDb,
-          )
+          ButtonCard(onTap: _addVehicleToDb, buttonText: 'Add Vehicle')
         ],
       ),
     );
@@ -123,22 +120,5 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
       expiryDate = Utils.getFormattedTimeStamp(vehicle.taxExpiryDate);
     }
     return expiryDate;
-  }
-}
-
-class DatePicker extends StatelessWidget {
-  final Function onTap;
-  final String text;
-
-  const DatePicker({this.onTap, this.text});
-  @override
-  Widget build(BuildContext context) {
-    return BaseCard(
-      elevation: 3,
-      cardChild: SizedBox(
-          height: 45,
-          child: Center(child: Text(text, style: TextStyle(fontSize: 15)))),
-      onTap: onTap,
-    );
   }
 }
