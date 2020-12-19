@@ -38,3 +38,6 @@ flutter:
     - family: FundamentoRegular
       fonts:
         - asset: assets/fonts/Fondamento-Regular.ttf
+    - family: PlayFairDisplay
+      fonts:
+        - asset: assets/fonts/PlayfairDisplay.ttf

@@ -75,7 +75,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                     hintText: 'Details of Expense'))
           ])),
           ButtonCard(
-              buttonText: 'Add Fuel', onTap: () => Navigator.pop(context))
+              buttonText: 'Add Expense', onTap: () => Navigator.pop(context))
         ]));
   }
 }

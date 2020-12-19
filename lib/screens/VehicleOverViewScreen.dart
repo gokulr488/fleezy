@@ -5,6 +5,7 @@ import 'package:fleezy/components/cards/VehicleCard.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/AddExpenseScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/AddFuelScreen.dart';
+import 'package:fleezy/screens/VehicleOverviewScreens/ManageVehicleScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/StartNewTripScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -55,7 +56,14 @@ class _VehicleOverviewScreenState extends State<VehicleOverviewScreen> {
                 arguments: vehicle);
           }),
       ButtonCard(buttonText: 'Trip History'),
-      isSuperUser ? ButtonCard(buttonText: 'Manage Vehicle') : SizedBox()
+      isSuperUser
+          ? ButtonCard(
+              buttonText: 'Manage Vehicle',
+              onTap: () {
+                Navigator.pushNamed(context, ManageVehicleScreen.id,
+                    arguments: vehicle);
+              })
+          : SizedBox()
     ]));
   }
 }
