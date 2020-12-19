@@ -5,19 +5,23 @@ import 'package:fleezy/components/cards/ButtonCard.dart';
 import 'package:fleezy/components/cards/VehicleCard.dart';
 import 'package:flutter/material.dart';
 
-class AddFuelScreen extends StatefulWidget {
-  static const String id = 'addFuelScreen';
+class AddExpenseScreen extends StatefulWidget {
+  static const String id = 'addExpenseScreen';
   @override
-  _AddFuelScreenState createState() => _AddFuelScreenState();
+  _AddExpenseScreenState createState() => _AddExpenseScreenState();
 }
 
-class _AddFuelScreenState extends State<AddFuelScreen> {
-  String payMode = 'CASH';
-  String totalPrice = '';
-  String pricePerLitre = '';
-  String litres = '';
+class _AddExpenseScreenState extends State<AddExpenseScreen> {
+  final List<String> expenseTypes = [
+    'Vehicle Service',
+    'Repair',
+    'Spare Parts',
+    'Fines'
+  ];
+  String expenseType = 'Vehicle Service';
+  String expenseDetails = '';
+  String amount = '';
   String odometerReading = '';
-  bool isFullTank = false;
   @override
   Widget build(BuildContext context) {
     VehicleCard vehicle = ModalRoute.of(context).settings.arguments;
@@ -28,7 +32,7 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
           vehicle,
           SizedBox(height: 15),
           Expanded(
-              child: ScrollableList(childrenHeight: 65, items: [
+              child: ScrollableList(childrenHeight: 90, items: [
             DropdownButtonFormField<String>(
               icon: Icon(
                 Icons.arrow_drop_down_circle_outlined,
@@ -36,13 +40,13 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
               ),
               iconSize: 25,
               decoration: kTextFieldDecoration,
-              value: payMode,
+              value: expenseType,
               onChanged: (String value) {
                 setState(() {
-                  payMode = value;
+                  expenseType = value;
                 });
               },
-              items: <String>['CASH', 'BPL Card', 'Debit Card']
+              items: expenseTypes
                   .map((value) =>
                       DropdownMenuItem(value: value, child: Text(value)))
                   .toList(),
@@ -51,26 +55,9 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
                 keyboardType: TextInputType.number,
                 textAlign: TextAlign.center,
                 onChanged: (value) {
-                  totalPrice = value;
+                  amount = value;
                 },
-                decoration:
-                    kTextFieldDecoration.copyWith(hintText: 'Total Price')),
-            TextField(
-                keyboardType: TextInputType.number,
-                textAlign: TextAlign.center,
-                onChanged: (value) {
-                  pricePerLitre = value;
-                },
-                decoration:
-                    kTextFieldDecoration.copyWith(hintText: 'Price Per litre')),
-            TextField(
-                keyboardType: TextInputType.number,
-                textAlign: TextAlign.center,
-                onChanged: (value) {
-                  litres = value;
-                },
-                decoration:
-                    kTextFieldDecoration.copyWith(hintText: 'Litres filled')),
+                decoration: kTextFieldDecoration.copyWith(hintText: 'Amount')),
             TextField(
                 keyboardType: TextInputType.number,
                 textAlign: TextAlign.center,
@@ -79,21 +66,13 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
                 },
                 decoration: kTextFieldDecoration.copyWith(
                     hintText: 'Odometer Reading')),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-              Text('Full Tank',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: kHighlightColour)),
-              Checkbox(
-                  activeColor: kHighlightColour,
-                  value: isFullTank,
-                  onChanged: (bool value) {
-                    setState(() {
-                      isFullTank = value;
-                    });
-                  })
-            ])
+            TextField(
+                textAlign: TextAlign.center,
+                onChanged: (value) {
+                  expenseDetails = value;
+                },
+                decoration: kTextFieldDecoration.copyWith(
+                    hintText: 'Details of Expense'))
           ])),
           ButtonCard(
               buttonText: 'Add Fuel', onTap: () => Navigator.pop(context))
