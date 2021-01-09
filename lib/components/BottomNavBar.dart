@@ -15,7 +15,7 @@ class BottomNavBar extends StatelessWidget {
       buttonBackgroundColor: kThemeColour,
       animationDuration: Duration(milliseconds: 300),
       height: 50,
-      index: 2,
+      index: 1,
       items: [
         Icon(
           Icons.location_pin,
@@ -23,22 +23,12 @@ class BottomNavBar extends StatelessWidget {
           color: kBackgroundColor,
         ),
         Icon(
-          Icons.shopping_cart,
+          Icons.home,
           size: 20,
           color: kBackgroundColor,
         ),
         Icon(
-          Icons.car_repair,
-          size: 20,
-          color: kBackgroundColor,
-        ),
-        Icon(
-          Icons.list,
-          size: 20,
-          color: kBackgroundColor,
-        ),
-        Icon(
-          Icons.logout,
+          Icons.account_circle,
           size: 20,
           color: kBackgroundColor,
         )

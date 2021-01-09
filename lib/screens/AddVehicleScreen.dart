@@ -5,7 +5,6 @@ import 'package:fleezy/DataModels/ModelVehicle.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/DatePicker.dart';
 import 'package:fleezy/components/ScrollableList.dart';
-import 'package:fleezy/components/cards/BaseCard.dart';
 import 'package:fleezy/components/cards/ButtonCard.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
 import 'package:flutter/material.dart';

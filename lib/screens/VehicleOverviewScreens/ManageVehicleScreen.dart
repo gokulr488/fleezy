@@ -2,6 +2,7 @@ import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/cards/ButtonCard.dart';
 import 'package:fleezy/components/cards/VehicleCard.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
+import 'package:fleezy/screens/ListVehiclesScreen.dart';
 import 'package:flutter/material.dart';
 
 class ManageVehicleScreen extends StatefulWidget {

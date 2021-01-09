@@ -8,7 +8,7 @@ import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/LoadingDots.dart';
 import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/screens/CreateCompanyScreen.dart';
-import 'package:fleezy/screens/HomeScreen.dart';
+import 'package:fleezy/screens/ListVehiclesScreen.dart';
 import 'package:flutter/material.dart';
 
 const TextStyle kMessagesTextStyle = TextStyle(fontSize: 15);
@@ -75,6 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
           RoundedButton(
             title: verified ? 'Log In' : 'Send OTP',
             colour: kHighlightColour,
+            width: 300,
             onPressed: () async {
               onButtonPressed();
             },
@@ -108,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   onVerificationCompleted() {
-    Navigator.pushNamed(context, HomeScreen.id, arguments: user);
+    Navigator.pushNamed(context, ListVehiclesScreen.id, arguments: user);
   }
 
   Future<void> login() async {

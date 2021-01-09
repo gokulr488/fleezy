@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 const Color kBackgroundColor = Color(0xFF1a1a1a);
 const Color kHighlightColour = Color(0xFFE65100);
+const Color kRedColor = Color(0xFFc4001d);
 const String kDateFormat = 'yyyy-MM-dd';
 const Color kInActiveVehicleColor = Color(0xFF424242);
 const Color kActiveVehicleColor = Color(0xFF2E7D32);

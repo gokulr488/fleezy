@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:fleezy/screens/AddVehicleScreen.dart';
 import 'package:fleezy/screens/CreateCompanyScreen.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
+import 'package:fleezy/screens/ListVehiclesScreen.dart';
 import 'package:fleezy/screens/LoginScreen.dart';
 import 'package:fleezy/screens/StartScreen.dart';
 import 'package:fleezy/screens/VehicleOverViewScreen.dart';
@@ -34,6 +35,7 @@ class FleezyApp extends StatelessWidget {
         initialRoute: _isLoggedIn() ? HomeScreen.id : StartScreen.id,
         routes: {
           HomeScreen.id: (context) => HomeScreen(),
+          ListVehiclesScreen.id: (context) => ListVehiclesScreen(),
           StartScreen.id: (context) => StartScreen(),
           CreateCompanyScreen.id: (context) => CreateCompanyScreen(),
           LoginScreen.id: (context) => LoginScreen(),

@@ -8,7 +8,7 @@ import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/LoadingDots.dart';
 import 'package:fleezy/components/RoundedButton.dart';
-import 'package:fleezy/screens/HomeScreen.dart';
+import 'package:fleezy/screens/ListVehiclesScreen.dart';
 import 'package:flutter/material.dart';
 
 const TextStyle kFleezyTextStyle = TextStyle(
@@ -90,6 +90,7 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
       RoundedButton(
           title: verified ? 'Login' : 'Send OTP',
           colour: kHighlightColour,
+          width: 300,
           onPressed: () async {
             await onButtonPressed();
           })
@@ -155,6 +156,6 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
     company.users = {user.uid: user};
     print('adding Company');
     await Company().addCompany(company);
-    Navigator.pushNamed(context, HomeScreen.id, arguments: user);
+    Navigator.pushNamed(context, ListVehiclesScreen.id, arguments: user);
   }
 }
