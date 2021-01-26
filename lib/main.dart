@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fleezy/Common/UiState.dart';
 import 'package:fleezy/screens/AddVehicleScreen.dart';
 import 'package:fleezy/screens/CreateCompanyScreen.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
@@ -13,11 +14,20 @@ import 'package:fleezy/screens/VehicleOverviewScreens/ManageVehicleScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/StartNewTripScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+
+import 'Common/AppData.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(FleezyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => AppData()),
+      ChangeNotifierProvider(create: (_) => UiState())
+    ],
+    child: FleezyApp(),
+  ));
 }
 
 class FleezyApp extends StatelessWidget {
