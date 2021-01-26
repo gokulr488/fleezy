@@ -9,6 +9,7 @@ import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/LoadingDots.dart';
 import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/screens/CreateCompanyScreen.dart';
+import 'package:fleezy/screens/HomeScreen.dart';
 import 'package:fleezy/screens/ListVehiclesScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -111,8 +112,8 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   onVerificationCompleted() {
-    Provider.of<AppData>(context).setUser(user);
-    Navigator.pushNamed(context, ListVehiclesScreen.id);
+    Provider.of<AppData>(context, listen: false).setUser(user);
+    Navigator.pushNamed(context, HomeScreen.id);
   }
 
   Future<void> login() async {

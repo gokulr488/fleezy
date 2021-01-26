@@ -33,7 +33,7 @@ class HomeScreen extends StatelessWidget {
         ],
       );
     }), bottomNavBar: BottomNavBar(onTap: (index) {
-      Provider.of<AppData>(context).setBottomNavBarIndex(index);
+      Provider.of<AppData>(context, listen: false).setBottomNavBarIndex(index);
     }));
   }
 }
