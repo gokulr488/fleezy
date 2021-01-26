@@ -1,4 +1,3 @@
-
 import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/components/BaseScreen.dart';

@@ -27,7 +27,6 @@ class ListVehiclesScreen extends StatefulWidget {
 }
 
 class _ListVehiclesScreenState extends State<ListVehiclesScreen> {
-  int bottomNavBarIndex = 2;
   List<VehicleCard> vehicles = [];
   bool dataLoaded = false;
   @override
