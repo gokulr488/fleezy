@@ -1,5 +1,5 @@
 import 'package:fleezy/components/cards/BaseCard.dart';
-import 'package:fleezy/screens/VehicleOverViewScreen.dart';
+import 'package:fleezy/screens/VehicleOverviewScreen.dart';
 import 'package:flutter/material.dart';
 
 class VehicleCard extends StatelessWidget {

@@ -1,3 +1,4 @@
+import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/Common/Utils.dart';
 import 'package:fleezy/DataAccess/Vehicle.dart';
@@ -6,14 +7,11 @@ import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/DatePicker.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/ButtonCard.dart';
-import 'package:fleezy/screens/HomeScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 const _kHeaderTextStyle = TextStyle(
     fontSize: 30, fontWeight: FontWeight.bold, color: kHighlightColour);
-
-const _kButtonTextTextStyle =
-    TextStyle(fontSize: 30, fontFamily: 'FundamentoRegular');
 
 class AddVehicleScreen extends StatefulWidget {
   static const String id = 'addVehicleScreen';
@@ -97,9 +95,10 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
       print(message);
       return;
     }
-    vehicle.companyId = HomeScreen.user.companyId;
+    AppData appData = Provider.of<AppData>(context);
+    vehicle.companyId = appData.user.companyId;
     vehicle.isInTrip = false;
-    vehicle.allowedDrivers = [HomeScreen.user.phoneNumber];
+    vehicle.allowedDrivers = [appData.user.phoneNumber];
     Vehicle().addVehicle(vehicle);
     print('Adding vehicle');
     Navigator.pop(context, vehicle);

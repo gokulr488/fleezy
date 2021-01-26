@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/Authentication.dart';
 import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/UiConstants.dart';
@@ -10,6 +11,7 @@ import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/screens/CreateCompanyScreen.dart';
 import 'package:fleezy/screens/ListVehiclesScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 const TextStyle kMessagesTextStyle = TextStyle(fontSize: 15);
 
@@ -109,7 +111,8 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   onVerificationCompleted() {
-    Navigator.pushNamed(context, ListVehiclesScreen.id, arguments: user);
+    Provider.of<AppData>(context).setUser(user);
+    Navigator.pushNamed(context, ListVehiclesScreen.id);
   }
 
   Future<void> login() async {

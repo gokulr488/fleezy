@@ -7,7 +7,7 @@ import 'package:fleezy/screens/HomeScreen.dart';
 import 'package:fleezy/screens/ListVehiclesScreen.dart';
 import 'package:fleezy/screens/LoginScreen.dart';
 import 'package:fleezy/screens/StartScreen.dart';
-import 'package:fleezy/screens/VehicleOverViewScreen.dart';
+import 'package:fleezy/screens/VehicleOverviewScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/AddExpenseScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/AddFuelScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/ManageVehicleScreen.dart';
@@ -42,7 +42,7 @@ class FleezyApp extends StatelessWidget {
         theme: ThemeData(
           brightness: Brightness.dark,
         ),
-        initialRoute: _isLoggedIn() ? HomeScreen.id : StartScreen.id,
+        initialRoute: _isLoggedIn(context) ? HomeScreen.id : StartScreen.id,
         routes: {
           HomeScreen.id: (context) => HomeScreen(),
           ListVehiclesScreen.id: (context) => ListVehiclesScreen(),
@@ -59,9 +59,10 @@ class FleezyApp extends StatelessWidget {
   }
 }
 
-bool _isLoggedIn() {
+bool _isLoggedIn(BuildContext context) {
   final _auth = FirebaseAuth.instance;
   if (_auth.currentUser != null) {
+    Provider.of<UiState>(context).setIsAdmin(true);
     return true;
   } else {
     return false;

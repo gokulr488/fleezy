@@ -1,3 +1,4 @@
+import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/Authentication.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/DataAccess/Roles.dart';
@@ -7,48 +8,29 @@ import 'package:fleezy/DataModels/ModelVehicle.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/VehicleCard.dart';
 import 'package:fleezy/screens/AddVehicleScreen.dart';
-import 'package:fleezy/screens/HomeScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-const _kOurVehiclesTextStyle =
-    TextStyle(fontSize: 30, fontFamily: 'FundamentoRegular');
 const kWelcomeUserTextStyle = TextStyle(
     fontSize: 18, fontFamily: 'FundamentoRegular', fontWeight: FontWeight.bold);
-const _kFleezyTextStyle = TextStyle(
-    fontSize: 45,
-    fontFamily: 'DancingScript',
-    fontWeight: FontWeight.bold,
-    color: kHighlightColour);
 
-class ListVehiclesScreen extends StatefulWidget {
+class ListVehiclesScreen extends StatelessWidget {
   static const String id = 'ListVehiclesScreen';
-  @override
-  _ListVehiclesScreenState createState() => _ListVehiclesScreenState();
-}
-
-class _ListVehiclesScreenState extends State<ListVehiclesScreen> {
-  List<VehicleCard> vehicles = [];
-  bool dataLoaded = false;
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      getUserData(context);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    String searchKeyword = '';
+    _getUserData(Provider.of<AppData>(context));
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Expanded(
-            child: ScrollableList(
-              childrenHeight: 120,
-              items: vehicles,
-            ),
+            child: Consumer<AppData>(builder: (context, appData, _) {
+              return ScrollableList(
+                childrenHeight: 120,
+                items: _populateVehicleCards(appData),
+              );
+            }),
           ),
           IconButton(
             icon: Icon(
@@ -56,17 +38,12 @@ class _ListVehiclesScreenState extends State<ListVehiclesScreen> {
               size: 40,
             ),
             onPressed: () async {
-              final vehicle =
-                  await Navigator.pushNamed(context, AddVehicleScreen.id);
-              if (vehicle != null) {
-                vehicles.add(_getVehicleCard(vehicle));
-                setState(() {});
-              }
+              Navigator.pushNamed(context, AddVehicleScreen.id);
             },
           ),
           TextField(
               onChanged: (value) {
-                searchKeyword = value;
+                // searchKeyword = value;
               },
               decoration: kTextFieldDecoration.copyWith(hintText: 'Search')),
         ],
@@ -74,57 +51,35 @@ class _ListVehiclesScreenState extends State<ListVehiclesScreen> {
     );
   }
 
-  Future<void> getUserData(BuildContext context) async {
-    HomeScreen.user = ModalRoute.of(context).settings.arguments;
-    if (HomeScreen.user == null) {
+  Future<void> _getUserData(AppData appData) async {
+    if (appData.user == null) {
       print('Getting User basic Info.');
-      HomeScreen.user =
+      ModelUser user =
           await Roles().getUser(Authentication().getUser().phoneNumber);
+      appData.setUser(user);
     }
-    getVehicleList();
+    if (appData.availableVehicles.isEmpty) {
+      _getVehicleList(appData);
+    }
   }
 
-  void getVehicleList() async {
+  void _getVehicleList(AppData appData) async {
     List<ModelVehicle> vehiclesData =
-        await Vehicle().getVehiclesForUser(HomeScreen.user);
+        await Vehicle().getVehiclesForUser(appData.user);
     if (vehiclesData != null && vehiclesData.isNotEmpty) {
-      for (ModelVehicle vehicle in vehiclesData) {
-        vehicles.add(_getVehicleCard(vehicle));
-      }
-      setState(() {});
+      appData.setAvailableVehicles(vehiclesData);
     }
   }
 
-  VehicleCard _getVehicleCard(ModelVehicle vehicle) {
-    return VehicleCard(
-        registrationNumber: vehicle.registrationNo,
-        color: vehicle.isInTrip ? kActiveVehicleColor : kInActiveVehicleColor,
-        currentDriver: vehicle.currentDriver ?? '',
-        message: ModelVehicle.getWarningMessage(vehicle));
-  }
-}
-
-class _HeaderWidget extends StatelessWidget {
-  final String userName;
-  final String screenName;
-
-  const _HeaderWidget({this.userName, this.screenName});
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(height: 10),
-        Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text('Hi $userName', style: kWelcomeUserTextStyle),
-              Text('Fleezy', style: _kFleezyTextStyle)
-            ]),
-        SizedBox(height: 10),
-        Text('Our Vehicles', style: _kOurVehiclesTextStyle),
-        SizedBox(height: 10),
-      ],
-    );
+  List<VehicleCard> _populateVehicleCards(AppData appData) {
+    List<VehicleCard> vehicleCards = [];
+    for (ModelVehicle vehicle in appData.availableVehicles) {
+      vehicleCards.add(VehicleCard(
+          registrationNumber: vehicle.registrationNo,
+          color: vehicle.isInTrip ? kActiveVehicleColor : kInActiveVehicleColor,
+          currentDriver: vehicle.currentDriver ?? '',
+          message: ModelVehicle.getWarningMessage(vehicle)));
+    }
+    return vehicleCards;
   }
 }
