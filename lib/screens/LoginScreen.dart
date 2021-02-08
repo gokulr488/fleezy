@@ -10,7 +10,6 @@ import 'package:fleezy/components/LoadingDots.dart';
 import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/screens/CreateCompanyScreen.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
-import 'package:fleezy/screens/ListVehiclesScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -104,7 +103,11 @@ class _LoginScreenState extends State<LoginScreen> {
       showSpinner = true;
       disableButton = true;
     });
-    verified ? await login() : await verify();
+    try {
+      verified ? await login() : await verify();
+    } catch (e) {
+      message = 'Error Logging In';
+    }
     setState(() {
       showSpinner = false;
       disableButton = false;

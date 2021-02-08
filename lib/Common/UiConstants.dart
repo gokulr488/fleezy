@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const Color kBackgroundColor = Color(0xFF1a1a1a);
+const Color kBackgroundColor = Color(0xFF000000);
 const Color kHighlightColour = Color(0xFFE65100);
 const Color kRedColor = Color(0xFFc4001d);
 const String kDateFormat = 'yyyy-MM-dd';

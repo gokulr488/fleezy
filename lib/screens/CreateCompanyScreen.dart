@@ -118,7 +118,12 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
       showSpinner = true;
       disableButton = true;
     });
-    verified ? await login() : verify();
+    try {
+      verified ? await login() : verify();
+    } catch (e) {
+      print(e);
+      messages = 'Unable To Create Company';
+    }
     setState(() {
       showSpinner = false;
       disableButton = false;
