@@ -1,5 +1,6 @@
 import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/UiConstants.dart';
+import 'package:fleezy/Common/UiState.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/BottomNavBar.dart';
 import 'package:fleezy/screens/CurrentUserScreen.dart';
@@ -8,7 +9,7 @@ import 'package:fleezy/screens/ManageCompanyScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-const _kOurVehiclesTextStyle =
+const _headerTextStyle =
     TextStyle(fontSize: 30, fontFamily: 'FundamentoRegular');
 const _kFleezyTextStyle = TextStyle(
     fontSize: 45,
@@ -25,15 +26,19 @@ class HomeScreen extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    return BaseScreen(child: Consumer<AppData>(builder: (context, appData, _) {
+    return BaseScreen(child: Consumer<UiState>(builder: (context, uiState, _) {
       return Column(
         children: [
-          _HeaderWidget(userName: appData.user?.phoneNumber ?? ''),
-          _screens[appData.bottomNavBarIndex],
+          _HeaderWidget(
+              userName: Provider.of<AppData>(context, listen: false)
+                      .user
+                      ?.phoneNumber ??
+                  ''),
+          _screens[uiState.bottomNavBarIndex],
         ],
       );
     }), bottomNavBar: BottomNavBar(onTap: (index) {
-      Provider.of<AppData>(context, listen: false).setBottomNavBarIndex(index);
+      Provider.of<UiState>(context, listen: false).setBottomNavBarIndex(index);
     }));
   }
 }
@@ -56,7 +61,10 @@ class _HeaderWidget extends StatelessWidget {
               Text('Fleezy', style: _kFleezyTextStyle)
             ]),
         SizedBox(height: 10),
-        Text('Our Vehicles', style: _kOurVehiclesTextStyle),
+        Consumer<UiState>(builder: (context, uiState, _) {
+          return Text(uiState.screenHeaderMap[uiState.bottomNavBarIndex],
+              style: _headerTextStyle);
+        }),
         SizedBox(height: 10),
       ],
     );

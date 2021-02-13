@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 const Color kBackgroundColor = Color(0xFF000000);
-const Color kHighlightColour = Color(0xFFE65100);
-const Color kRedColor = Color(0xFFc4001d);
+const Color kHighlightColour = Color(0xFF005005);
+const Color kRedColor = Color(0xFF7f0000);
+const Color kBlueColor = Color(0xFF002171);
 const String kDateFormat = 'yyyy-MM-dd';
-const Color kInActiveVehicleColor = Color(0xFF424242);
+const Color kInActiveVehicleColor = Color(0xFFc17900);
 const Color kActiveVehicleColor = Color(0xFF2E7D32);
 
 const kTextFieldDecoration = InputDecoration(
@@ -14,11 +15,11 @@ const kTextFieldDecoration = InputDecoration(
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
   enabledBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Color(0xFFE65100), width: 1.0),
+    borderSide: BorderSide(color: Color(0xFF005005), width: 1.0),
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
   focusedBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Color(0xFF2E7D32), width: 2.0),
+    borderSide: BorderSide(color: Color(0xFFd84315), width: 2.0),
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
 );

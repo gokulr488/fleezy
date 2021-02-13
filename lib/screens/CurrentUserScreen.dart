@@ -1,6 +1,6 @@
-import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/Authentication.dart';
 import 'package:fleezy/Common/UiConstants.dart';
+import 'package:fleezy/Common/UiState.dart';
 import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/screens/StartScreen.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +27,7 @@ class _CurrentUserScreenState extends State<CurrentUserScreen> {
               title: 'Logout',
               onPressed: () {
                 Authentication().logout();
-                Provider.of<AppData>(context, listen: false)
+                Provider.of<UiState>(context, listen: false)
                     .setBottomNavBarIndex(1);
                 Navigator.pushNamed(context, StartScreen.id);
               })

@@ -55,7 +55,7 @@ class StartScreen extends StatelessWidget {
             cardChild: Button(
               buttonText: 'Log In',
             ),
-            color: Colors.blue[900],
+            color: kBlueColor,
             elevation: 4,
           ),
           SizedBox(
