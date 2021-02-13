@@ -95,7 +95,7 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
       print(message);
       return;
     }
-    AppData appData = Provider.of<AppData>(context);
+    AppData appData = Provider.of<AppData>(context, listen: false);
     vehicle.companyId = appData.user.companyId;
     vehicle.isInTrip = false;
     vehicle.allowedDrivers = [appData.user.phoneNumber];

@@ -63,4 +63,5 @@ dependencies {
     //implementation platform('com.google.firebase:firebase-bom:26.0.0')
     //implementation 'com.google.firebase:firebase-auth-ktx'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "androidx.browser:browser:1.2.0"
 }
