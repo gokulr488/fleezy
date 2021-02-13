@@ -9,6 +9,6 @@ class UiState extends ChangeNotifier {
 //SETTERS
   void setIsAdmin(bool value) {
     _isAdmin = value;
-    notifyListeners();
+    //notifyListeners(); uncomment this if admin switching is not happening
   }
 }

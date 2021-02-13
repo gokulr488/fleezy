@@ -62,7 +62,7 @@ class FleezyApp extends StatelessWidget {
 bool _isLoggedIn(BuildContext context) {
   final _auth = FirebaseAuth.instance;
   if (_auth.currentUser != null) {
-    Provider.of<UiState>(context).setIsAdmin(true);
+    Provider.of<UiState>(context, listen: false).setIsAdmin(true);
     return true;
   } else {
     return false;

@@ -8,6 +8,7 @@ import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/LoadingDots.dart';
 import 'package:fleezy/components/RoundedButton.dart';
+import 'package:fleezy/screens/HomeScreen.dart';
 import 'package:fleezy/screens/ListVehiclesScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -161,6 +162,6 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
     company.users = {user.uid: user};
     print('adding Company');
     await Company().addCompany(company);
-    Navigator.pushNamed(context, ListVehiclesScreen.id, arguments: user);
+    Navigator.pushNamed(context, HomeScreen.id);
   }
 }
