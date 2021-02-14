@@ -22,6 +22,11 @@ class AppData extends ChangeNotifier {
     notifyListeners();
   }
 
+  void deleteVehicle(ModelVehicle vehicle) {
+    _availableVehicles.remove(vehicle);
+    notifyListeners();
+  }
+
   void setAvailableVehicles(List<ModelVehicle> vehicles) {
     _availableVehicles = vehicles;
     notifyListeners();

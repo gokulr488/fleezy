@@ -68,14 +68,12 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
                   onTap: () async {
                     vehicle.insuranceExpiryDate =
                         Utils.getTimeStamp(await Utils.pickDate(context));
-                    setState(() {});
                   }),
               DatePicker(
                   text: 'Tax Expiry Date:  ${_getTaxExpiryDate()}',
                   onTap: () async {
                     vehicle.taxExpiryDate =
                         Utils.getTimeStamp(await Utils.pickDate(context));
-                    setState(() {});
                   })
             ]),
           ),
@@ -100,6 +98,7 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
     vehicle.isInTrip = false;
     vehicle.allowedDrivers = [appData.user.phoneNumber];
     Vehicle().addVehicle(vehicle);
+    Provider.of<AppData>(context, listen: false).addNewVehicle(vehicle);
     print('Adding vehicle');
     Navigator.pop(context, vehicle);
   }

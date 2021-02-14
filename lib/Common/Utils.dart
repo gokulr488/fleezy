@@ -34,6 +34,9 @@ class Utils {
   }
 
   static bool isWarningPeriod(Timestamp timestamp) {
+    if (timestamp == null) {
+      return false;
+    }
     int currentTime = DateTime.now().millisecondsSinceEpoch;
     if (currentTime + Constants.MILLISECONDS_PER_MONTH >=
         timestamp.millisecondsSinceEpoch) {

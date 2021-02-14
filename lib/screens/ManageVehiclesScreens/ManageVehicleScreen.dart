@@ -1,7 +1,12 @@
+import 'package:fleezy/Common/Alerts.dart';
+import 'package:fleezy/Common/AppData.dart';
+import 'package:fleezy/DataAccess/Vehicle.dart';
+import 'package:fleezy/DataModels/ModelVehicle.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/cards/ButtonCard.dart';
 import 'package:fleezy/components/cards/ManageVehicleCard.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ManageVehicleScreen extends StatelessWidget {
   static const String id = 'manageVehicleScreen';
@@ -18,10 +23,38 @@ class ManageVehicleScreen extends StatelessWidget {
           ButtonCard(
               buttonText: 'Insurance Payment',
               onTap: () => Navigator.pop(context)),
+          ButtonCard(buttonText: 'Allowed Drivers', onTap: () {}),
           ButtonCard(
-              buttonText: 'Allowed Drivers',
-              onTap: () => Navigator.pop(context)),
+              buttonText: 'Delete Vehicle',
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return Alerts(title: 'Delete this vehicle ?', actions: [
+                        FlatButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            child: Text('NO')),
+                        FlatButton(
+                            onPressed: () async {
+                              String resp =
+                                  await deleteVehicle(context, vehicle.vehicle);
+                              Navigator.of(context).pop();
+                              showSubmitResponse(context, resp);
+                            },
+                            child: Text('YES'))
+                      ]);
+                    });
+              }),
           SizedBox(height: 15)
         ]));
+  }
+
+  deleteVehicle(BuildContext context, ModelVehicle vehicle) async {
+    showSendingDialogue(context);
+    String resp = await Vehicle().deleteVehicle(vehicle);
+    Provider.of<AppData>(context, listen: false).deleteVehicle(vehicle);
+    Navigator.of(context).pop();
+    Navigator.of(context).pop();
+    return resp;
   }
 }

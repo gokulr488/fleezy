@@ -40,6 +40,20 @@ class Vehicle {
     }
   }
 
+  Future<String> deleteVehicle(ModelVehicle vehicle) async {
+    try {
+      await fireStore
+          .collection(Constants.VEHICLES)
+          .doc(vehicle.registrationNo)
+          .delete();
+      return 'Deleted ${vehicle.registrationNo} from company';
+    } catch (e) {
+      print('Unable to delete ${vehicle.registrationNo}');
+      print(e);
+      return 'Unable to delete ${vehicle.registrationNo}';
+    }
+  }
+
   void updateVehicle(ModelVehicle vehicle, String companyId) async {
     DocumentSnapshot snapShot = await fireStore
         .collection(Constants.VEHICLES)
