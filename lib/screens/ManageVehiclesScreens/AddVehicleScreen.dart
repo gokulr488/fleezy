@@ -14,7 +14,7 @@ const _kHeaderTextStyle = TextStyle(
     fontSize: 30, fontWeight: FontWeight.bold, color: kHighlightColour);
 
 class AddVehicleScreen extends StatefulWidget {
-  static const String id = 'addVehicleScreen';
+  static const String id = 'AddVehicleScreen';
   @override
   _AddVehicleScreenState createState() => _AddVehicleScreenState();
 }

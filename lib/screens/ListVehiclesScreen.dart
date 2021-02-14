@@ -7,7 +7,7 @@ import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/DataModels/ModelVehicle.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/VehicleCard.dart';
-import 'package:fleezy/screens/AddVehicleScreen.dart';
+import 'file:///C:/Users/Gokul/AndroidStudioProjects/Fleezy/lib/screens/ManageVehiclesScreens/AddVehicleScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -31,15 +31,6 @@ class ListVehiclesScreen extends StatelessWidget {
                 items: _populateVehicleCards(appData),
               );
             }),
-          ),
-          IconButton(
-            icon: Icon(
-              Icons.add,
-              size: 40,
-            ),
-            onPressed: () async {
-              Navigator.pushNamed(context, AddVehicleScreen.id);
-            },
           ),
           TextField(
               onChanged: (value) {

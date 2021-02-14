@@ -18,7 +18,7 @@ class BottomNavBar extends StatelessWidget {
       index: 1,
       items: [
         Icon(
-          Icons.location_pin,
+          Icons.account_balance_sharp,
           size: 20,
           color: kBackgroundColor,
         ),

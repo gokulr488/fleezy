@@ -1,16 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fleezy/Common/UiState.dart';
-import 'package:fleezy/screens/AddVehicleScreen.dart';
+import 'file:///C:/Users/Gokul/AndroidStudioProjects/Fleezy/lib/screens/ManageVehiclesScreens/AddVehicleScreen.dart';
 import 'package:fleezy/screens/CreateCompanyScreen.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
 import 'package:fleezy/screens/ListVehiclesScreen.dart';
 import 'package:fleezy/screens/LoginScreen.dart';
+import 'package:fleezy/screens/ManageDriverScreens/AddDriverScreen.dart';
+import 'package:fleezy/screens/ManageDriverScreens/ManageDriversScreen.dart';
+import 'package:fleezy/screens/ManageVehiclesScreens/ManageVehiclesScreen.dart';
 import 'package:fleezy/screens/StartScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/AddExpenseScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/AddFuelScreen.dart';
-import 'package:fleezy/screens/VehicleOverviewScreens/ManageVehicleScreen.dart';
+import 'file:///C:/Users/Gokul/AndroidStudioProjects/Fleezy/lib/screens/ManageVehiclesScreens/ManageVehicleScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/StartNewTripScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -55,6 +58,9 @@ class FleezyApp extends StatelessWidget {
           AddFuelScreen.id: (context) => AddFuelScreen(),
           AddExpenseScreen.id: (context) => AddExpenseScreen(),
           ManageVehicleScreen.id: (context) => ManageVehicleScreen(),
+          ManageVehiclesScreen.id: (context) => ManageVehiclesScreen(),
+          ManageDriversScreen.id: (context) => ManageDriversScreen(),
+          AddDriverScreen.id: (context) => AddDriverScreen(),
         });
   }
 }

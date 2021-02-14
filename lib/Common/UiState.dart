@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
 class UiState extends ChangeNotifier {
-  Map<int, String> screenHeaderMap = {
-    0: 'Location',
+  final Map<int, String> screenHeaderMap = {
+    0: 'Manage Company',
     1: 'Our Vehicles',
     2: 'User Info'
   };
