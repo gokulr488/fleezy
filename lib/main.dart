@@ -10,7 +10,7 @@ import 'package:fleezy/screens/ManageDriverScreens/AddDriverScreen.dart';
 import 'package:fleezy/screens/ManageDriverScreens/ManageDriversScreen.dart';
 import 'package:fleezy/screens/ManageVehiclesScreens/ManageVehiclesScreen.dart';
 import 'package:fleezy/screens/StartScreen.dart';
-import 'package:fleezy/screens/VehicleOverviewScreen.dart';
+import 'file:///C:/Users/Gokul/AndroidStudioProjects/Fleezy/lib/screens/VehicleOverviewScreens/VehicleOverviewScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/AddExpenseScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/AddFuelScreen.dart';
 import 'file:///C:/Users/Gokul/AndroidStudioProjects/Fleezy/lib/screens/ManageVehiclesScreens/ManageVehicleScreen.dart';

@@ -1,13 +1,13 @@
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/cards/ButtonCard.dart';
-import 'package:fleezy/components/cards/VehicleCard.dart';
+import 'package:fleezy/components/cards/ManageVehicleCard.dart';
 import 'package:flutter/material.dart';
 
 class ManageVehicleScreen extends StatelessWidget {
   static const String id = 'manageVehicleScreen';
   @override
   Widget build(BuildContext context) {
-    VehicleCard vehicle = ModalRoute.of(context).settings.arguments;
+    ManageVehicleCard vehicle = ModalRoute.of(context).settings.arguments;
     return BaseScreen(
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

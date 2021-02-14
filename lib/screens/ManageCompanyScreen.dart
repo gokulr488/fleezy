@@ -1,7 +1,6 @@
 import 'package:fleezy/components/cards/ButtonCard.dart';
 import 'package:fleezy/screens/ManageDriverScreens/ManageDriversScreen.dart';
 import 'package:fleezy/screens/ManageVehiclesScreens/ManageVehiclesScreen.dart';
-import 'file:///C:/Users/Gokul/AndroidStudioProjects/Fleezy/lib/screens/ManageVehiclesScreens/AddVehicleScreen.dart';
 import 'package:flutter/material.dart';
 
 class ManageCompanyScreen extends StatefulWidget {
@@ -24,6 +23,11 @@ class _ManageCompanyScreenState extends State<ManageCompanyScreen> {
             buttonText: 'Manage Drivers',
             onTap: () {
               Navigator.pushNamed(context, ManageDriversScreen.id);
+            }),
+        ButtonCard(
+            buttonText: 'Reports',
+            onTap: () {
+              // Navigator.pushNamed(context, ManageDriversScreen.id);
             })
       ]),
     );
