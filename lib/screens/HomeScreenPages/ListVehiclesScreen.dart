@@ -10,9 +10,6 @@ import 'package:fleezy/components/cards/VehicleCard.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-const kWelcomeUserTextStyle = TextStyle(
-    fontSize: 18, fontFamily: 'FundamentoRegular', fontWeight: FontWeight.bold);
-
 class ListVehiclesScreen extends StatelessWidget {
   static const String id = 'ListVehiclesScreen';
 

@@ -49,6 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     return BaseScreen(
+      headerText: '', //To Disable AppBar
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [

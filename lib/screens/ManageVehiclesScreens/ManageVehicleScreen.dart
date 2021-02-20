@@ -14,39 +14,44 @@ class ManageVehicleScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     ManageVehicleCard vehicle = ModalRoute.of(context).settings.arguments;
     return BaseScreen(
+        headerText: 'Manage Vehicle',
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-          vehicle,
-          ButtonCard(
-              buttonText: 'Tax Payment', onTap: () => Navigator.pop(context)),
-          ButtonCard(
-              buttonText: 'Insurance Payment',
-              onTap: () => Navigator.pop(context)),
-          ButtonCard(buttonText: 'Allowed Drivers', onTap: () {}),
-          ButtonCard(
-              buttonText: 'Delete Vehicle',
-              onTap: () {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return Alerts(title: 'Delete this vehicle ?', actions: [
-                        FlatButton(
-                            onPressed: () => Navigator.of(context).pop(),
-                            child: Text('NO')),
-                        FlatButton(
-                            onPressed: () async {
-                              String resp =
-                                  await deleteVehicle(context, vehicle.vehicle);
-                              Navigator.of(context).pop();
-                              showSubmitResponse(context, resp);
-                            },
-                            child: Text('YES'))
-                      ]);
-                    });
-              }),
-          SizedBox(height: 15)
-        ]));
+              vehicle,
+              ButtonCard(
+                  buttonText: 'Tax Payment',
+                  onTap: () => Navigator.pop(context)),
+              ButtonCard(
+                  buttonText: 'Insurance Payment',
+                  onTap: () => Navigator.pop(context)),
+              ButtonCard(buttonText: 'Allowed Drivers', onTap: () {}),
+              ButtonCard(
+                  buttonText: 'Delete Vehicle',
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return Alerts(
+                              title: 'Delete this vehicle ?',
+                              actions: [
+                                FlatButton(
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
+                                    child: Text('NO')),
+                                FlatButton(
+                                    onPressed: () async {
+                                      String resp = await deleteVehicle(
+                                          context, vehicle.vehicle);
+                                      Navigator.of(context).pop();
+                                      showSubmitResponse(context, resp);
+                                    },
+                                    child: Text('YES'))
+                              ]);
+                        });
+                  }),
+              SizedBox(height: 15)
+            ]));
   }
 
   deleteVehicle(BuildContext context, ModelVehicle vehicle) async {

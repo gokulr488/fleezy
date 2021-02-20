@@ -12,27 +12,29 @@ class VehicleOverviewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     VehicleCard vehicle = ModalRoute.of(context).settings.arguments;
     return BaseScreen(
+        headerText: 'Vehicle Overview',
         child:
             Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-      vehicle,
-      ButtonCard(
-          buttonText: 'Start New Trip',
-          onTap: () {
-            Navigator.pushNamed(context, StartNewTripScreen.id,
-                arguments: vehicle);
-          }),
-      ButtonCard(
-          buttonText: 'Add Fuel',
-          onTap: () {
-            Navigator.pushNamed(context, AddFuelScreen.id, arguments: vehicle);
-          }),
-      ButtonCard(
-          buttonText: 'Add Expense',
-          onTap: () {
-            Navigator.pushNamed(context, AddExpenseScreen.id,
-                arguments: vehicle);
-          }),
-      ButtonCard(buttonText: 'Trip History'),
-    ]));
+          vehicle,
+          ButtonCard(
+              buttonText: 'Start New Trip',
+              onTap: () {
+                Navigator.pushNamed(context, StartNewTripScreen.id,
+                    arguments: vehicle);
+              }),
+          ButtonCard(
+              buttonText: 'Add Fuel',
+              onTap: () {
+                Navigator.pushNamed(context, AddFuelScreen.id,
+                    arguments: vehicle);
+              }),
+          ButtonCard(
+              buttonText: 'Add Expense',
+              onTap: () {
+                Navigator.pushNamed(context, AddExpenseScreen.id,
+                    arguments: vehicle);
+              }),
+          ButtonCard(buttonText: 'Trip History'),
+        ]));
   }
 }

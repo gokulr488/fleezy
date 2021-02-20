@@ -22,45 +22,46 @@ class _StartNewTripScreenState extends State<StartNewTripScreen> {
     String odometerReading = '';
     String customerName = '';
     return BaseScreen(
+        headerText: 'Start New Trip',
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-          vehicle,
-          SizedBox(height: 15),
-          Expanded(
-              child: ScrollableList(childrenHeight: 100, items: [
-            TextField(
-                textAlign: TextAlign.center,
-                onChanged: (value) {
-                  startingFrom = value;
-                },
-                decoration:
-                    kTextFieldDecoration.copyWith(hintText: 'Starting From')),
-            TextField(
-                textAlign: TextAlign.center,
-                onChanged: (value) {
-                  goingTo = value;
-                },
-                decoration:
-                    kTextFieldDecoration.copyWith(hintText: 'Going To')),
-            TextField(
-                keyboardType: TextInputType.number,
-                textAlign: TextAlign.center,
-                onChanged: (value) {
-                  odometerReading = value;
-                },
-                decoration: kTextFieldDecoration.copyWith(
-                    hintText: 'Odometer Reading')),
-            TextField(
-                textAlign: TextAlign.center,
-                onChanged: (value) {
-                  customerName = value;
-                },
-                decoration:
-                    kTextFieldDecoration.copyWith(hintText: 'Customer Name'))
-          ])),
-          ButtonCard(
-              buttonText: 'Start Trip', onTap: () => Navigator.pop(context))
-        ]));
+              vehicle,
+              SizedBox(height: 15),
+              Expanded(
+                  child: ScrollableList(childrenHeight: 100, items: [
+                TextField(
+                    textAlign: TextAlign.center,
+                    onChanged: (value) {
+                      startingFrom = value;
+                    },
+                    decoration: kTextFieldDecoration.copyWith(
+                        hintText: 'Starting From')),
+                TextField(
+                    textAlign: TextAlign.center,
+                    onChanged: (value) {
+                      goingTo = value;
+                    },
+                    decoration:
+                        kTextFieldDecoration.copyWith(hintText: 'Going To')),
+                TextField(
+                    keyboardType: TextInputType.number,
+                    textAlign: TextAlign.center,
+                    onChanged: (value) {
+                      odometerReading = value;
+                    },
+                    decoration: kTextFieldDecoration.copyWith(
+                        hintText: 'Odometer Reading')),
+                TextField(
+                    textAlign: TextAlign.center,
+                    onChanged: (value) {
+                      customerName = value;
+                    },
+                    decoration: kTextFieldDecoration.copyWith(
+                        hintText: 'Customer Name'))
+              ])),
+              ButtonCard(
+                  buttonText: 'Start Trip', onTap: () => Navigator.pop(context))
+            ]));
   }
 }

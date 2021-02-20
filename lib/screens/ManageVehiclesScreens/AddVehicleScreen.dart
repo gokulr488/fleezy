@@ -26,6 +26,7 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
+      headerText: 'Add New Vehicle',
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [

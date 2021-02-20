@@ -17,29 +17,25 @@ class ManageVehiclesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
+        headerText: 'Manage Vehicles',
         child: Column(children: [
-      _header(),
-      Expanded(
-          child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        child: Consumer<AppData>(builder: (context, appData, _) {
-          List<ManageVehicleCard> vehicleCards = [];
-          for (ModelVehicle vehicle in appData.availableVehicles ?? []) {
-            vehicleCards.add(buildVehicleCard(vehicle));
-          }
-          return ScrollableList(childrenHeight: 120, items: vehicleCards);
-        }),
-      )),
-      ButtonCard(
-          buttonText: 'Add New Vehicle',
-          onTap: () {
-            Navigator.pushNamed(context, AddVehicleScreen.id);
-          })
-    ]));
-  }
-
-  Widget _header() {
-    return Text('Manage Vehicles', style: headerStyle);
+          Expanded(
+              child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Consumer<AppData>(builder: (context, appData, _) {
+              List<ManageVehicleCard> vehicleCards = [];
+              for (ModelVehicle vehicle in appData.availableVehicles ?? []) {
+                vehicleCards.add(buildVehicleCard(vehicle));
+              }
+              return ScrollableList(childrenHeight: 120, items: vehicleCards);
+            }),
+          )),
+          ButtonCard(
+              buttonText: 'Add New Vehicle',
+              onTap: () {
+                Navigator.pushNamed(context, AddVehicleScreen.id);
+              })
+        ]));
   }
 
   ManageVehicleCard buildVehicleCard(ModelVehicle vehicle) {

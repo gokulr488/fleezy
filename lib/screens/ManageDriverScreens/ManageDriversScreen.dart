@@ -8,6 +8,7 @@ class ManageDriversScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
+      headerText: 'Manage Drivers',
       child: Column(
         children: [
           ButtonCard(

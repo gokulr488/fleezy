@@ -21,6 +21,7 @@ class StartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
+      headerText: '',
       child: Column(
         children: [
           Expanded(

@@ -52,49 +52,52 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
     });
 
     return BaseScreen(
+        headerText: '', //To Disable AppBar
         child:
             Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-      Text('FleeZy', style: kFleezyTextStyle),
-      TextField(
-          textAlign: TextAlign.center,
-          onChanged: (value) {
-            company.companyName = value;
-          },
-          decoration: kTextFieldDecoration.copyWith(hintText: 'Company Name')),
-      TextField(
-          keyboardType: TextInputType.emailAddress,
-          textAlign: TextAlign.center,
-          onChanged: (value) {
-            company.companyEmail = value;
-          },
-          decoration: kTextFieldDecoration.copyWith(hintText: 'Email ID')),
-      TextField(
-          keyboardType: TextInputType.phone,
-          textAlign: TextAlign.center,
-          onChanged: (value) {
-            company.phoneNumber = '+91' + value; //TODO change this impl
-          },
-          decoration: kTextFieldDecoration.copyWith(hintText: 'Phone number')),
-      Visibility(
-          visible: verified,
-          child: TextField(
+          Text('FleeZy', style: kFleezyTextStyle),
+          TextField(
               textAlign: TextAlign.center,
-              obscureText: true,
-              keyboardType: TextInputType.number,
               onChanged: (value) {
-                otp = value;
+                company.companyName = value;
               },
-              decoration: kTextFieldDecoration.copyWith(hintText: 'OTP'))),
-      Visibility(visible: showSpinner, child: LoadingDots(size: 40)),
-      Text(messages, style: _kMessagesTextStyle),
-      RoundedButton(
-          title: verified ? 'Login' : 'Send OTP',
-          colour: kHighlightColour,
-          width: 300,
-          onPressed: () async {
-            await onButtonPressed();
-          })
-    ]));
+              decoration:
+                  kTextFieldDecoration.copyWith(hintText: 'Company Name')),
+          TextField(
+              keyboardType: TextInputType.emailAddress,
+              textAlign: TextAlign.center,
+              onChanged: (value) {
+                company.companyEmail = value;
+              },
+              decoration: kTextFieldDecoration.copyWith(hintText: 'Email ID')),
+          TextField(
+              keyboardType: TextInputType.phone,
+              textAlign: TextAlign.center,
+              onChanged: (value) {
+                company.phoneNumber = '+91' + value; //TODO change this impl
+              },
+              decoration:
+                  kTextFieldDecoration.copyWith(hintText: 'Phone number')),
+          Visibility(
+              visible: verified,
+              child: TextField(
+                  textAlign: TextAlign.center,
+                  obscureText: true,
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    otp = value;
+                  },
+                  decoration: kTextFieldDecoration.copyWith(hintText: 'OTP'))),
+          Visibility(visible: showSpinner, child: LoadingDots(size: 40)),
+          Text(messages, style: _kMessagesTextStyle),
+          RoundedButton(
+              title: verified ? 'Login' : 'Send OTP',
+              colour: kHighlightColour,
+              width: 300,
+              onPressed: () async {
+                await onButtonPressed();
+              })
+        ]));
   }
 
   Future<void> onButtonPressed() async {

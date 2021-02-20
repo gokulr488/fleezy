@@ -26,56 +26,59 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
   Widget build(BuildContext context) {
     VehicleCard vehicle = ModalRoute.of(context).settings.arguments;
     return BaseScreen(
+        headerText: 'Add Expense',
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-          vehicle,
-          SizedBox(height: 15),
-          Expanded(
-              child: ScrollableList(childrenHeight: 90, items: [
-            DropdownButtonFormField<String>(
-              icon: Icon(
-                Icons.arrow_drop_down_circle_outlined,
-                color: kHighlightColour,
-              ),
-              iconSize: 25,
-              decoration: kTextFieldDecoration,
-              value: expenseType,
-              onChanged: (String value) {
-                setState(() {
-                  expenseType = value;
-                });
-              },
-              items: expenseTypes
-                  .map((value) =>
-                      DropdownMenuItem(value: value, child: Text(value)))
-                  .toList(),
-            ),
-            TextField(
-                keyboardType: TextInputType.number,
-                textAlign: TextAlign.center,
-                onChanged: (value) {
-                  amount = value;
-                },
-                decoration: kTextFieldDecoration.copyWith(hintText: 'Amount')),
-            TextField(
-                keyboardType: TextInputType.number,
-                textAlign: TextAlign.center,
-                onChanged: (value) {
-                  odometerReading = value;
-                },
-                decoration: kTextFieldDecoration.copyWith(
-                    hintText: 'Odometer Reading')),
-            TextField(
-                textAlign: TextAlign.center,
-                onChanged: (value) {
-                  expenseDetails = value;
-                },
-                decoration: kTextFieldDecoration.copyWith(
-                    hintText: 'Details of Expense'))
-          ])),
-          ButtonCard(
-              buttonText: 'Add Expense', onTap: () => Navigator.pop(context))
-        ]));
+              vehicle,
+              SizedBox(height: 15),
+              Expanded(
+                  child: ScrollableList(childrenHeight: 90, items: [
+                DropdownButtonFormField<String>(
+                  icon: Icon(
+                    Icons.arrow_drop_down_circle_outlined,
+                    color: kHighlightColour,
+                  ),
+                  iconSize: 25,
+                  decoration: kTextFieldDecoration,
+                  value: expenseType,
+                  onChanged: (String value) {
+                    setState(() {
+                      expenseType = value;
+                    });
+                  },
+                  items: expenseTypes
+                      .map((value) =>
+                          DropdownMenuItem(value: value, child: Text(value)))
+                      .toList(),
+                ),
+                TextField(
+                    keyboardType: TextInputType.number,
+                    textAlign: TextAlign.center,
+                    onChanged: (value) {
+                      amount = value;
+                    },
+                    decoration:
+                        kTextFieldDecoration.copyWith(hintText: 'Amount')),
+                TextField(
+                    keyboardType: TextInputType.number,
+                    textAlign: TextAlign.center,
+                    onChanged: (value) {
+                      odometerReading = value;
+                    },
+                    decoration: kTextFieldDecoration.copyWith(
+                        hintText: 'Odometer Reading')),
+                TextField(
+                    textAlign: TextAlign.center,
+                    onChanged: (value) {
+                      expenseDetails = value;
+                    },
+                    decoration: kTextFieldDecoration.copyWith(
+                        hintText: 'Details of Expense'))
+              ])),
+              ButtonCard(
+                  buttonText: 'Add Expense',
+                  onTap: () => Navigator.pop(context))
+            ]));
   }
 }
