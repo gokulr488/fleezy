@@ -73,10 +73,10 @@ class Company {
         companyEmail: snapShot['CompanyEmail'],
         phoneNumber: snapShot['PhoneNumber']);
     if (getVehicle) {
-      CollectionReference vehicles = fireStore
-          .collection(Constants.COMPANIES)
-          .doc(docId)
-          .collection(Constants.VEHICLES);
+      // CollectionReference vehicles = fireStore
+      //     .collection(Constants.COMPANIES)
+      //     .doc(docId)
+      //     .collection(Constants.VEHICLES);
       //if(vehicles.)
     }
     return result;

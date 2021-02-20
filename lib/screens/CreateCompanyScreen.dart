@@ -9,7 +9,6 @@ import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/LoadingDots.dart';
 import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
-import 'package:fleezy/screens/ListVehiclesScreen.dart';
 import 'package:flutter/material.dart';
 
 const TextStyle kFleezyTextStyle = TextStyle(

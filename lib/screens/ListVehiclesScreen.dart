@@ -7,7 +7,6 @@ import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/DataModels/ModelVehicle.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/VehicleCard.dart';
-import 'file:///C:/Users/Gokul/AndroidStudioProjects/Fleezy/lib/screens/ManageVehiclesScreens/AddVehicleScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
