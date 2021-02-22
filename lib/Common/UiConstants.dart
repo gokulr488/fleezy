@@ -9,7 +9,7 @@ const Color kInActiveVehicleColor = Color(0xFF212121);
 const Color kActiveVehicleColor = Color(0xFF2E7D32);
 
 const kTextFieldDecoration = InputDecoration(
-  hintText: 'Enter a value',
+  labelStyle: TextStyle(fontSize: 18),
   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
   border: OutlineInputBorder(
     borderRadius: BorderRadius.all(Radius.circular(32.0)),

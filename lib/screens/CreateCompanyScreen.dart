@@ -62,14 +62,14 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
                 company.companyName = value;
               },
               decoration:
-                  kTextFieldDecoration.copyWith(hintText: 'Company Name')),
+                  kTextFieldDecoration.copyWith(labelText: 'Company Name')),
           TextField(
               keyboardType: TextInputType.emailAddress,
               textAlign: TextAlign.center,
               onChanged: (value) {
                 company.companyEmail = value;
               },
-              decoration: kTextFieldDecoration.copyWith(hintText: 'Email ID')),
+              decoration: kTextFieldDecoration.copyWith(labelText: 'Email ID')),
           TextField(
               keyboardType: TextInputType.phone,
               textAlign: TextAlign.center,
@@ -77,7 +77,7 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
                 company.phoneNumber = '+91' + value; //TODO change this impl
               },
               decoration:
-                  kTextFieldDecoration.copyWith(hintText: 'Phone number')),
+                  kTextFieldDecoration.copyWith(labelText: 'Phone number')),
           Visibility(
               visible: verified,
               child: TextField(
@@ -87,7 +87,7 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
                   onChanged: (value) {
                     otp = value;
                   },
-                  decoration: kTextFieldDecoration.copyWith(hintText: 'OTP'))),
+                  decoration: kTextFieldDecoration.copyWith(labelText: 'OTP'))),
           Visibility(visible: showSpinner, child: LoadingDots(size: 40)),
           Text(messages, style: _kMessagesTextStyle),
           RoundedButton(

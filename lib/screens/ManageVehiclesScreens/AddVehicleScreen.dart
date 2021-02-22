@@ -41,18 +41,19 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
                     vehicle.registrationNo = value;
                   },
                   decoration: kTextFieldDecoration.copyWith(
-                      hintText: 'Registration Number')),
+                      labelText: 'Registration Number')),
               TextField(
                   onChanged: (value) {
                     vehicle.vehicleName = value;
                   },
                   decoration:
-                      kTextFieldDecoration.copyWith(hintText: 'Vehicle Name')),
+                      kTextFieldDecoration.copyWith(labelText: 'Vehicle Name')),
               TextField(
                   onChanged: (value) {
                     vehicle.brand = value;
                   },
-                  decoration: kTextFieldDecoration.copyWith(hintText: 'Brand')),
+                  decoration:
+                      kTextFieldDecoration.copyWith(labelText: 'Brand')),
               TextField(
                   keyboardType: TextInputType.number,
                   onChanged: (value) {
@@ -63,7 +64,7 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
                     }
                   },
                   decoration: kTextFieldDecoration.copyWith(
-                      hintText: 'Current Odometer Reading in Kms')),
+                      labelText: 'Current Odometer Reading in Kms')),
               DatePicker(
                   text: 'Insurance Expiry Date: ${_getInsuranceExpiryDate()}',
                   onTap: () async {

@@ -63,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 phoneNo = '+91' + value; //TODO change this impl
               },
               decoration:
-                  kTextFieldDecoration.copyWith(hintText: 'Phone Number')),
+                  kTextFieldDecoration.copyWith(labelText: 'Phone Number')),
           Visibility(
               visible: verified,
               child: TextField(
@@ -74,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     otp = value;
                   },
                   decoration: kTextFieldDecoration.copyWith(
-                      hintText: 'Enter the OTP'))),
+                      labelText: 'Enter the OTP'))),
           RoundedButton(
             title: verified ? 'Log In' : 'Send OTP',
             colour: kHighlightColour,

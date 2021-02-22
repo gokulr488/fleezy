@@ -32,7 +32,7 @@ class ListVehiclesScreen extends StatelessWidget {
               onChanged: (value) {
                 // searchKeyword = value;
               },
-              decoration: kTextFieldDecoration.copyWith(hintText: 'Search')),
+              decoration: kTextFieldDecoration.copyWith(labelText: 'Search')),
         ],
       ),
     );

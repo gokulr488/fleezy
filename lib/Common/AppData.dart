@@ -3,14 +3,15 @@ import 'package:fleezy/DataModels/ModelVehicle.dart';
 import 'package:flutter/cupertino.dart';
 
 class AppData extends ChangeNotifier {
-  //int _bottomNavBarIndex = 1;
   List<ModelVehicle> _availableVehicles = [];
+  List<ModelUser> _drivers = [];
   ModelUser _user;
 
   //GETTERS
   List<ModelVehicle> get availableVehicles => _availableVehicles;
-  //int get bottomNavBarIndex => _bottomNavBarIndex;
+  List<ModelUser> get drivers => _drivers;
   ModelUser get user => _user;
+
   //SETTERS
   void setUser(ModelUser user) {
     _user = user;
@@ -31,8 +32,4 @@ class AppData extends ChangeNotifier {
     _availableVehicles = vehicles;
     notifyListeners();
   }
-//   void setBottomNavBarIndex(int index) {
-//     _bottomNavBarIndex = index;
-//     notifyListeners();
-//   }
 }

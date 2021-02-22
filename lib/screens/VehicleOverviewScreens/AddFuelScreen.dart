@@ -1,5 +1,6 @@
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/components/BaseScreen.dart';
+import 'package:fleezy/components/DropDown.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/ButtonCard.dart';
 import 'package:fleezy/components/cards/VehicleCard.dart';
@@ -30,32 +31,21 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
               SizedBox(height: 15),
               Expanded(
                   child: ScrollableList(childrenHeight: 65, items: [
-                DropdownButtonFormField<String>(
-                  icon: Icon(
-                    Icons.arrow_drop_down_circle_outlined,
-                    color: kHighlightColour,
-                  ),
-                  iconSize: 25,
-                  decoration: kTextFieldDecoration,
-                  value: payMode,
-                  onChanged: (String value) {
-                    setState(() {
+                DropDown(
+                    defaultValue: payMode,
+                    values: ['CASH', 'BPL Card', 'Debit Card'],
+                    onChanged: (String value) {
                       payMode = value;
-                    });
-                  },
-                  items: <String>['CASH', 'BPL Card', 'Debit Card']
-                      .map((value) =>
-                          DropdownMenuItem(value: value, child: Text(value)))
-                      .toList(),
-                ),
+                    },
+                    hintText: 'Payment Type'),
                 TextField(
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
                     onChanged: (value) {
                       totalPrice = value;
                     },
-                    decoration:
-                        kTextFieldDecoration.copyWith(hintText: 'Total Price')),
+                    decoration: kTextFieldDecoration.copyWith(
+                        labelText: 'Total Price')),
                 TextField(
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
@@ -63,7 +53,7 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
                       pricePerLitre = value;
                     },
                     decoration: kTextFieldDecoration.copyWith(
-                        hintText: 'Price Per litre')),
+                        labelText: 'Price Per litre')),
                 TextField(
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
@@ -71,7 +61,7 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
                       litres = value;
                     },
                     decoration: kTextFieldDecoration.copyWith(
-                        hintText: 'Litres filled')),
+                        labelText: 'Litres filled')),
                 TextField(
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
@@ -79,7 +69,7 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
                       odometerReading = value;
                     },
                     decoration: kTextFieldDecoration.copyWith(
-                        hintText: 'Odometer Reading')),
+                        labelText: 'Odometer Reading')),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
