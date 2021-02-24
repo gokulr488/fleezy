@@ -70,12 +70,14 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
                   onTap: () async {
                     vehicle.insuranceExpiryDate =
                         Utils.getTimeStamp(await Utils.pickDate(context));
+                    setState(() {});
                   }),
               DatePicker(
                   text: 'Tax Expiry Date:  ${_getTaxExpiryDate()}',
                   onTap: () async {
                     vehicle.taxExpiryDate =
                         Utils.getTimeStamp(await Utils.pickDate(context));
+                    setState(() {});
                   })
             ]),
           ),

@@ -18,6 +18,11 @@ class AppData extends ChangeNotifier {
     notifyListeners();
   }
 
+  void addNewDriver(ModelUser user) {
+    _drivers.add(user);
+    notifyListeners();
+  }
+
   void addNewVehicle(ModelVehicle vehicle) {
     _availableVehicles.add(vehicle);
     notifyListeners();

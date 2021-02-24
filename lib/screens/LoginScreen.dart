@@ -3,6 +3,7 @@ import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/Authentication.dart';
 import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/UiConstants.dart';
+import 'package:fleezy/Common/UiState.dart';
 import 'package:fleezy/DataAccess/Roles.dart';
 import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/components/BaseScreen.dart';
@@ -117,6 +118,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   onVerificationCompleted() {
     Provider.of<AppData>(context, listen: false).setUser(user);
+    if (user.roleName != Constants.ADMIN) {
+      Provider.of<UiState>(context, listen: false).setIsAdmin(false);
+    }
     Navigator.pushNamed(context, HomeScreen.id);
   }
 

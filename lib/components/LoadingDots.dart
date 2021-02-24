@@ -1,3 +1,4 @@
+import 'package:fleezy/Common/UiConstants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -9,7 +10,7 @@ class LoadingDots extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: SpinKitThreeBounce(
-        color: Colors.green[900],
+        color: kHighlightColour,
         size: size,
       ),
     );

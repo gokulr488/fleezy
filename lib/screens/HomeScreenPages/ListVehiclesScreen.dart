@@ -1,6 +1,8 @@
 import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/Authentication.dart';
+import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/UiConstants.dart';
+import 'package:fleezy/Common/UiState.dart';
 import 'package:fleezy/DataAccess/Roles.dart';
 import 'package:fleezy/DataAccess/Vehicle.dart';
 import 'package:fleezy/DataModels/ModelUser.dart';
@@ -15,7 +17,7 @@ class ListVehiclesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _getUserData(Provider.of<AppData>(context));
+    _getUserData(context);
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -38,12 +40,16 @@ class ListVehiclesScreen extends StatelessWidget {
     );
   }
 
-  Future<void> _getUserData(AppData appData) async {
+  Future<void> _getUserData(BuildContext context) async {
+    AppData appData = Provider.of<AppData>(context);
     if (appData.user == null) {
       print('Getting User basic Info.');
       ModelUser user =
           await Roles().getUser(Authentication().getUser().phoneNumber);
       appData.setUser(user);
+      if (user.roleName != Constants.ADMIN) {
+        Provider.of<UiState>(context, listen: false).setIsAdmin(false);
+      }
     }
     if (appData.availableVehicles.isEmpty) {
       _getVehicleList(appData);

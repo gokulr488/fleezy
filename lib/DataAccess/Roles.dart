@@ -12,12 +12,13 @@ class Roles {
     callContext = CallContext();
   }
 
-  Future<void> addRole(ModelUser user) async {
+  Future<CallContext> addRole(ModelUser user) async {
     DocumentSnapshot snapShot =
         await fireStore.collection(Constants.USERS).doc(user.phoneNumber).get();
     if (snapShot.data() != null) {
-      print("User already exists");
-      return;
+      print('User already exists');
+      callContext.setError('User already exists');
+      return callContext;
     }
     fireStore
         .collection(Constants.USERS)
@@ -27,9 +28,9 @@ class Roles {
         .catchError((error) => callContext.setError("$error"));
     if (callContext.isError) {
       print(callContext.errorMessage);
-      return;
+      return callContext;
     }
-    return;
+    return callContext;
   }
 
   void updateRole(ModelUser user) async {
