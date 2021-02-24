@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 class AppData extends ChangeNotifier {
   List<ModelVehicle> _availableVehicles = [];
-  List<ModelUser> _drivers = [];
+  List<ModelUser> _drivers;
   ModelUser _user;
 
   //GETTERS
@@ -19,7 +19,15 @@ class AppData extends ChangeNotifier {
   }
 
   void addNewDriver(ModelUser user) {
+    if (_drivers == null) {
+      _drivers = [];
+    }
     _drivers.add(user);
+    notifyListeners();
+  }
+
+  void setDrivers(List<ModelUser> users) {
+    _drivers = users;
     notifyListeners();
   }
 

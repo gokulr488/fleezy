@@ -72,4 +72,13 @@ class Roles {
 
     return ModelUser.getUserFromSnapshot(snapshot);
   }
+
+  Future<List<ModelUser>> getAllUsersInCompany(String companyId) async {
+    QuerySnapshot snapshot = await fireStore
+        .collection(Constants.USERS)
+        .where('CompanyId', isEqualTo: companyId)
+        .get();
+
+    return ModelUser.getUsersFrom(snapshot);
+  }
 }
