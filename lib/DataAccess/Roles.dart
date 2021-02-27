@@ -33,20 +33,27 @@ class Roles {
     return callContext;
   }
 
-  void updateRole(ModelUser user) async {
+  Future<CallContext> updateRole(ModelUser user) async {
     final DocumentSnapshot snapShot =
-        await fireStore.collection(Constants.USERS).doc(user.userEmailId).get();
+        await fireStore.collection(Constants.USERS).doc(user.phoneNumber).get();
     if (snapShot.data() == null) {
       print("User not found");
-      return;
+      callContext.setError('User not found');
+      return callContext;
     }
 
-    return fireStore
+    await fireStore
         .collection(Constants.USERS)
-        .doc(user.userEmailId)
+        .doc(user.phoneNumber)
         .update(ModelUser.getDocOf(user))
-        .then((value) => print("User details updated"))
-        .catchError((error) => print("Failed to update user: $error"));
+        .then((value) {
+      print("User details updated");
+      callContext.setSuccess('User updated');
+    }).catchError((error) {
+      print("Error Updating User $error");
+      callContext.setSuccess('Error Updating User $error');
+    });
+    return callContext;
   }
 
   Future<void> deleteUser(String docid) async {
@@ -65,12 +72,9 @@ class Roles {
   }
 
   Future<ModelUser> getUser(String phoneNumber) async {
-    QuerySnapshot snapshot = await fireStore
-        .collection(Constants.USERS)
-        .where('PhoneNumber', isEqualTo: phoneNumber)
-        .get();
-
-    return ModelUser.getUserFromSnapshot(snapshot);
+    final DocumentSnapshot snapShot =
+        await fireStore.collection(Constants.USERS).doc(phoneNumber).get();
+    return ModelUser.getUserFromDoc(snapShot);
   }
 
   Future<List<ModelUser>> getAllUsersInCompany(String companyId) async {

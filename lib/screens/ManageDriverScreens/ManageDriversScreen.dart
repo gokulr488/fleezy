@@ -49,6 +49,8 @@ class ManageDriversScreen extends StatelessWidget {
   }
 
   DriverCard buildDriverCard(ModelUser driver) {
-    return DriverCard();
+    return DriverCard(
+      user: driver,
+    );
   }
 }

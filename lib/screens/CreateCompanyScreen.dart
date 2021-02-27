@@ -155,6 +155,7 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
     });
     disableButton = true;
     ModelUser user = ModelUser(
+        fullName: Constants.ADMIN,
         companyId: company.companyEmail,
         phoneNumber: company.phoneNumber,
         userEmailId: company.companyEmail,

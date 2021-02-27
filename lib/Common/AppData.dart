@@ -4,12 +4,12 @@ import 'package:flutter/cupertino.dart';
 
 class AppData extends ChangeNotifier {
   List<ModelVehicle> _availableVehicles = [];
-  List<ModelUser> _drivers;
+  Map<String, ModelUser> _drivers;
   ModelUser _user;
 
   //GETTERS
   List<ModelVehicle> get availableVehicles => _availableVehicles;
-  List<ModelUser> get drivers => _drivers;
+  List<ModelUser> get drivers => _drivers?.values?.toList();
   ModelUser get user => _user;
 
   //SETTERS
@@ -20,14 +20,19 @@ class AppData extends ChangeNotifier {
 
   void addNewDriver(ModelUser user) {
     if (_drivers == null) {
-      _drivers = [];
+      _drivers = {};
     }
-    _drivers.add(user);
+    _drivers[user.phoneNumber] = user;
     notifyListeners();
   }
 
   void setDrivers(List<ModelUser> users) {
-    _drivers = users;
+    if (_drivers == null) {
+      _drivers = {};
+    }
+    for (ModelUser user in users) {
+      _drivers[user.phoneNumber] = user;
+    }
     notifyListeners();
   }
 
@@ -43,6 +48,11 @@ class AppData extends ChangeNotifier {
 
   void setAvailableVehicles(List<ModelVehicle> vehicles) {
     _availableVehicles = vehicles;
+    notifyListeners();
+  }
+
+  void updateDriver(ModelUser user) {
+    _drivers.update(user.phoneNumber, (value) => user);
     notifyListeners();
   }
 }

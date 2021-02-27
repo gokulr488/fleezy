@@ -69,7 +69,7 @@ class ListVehiclesScreen extends StatelessWidget {
     for (ModelVehicle vehicle in appData.availableVehicles) {
       vehicleCards.add(VehicleCard(
           registrationNumber: vehicle.registrationNo,
-          color: vehicle.isInTrip ? kActiveVehicleColor : kInActiveVehicleColor,
+          color: vehicle.isInTrip ? kActiveColor : kInActiveColor,
           currentDriver: vehicle.currentDriver ?? '',
           message: ModelVehicle.getWarningMessage(vehicle)));
     }

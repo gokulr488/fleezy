@@ -5,7 +5,7 @@ class ModelUser {
   String roleName; //Avaiable roles Driver,Admin
   String fullName;
   String userEmailId;
-  String phoneNumber;
+  String phoneNumber; // Never allow modification of Number
   String password;
   String companyId;
   String state;

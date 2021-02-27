@@ -6,8 +6,8 @@ const Color kRedColor = Color(0xFF7f0000);
 const Color kBlueColor = Color(0xFF002171);
 const Color kGreenColor = Color(0xFF2E7D32);
 const String kDateFormat = 'yyyy-MM-dd';
-const Color kInActiveVehicleColor = Color(0xFF212121);
-const Color kActiveVehicleColor = Color(0xFF2E7D32);
+const Color kInActiveColor = Color(0xFF212121);
+const Color kActiveColor = Color(0xFF2E7D32);
 
 const kTextFieldDecoration = InputDecoration(
   labelStyle: TextStyle(fontSize: 18),
