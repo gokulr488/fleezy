@@ -37,7 +37,6 @@ class Roles {
     final DocumentSnapshot snapShot =
         await fireStore.collection(Constants.USERS).doc(user.phoneNumber).get();
     if (snapShot.data() == null) {
-      print("User not found");
       callContext.setError('User not found');
       return callContext;
     }
@@ -46,13 +45,9 @@ class Roles {
         .collection(Constants.USERS)
         .doc(user.phoneNumber)
         .update(ModelUser.getDocOf(user))
-        .then((value) {
-      print("User details updated");
-      callContext.setSuccess('User updated');
-    }).catchError((error) {
-      print("Error Updating User $error");
-      callContext.setSuccess('Error Updating User $error');
-    });
+        .then((value) => callContext.setSuccess('User updated'))
+        .catchError(
+            (error) => callContext.setError('Error Updating User $error'));
     return callContext;
   }
 

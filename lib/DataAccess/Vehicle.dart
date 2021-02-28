@@ -31,7 +31,7 @@ class Vehicle {
         .collection(Constants.VEHICLES)
         .doc(vehicle.registrationNo)
         .set(ModelVehicle.getDocOf(vehicle))
-        .then(callContext.setSuccess('Company added'))
+        .then(callContext.setSuccess('Vehicle added'))
         .catchError((error) => callContext.setError("$error"));
 
     if (callContext.isError) {
@@ -54,22 +54,24 @@ class Vehicle {
     }
   }
 
-  void updateVehicle(ModelVehicle vehicle, String companyId) async {
+  Future<CallContext> updateVehicle(ModelVehicle vehicle) async {
     DocumentSnapshot snapShot = await fireStore
         .collection(Constants.VEHICLES)
         .doc(vehicle.registrationNo)
         .get();
     if (snapShot == null) {
-      print("Vehicle not found");
-      return null;
+      callContext.setError('Vehicle not found');
+      return callContext;
     }
-
-    return fireStore
+    await fireStore
         .collection(Constants.VEHICLES)
         .doc(vehicle.registrationNo)
         .update(ModelVehicle.getDocOf(vehicle))
-        .then((value) => print("Vehicle details updated"))
-        .catchError((error) => print("Failed to update vehicle: $error"));
+        .then((value) => callContext.setSuccess('Vehicle Updated'))
+        .catchError(
+            (error) => callContext.setError('Error Updating Vehicle $error'));
+
+    return callContext;
   }
 
   Future<List<ModelVehicle>> getVehiclesForUser(ModelUser user) async {
