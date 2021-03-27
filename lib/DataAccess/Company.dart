@@ -1,13 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/DataAccess/Roles.dart';
 import 'package:fleezy/DataModels/ModelCompany.dart';
+import 'package:fleezy/DataModels/ModelUser.dart';
 
 class Company {
   FirebaseFirestore fireStore;
+  CallContext callContext;
 
   Company() {
     fireStore = FirebaseFirestore.instance;
+    callContext = CallContext();
   }
 
   Future<void> addCompany(ModelCompany company) async {

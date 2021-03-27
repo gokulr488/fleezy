@@ -42,11 +42,11 @@ class ManageVehicleScreen extends StatelessWidget {
                           return Alerts(
                               title: 'Delete this vehicle ?',
                               actions: [
-                                FlatButton(
+                                TextButton(
                                     onPressed: () =>
                                         Navigator.of(context).pop(),
                                     child: Text('NO')),
-                                FlatButton(
+                                TextButton(
                                     onPressed: () async {
                                       String resp = await deleteVehicle(
                                           context, vehicle.vehicle);

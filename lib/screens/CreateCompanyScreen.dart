@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/Authentication.dart';
-import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/UiConstants.dart';
-import 'package:fleezy/DataAccess/Company.dart';
+import 'package:fleezy/DataAccess/UserManagement.dart';
 import 'package:fleezy/DataModels/ModelCompany.dart';
 import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/components/BaseScreen.dart';
@@ -10,6 +10,7 @@ import 'package:fleezy/components/LoadingDots.dart';
 import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 const TextStyle kFleezyTextStyle = TextStyle(
     fontSize: 55,
@@ -45,7 +46,7 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
             showSpinner = true;
             disableButton = true;
           });
-          await onVerificationCompleted();
+          await onVerificationCompleted(context);
           print('User signed in!');
         }
       }
@@ -122,7 +123,7 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
       disableButton = true;
     });
     try {
-      verified ? await login() : verify();
+      verified ? await login(context) : verify();
     } catch (e) {
       print(e);
       messages = 'Unable To Create Company';
@@ -141,30 +142,25 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
     });
   }
 
-  Future<void> login() async {
+  Future<void> login(BuildContext context) async {
     setState(() {
       messages = 'Signing Up...';
     });
     await auth.signInWithOTP(otp);
-    await onVerificationCompleted();
+    await onVerificationCompleted(context);
   }
 
-  Future<void> onVerificationCompleted() async {
+  Future<void> onVerificationCompleted(BuildContext context) async {
     setState(() {
       messages = 'Creating Your Company...';
     });
     disableButton = true;
-    ModelUser user = ModelUser(
-        fullName: Constants.ADMIN,
-        companyId: company.companyEmail,
-        phoneNumber: company.phoneNumber,
-        userEmailId: company.companyEmail,
-        roleName: Constants.ADMIN,
-        state: Constants.ACTIVE,
-        uid: auth.getUser().uid);
-    company.users = {user.uid: user};
     print('adding Company');
-    await Company().addCompany(company);
+    await UserManagement().addNewCompany(company);
+    AppData appData = Provider.of<AppData>(context, listen: false);
+    ModelUser adminUser = company.users[company.phoneNumber];
+    appData.setUser(adminUser);
+    appData.addNewDriver(adminUser);
     Navigator.pushNamed(context, HomeScreen.id);
   }
 }

@@ -41,7 +41,7 @@ void showSubmitResponse(BuildContext context, String resp) {
       return Alerts(
         title: resp,
         actions: [
-          FlatButton(
+          TextButton(
               onPressed: () => Navigator.of(context).pop(), child: Text('OK'))
         ],
       );

@@ -20,12 +20,15 @@ class Roles {
       callContext.setError('User already exists');
       return callContext;
     }
-    fireStore
+    await fireStore
         .collection(Constants.USERS)
         .doc(user.phoneNumber)
         .set(ModelUser.getDocOf(user))
-        .then(callContext.setSuccess('User added'))
-        .catchError((error) => callContext.setError("$error"));
+        .then((value) => callContext
+            .setSuccess('User Added')) // check this if unknown error is thrown
+        .catchError(
+            (error) => callContext.setError('Error Adding User $error'));
+
     if (callContext.isError) {
       print(callContext.errorMessage);
       return callContext;
