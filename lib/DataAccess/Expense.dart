@@ -33,7 +33,7 @@ class Expense {
           'ExpenseName': expense.expenseName,
           'VehicleRegNo': expense.vehicleRegNo
         })
-        .then(callContext.setSuccess('expense added'))
+        .then((value) => callContext.setSuccess('expense added'))
         .catchError((error) => callContext.setError("$error"));
 
     if (callContext.isError) {

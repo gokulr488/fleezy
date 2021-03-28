@@ -32,7 +32,7 @@ class Trip {
           'TripNo': trip.tripNo,
           'VehicleRegNo': trip.vehicleRegNo
         })
-        .then(callContext.setSuccess('trip added'))
+        .then((value) => callContext.setSuccess('trip added'))
         .catchError((error) => callContext.setError("$error"));
 
     if (callContext.isError) {

@@ -31,7 +31,7 @@ class Vehicle {
         .collection(Constants.VEHICLES)
         .doc(vehicle.registrationNo)
         .set(ModelVehicle.getDocOf(vehicle))
-        .then(callContext.setSuccess('Vehicle added'))
+        .then((value) => callContext.setSuccess('Vehicle added'))
         .catchError((error) => callContext.setError("$error"));
 
     if (callContext.isError) {
