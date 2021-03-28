@@ -1,9 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/UiConstants.dart';
+import 'package:fleezy/DataAccess/Trip.dart';
+import 'package:fleezy/DataModels/ModelTrip.dart';
+import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/ButtonCard.dart';
 import 'package:fleezy/components/cards/VehicleCard.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class StartNewTripScreen extends StatefulWidget {
   static const String id = 'startNewTripScreen';
@@ -14,13 +20,10 @@ class StartNewTripScreen extends StatefulWidget {
 class _StartNewTripScreenState extends State<StartNewTripScreen> {
   VehicleCard vehicle =
       VehicleCard(message: '', currentDriver: '', registrationNumber: '');
+  ModelTrip trip = ModelTrip();
   @override
   Widget build(BuildContext context) {
     vehicle = ModalRoute.of(context).settings.arguments;
-    String startingFrom = '';
-    String goingTo = '';
-    String odometerReading = '';
-    String customerName = '';
     return BaseScreen(
         headerText: 'Start New Trip',
         child: Column(
@@ -34,14 +37,14 @@ class _StartNewTripScreenState extends State<StartNewTripScreen> {
                   TextField(
                       textAlign: TextAlign.center,
                       onChanged: (value) {
-                        startingFrom = value;
+                        trip.startingFrom = value;
                       },
                       decoration: kTextFieldDecoration.copyWith(
                           labelText: 'Starting From')),
                   TextField(
                       textAlign: TextAlign.center,
                       onChanged: (value) {
-                        goingTo = value;
+                        trip.destination = value;
                       },
                       decoration:
                           kTextFieldDecoration.copyWith(labelText: 'Going To')),
@@ -49,21 +52,34 @@ class _StartNewTripScreenState extends State<StartNewTripScreen> {
                       keyboardType: TextInputType.number,
                       textAlign: TextAlign.center,
                       onChanged: (value) {
-                        odometerReading = value;
+                        trip.startReading = int.parse(value);
                       },
                       decoration: kTextFieldDecoration.copyWith(
                           labelText: 'Odometer Reading')),
                   TextField(
                       textAlign: TextAlign.center,
                       onChanged: (value) {
-                        customerName = value;
+                        trip.customerName = value;
                       },
                       decoration: kTextFieldDecoration.copyWith(
                           labelText: 'Customer Name'))
                 ]),
               )),
               ButtonCard(
-                  buttonText: 'Start Trip', onTap: () => Navigator.pop(context))
+                  buttonText: 'Start Trip',
+                  onTap: () {
+                    _startTrip(context);
+                  })
             ]));
+  }
+
+  void _startTrip(BuildContext context) async {
+    ModelUser user = Provider.of<AppData>(context, listen: false).user;
+    trip.driverName = user.fullName ?? user.phoneNumber;
+    trip.driverUid = user.uid;
+    trip.startDate = Timestamp.now();
+    trip.timestamp = Timestamp.now();
+    trip.vehicleRegNo = vehicle.registrationNumber;
+    await Trip().addTrip(trip, user.companyId);
   }
 }

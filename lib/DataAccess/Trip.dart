@@ -12,34 +12,16 @@ class Trip {
     callContext = CallContext();
   }
 
-  void addTrip(ModelTrip trip, String companyId) async {
-    fireStore
+  Future<CallContext> addTrip(ModelTrip trip, String companyId) async {
+    await fireStore
         .collection(Constants.COMPANIES)
         .doc(companyId)
         .collection(Constants.TRIP)
-        .add({
-          'StartDate': trip.startDate,
-          'EndDate': trip.endDate,
-          'Timestamp': trip.timestamp,
-          'StartReading': trip.startReading,
-          'EndReading': trip.endReading,
-          'Distance': trip.distance,
-          'BillAmount': trip.billAmount,
-          'PaidAmount': trip.paidAmount,
-          'BalanceAmount': trip.balanceAmount,
-          'DriverSalary': trip.driverSalary,
-          'CustomerName': trip.customerName,
-          'TripNo': trip.tripNo,
-          'VehicleRegNo': trip.vehicleRegNo
-        })
+        .add(ModelTrip.getDocOf(trip))
         .then((value) => callContext.setSuccess('trip added'))
         .catchError((error) => callContext.setError("$error"));
 
-    if (callContext.isError) {
-      print(callContext.errorMessage);
-      return null;
-    } else
-      print(callContext.message);
+    return callContext;
   }
 
   void updateTrip(ModelTrip trip, String companyId, String docid) async {
@@ -59,21 +41,7 @@ class Trip {
         .doc(companyId)
         .collection(Constants.TRIP)
         .doc(docid)
-        .update({
-          'StartDate': trip.startDate,
-          'EndDate': trip.endDate,
-          'Timestamp': trip.timestamp,
-          'StartReading': trip.startReading,
-          'EndReading': trip.endReading,
-          'Distance': trip.distance,
-          'BillAmount': trip.billAmount,
-          'PaidAmount': trip.paidAmount,
-          'BalanceAmount': trip.balanceAmount,
-          'DriverSalary': trip.driverSalary,
-          'CustomerName': trip.customerName,
-          'TripNo': trip.tripNo,
-          'VehicleRegNo': trip.vehicleRegNo
-        })
+        .update(ModelTrip.getDocOf(trip))
         .then((value) => print("trip details updated"))
         .catchError((error) => print("Failed to update trip: $error"));
   }

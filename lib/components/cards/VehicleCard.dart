@@ -38,7 +38,8 @@ class VehicleCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(registrationNumber, style: _kRegistrationNumberTextStyle),
+              Text(registrationNumber ?? '',
+                  style: _kRegistrationNumberTextStyle),
               Text('Driver: ' + currentDriver, style: _kDriverTextStyle),
               message != null
                   ? Text(

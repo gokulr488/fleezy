@@ -3,7 +3,6 @@ import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/DataAccess/Roles.dart';
 import 'package:fleezy/DataModels/ModelCompany.dart';
-import 'package:fleezy/DataModels/ModelUser.dart';
 
 class Company {
   FirebaseFirestore fireStore;
