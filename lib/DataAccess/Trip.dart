@@ -18,7 +18,7 @@ class Trip {
         .doc(companyId)
         .collection(Constants.TRIP)
         .add(ModelTrip.getDocOf(trip))
-        .then((value) => callContext.setSuccess('trip added'))
+        .then((value) => callContext.setSuccess('Trip added'))
         .catchError((error) => callContext.setError("$error"));
 
     return callContext;
@@ -32,7 +32,7 @@ class Trip {
         .doc(docid)
         .get();
     if (snapShot.data() == null) {
-      print("User not found");
+      print("Trip not found");
       return;
     }
 

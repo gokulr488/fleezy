@@ -1,3 +1,4 @@
+import 'package:fleezy/DataModels/ModelVehicle.dart';
 import 'package:fleezy/components/cards/BaseCard.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/VehicleOverviewScreen.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +14,14 @@ class VehicleCard extends StatelessWidget {
   final String registrationNumber;
   final String currentDriver;
   final String message;
+  final ModelVehicle vehicle;
 
   const VehicleCard(
-      {this.color, this.currentDriver, this.message, this.registrationNumber});
+      {this.color,
+      this.currentDriver,
+      this.message,
+      this.registrationNumber,
+      this.vehicle});
 
   @override
   Widget build(BuildContext context) {

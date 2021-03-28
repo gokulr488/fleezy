@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleezy/Common/AppData.dart';
+import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/DataAccess/Trip.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
@@ -18,6 +19,7 @@ class StartNewTripScreen extends StatefulWidget {
 }
 
 class _StartNewTripScreenState extends State<StartNewTripScreen> {
+  String message = '';
   VehicleCard vehicle =
       VehicleCard(message: '', currentDriver: '', registrationNumber: '');
   ModelTrip trip = ModelTrip();
@@ -74,12 +76,39 @@ class _StartNewTripScreenState extends State<StartNewTripScreen> {
   }
 
   void _startTrip(BuildContext context) async {
-    ModelUser user = Provider.of<AppData>(context, listen: false).user;
-    trip.driverName = user.fullName ?? user.phoneNumber;
-    trip.driverUid = user.uid;
-    trip.startDate = Timestamp.now();
-    trip.timestamp = Timestamp.now();
-    trip.vehicleRegNo = vehicle.registrationNumber;
-    await Trip().addTrip(trip, user.companyId);
+    if (valid()) {
+      ModelUser user = Provider.of<AppData>(context, listen: false).user;
+      trip.driverName = user.fullName ?? user.phoneNumber;
+      trip.driverUid = user.uid;
+      trip.startDate = Timestamp.now();
+      trip.timestamp = Timestamp.now();
+      trip.vehicleRegNo = vehicle.registrationNumber;
+      CallContext callContext = await Trip().addTrip(trip, user.companyId);
+      if (callContext.isError) {
+        message = callContext.errorMessage;
+      } else {
+        Navigator.pop(context);
+      }
+    }
+  }
+
+  bool valid() {
+    if (trip.startingFrom == null || trip.startingFrom.isEmpty) {
+      message = 'Enter Start Location';
+      return false;
+    }
+    if (trip.destination == null || trip.destination.isEmpty) {
+      message = 'Enter Destination';
+      return false;
+    }
+    if (trip.customerName == null || trip.customerName.isEmpty) {
+      message = 'Enter customer name';
+      return false;
+    }
+    if (trip.startReading < vehicle.vehicle.latestOdometerReading) {
+      message = 'Incorrect Odometer Reading';
+      return false;
+    }
+    return true;
   }
 }
