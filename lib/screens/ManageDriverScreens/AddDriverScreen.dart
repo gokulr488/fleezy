@@ -2,7 +2,7 @@ import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/UiConstants.dart';
-import 'package:fleezy/DataAccess/Roles.dart';
+import 'package:fleezy/DataAccess/DAOs/Roles.dart';
 import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/DropDown.dart';

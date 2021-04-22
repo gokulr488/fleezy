@@ -1,5 +1,5 @@
 import 'package:fleezy/Common/AppData.dart';
-import 'package:fleezy/DataAccess/Roles.dart';
+import 'package:fleezy/DataAccess/DAOs/Roles.dart';
 import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/ScrollableList.dart';

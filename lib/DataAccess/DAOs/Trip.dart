@@ -12,18 +12,6 @@ class Trip {
     callContext = CallContext();
   }
 
-  Future<CallContext> addTrip(ModelTrip trip, String companyId) async {
-    await fireStore
-        .collection(Constants.COMPANIES)
-        .doc(companyId)
-        .collection(Constants.TRIP)
-        .add(ModelTrip.getDocOf(trip))
-        .then((value) => callContext.setSuccess('Trip added'))
-        .catchError((error) => callContext.setError("$error"));
-
-    return callContext;
-  }
-
   void updateTrip(ModelTrip trip, String companyId, String docid) async {
     final DocumentSnapshot snapShot = await fireStore
         .collection(Constants.COMPANIES)

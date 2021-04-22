@@ -1,7 +1,7 @@
 import 'package:fleezy/Common/Alerts.dart';
 import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/UiConstants.dart';
-import 'package:fleezy/DataAccess/Vehicle.dart';
+import 'package:fleezy/DataAccess/DAOs/Vehicle.dart';
 import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/DataModels/ModelVehicle.dart';
 import 'package:fleezy/components/RoundedButton.dart';

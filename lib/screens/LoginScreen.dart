@@ -4,7 +4,7 @@ import 'package:fleezy/Common/Authentication.dart';
 import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/Common/UiState.dart';
-import 'package:fleezy/DataAccess/Roles.dart';
+import 'package:fleezy/DataAccess/DAOs/Roles.dart';
 import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/LoadingDots.dart';

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/UiConstants.dart';
-import 'package:fleezy/DataAccess/Trip.dart';
+import 'package:fleezy/DataAccess/TripApis.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
 import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/components/BaseScreen.dart';
@@ -83,7 +83,8 @@ class _StartNewTripScreenState extends State<StartNewTripScreen> {
       trip.startDate = Timestamp.now();
       trip.timestamp = Timestamp.now();
       trip.vehicleRegNo = vehicle.registrationNumber;
-      CallContext callContext = await Trip().addTrip(trip, user.companyId);
+      CallContext callContext =
+          await TripApis().startNewTrip(trip, vehicle.vehicle, context);
       if (callContext.isError) {
         message = callContext.errorMessage;
       } else {
