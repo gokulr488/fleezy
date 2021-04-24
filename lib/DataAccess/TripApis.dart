@@ -44,6 +44,4 @@ class TripApis {
     }
     return callContext;
   }
-  //TODO batch update for start new trip completed.
-  //need to create screen where if user has started trip, should land only on trip progress
 }

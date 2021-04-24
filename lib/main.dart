@@ -11,6 +11,7 @@ import 'package:fleezy/screens/ManageDriverScreens/ManageDriversScreen.dart';
 import 'package:fleezy/screens/ManageVehiclesScreens/AddVehicleScreen.dart';
 import 'package:fleezy/screens/ManageVehiclesScreens/ManageVehicleScreen.dart';
 import 'package:fleezy/screens/ManageVehiclesScreens/ManageVehiclesScreen.dart';
+import 'package:fleezy/screens/OnTripScreen.dart';
 import 'package:fleezy/screens/StartScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/AddExpenseScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/AddFuelScreen.dart';
@@ -61,6 +62,7 @@ class FleezyApp extends StatelessWidget {
           ManageVehiclesScreen.id: (context) => ManageVehiclesScreen(),
           ManageDriversScreen.id: (context) => ManageDriversScreen(),
           AddDriverScreen.id: (context) => AddDriverScreen(),
+          OnTripScreen.id: (context) => OnTripScreen(),
         });
   }
 }

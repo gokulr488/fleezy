@@ -8,31 +8,31 @@ import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/ButtonCard.dart';
+import 'package:fleezy/components/cards/TripDetailCard.dart';
 import 'package:fleezy/components/cards/VehicleCard.dart';
-import 'package:fleezy/screens/OnTripScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class StartNewTripScreen extends StatefulWidget {
-  static const String id = 'startNewTripScreen';
+class OnTripScreen extends StatefulWidget {
+  static const String id = 'OnTripScreen';
   @override
-  _StartNewTripScreenState createState() => _StartNewTripScreenState();
+  _OnTripScreenState createState() => _OnTripScreenState();
 }
 
-class _StartNewTripScreenState extends State<StartNewTripScreen> {
+class _OnTripScreenState extends State<OnTripScreen> {
   String message = '';
-  VehicleCard vehicle =
-      VehicleCard(message: '', currentDriver: '', registrationNumber: '');
-  ModelTrip trip = ModelTrip();
+  ModelTrip tripDo;
   @override
   Widget build(BuildContext context) {
-    vehicle = ModalRoute.of(context).settings.arguments;
+    tripDo = ModalRoute.of(context).settings.arguments;
     return BaseScreen(
-        headerText: 'Start New Trip',
+        headerText: 'Trip Started',
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              vehicle,
+              TripDetailCard(
+                tripDo: tripDo,
+              ),
               Expanded(
                   child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
@@ -40,75 +40,63 @@ class _StartNewTripScreenState extends State<StartNewTripScreen> {
                   TextField(
                       textAlign: TextAlign.center,
                       onChanged: (value) {
-                        trip.startingFrom = value;
+                        tripDo.startingFrom = value;
                       },
                       decoration: kTextFieldDecoration.copyWith(
-                          labelText: 'Starting From')),
+                          labelText: 'Bill Amount')),
                   TextField(
                       textAlign: TextAlign.center,
                       onChanged: (value) {
-                        trip.destination = value;
+                        tripDo.destination = value;
                       },
-                      decoration:
-                          kTextFieldDecoration.copyWith(labelText: 'Going To')),
+                      decoration: kTextFieldDecoration.copyWith(
+                          labelText: 'Paid Amount')),
+                  TextField(
+                      textAlign: TextAlign.center,
+                      onChanged: (value) {
+                        tripDo.destination = value;
+                      },
+                      decoration: kTextFieldDecoration.copyWith(
+                          labelText: 'Driver Salary')),
                   TextField(
                       keyboardType: TextInputType.number,
                       textAlign: TextAlign.center,
                       onChanged: (value) {
-                        trip.startReading = int.parse(value);
+                        tripDo.startReading = int.parse(value);
                       },
                       decoration: kTextFieldDecoration.copyWith(
                           labelText: 'Odometer Reading')),
-                  TextField(
-                      textAlign: TextAlign.center,
-                      onChanged: (value) {
-                        trip.customerName = value;
-                      },
-                      decoration: kTextFieldDecoration.copyWith(
-                          labelText: 'Customer Name'))
                 ]),
               )),
               ButtonCard(
-                  buttonText: 'Start Trip',
+                  buttonText: 'End Trip',
                   onTap: () {
-                    _startTrip(context);
+                    _endTrip(context);
                   })
             ]));
   }
 
-  void _startTrip(BuildContext context) async {
+  void _endTrip(BuildContext context) async {
     if (valid()) {
       ModelUser user = Provider.of<AppData>(context, listen: false).user;
-      trip.driverName = user.fullName ?? user.phoneNumber;
-      trip.driverUid = user.uid;
-      trip.startDate = Timestamp.now();
-      trip.timestamp = Timestamp.now();
-      trip.vehicleRegNo = vehicle.registrationNumber;
-      CallContext callContext =
-          await TripApis().startNewTrip(trip, vehicle.vehicle, context);
-      if (callContext.isError) {
-        message = callContext.errorMessage;
-      } else {
-        Navigator.pushNamed(context, OnTripScreen.id, arguments: trip);
-      }
+      tripDo.driverName = user.fullName ?? user.phoneNumber;
+      tripDo.driverUid = user.uid;
+      tripDo.startDate = Timestamp.now();
+      tripDo.timestamp = Timestamp.now();
     }
   }
 
   bool valid() {
-    if (trip.startingFrom == null || trip.startingFrom.isEmpty) {
+    if (tripDo.startingFrom == null || tripDo.startingFrom.isEmpty) {
       message = 'Enter Start Location';
       return false;
     }
-    if (trip.destination == null || trip.destination.isEmpty) {
+    if (tripDo.destination == null || tripDo.destination.isEmpty) {
       message = 'Enter Destination';
       return false;
     }
-    if (trip.customerName == null || trip.customerName.isEmpty) {
+    if (tripDo.customerName == null || tripDo.customerName.isEmpty) {
       message = 'Enter customer name';
-      return false;
-    }
-    if (trip.startReading < vehicle.vehicle.latestOdometerReading) {
-      message = 'Incorrect Odometer Reading';
       return false;
     }
     return true;
