@@ -77,6 +77,7 @@ class _OnTripScreenState extends State<OnTripScreen> {
   }
 
   void _endTrip(BuildContext context) async {
+  //TODO logic for ending trip and timer 
     if (valid()) {
       ModelUser user = Provider.of<AppData>(context, listen: false).user;
       tripDo.driverName = user.fullName ?? user.phoneNumber;
