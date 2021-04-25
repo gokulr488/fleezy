@@ -9,7 +9,7 @@ class ModelUser {
   String password;
   String companyId;
   String state;
-  bool isInTrip;
+  String tripId;
   ModelUser(
       {this.uid,
       this.roleName,
@@ -19,7 +19,7 @@ class ModelUser {
       this.password,
       this.companyId,
       this.state,
-      this.isInTrip});
+      this.tripId});
 
   static Map<String, dynamic> getDocOf(ModelUser user) {
     return {
@@ -30,7 +30,7 @@ class ModelUser {
       'PhoneNumber': user.phoneNumber,
       'CompanyId': user.companyId,
       'State': user.state,
-      'IsInTrip': user.isInTrip
+      'TripId': user.tripId
     };
   }
 
@@ -45,7 +45,7 @@ class ModelUser {
       phoneNumber: data['PhoneNumber'] ?? '',
       companyId: data['CompanyId'] ?? '',
       state: data['State'] ?? '',
-      isInTrip: data['IsInTrip'] ?? false,
+      tripId: data['TripId'],
     );
   }
 

@@ -9,6 +9,7 @@ import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/DataModels/ModelVehicle.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/VehicleCard.dart';
+import 'package:fleezy/screens/OnTripScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -41,7 +42,8 @@ class ListVehiclesScreen extends StatelessWidget {
   }
 
   Future<void> _getUserData(BuildContext context) async {
-    AppData appData = Provider.of<AppData>(context);
+    AppData appData = Provider.of<AppData>(context,
+        listen: false); //check if listen false is causing issues here
     if (appData.user == null) {
       print('Getting User basic Info.');
       ModelUser user =
@@ -50,17 +52,13 @@ class ListVehiclesScreen extends StatelessWidget {
       if (user.roleName != Constants.ADMIN) {
         Provider.of<UiState>(context, listen: false).setIsAdmin(false);
       }
+      if (user.tripId != null) {
+        Navigator.pushReplacementNamed(context, OnTripScreen.id);
+      }
     }
-    if (appData.availableVehicles.isEmpty) {
-      _getVehicleList(appData);
-    }
-  }
 
-  void _getVehicleList(AppData appData) async {
-    List<ModelVehicle> vehiclesData =
-        await Vehicle().getVehiclesForUser(appData.user);
-    if (vehiclesData != null && vehiclesData.isNotEmpty) {
-      appData.setAvailableVehicles(vehiclesData);
+    if (appData.availableVehicles.isEmpty) {
+      Vehicle().getVehicleList(appData);
     }
   }
 

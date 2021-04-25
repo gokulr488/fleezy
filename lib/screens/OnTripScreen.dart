@@ -1,13 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleezy/Common/Alerts.dart';
 import 'package:fleezy/Common/AppData.dart';
+import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/UiConstants.dart';
+import 'package:fleezy/DataAccess/DAOs/Vehicle.dart';
+import 'package:fleezy/DataAccess/TripApis.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
-import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/components/BaseScreen.dart';
+import 'package:fleezy/components/LoadingDots.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/ButtonCard.dart';
 import 'package:fleezy/components/cards/TripDetailCard.dart';
+import 'package:fleezy/screens/HomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,66 +26,85 @@ class _OnTripScreenState extends State<OnTripScreen> {
   ModelTrip tripDo;
   @override
   Widget build(BuildContext context) {
-    tripDo = ModalRoute.of(context).settings.arguments;
+    if (tripDo == null) {
+      _getTripDo(context);
+    }
     return BaseScreen(
         headerText: 'Trip Started',
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TripDetailCard(
-                tripDo: tripDo,
-              ),
-              Expanded(
-                  child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: ScrollableList(childrenHeight: 80, items: [
-                  TextField(
-                      textAlign: TextAlign.center,
-                      onChanged: (value) {
-                        tripDo.startingFrom = value;
-                      },
-                      decoration: kTextFieldDecoration.copyWith(
-                          labelText: 'Bill Amount')),
-                  TextField(
-                      textAlign: TextAlign.center,
-                      onChanged: (value) {
-                        tripDo.destination = value;
-                      },
-                      decoration: kTextFieldDecoration.copyWith(
-                          labelText: 'Paid Amount')),
-                  TextField(
-                      textAlign: TextAlign.center,
-                      onChanged: (value) {
-                        tripDo.destination = value;
-                      },
-                      decoration: kTextFieldDecoration.copyWith(
-                          labelText: 'Driver Salary')),
-                  TextField(
-                      keyboardType: TextInputType.number,
-                      textAlign: TextAlign.center,
-                      onChanged: (value) {
-                        tripDo.startReading = int.parse(value);
-                      },
-                      decoration: kTextFieldDecoration.copyWith(
-                          labelText: 'Odometer Reading')),
-                ]),
-              )),
-              ButtonCard(
-                  buttonText: 'End Trip',
-                  onTap: () {
-                    _endTrip(context);
-                  })
-            ]));
+        child: tripDo != null
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                    TripDetailCard(
+                      tripDo: tripDo,
+                    ),
+                    Expanded(
+                        child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      child: ScrollableList(childrenHeight: 80, items: [
+                        TextField(
+                            textAlign: TextAlign.center,
+                            keyboardType: TextInputType.number,
+                            onChanged: (value) {
+                              tripDo.billAmount = double.parse(value);
+                            },
+                            decoration: kTextFieldDecoration.copyWith(
+                                labelText: 'Bill Amount')),
+                        TextField(
+                            textAlign: TextAlign.center,
+                            keyboardType: TextInputType.number,
+                            onChanged: (value) {
+                              tripDo.paidAmount = double.parse(value);
+                            },
+                            decoration: kTextFieldDecoration.copyWith(
+                                labelText: 'Paid Amount')),
+                        TextField(
+                            textAlign: TextAlign.center,
+                            keyboardType: TextInputType.number,
+                            onChanged: (value) {
+                              tripDo.driverSalary = double.parse(value);
+                            },
+                            decoration: kTextFieldDecoration.copyWith(
+                                labelText: 'Driver Salary')),
+                        TextField(
+                            keyboardType: TextInputType.number,
+                            textAlign: TextAlign.center,
+                            onChanged: (value) {
+                              tripDo.endReading = int.parse(value);
+                            },
+                            decoration: kTextFieldDecoration.copyWith(
+                                labelText: 'Odometer Reading')),
+                      ]),
+                    )),
+                    ButtonCard(
+                        buttonText: 'End Trip',
+                        onTap: () {
+                          _endTrip(context);
+                        })
+                  ])
+            : LoadingDots(size: 100));
   }
 
   void _endTrip(BuildContext context) async {
-    //TODO logic for ending trip and timer
+    //TODO  timer
     if (valid()) {
-      ModelUser user = Provider.of<AppData>(context, listen: false).user;
-      tripDo.driverName = user.fullName ?? user.phoneNumber;
-      tripDo.driverUid = user.uid;
-      tripDo.startDate = Timestamp.now();
-      tripDo.timestamp = Timestamp.now();
+      tripDo.endDate = Timestamp.now();
+      tripDo.balanceAmount = tripDo.billAmount - tripDo.paidAmount;
+      tripDo.distance = tripDo.endReading - tripDo.startReading;
+      CallContext callContext = await TripApis().endTrip(tripDo, context);
+      if (callContext.isError) {
+        message = callContext.errorMessage;
+        showErrorAlert(context, message);
+      } else {
+        AppData appData = Provider.of<AppData>(context, listen: false);
+        Vehicle().getVehicleList(appData);
+        appData.setAvailableVehicles([]);
+        if (Navigator.canPop(context)) {
+          Navigator.popUntil(context, ModalRoute.withName(HomeScreen.id));
+        } else {
+          Navigator.popAndPushNamed(context, HomeScreen.id);
+        }
+      }
     } else {
       showErrorAlert(context, message);
     }
@@ -107,5 +130,18 @@ class _OnTripScreenState extends State<OnTripScreen> {
       return false;
     }
     return true;
+  }
+
+  void _getTripDo(BuildContext context) async {
+    AppData appData = Provider.of<AppData>(context, listen: false);
+    if (appData.trip != null) {
+      tripDo = appData.trip;
+    } else {
+      try {
+        tripDo = await TripApis()
+            .getTripById(appData.user.tripId, appData.user.companyId);
+      } catch (e) {}
+    }
+    setState(() {});
   }
 }

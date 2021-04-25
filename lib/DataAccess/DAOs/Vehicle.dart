@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/DataModels/ModelUser.dart';
@@ -74,7 +75,7 @@ class Vehicle {
     return callContext;
   }
 
-  Future<List<ModelVehicle>> getVehiclesForUser(ModelUser user) async {
+  Future<List<ModelVehicle>> _getVehiclesForUser(ModelUser user) async {
     if (user.companyId == null || user.phoneNumber == null) {
       print('companyId or phoneNumber is null');
       return null;
@@ -89,5 +90,12 @@ class Vehicle {
       return null;
     }
     return ModelVehicle.getVehicleFrom(snapShot);
+  }
+
+  void getVehicleList(AppData appData) async {
+    List<ModelVehicle> vehiclesData = await _getVehiclesForUser(appData.user);
+    if (vehiclesData != null && vehiclesData.isNotEmpty) {
+      appData.setAvailableVehicles(vehiclesData);
+    }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fleezy/Common/Alerts.dart';
 import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/UiConstants.dart';
@@ -38,6 +39,7 @@ class _StartNewTripScreenState extends State<StartNewTripScreen> {
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: ScrollableList(childrenHeight: 80, items: [
                   TextField(
+                      keyboardType: TextInputType.streetAddress,
                       textAlign: TextAlign.center,
                       onChanged: (value) {
                         trip.startingFrom = value;
@@ -45,6 +47,7 @@ class _StartNewTripScreenState extends State<StartNewTripScreen> {
                       decoration: kTextFieldDecoration.copyWith(
                           labelText: 'Starting From')),
                   TextField(
+                      keyboardType: TextInputType.streetAddress,
                       textAlign: TextAlign.center,
                       onChanged: (value) {
                         trip.destination = value;
@@ -60,6 +63,7 @@ class _StartNewTripScreenState extends State<StartNewTripScreen> {
                       decoration: kTextFieldDecoration.copyWith(
                           labelText: 'Odometer Reading')),
                   TextField(
+                      keyboardType: TextInputType.name,
                       textAlign: TextAlign.center,
                       onChanged: (value) {
                         trip.customerName = value;
@@ -78,19 +82,24 @@ class _StartNewTripScreenState extends State<StartNewTripScreen> {
 
   void _startTrip(BuildContext context) async {
     if (valid()) {
-      ModelUser user = Provider.of<AppData>(context, listen: false).user;
+      AppData appData = Provider.of<AppData>(context, listen: false);
+      ModelUser user = appData.user;
       trip.driverName = user.fullName ?? user.phoneNumber;
       trip.driverUid = user.uid;
       trip.startDate = Timestamp.now();
-      trip.timestamp = Timestamp.now();
+      //trip.timestamp = Timestamp.now();
       trip.vehicleRegNo = vehicle.registrationNumber;
       CallContext callContext =
           await TripApis().startNewTrip(trip, vehicle.vehicle, context);
       if (callContext.isError) {
         message = callContext.errorMessage;
+        showErrorAlert(context, message);
       } else {
-        Navigator.pushNamed(context, OnTripScreen.id, arguments: trip);
+        appData.setTrip(trip);
+        Navigator.pushNamed(context, OnTripScreen.id);
       }
+    } else {
+      showErrorAlert(context, message);
     }
   }
 

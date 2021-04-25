@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ModelTrip {
+  String id;
   String driverName;
   String driverUid;
   Timestamp startDate;
   Timestamp endDate;
-  Timestamp timestamp; //same as startdate
+  // Timestamp timestamp; //same as startdate
   int startReading;
   int endReading;
   int distance;
@@ -20,7 +21,8 @@ class ModelTrip {
   String destination;
 
   ModelTrip(
-      {this.startDate,
+      {this.id,
+      this.startDate,
       this.endDate,
       this.startReading,
       this.endReading,
@@ -32,7 +34,7 @@ class ModelTrip {
       this.customerName,
       this.tripNo,
       this.vehicleRegNo,
-      this.timestamp,
+      // this.timestamp,
       this.driverName,
       this.driverUid,
       this.startingFrom,
@@ -42,7 +44,7 @@ class ModelTrip {
     return {
       'StartDate': trip.startDate,
       'EndDate': trip.endDate,
-      'Timestamp': trip.timestamp,
+      // 'Timestamp': trip.timestamp,
       'StartReading': trip.startReading,
       'EndReading': trip.endReading,
       'Distance': trip.distance,
@@ -64,22 +66,22 @@ class ModelTrip {
     Map data = doc.data();
 
     return ModelTrip(
-      //driverUid: doc.id,
-      balanceAmount: data['BalanceAmount'] ?? '',
-      billAmount: data['BillAmount'] ?? '',
+      id: doc.id,
+      balanceAmount: data['BalanceAmount'],
+      billAmount: data['BillAmount'],
       customerName: data['CustomerName'] ?? '',
       destination: data['Destination'] ?? '',
-      distance: data['Distance'] ?? '',
+      distance: data['Distance'],
       driverName: data['DriverName'] ?? '',
-      driverSalary: data['DriverSalary'] ?? '',
+      driverSalary: data['DriverSalary'],
       driverUid: data['DriverUid'] ?? '',
-      endDate: data['EndDate'] ?? '',
-      endReading: data['EndReading'] ?? '',
-      paidAmount: data['PaidAmount'] ?? '',
-      startDate: data['StartDate'] ?? '',
-      startReading: data['StartReading'] ?? '',
+      endDate: data['EndDate'],
+      endReading: data['EndReading'],
+      paidAmount: data['PaidAmount'],
+      startDate: data['StartDate'],
+      startReading: data['StartReading'],
       startingFrom: data['StartingFrom'] ?? '',
-      timestamp: data['Timestamp'] ?? '',
+      //timestamp: data['Timestamp'],
       tripNo: data['TripNo'] ?? '',
       vehicleRegNo: data['VehicleRegNo'] ?? '',
     );

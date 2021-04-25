@@ -78,8 +78,8 @@ class ModelVehicle {
   static String getWarningMessage(ModelVehicle vehicle) {
     String warning = '';
     if (Utils.isWarningPeriod(vehicle.insuranceExpiryDate)) {
-      warning = 'Insurance Expires Soon. ';
-      // 'Insurance Expires on ${Utils.getFormattedTimeStamp(vehicle.insuranceExpiryDate)}';
+      warning =
+          'Insurance Expires on ${Utils.getFormattedTimeStamp(vehicle.insuranceExpiryDate)}. ';
     }
     if (Utils.isWarningPeriod(vehicle.taxExpiryDate)) {
       warning = warning +

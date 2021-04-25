@@ -1,3 +1,4 @@
+import 'package:fleezy/DataModels/ModelTrip.dart';
 import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/DataModels/ModelVehicle.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,15 +7,22 @@ class AppData extends ChangeNotifier {
   List<ModelVehicle> _availableVehicles = [];
   Map<String, ModelUser> _drivers;
   ModelUser _user;
+  ModelTrip _trip;
 
   //GETTERS
   List<ModelVehicle> get availableVehicles => _availableVehicles;
   List<ModelUser> get drivers => _drivers?.values?.toList();
   ModelUser get user => _user;
+  ModelTrip get trip => _trip;
 
   //SETTERS
   void setUser(ModelUser user) {
     _user = user;
+    notifyListeners();
+  }
+
+  void setTrip(ModelTrip trip) {
+    _trip = trip;
     notifyListeners();
   }
 
