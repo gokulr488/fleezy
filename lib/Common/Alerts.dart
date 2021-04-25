@@ -48,3 +48,19 @@ void showSubmitResponse(BuildContext context, String resp) {
     },
   );
 }
+
+void showErrorAlert(BuildContext context, String errorMessage) {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return Alerts(
+        title: 'ERROR',
+        actions: [
+          Text(errorMessage, style: TextStyle(fontSize: 18)),
+          TextButton(
+              onPressed: () => Navigator.of(context).pop(), child: Text('OK'))
+        ],
+      );
+    },
+  );
+}

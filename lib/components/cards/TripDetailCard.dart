@@ -11,7 +11,7 @@ class TripDetailCard extends StatelessWidget {
   static const TextStyle _ktimerTextStyle =
       TextStyle(fontSize: 45, color: kLightYellow, fontWeight: FontWeight.bold);
   static const TextStyle _kLocationTextStyle =
-      TextStyle(fontSize: 30, color: kLightYellow);
+      TextStyle(fontSize: 28, color: kLightYellow);
   static const TextStyle _kDetailsTextStyle =
       TextStyle(fontSize: 20, color: kLightYellow, fontWeight: FontWeight.bold);
   final ModelTrip tripDo;
@@ -40,22 +40,20 @@ class TripDetailCard extends StatelessWidget {
                 )
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(tripDo.startingFrom ?? '', style: _kLocationTextStyle),
-                Icon(Icons.arrow_right_alt, size: 40),
-                Text(tripDo.destination ?? '', style: _kLocationTextStyle)
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Distance: ${tripDo.distance ?? 0}',
-                    style: _kDetailsTextStyle),
-                Text('Customer: ${tripDo.customerName ?? ''}',
-                    style: _kDetailsTextStyle)
-              ],
+            Text(tripDo.startingFrom ?? '', style: _kLocationTextStyle),
+            Icon(Icons.arrow_downward_sharp, size: 40),
+            Text(tripDo.destination ?? '', style: _kLocationTextStyle),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Distance: ${tripDo.distance ?? 0}',
+                      style: _kDetailsTextStyle),
+                  Text('Customer: ${tripDo.customerName ?? ''}',
+                      style: _kDetailsTextStyle)
+                ],
+              ),
             ),
           ],
         ),
