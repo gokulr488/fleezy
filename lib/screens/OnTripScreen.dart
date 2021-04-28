@@ -8,10 +8,12 @@ import 'package:fleezy/DataAccess/TripApis.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/LoadingDots.dart';
+import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/ButtonCard.dart';
 import 'package:fleezy/components/cards/TripDetailCard.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
+import 'package:fleezy/screens/VehicleOverviewScreens/AddFuelScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -40,42 +42,60 @@ class _OnTripScreenState extends State<OnTripScreen> {
                     ),
                     Expanded(
                         child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20),
-                      child: ScrollableList(childrenHeight: 80, items: [
-                        TextField(
-                            textAlign: TextAlign.center,
-                            keyboardType: TextInputType.number,
-                            onChanged: (value) {
-                              tripDo.billAmount = double.parse(value);
-                            },
-                            decoration: kTextFieldDecoration.copyWith(
-                                labelText: 'Bill Amount')),
-                        TextField(
-                            textAlign: TextAlign.center,
-                            keyboardType: TextInputType.number,
-                            onChanged: (value) {
-                              tripDo.paidAmount = double.parse(value);
-                            },
-                            decoration: kTextFieldDecoration.copyWith(
-                                labelText: 'Paid Amount')),
-                        TextField(
-                            textAlign: TextAlign.center,
-                            keyboardType: TextInputType.number,
-                            onChanged: (value) {
-                              tripDo.driverSalary = double.parse(value);
-                            },
-                            decoration: kTextFieldDecoration.copyWith(
-                                labelText: 'Driver Salary')),
-                        TextField(
-                            keyboardType: TextInputType.number,
-                            textAlign: TextAlign.center,
-                            onChanged: (value) {
-                              tripDo.endReading = int.parse(value);
-                            },
-                            decoration: kTextFieldDecoration.copyWith(
-                                labelText: 'Odometer Reading')),
-                      ]),
-                    )),
+                            padding: const EdgeInsets.symmetric(vertical: 20),
+                            child: ScrollableList(childrenHeight: 80, items: [
+                              TextField(
+                                  textAlign: TextAlign.center,
+                                  keyboardType: TextInputType.number,
+                                  onChanged: (value) {
+                                    tripDo.billAmount = double.parse(value);
+                                  },
+                                  decoration: kTextFieldDecoration.copyWith(
+                                      labelText: 'Bill Amount')),
+                              TextField(
+                                  textAlign: TextAlign.center,
+                                  keyboardType: TextInputType.number,
+                                  onChanged: (value) {
+                                    tripDo.paidAmount = double.parse(value);
+                                  },
+                                  decoration: kTextFieldDecoration.copyWith(
+                                      labelText: 'Paid Amount')),
+                              TextField(
+                                  textAlign: TextAlign.center,
+                                  keyboardType: TextInputType.number,
+                                  onChanged: (value) {
+                                    tripDo.driverSalary = double.parse(value);
+                                  },
+                                  decoration: kTextFieldDecoration.copyWith(
+                                      labelText: 'Driver Salary')),
+                              TextField(
+                                  keyboardType: TextInputType.number,
+                                  textAlign: TextAlign.center,
+                                  onChanged: (value) {
+                                    tripDo.endReading = int.parse(value);
+                                  },
+                                  decoration: kTextFieldDecoration.copyWith(
+                                      labelText: 'Odometer Reading')),
+                              Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    RoundedButton(
+                                      title: 'Cancel Trip',
+                                      onPressed: () {},
+                                      colour: kRedColor,
+                                      width: 130,
+                                    ),
+                                    RoundedButton(
+                                      title: 'Add Fuel',
+                                      onPressed: () => Navigator.pushNamed(
+                                          context, AddFuelScreen.id,
+                                          arguments: tripDo.vehicleRegNo),
+                                      colour: kHighlightColour,
+                                      width: 130,
+                                    )
+                                  ])
+                            ]))),
                     ButtonCard(
                         buttonText: 'End Trip',
                         onTap: () {

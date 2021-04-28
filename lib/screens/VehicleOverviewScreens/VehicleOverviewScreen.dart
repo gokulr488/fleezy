@@ -1,3 +1,4 @@
+import 'package:fleezy/Common/Alerts.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/cards/ButtonCard.dart';
 import 'package:fleezy/components/cards/VehicleCard.dart';
@@ -19,14 +20,22 @@ class VehicleOverviewScreen extends StatelessWidget {
           ButtonCard(
               buttonText: 'Start New Trip',
               onTap: () {
-                Navigator.pushNamed(context, StartNewTripScreen.id,
-                    arguments: vehicle);
+                if (!vehicle.vehicle.isInTrip) {
+                  Navigator.pushNamed(context, StartNewTripScreen.id,
+                      arguments: vehicle);
+                } else {
+                  showErrorAlert(context, "Already in TRIP");
+                }
               }),
           ButtonCard(
               buttonText: 'Add Fuel',
               onTap: () {
-                Navigator.pushNamed(context, AddFuelScreen.id,
-                    arguments: vehicle);
+                if (!vehicle.vehicle.isInTrip) {
+                  Navigator.pushNamed(context, AddFuelScreen.id,
+                      arguments: vehicle.vehicle.registrationNo);
+                } else {
+                  showErrorAlert(context, "Cannot add. Vehicle in use");
+                }
               }),
           ButtonCard(
               buttonText: 'Add Expense',
