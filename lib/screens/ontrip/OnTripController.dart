@@ -7,9 +7,19 @@ import 'package:fleezy/DataAccess/TripApis.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 
 class OnTripController {
+  final Location location = Location();
+  bool _serviceEnabled;
+  PermissionStatus _permissionGranted;
+  LocationData _locationData;
+
+  OnTripController() {
+    initLocationService();
+  }
+
   void endTrip(BuildContext context, ModelTrip tripDo, String message) async {
     if (valid(tripDo, message)) {
       tripDo.endDate = Timestamp.now();
@@ -67,5 +77,25 @@ class OnTripController {
       Vehicle().getVehicleList(appData);
       Navigator.popAndPushNamed(context, HomeScreen.id);
     }
+  }
+
+  void initLocationService() async {
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        return;
+      }
+    }
+
+    _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
+
+    _locationData = await location.getLocation();
   }
 }
