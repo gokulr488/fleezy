@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleezy/Common/Alerts.dart';
 import 'package:fleezy/Common/AppData.dart';
@@ -24,6 +26,23 @@ class OnTripScreen extends StatefulWidget {
 class _OnTripScreenState extends State<OnTripScreen> {
   String message = '';
   ModelTrip tripDo;
+  Timer timer;
+
+  @override
+  void initState() {
+    super.initState();
+    Timer.periodic(Duration(seconds: 1), (t) {
+      timer = t;
+      setState(() {});
+    });
+  }
+
+  @override
+  void deactivate() {
+    timer?.cancel();
+    super.deactivate();
+  }
+
   @override
   Widget build(BuildContext context) {
     if (tripDo == null) {

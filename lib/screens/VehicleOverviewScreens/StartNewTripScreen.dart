@@ -39,7 +39,7 @@ class _StartNewTripScreenState extends State<StartNewTripScreen> {
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: ScrollableList(childrenHeight: 80, items: [
                   TextField(
-                      keyboardType: TextInputType.streetAddress,
+                      textCapitalization: TextCapitalization.words,
                       textAlign: TextAlign.center,
                       onChanged: (value) {
                         trip.startingFrom = value;
@@ -47,7 +47,7 @@ class _StartNewTripScreenState extends State<StartNewTripScreen> {
                       decoration: kTextFieldDecoration.copyWith(
                           labelText: 'Starting From')),
                   TextField(
-                      keyboardType: TextInputType.streetAddress,
+                      textCapitalization: TextCapitalization.words,
                       textAlign: TextAlign.center,
                       onChanged: (value) {
                         trip.destination = value;
@@ -63,7 +63,7 @@ class _StartNewTripScreenState extends State<StartNewTripScreen> {
                       decoration: kTextFieldDecoration.copyWith(
                           labelText: 'Odometer Reading')),
                   TextField(
-                      keyboardType: TextInputType.name,
+                      textCapitalization: TextCapitalization.words,
                       textAlign: TextAlign.center,
                       onChanged: (value) {
                         trip.customerName = value;

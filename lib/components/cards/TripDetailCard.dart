@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
 import 'package:fleezy/components/cards/BaseCard.dart';
@@ -28,7 +29,7 @@ class TripDetailCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('01:20', style: _ktimerTextStyle),
+                Text(_getTimeSpent(), style: _ktimerTextStyle),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -62,5 +63,26 @@ class TripDetailCard extends StatelessWidget {
       color: Colors.grey[900],
       onTap: () {},
     );
+  }
+
+  String _getTimeSpent() {
+    int millisSpent = Timestamp.now().millisecondsSinceEpoch -
+        tripDo.startDate.millisecondsSinceEpoch;
+    int minutes = (millisSpent / 60000).truncate();
+    int hour = 0;
+    if (minutes > 59) {
+      hour = (minutes / 60).truncate();
+      minutes = minutes - (hour * 60);
+    }
+    String hr = '';
+    String min = '';
+    hour < 10 ? hr = '0$hour' : hr = '$hour';
+    minutes < 10 ? min = '0$minutes' : min = '$minutes';
+    int seconds = (millisSpent / 1000).truncate();
+    if (seconds % 2 == 0) {
+      return '$hr:$min';
+    } else {
+      return '$hr $min';
+    }
   }
 }

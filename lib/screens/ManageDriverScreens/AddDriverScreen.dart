@@ -44,13 +44,14 @@ class _AddDriverScreenState extends State<AddDriverScreen> {
                     decoration:
                         kTextFieldDecoration.copyWith(labelText: 'Full Name')),
                 TextField(
-                    keyboardType: TextInputType.number,
+                    keyboardType: TextInputType.phone,
                     onChanged: (value) {
                       user.phoneNumber = '+91' + value; //TODO change this impl
                     },
                     decoration: kTextFieldDecoration.copyWith(
                         labelText: 'Phone Number')),
                 TextField(
+                    keyboardType: TextInputType.emailAddress,
                     onChanged: (value) {
                       user.userEmailId = value;
                     },

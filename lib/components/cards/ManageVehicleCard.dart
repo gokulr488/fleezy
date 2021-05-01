@@ -46,12 +46,11 @@ class ManageVehicleCard extends StatelessWidget {
             children: [
               Text(registrationNumber, style: _kRegistrationNumberTextStyle),
               Text('Driver: ' + currentDriver, style: _kDriverTextStyle),
-              message != null
-                  ? Text(
-                      message,
-                      style: _kMessagesTextStyle,
-                    )
-                  : SizedBox()
+              Container(
+                  width: MediaQuery.of(context).size.width * 0.5,
+                  child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Text(message ?? '', style: _kMessagesTextStyle)))
             ],
           )
         ],
