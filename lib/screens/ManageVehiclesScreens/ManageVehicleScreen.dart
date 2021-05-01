@@ -26,18 +26,17 @@ class ManageVehicleScreen extends StatelessWidget {
               SizedBox(height: 15),
               GridLayout(children: [
                 ButtonCard(
-                    buttonText: 'Tax Payment',
+                    text: 'Tax Payment', onTap: () => Navigator.pop(context)),
+                ButtonCard(
+                    text: 'Insurance Payment',
                     onTap: () => Navigator.pop(context)),
                 ButtonCard(
-                    buttonText: 'Insurance Payment',
-                    onTap: () => Navigator.pop(context)),
-                ButtonCard(
-                    buttonText: 'Allowed Drivers',
+                    text: 'Allowed Drivers',
                     onTap: () {
                       allowedDrivers(context, vehicle.vehicle);
                     }),
                 ButtonCard(
-                    buttonText: 'Delete Vehicle',
+                    text: 'Delete Vehicle',
                     onTap: () {
                       showDialog(
                           context: context,

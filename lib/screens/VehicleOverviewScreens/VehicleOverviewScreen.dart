@@ -23,14 +23,8 @@ class VehicleOverviewScreen extends StatelessWidget {
           GridLayout(
             children: [
               ButtonCard(
-                  height: 150,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Icon(Icons.add_road, size: 60),
-                      Text('Start a Trip', style: cardTextStyle)
-                    ],
-                  ),
+                  text: 'Start a Trip',
+                  icon: Icons.add_road,
                   onTap: () {
                     if (!vehicle.vehicle.isInTrip) {
                       Navigator.pushNamed(context, StartNewTripScreen.id,
@@ -40,7 +34,8 @@ class VehicleOverviewScreen extends StatelessWidget {
                     }
                   }),
               ButtonCard(
-                  buttonText: 'Add Fuel',
+                  text: 'Add Fuel',
+                  icon: Icons.add_circle_rounded,
                   onTap: () {
                     if (!vehicle.vehicle.isInTrip) {
                       Navigator.pushNamed(context, AddFuelScreen.id,
@@ -50,12 +45,13 @@ class VehicleOverviewScreen extends StatelessWidget {
                     }
                   }),
               ButtonCard(
-                  buttonText: 'Add Expense',
+                  text: 'Add Expense',
+                  icon: Icons.add_shopping_cart,
                   onTap: () {
                     Navigator.pushNamed(context, AddExpenseScreen.id,
                         arguments: vehicle);
                   }),
-              ButtonCard(buttonText: 'Trip History'),
+              ButtonCard(text: 'Trip History', icon: Icons.location_on),
             ],
           ),
         ]));

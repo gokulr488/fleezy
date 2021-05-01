@@ -14,17 +14,17 @@ class _ManageCompanyScreenState extends State<ManageCompanyScreen> {
   Widget build(BuildContext context) {
     return GridLayout(children: [
       ButtonCard(
-          buttonText: 'Manage Vehicles',
+          text: 'Manage Vehicles',
           onTap: () {
             Navigator.pushNamed(context, ManageVehiclesScreen.id);
           }),
       ButtonCard(
-          buttonText: 'Manage Drivers',
+          text: 'Manage Drivers',
           onTap: () {
             Navigator.pushNamed(context, ManageDriversScreen.id);
           }),
       ButtonCard(
-          buttonText: 'Reports',
+          text: 'Reports',
           onTap: () {
             // Navigator.pushNamed(context, ManageDriversScreen.id);
           })

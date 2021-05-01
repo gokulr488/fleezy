@@ -3,31 +3,41 @@ import 'package:fleezy/components/cards/BaseCard.dart';
 import 'package:flutter/material.dart';
 
 class ButtonCard extends StatelessWidget {
-  final String buttonText;
+  static final TextStyle kButtonTextStyle = TextStyle(
+      fontSize: 20, fontWeight: FontWeight.bold, color: kHighlightColour);
+  final String text;
   final Function onTap;
   final Widget child;
   final double height;
+  final IconData icon;
 
-  const ButtonCard({this.buttonText, this.onTap, this.child, this.height});
+  const ButtonCard({this.text, this.onTap, this.child, this.height, this.icon});
 
   @override
   Widget build(BuildContext context) {
-    const TextStyle kButtonTextStyle =
-        TextStyle(fontSize: 22, fontWeight: FontWeight.bold);
+    List<Widget> children = _buildWidgets();
+
     return BaseCard(
-      color: kHighlightColour,
-      elevation: 4,
+      color: kButtonCardColor,
+      elevation: 6,
       onTap: onTap,
-      cardChild: SizedBox(
-        height: height ?? 50,
-        child: Center(
-          child: child ??
-              Text(
-                buttonText,
-                style: kButtonTextStyle,
-              ),
-        ),
-      ),
+      cardChild: Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: children,
+      )),
     );
+  }
+
+  List<Widget> _buildWidgets() {
+    List<Widget> children = [];
+    if (icon != null) {
+      children.add(Icon(icon, size: 60, color: kHighlightColour));
+    }
+    if (text != null && text != '') {
+      children.add(Text(text, style: kButtonTextStyle));
+    }
+
+    return children;
   }
 }
