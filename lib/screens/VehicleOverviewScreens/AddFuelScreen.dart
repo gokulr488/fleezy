@@ -2,6 +2,7 @@ import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/DropDown.dart';
+import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/ButtonCard.dart';
 import 'package:fleezy/components/cards/VehicleCard.dart';
@@ -95,8 +96,8 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
                           })
                     ])
               ])),
-              ButtonCard(
-                  buttonText: 'Add Fuel', onTap: () => Navigator.pop(context))
+              RoundedButton(
+                  title: 'Add Fuel', onPressed: () => Navigator.pop(context))
             ]));
   }
 }

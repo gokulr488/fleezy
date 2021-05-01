@@ -35,10 +35,7 @@ class DriverCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         RoundedButton(
-                            onPressed: edit,
-                            title: 'Edit',
-                            colour: kHighlightColour,
-                            width: 120),
+                            onPressed: edit, title: 'Edit', width: 120),
                         RoundedButton(
                             onPressed: () {
                               deactivate(context);
@@ -46,7 +43,6 @@ class DriverCard extends StatelessWidget {
                             title: user.state == Constants.ACTIVE
                                 ? 'De-Activate'
                                 : 'Activate',
-                            colour: kHighlightColour,
                             width: 120)
                       ])
                 ])),

@@ -1,3 +1,4 @@
+import 'package:fleezy/Common/UiConstants.dart';
 import 'package:flutter/material.dart';
 
 class RoundedButton extends StatelessWidget {
@@ -13,7 +14,7 @@ class RoundedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
         elevation: 5.0,
-        color: colour,
+        color: colour ?? kHighlightColour,
         borderRadius: BorderRadius.circular(30.0),
         child: MaterialButton(
             onPressed: onPressed,

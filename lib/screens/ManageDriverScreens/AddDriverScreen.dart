@@ -70,7 +70,6 @@ class _AddDriverScreenState extends State<AddDriverScreen> {
               ]),
             ),
             RoundedButton(
-                colour: kHighlightColour,
                 onPressed: () {
                   _addDriverToDb(context);
                 },

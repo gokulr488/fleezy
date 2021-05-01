@@ -33,7 +33,6 @@ class ManageVehiclesScreen extends StatelessWidget {
           )),
           RoundedButton(
               title: 'Add New Vehicle',
-              colour: kHighlightColour,
               onPressed: () {
                 Navigator.pushNamed(context, AddVehicleScreen.id);
               })

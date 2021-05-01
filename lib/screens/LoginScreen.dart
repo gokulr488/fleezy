@@ -78,7 +78,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       labelText: 'Enter the OTP'))),
           RoundedButton(
             title: verified ? 'Log In' : 'Send OTP',
-            colour: kHighlightColour,
             onPressed: () async {
               onButtonPressed();
             },

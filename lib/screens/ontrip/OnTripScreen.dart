@@ -110,14 +110,13 @@ class _OnTripScreenState extends State<OnTripScreen> {
                                       onPressed: () => Navigator.pushNamed(
                                           context, AddFuelScreen.id,
                                           arguments: tripDo.vehicleRegNo),
-                                      colour: kHighlightColour,
                                       width: 130,
                                     )
                                   ])
                             ]))),
-                    ButtonCard(
-                        buttonText: 'End Trip',
-                        onTap: () {
+                    RoundedButton(
+                        title: 'End Trip',
+                        onPressed: () {
                           controller.endTrip(context, tripDo, message);
                         })
                   ])

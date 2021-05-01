@@ -1,6 +1,7 @@
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/DropDown.dart';
+import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/ButtonCard.dart';
 import 'package:fleezy/components/cards/VehicleCard.dart';
@@ -66,9 +67,8 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                     decoration: kTextFieldDecoration.copyWith(
                         labelText: 'Details of Expense'))
               ])),
-              ButtonCard(
-                  buttonText: 'Add Expense',
-                  onTap: () => Navigator.pop(context))
+              RoundedButton(
+                  title: 'Add Expense', onPressed: () => Navigator.pop(context))
             ]));
   }
 }

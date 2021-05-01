@@ -76,7 +76,6 @@ class _StartNewTripScreenState extends State<StartNewTripScreen> {
               )),
               RoundedButton(
                   title: 'Start Trip',
-                  colour: kHighlightColour,
                   onPressed: () {
                     _startTrip(context);
                   })

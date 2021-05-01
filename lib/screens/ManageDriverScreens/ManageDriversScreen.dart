@@ -33,7 +33,6 @@ class ManageDriversScreen extends StatelessWidget {
           )),
           RoundedButton(
               title: 'Add New Driver',
-              colour: kHighlightColour,
               onPressed: () {
                 Navigator.pushNamed(context, AddDriverScreen.id);
               })

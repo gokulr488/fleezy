@@ -5,6 +5,7 @@ import 'package:fleezy/DataAccess/DAOs/Vehicle.dart';
 import 'package:fleezy/DataModels/ModelVehicle.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/DatePicker.dart';
+import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/ButtonCard.dart';
 import 'package:flutter/material.dart';
@@ -82,7 +83,7 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
             ]),
           ),
 
-          ButtonCard(onTap: _addVehicleToDb, buttonText: 'Add Vehicle')
+          RoundedButton(onPressed: _addVehicleToDb, title: 'Add Vehicle')
         ],
       ),
     );

@@ -35,7 +35,6 @@ class _AllowDriversSheetState extends State<AllowDriversSheet> {
                 widget.vehicle, widget.allowedDrivers, context);
           },
           title: 'Save',
-          colour: kHighlightColour,
         )
       ],
     ));
