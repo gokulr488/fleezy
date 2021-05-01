@@ -30,13 +30,13 @@ class _AllowDriversSheetState extends State<AllowDriversSheet> {
                 items: getDriverChoosers(
                     widget.allDrivers, widget.allowedDrivers))),
         RoundedButton(
-            onPressed: () async {
-              await saveAllowedDrivers(
-                  widget.vehicle, widget.allowedDrivers, context);
-            },
-            title: 'Save',
-            colour: kHighlightColour,
-            width: 200)
+          onPressed: () async {
+            await saveAllowedDrivers(
+                widget.vehicle, widget.allowedDrivers, context);
+          },
+          title: 'Save',
+          colour: kHighlightColour,
+        )
       ],
     ));
   }

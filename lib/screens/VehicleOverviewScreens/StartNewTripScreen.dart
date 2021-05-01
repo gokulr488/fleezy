@@ -7,6 +7,7 @@ import 'package:fleezy/DataAccess/TripApis.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
 import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/components/BaseScreen.dart';
+import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/ButtonCard.dart';
 import 'package:fleezy/components/cards/VehicleCard.dart';
@@ -73,9 +74,10 @@ class _StartNewTripScreenState extends State<StartNewTripScreen> {
                           labelText: 'Customer Name'))
                 ]),
               )),
-              ButtonCard(
-                  buttonText: 'Start Trip',
-                  onTap: () {
+              RoundedButton(
+                  title: 'Start Trip',
+                  colour: kHighlightColour,
+                  onPressed: () {
                     _startTrip(context);
                   })
             ]));

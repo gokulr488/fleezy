@@ -22,7 +22,6 @@ class _CurrentUserScreenState extends State<CurrentUserScreen> {
             child: Center(child: Icon(Icons.account_circle, size: 120)),
           ),
           RoundedButton(
-              width: 300,
               colour: kRedColor,
               title: 'Logout',
               onPressed: () {

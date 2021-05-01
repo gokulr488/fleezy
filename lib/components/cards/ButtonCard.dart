@@ -5,24 +5,27 @@ import 'package:flutter/material.dart';
 class ButtonCard extends StatelessWidget {
   final String buttonText;
   final Function onTap;
+  final Widget child;
+  final double height;
 
-  const ButtonCard({this.buttonText, this.onTap});
+  const ButtonCard({this.buttonText, this.onTap, this.child, this.height});
 
   @override
   Widget build(BuildContext context) {
     const TextStyle kButtonTextStyle =
-        TextStyle(fontSize: 25, fontFamily: 'PlayFairDisplay');
+        TextStyle(fontSize: 22, fontWeight: FontWeight.bold);
     return BaseCard(
       color: kHighlightColour,
       elevation: 4,
       onTap: onTap,
       cardChild: SizedBox(
-        height: 50,
+        height: height ?? 50,
         child: Center(
-          child: Text(
-            buttonText,
-            style: kButtonTextStyle,
-          ),
+          child: child ??
+              Text(
+                buttonText,
+                style: kButtonTextStyle,
+              ),
         ),
       ),
     );

@@ -5,6 +5,7 @@ import 'package:fleezy/DataAccess/DAOs/Vehicle.dart';
 import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/DataModels/ModelVehicle.dart';
 import 'package:fleezy/components/BaseScreen.dart';
+import 'package:fleezy/components/GridLayout.dart';
 import 'package:fleezy/components/cards/ButtonCard.dart';
 import 'package:fleezy/components/cards/ManageVehicleCard.dart';
 import 'package:fleezy/screens/ManageVehiclesScreens/AllowDriversBottomSheet.dart';
@@ -22,42 +23,44 @@ class ManageVehicleScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               vehicle,
-              ButtonCard(
-                  buttonText: 'Tax Payment',
-                  onTap: () => Navigator.pop(context)),
-              ButtonCard(
-                  buttonText: 'Insurance Payment',
-                  onTap: () => Navigator.pop(context)),
-              ButtonCard(
-                  buttonText: 'Allowed Drivers',
-                  onTap: () {
-                    allowedDrivers(context, vehicle.vehicle);
-                  }),
-              ButtonCard(
-                  buttonText: 'Delete Vehicle',
-                  onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return Alerts(
-                              title: 'Delete this vehicle ?',
-                              actions: [
-                                TextButton(
-                                    onPressed: () =>
-                                        Navigator.of(context).pop(),
-                                    child: Text('NO')),
-                                TextButton(
-                                    onPressed: () async {
-                                      String resp = await deleteVehicle(
-                                          context, vehicle.vehicle);
-                                      Navigator.of(context).pop();
-                                      showSubmitResponse(context, resp);
-                                    },
-                                    child: Text('YES'))
-                              ]);
-                        });
-                  }),
-              SizedBox(height: 15)
+              SizedBox(height: 15),
+              GridLayout(children: [
+                ButtonCard(
+                    buttonText: 'Tax Payment',
+                    onTap: () => Navigator.pop(context)),
+                ButtonCard(
+                    buttonText: 'Insurance Payment',
+                    onTap: () => Navigator.pop(context)),
+                ButtonCard(
+                    buttonText: 'Allowed Drivers',
+                    onTap: () {
+                      allowedDrivers(context, vehicle.vehicle);
+                    }),
+                ButtonCard(
+                    buttonText: 'Delete Vehicle',
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return Alerts(
+                                title: 'Delete this vehicle ?',
+                                actions: [
+                                  TextButton(
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(),
+                                      child: Text('NO')),
+                                  TextButton(
+                                      onPressed: () async {
+                                        String resp = await deleteVehicle(
+                                            context, vehicle.vehicle);
+                                        Navigator.of(context).pop();
+                                        showSubmitResponse(context, resp);
+                                      },
+                                      child: Text('YES'))
+                                ]);
+                          });
+                    })
+              ])
             ]));
   }
 

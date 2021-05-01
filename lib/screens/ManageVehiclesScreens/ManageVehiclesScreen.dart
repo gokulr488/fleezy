@@ -2,6 +2,7 @@ import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/DataModels/ModelVehicle.dart';
 import 'package:fleezy/components/BaseScreen.dart';
+import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/ButtonCard.dart';
 import 'package:fleezy/components/cards/ManageVehicleCard.dart';
@@ -30,9 +31,10 @@ class ManageVehiclesScreen extends StatelessWidget {
               return ScrollableList(childrenHeight: 120, items: vehicleCards);
             }),
           )),
-          ButtonCard(
-              buttonText: 'Add New Vehicle',
-              onTap: () {
+          RoundedButton(
+              title: 'Add New Vehicle',
+              colour: kHighlightColour,
+              onPressed: () {
                 Navigator.pushNamed(context, AddVehicleScreen.id);
               })
         ]));

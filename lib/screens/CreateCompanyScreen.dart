@@ -94,7 +94,6 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
           RoundedButton(
               title: verified ? 'Login' : 'Send OTP',
               colour: kHighlightColour,
-              width: 300,
               onPressed: () async {
                 await onButtonPressed();
               })

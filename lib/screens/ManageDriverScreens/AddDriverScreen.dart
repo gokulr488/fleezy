@@ -7,6 +7,7 @@ import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/DropDown.dart';
 import 'package:fleezy/components/LoadingDots.dart';
+import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/ButtonCard.dart';
 import 'package:flutter/material.dart';
@@ -68,11 +69,12 @@ class _AddDriverScreenState extends State<AddDriverScreen> {
                 Center(child: Text(message, style: TextStyle(fontSize: 16)))
               ]),
             ),
-            ButtonCard(
-                onTap: () {
+            RoundedButton(
+                colour: kHighlightColour,
+                onPressed: () {
                   _addDriverToDb(context);
                 },
-                buttonText: 'Add Driver')
+                title: 'Add Driver')
           ],
         ));
   }
