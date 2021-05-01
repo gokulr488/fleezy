@@ -9,7 +9,6 @@ import 'package:fleezy/components/DropDown.dart';
 import 'package:fleezy/components/LoadingDots.dart';
 import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/components/ScrollableList.dart';
-import 'package:fleezy/components/cards/ButtonCard.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
