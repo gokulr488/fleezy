@@ -10,6 +10,7 @@ import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/ButtonCard.dart';
 import 'package:fleezy/components/cards/VehicleCard.dart';
+import 'package:fleezy/screens/HomeScreen.dart';
 import 'package:fleezy/screens/OnTripScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -96,7 +97,8 @@ class _StartNewTripScreenState extends State<StartNewTripScreen> {
         showErrorAlert(context, message);
       } else {
         appData.setTrip(trip);
-        Navigator.pushNamed(context, OnTripScreen.id);
+        Navigator.popUntil(context, ModalRoute.withName(HomeScreen.id));
+        Navigator.pushReplacementNamed(context, OnTripScreen.id);
       }
     } else {
       showErrorAlert(context, message);

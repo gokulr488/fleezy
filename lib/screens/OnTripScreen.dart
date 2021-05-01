@@ -125,7 +125,6 @@ class _OnTripScreenState extends State<OnTripScreen> {
   }
 
   void _endTrip(BuildContext context) async {
-    //TODO  timer
     if (valid()) {
       tripDo.endDate = Timestamp.now();
       tripDo.balanceAmount = tripDo.billAmount - tripDo.paidAmount;
