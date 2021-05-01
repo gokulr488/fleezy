@@ -1,3 +1,4 @@
+import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/DropDown.dart';
@@ -5,6 +6,7 @@ import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/ButtonCard.dart';
 import 'package:fleezy/components/cards/VehicleCard.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AddFuelScreen extends StatefulWidget {
   static const String id = 'addFuelScreen';
@@ -21,13 +23,18 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
   bool isFullTank = false;
   @override
   Widget build(BuildContext context) {
-    VehicleCard vehicle = ModalRoute.of(context).settings.arguments;
+    String regNumber = ModalRoute.of(context).settings.arguments;
+    AppData appdata = Provider.of<AppData>(context, listen: false);
     return BaseScreen(
         headerText: 'Add Fuel',
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              vehicle,
+              VehicleCard(
+                registrationNumber: regNumber,
+                currentDriver:
+                    appdata.user.fullName ?? appdata.user.phoneNumber,
+              ),
               SizedBox(height: 15),
               Expanded(
                   child: ScrollableList(childrenHeight: 65, items: [
