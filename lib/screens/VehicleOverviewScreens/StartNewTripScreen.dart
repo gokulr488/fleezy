@@ -11,7 +11,7 @@ import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/ButtonCard.dart';
 import 'package:fleezy/components/cards/VehicleCard.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
-import 'package:fleezy/screens/OnTripScreen.dart';
+import 'package:fleezy/screens/ontrip/OnTripScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

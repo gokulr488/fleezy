@@ -64,3 +64,27 @@ void showErrorAlert(BuildContext context, String errorMessage) {
     },
   );
 }
+
+void showWarningAlert(
+    BuildContext context, String errorMessage, Function onConfirmed) {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return Alerts(
+        title: 'Warning',
+        actions: [
+          Text(errorMessage, style: TextStyle(fontSize: 18)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Text('No')),
+              TextButton(onPressed: onConfirmed, child: Text('Yes'))
+            ],
+          ),
+        ],
+      );
+    },
+  );
+}

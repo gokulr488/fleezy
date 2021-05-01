@@ -31,7 +31,7 @@ class VehicleCard extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(15),
             child: Container(
-              width: 150,
+              width: MediaQuery.of(context).size.width * 0.35,
               height: 120,
               child: Image.asset(
                 'assets/images/startPageImage.jpg',
@@ -48,7 +48,7 @@ class VehicleCard extends StatelessWidget {
                   style: _kRegistrationNumberTextStyle),
               Text('Driver: ' + currentDriver, style: _kDriverTextStyle),
               Container(
-                  width: MediaQuery.of(context).size.width * 0.4,
+                  width: MediaQuery.of(context).size.width * 0.5,
                   child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Text(message ?? '', style: _kMessagesTextStyle)))

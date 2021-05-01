@@ -31,7 +31,7 @@ class ManageVehicleCard extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(15),
             child: Container(
-              width: 150,
+              width: MediaQuery.of(context).size.width * 0.35,
               height: 120,
               child: Image.asset(
                 'assets/images/startPageImage.jpg',

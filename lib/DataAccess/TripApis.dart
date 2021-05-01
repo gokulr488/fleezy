@@ -90,4 +90,37 @@ class TripApis {
         .get();
     return ModelTrip.getTripFromDoc(tripDoc);
   }
+
+  Future<CallContext> cancelTrip(ModelTrip trip, BuildContext context) async {
+    ModelUser user = Provider.of<AppData>(context, listen: false).user;
+    try {
+      WriteBatch batch = fireStore.batch();
+
+      DocumentReference tripRef = fireStore
+          .collection(Constants.COMPANIES)
+          .doc(user.companyId)
+          .collection(Constants.TRIP)
+          .doc(trip.id);
+      batch.delete(tripRef);
+
+      DocumentReference vehicleRef =
+          fireStore.collection(Constants.VEHICLES).doc(trip.vehicleRegNo);
+      ModelVehicle vehicle =
+          ModelVehicle.getVehicleFromDoc(await vehicleRef.get());
+      vehicle.isInTrip = false;
+      batch.update(vehicleRef, ModelVehicle.getDocOf(vehicle));
+
+      DocumentReference driverRef =
+          fireStore.collection(Constants.USERS).doc(user.phoneNumber);
+      user.tripId = null;
+      batch.update(driverRef, ModelUser.getDocOf(user));
+
+      batch.commit();
+      callContext.setSuccess('Trip Cancelled');
+      return callContext;
+    } catch (e) {
+      callContext.setError(e);
+      return callContext;
+    }
+  }
 }

@@ -53,7 +53,7 @@ class ModelVehicle {
       brand: data['Brand'] ?? '',
       taxExpiryDate: data['TaxExpiryDate'],
       insuranceExpiryDate: data['InsuranceExpiryDate'],
-      latestOdometerReading: data['LatestOdometerReading'] ?? '',
+      latestOdometerReading: data['LatestOdometerReading'] ?? 0,
       isInTrip: data['IsInTrip'] ?? false,
       trips: List<ModelTrip>.from(data['Trips'] ?? []),
       currentDriver: data['CurrentDriver'] ?? '',
