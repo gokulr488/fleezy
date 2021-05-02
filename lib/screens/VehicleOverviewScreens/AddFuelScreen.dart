@@ -1,5 +1,6 @@
 import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/UiConstants.dart';
+import 'package:fleezy/DataModels/ModelExpense.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/DropDown.dart';
 import 'package:fleezy/components/RoundedButton.dart';
@@ -15,12 +16,7 @@ class AddFuelScreen extends StatefulWidget {
 }
 
 class _AddFuelScreenState extends State<AddFuelScreen> {
-  String payMode = 'CASH';
-  String totalPrice = '';
-  String pricePerLitre = '';
-  String litres = '';
-  String odometerReading = '';
-  bool isFullTank = false;
+  ModelExpense expenseDo;
   @override
   Widget build(BuildContext context) {
     String regNumber = ModalRoute.of(context).settings.arguments;
@@ -39,17 +35,17 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
               Expanded(
                   child: ScrollableList(childrenHeight: 65, items: [
                 DropDown(
-                    defaultValue: payMode,
+                    defaultValue: expenseDo.payMode,
                     values: ['CASH', 'BPL Card', 'Debit Card'],
                     onChanged: (String value) {
-                      payMode = value;
+                      expenseDo.payMode = value;
                     },
                     hintText: 'Payment Type'),
                 TextField(
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
                     onChanged: (value) {
-                      totalPrice = value;
+                      expenseDo.amount = double.parse(value);
                     },
                     decoration: kTextFieldDecoration.copyWith(
                         labelText: 'Total Price')),
@@ -57,7 +53,7 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
                     onChanged: (value) {
-                      pricePerLitre = value;
+                      expenseDo.fuelUnitPrice = double.parse(value);
                     },
                     decoration: kTextFieldDecoration.copyWith(
                         labelText: 'Price Per litre')),
@@ -65,7 +61,7 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
                     onChanged: (value) {
-                      litres = value;
+                      expenseDo.fuelQty = double.parse(value);
                     },
                     decoration: kTextFieldDecoration.copyWith(
                         labelText: 'Litres filled')),
@@ -73,7 +69,7 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
                     onChanged: (value) {
-                      odometerReading = value;
+                      expenseDo.odometerReading = int.parse(value);
                     },
                     decoration: kTextFieldDecoration.copyWith(
                         labelText: 'Odometer Reading')),
@@ -87,10 +83,10 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
                               color: kHighlightColour)),
                       Checkbox(
                           activeColor: kHighlightColour,
-                          value: isFullTank,
+                          value: expenseDo.isFullTank,
                           onChanged: (bool value) {
                             setState(() {
-                              isFullTank = value;
+                              expenseDo.isFullTank = value;
                             });
                           })
                     ])

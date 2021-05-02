@@ -6,10 +6,12 @@ class ModelExpense {
   Timestamp timestamp;
   String tripNo;
   String remarks;
+  String payMode;
   //Fuel specific
   double fuelUnitPrice;
   double fuelQty;
   bool isFullTank;
+  int odometerReading;
   //Insurance Specific
   Timestamp insuranceExpiryDate;
   String policyNumber;
@@ -35,5 +37,7 @@ class ModelExpense {
       this.taxExpiryDate,
       this.driverName,
       this.expenseName,
-      this.vehicleRegNo});
+      this.vehicleRegNo,
+      this.payMode,
+      this.odometerReading});
 }
