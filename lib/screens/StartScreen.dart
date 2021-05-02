@@ -1,7 +1,6 @@
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/RoundedButton.dart';
-import 'package:fleezy/components/cards/BaseCard.dart';
 import 'package:fleezy/screens/CreateCompanyScreen.dart';
 import 'package:fleezy/screens/LoginScreen.dart';
 import 'package:flutter/material.dart';

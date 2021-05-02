@@ -3,6 +3,7 @@ import 'package:fleezy/Common/Alerts.dart';
 import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/UiConstants.dart';
+import 'package:fleezy/Common/Validator.dart';
 import 'package:fleezy/DataAccess/TripApis.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
 import 'package:fleezy/DataModels/ModelUser.dart';
@@ -100,26 +101,18 @@ class _StartNewTripScreenState extends State<StartNewTripScreen> {
         Navigator.popUntil(context, ModalRoute.withName(HomeScreen.id));
         Navigator.pushReplacementNamed(context, OnTripScreen.id);
       }
-    } else {
-      showErrorAlert(context, message);
     }
   }
 
   bool valid() {
-    if (trip.startingFrom == null || trip.startingFrom.isEmpty) {
-      message = 'Enter Start Location';
-      return false;
-    }
-    if (trip.destination == null || trip.destination.isEmpty) {
-      message = 'Enter Destination';
-      return false;
-    }
-    if (trip.customerName == null || trip.customerName.isEmpty) {
-      message = 'Enter customer name';
-      return false;
-    }
-    if (trip.startReading < vehicle.vehicle.latestOdometerReading) {
-      message = 'Incorrect Odometer Reading';
+    Validator validate = Validator();
+    try {
+      validate.stringField(trip.startingFrom, 'Enter Start Location', context);
+      validate.stringField(trip.destination, 'Enter Destination', context);
+      validate.odometerReading(
+          trip.startReading, vehicle.vehicle.latestOdometerReading, context);
+      validate.stringField(trip.customerName, 'Enter customer name', context);
+    } catch (e) {
       return false;
     }
     return true;
