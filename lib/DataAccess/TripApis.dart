@@ -102,6 +102,7 @@ class TripApis {
           .collection(Constants.TRIP)
           .doc(trip.id);
       batch.delete(tripRef);
+      //TODO do not delete the record make the trip status as cancelled
 
       DocumentReference vehicleRef =
           fireStore.collection(Constants.VEHICLES).doc(trip.vehicleRegNo);
