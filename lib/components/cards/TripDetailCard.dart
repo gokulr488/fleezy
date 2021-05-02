@@ -15,9 +15,10 @@ class TripDetailCard extends StatelessWidget {
       TextStyle(fontSize: 28, color: kLightYellow);
   static const TextStyle _kDetailsTextStyle =
       TextStyle(fontSize: 20, color: kLightYellow, fontWeight: FontWeight.bold);
+  final double distance;
   final ModelTrip tripDo;
 
-  const TripDetailCard({@required this.tripDo});
+  const TripDetailCard({@required this.tripDo, this.distance});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +50,7 @@ class TripDetailCard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Distance: ${tripDo.distance ?? 0}',
+                  Text('Distance: ${distance.toStringAsFixed(2) ?? 0}',
                       style: _kDetailsTextStyle),
                   Text('Customer: ${tripDo.customerName ?? ''}',
                       style: _kDetailsTextStyle)

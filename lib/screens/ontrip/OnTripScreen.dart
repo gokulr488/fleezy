@@ -24,7 +24,6 @@ class _OnTripScreenState extends State<OnTripScreen> {
   OnTripController controller;
   Timer timer;
   ModelTrip tripDo;
-  String message = '';
 
   @override
   void initState() {
@@ -55,6 +54,7 @@ class _OnTripScreenState extends State<OnTripScreen> {
                 children: [
                     TripDetailCard(
                       tripDo: tripDo,
+                      distance: controller.distance,
                     ),
                     Expanded(
                         child: Padding(
@@ -98,9 +98,8 @@ class _OnTripScreenState extends State<OnTripScreen> {
                                   children: [
                                     RoundedButton(
                                       title: 'Cancel Trip',
-                                      onPressed: () =>
-                                          controller.onCancelPressed(
-                                              context, tripDo, message),
+                                      onPressed: () => controller
+                                          .onCancelPressed(context, tripDo),
                                       colour: kRedColor,
                                       width: 130,
                                     ),
@@ -116,7 +115,7 @@ class _OnTripScreenState extends State<OnTripScreen> {
                     RoundedButton(
                         title: 'End Trip',
                         onPressed: () {
-                          controller.endTrip(context, tripDo, message);
+                          controller.endTrip(context, tripDo);
                         })
                   ])
             : LoadingDots(size: 100));
