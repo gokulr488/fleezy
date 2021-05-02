@@ -19,6 +19,7 @@ class ModelTrip {
   String vehicleRegNo;
   String startingFrom;
   String destination;
+  String status;
 
   ModelTrip(
       {this.id,
@@ -34,17 +35,16 @@ class ModelTrip {
       this.customerName,
       this.tripNo,
       this.vehicleRegNo,
-      // this.timestamp,
       this.driverName,
       this.driverUid,
       this.startingFrom,
-      this.destination});
+      this.destination,
+      this.status});
 
   static Map<String, dynamic> getDocOf(ModelTrip trip) {
     return {
       'StartDate': trip.startDate,
       'EndDate': trip.endDate,
-      // 'Timestamp': trip.timestamp,
       'StartReading': trip.startReading,
       'EndReading': trip.endReading,
       'Distance': trip.distance,
@@ -58,7 +58,8 @@ class ModelTrip {
       'StartingFrom': trip.startingFrom,
       'Destination': trip.destination,
       'DriverName': trip.driverName,
-      'DriverUid': trip.driverUid
+      'DriverUid': trip.driverUid,
+      'Status': trip.status,
     };
   }
 
@@ -84,6 +85,7 @@ class ModelTrip {
       //timestamp: data['Timestamp'],
       tripNo: data['TripNo'] ?? '',
       vehicleRegNo: data['VehicleRegNo'] ?? '',
+      status: data['Status'] ?? '',
     );
   }
 }

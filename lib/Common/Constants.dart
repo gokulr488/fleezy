@@ -9,6 +9,7 @@ class Constants {
   static const String SUPERUSER = "SuperUser";
   static const String ACTIVE = "Active";
   static const String INACTIVE = "Inactive";
+  static const String CANCELLED = 'Cancelled';
 
   static const int MILLISECONDS_PER_MONTH = 2592000000;
 
