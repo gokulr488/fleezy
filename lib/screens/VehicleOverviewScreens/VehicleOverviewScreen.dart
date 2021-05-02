@@ -37,19 +37,15 @@ class VehicleOverviewScreen extends StatelessWidget {
                   text: 'Add Fuel',
                   icon: Icons.add_circle_rounded,
                   onTap: () {
-                    if (!vehicle.vehicle.isInTrip) {
-                      Navigator.pushNamed(context, AddFuelScreen.id,
-                          arguments: vehicle.vehicle.registrationNo);
-                    } else {
-                      showErrorAlert(context, "Cannot add. Vehicle in use");
-                    }
+                    Navigator.pushNamed(context, AddFuelScreen.id,
+                        arguments: vehicle.registrationNumber);
                   }),
               ButtonCard(
                   text: 'Add Expense',
                   icon: Icons.add_shopping_cart,
                   onTap: () {
                     Navigator.pushNamed(context, AddExpenseScreen.id,
-                        arguments: vehicle);
+                        arguments: vehicle.registrationNumber);
                   }),
               ButtonCard(text: 'Trip History', icon: Icons.location_on),
             ],

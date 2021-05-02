@@ -1,3 +1,4 @@
+import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/DropDown.dart';
@@ -5,6 +6,7 @@ import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/VehicleCard.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AddExpenseScreen extends StatefulWidget {
   static const String id = 'addExpenseScreen';
@@ -25,13 +27,18 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
   String odometerReading = '';
   @override
   Widget build(BuildContext context) {
-    VehicleCard vehicle = ModalRoute.of(context).settings.arguments;
+    String regNumber = ModalRoute.of(context).settings.arguments;
+    AppData appdata = Provider.of<AppData>(context, listen: false);
     return BaseScreen(
         headerText: 'Add Expense',
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              vehicle,
+              VehicleCard(
+                registrationNumber: regNumber,
+                currentDriver:
+                    appdata.user.fullName ?? appdata.user.phoneNumber,
+              ),
               SizedBox(height: 15),
               Expanded(
                   child: ScrollableList(childrenHeight: 90, items: [

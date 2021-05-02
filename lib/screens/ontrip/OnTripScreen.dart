@@ -9,6 +9,7 @@ import 'package:fleezy/components/LoadingDots.dart';
 import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/TripDetailCard.dart';
+import 'package:fleezy/screens/VehicleOverviewScreens/AddExpenseScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/AddFuelScreen.dart';
 import 'package:fleezy/screens/ontrip/OnTripController.dart';
 import 'package:flutter/material.dart';
@@ -101,14 +102,21 @@ class _OnTripScreenState extends State<OnTripScreen> {
                                       onPressed: () => controller
                                           .onCancelPressed(context, tripDo),
                                       colour: kRedColor,
-                                      width: 130,
+                                      width: 100,
                                     ),
                                     RoundedButton(
-                                      title: 'Add Fuel',
+                                      title: '+ Expense',
+                                      onPressed: () => Navigator.pushNamed(
+                                          context, AddExpenseScreen.id,
+                                          arguments: tripDo.vehicleRegNo),
+                                      width: 100,
+                                    ),
+                                    RoundedButton(
+                                      title: '+ Fuel',
                                       onPressed: () => Navigator.pushNamed(
                                           context, AddFuelScreen.id,
                                           arguments: tripDo.vehicleRegNo),
-                                      width: 130,
+                                      width: 100,
                                     )
                                   ])
                             ]))),
