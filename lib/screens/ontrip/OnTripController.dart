@@ -122,6 +122,7 @@ class OnTripController {
       currentPos.latitude,
       currentPos.longitude,
     );
+    prevPos = currentPos;
     distance += travelledDist / 1000;
   }
 
