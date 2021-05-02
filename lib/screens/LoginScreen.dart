@@ -11,6 +11,7 @@ import 'package:fleezy/components/LoadingDots.dart';
 import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/screens/CreateCompanyScreen.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
+import 'package:fleezy/screens/StartScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -119,7 +120,8 @@ class _LoginScreenState extends State<LoginScreen> {
     if (user.roleName != Constants.ADMIN) {
       Provider.of<UiState>(context, listen: false).setIsAdmin(false);
     }
-    Navigator.pushNamed(context, HomeScreen.id);
+    Navigator.popUntil(context, ModalRoute.withName(StartScreen.id));
+    Navigator.pushReplacementNamed(context, HomeScreen.id);
   }
 
   Future<void> login() async {

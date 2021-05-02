@@ -1,5 +1,6 @@
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/components/BaseScreen.dart';
+import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/components/cards/BaseCard.dart';
 import 'package:fleezy/screens/CreateCompanyScreen.dart';
 import 'package:fleezy/screens/LoginScreen.dart';
@@ -39,25 +40,19 @@ class StartScreen extends StatelessWidget {
               colorBlendMode: BlendMode.darken,
             ),
           ),
-          BaseCard(
-            onTap: () {
+          RoundedButton(
+            onPressed: () {
               Navigator.pushNamed(context, CreateCompanyScreen.id);
             },
-            cardChild: Button(
-              buttonText: 'Create Company',
-            ),
-            color: kHighlightColour,
-            elevation: 3,
+            title: 'Create Company',
           ),
-          BaseCard(
-            onTap: () {
+          SizedBox(height: 15),
+          RoundedButton(
+            onPressed: () {
               Navigator.pushNamed(context, LoginScreen.id);
             },
-            cardChild: Button(
-              buttonText: 'Log In',
-            ),
-            color: kBlueColor,
-            elevation: 4,
+            title: 'Log In',
+            colour: kBlueColor,
           ),
           SizedBox(
             height: 50,

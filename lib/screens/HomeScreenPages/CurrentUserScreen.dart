@@ -2,6 +2,7 @@ import 'package:fleezy/Common/Authentication.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/Common/UiState.dart';
 import 'package:fleezy/components/RoundedButton.dart';
+import 'package:fleezy/screens/HomeScreen.dart';
 import 'package:fleezy/screens/StartScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +29,8 @@ class _CurrentUserScreenState extends State<CurrentUserScreen> {
                 Authentication().logout();
                 Provider.of<UiState>(context, listen: false)
                     .setBottomNavBarIndex(1);
-                Navigator.pushNamed(context, StartScreen.id);
+                Navigator.popUntil(context, ModalRoute.withName(HomeScreen.id));
+                Navigator.pushReplacementNamed(context, StartScreen.id);
               })
         ],
       ),

@@ -20,10 +20,6 @@ class OnTripController {
 
   OnTripController() {
     initLocationService();
-    Timer.periodic(Duration(seconds: 1), (t) {
-      locTimer = t;
-      calcDistance();
-    });
   }
 
   void endTrip(BuildContext context, ModelTrip tripDo) async {
@@ -102,13 +98,18 @@ class OnTripController {
       return Future.error(
           'Location permissions are permanently denied, we cannot request permissions.');
     }
+    await calcDistance();
+    Timer.periodic(Duration(seconds: 1), (t) {
+      locTimer = t;
+      calcDistance();
+    });
   }
 
-  void calcDistance() async {
+  Future<void> calcDistance() async {
     Position currentPos = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.medium);
+        desiredAccuracy: LocationAccuracy.bestForNavigation);
     double accuracy = currentPos.accuracy;
-    if (accuracy > 50) {
+    if (accuracy > 100) {
       return;
     }
     print(currentPos.accuracy);
@@ -129,38 +130,4 @@ class OnTripController {
       locTimer?.cancel();
     }
   }
-
-  // void initLocationService() async {
-  //   _serviceEnabled = await location.serviceEnabled();
-  //   if (!_serviceEnabled) {
-  //     _serviceEnabled = await location.requestService();
-  //     if (!_serviceEnabled) {
-  //       return;
-  //     }
-  //   }
-  //   _permissionGranted = await location.hasPermission();
-  //   if (_permissionGranted == PermissionStatus.denied) {
-  //     _permissionGranted = await location.requestPermission();
-  //     if (_permissionGranted != PermissionStatus.granted) {
-  //       return;
-  //     }
-  //   }
-  //   location.changeSettings(
-  //       accuracy: LocationAccuracy.high, interval: 100, distanceFilter: 0);
-
-  //   location.onLocationChanged.listen((LocationData currentLocation) {
-  //     if (previousLocation == null) {
-  //       previousLocation = currentLocation;
-  //     }
-
-  //     double kms = Utils.calculateDistance(
-  //         previousLocation.latitude,
-  //         previousLocation.longitude,
-  //         currentLocation.latitude,
-  //         currentLocation.longitude);
-
-  //     distance += kms;
-  //     print('Kms traveled: $distance');
-  //   });
-  // }
 }

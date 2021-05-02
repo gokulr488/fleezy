@@ -9,6 +9,7 @@ import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/LoadingDots.dart';
 import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
+import 'package:fleezy/screens/StartScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -159,6 +160,7 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
     ModelUser adminUser = company.users[company.phoneNumber];
     appData.setUser(adminUser);
     appData.addNewDriver(adminUser);
-    Navigator.pushNamed(context, HomeScreen.id);
+    Navigator.popUntil(context, ModalRoute.withName(StartScreen.id));
+    Navigator.pushReplacementNamed(context, HomeScreen.id);
   }
 }
