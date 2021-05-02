@@ -17,4 +17,12 @@ class Validator {
     }
     return true;
   }
+
+  bool doubleField(double value, String errorMessage, BuildContext context) {
+    if (value == null || value == 0) {
+      showErrorAlert(context, errorMessage);
+      throw new Exception(errorMessage);
+    }
+    return true;
+  }
 }

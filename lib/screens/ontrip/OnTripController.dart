@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleezy/Common/Alerts.dart';
 import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/CallContext.dart';
+import 'package:fleezy/Common/Validator.dart';
 import 'package:fleezy/DataAccess/DAOs/Vehicle.dart';
 import 'package:fleezy/DataAccess/TripApis.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
@@ -23,7 +24,7 @@ class OnTripController {
   }
 
   void endTrip(BuildContext context, ModelTrip tripDo) async {
-    if (valid(tripDo)) {
+    if (valid(tripDo, context)) {
       tripDo.endDate = Timestamp.now();
       tripDo.balanceAmount = tripDo.billAmount - tripDo.paidAmount;
       tripDo.distance = tripDo.endReading - tripDo.startReading;
@@ -37,28 +38,17 @@ class OnTripController {
         Navigator.popAndPushNamed(context, HomeScreen.id);
       }
       killTimer();
-    } else {
-      showErrorAlert(context, message);
     }
   }
 
-  bool valid(ModelTrip tripDo) {
-    if (tripDo.billAmount == null || tripDo.billAmount == 0) {
-      message = 'Enter Bill amount';
-      return false;
-    }
-    if (tripDo.paidAmount == null || tripDo.paidAmount == 0) {
-      message = 'Enter Paid Amount';
-      return false;
-    }
-    if (tripDo.driverSalary == null || tripDo.driverSalary == 0) {
-      message = 'Enter Driver Salary';
-      return false;
-    }
-    if (tripDo.endReading == null ||
-        tripDo.endReading == 0 ||
-        tripDo.endReading < tripDo.startReading) {
-      message = 'Incorrect Odometer Reading';
+  bool valid(ModelTrip tripDo, BuildContext context) {
+    Validator validate = Validator();
+    try {
+      validate.doubleField(tripDo.billAmount, 'Enter Bill amount', context);
+      validate.doubleField(tripDo.paidAmount, 'Enter Paid Amount', context);
+      validate.doubleField(tripDo.driverSalary, 'Enter Driver Salary', context);
+      validate.odometerReading(tripDo.endReading, tripDo.startReading, context);
+    } catch (e) {
       return false;
     }
     return true;
