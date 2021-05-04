@@ -4,7 +4,7 @@ import 'package:fleezy/components/GridLayout.dart';
 import 'package:fleezy/components/cards/ButtonCard.dart';
 import 'package:fleezy/components/cards/VehicleCard.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/AddExpenseScreen.dart';
-import 'package:fleezy/screens/VehicleOverviewScreens/AddFuelScreen.dart';
+import 'package:fleezy/screens/VehicleOverviewScreens/addfuel/AddFuelScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/StartNewTripScreen.dart';
 import 'package:flutter/material.dart';
 

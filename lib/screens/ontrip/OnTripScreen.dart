@@ -10,7 +10,7 @@ import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/TripDetailCard.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/AddExpenseScreen.dart';
-import 'package:fleezy/screens/VehicleOverviewScreens/AddFuelScreen.dart';
+import 'package:fleezy/screens/VehicleOverviewScreens/addfuel/AddFuelScreen.dart';
 import 'package:fleezy/screens/ontrip/OnTripController.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
