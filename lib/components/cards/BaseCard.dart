@@ -1,3 +1,4 @@
+import 'package:fleezy/Common/UiConstants.dart';
 import 'package:flutter/material.dart';
 
 class BaseCard extends StatelessWidget {
@@ -16,8 +17,8 @@ class BaseCard extends StatelessWidget {
         child: Center(
           child: cardChild,
         ),
-        color: color,
-        elevation: elevation,
+        color: color ?? kCardOverlay[elevation] ?? kCardOverlay[8],
+        elevation: elevation ?? 8,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       ),
     );

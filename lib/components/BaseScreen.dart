@@ -6,8 +6,8 @@ const _kFleezyTextStyle = TextStyle(
     fontFamily: 'DancingScript',
     fontWeight: FontWeight.bold,
     color: kHighlightColour);
-const _kWelcomeUserTextStyle = TextStyle(
-    fontSize: 22, fontFamily: 'FundamentoRegular', fontWeight: FontWeight.bold);
+const _kWelcomeUserTextStyle =
+    TextStyle(fontSize: 22, fontFamily: 'FundamentoRegular', color: kWhite80);
 
 class BaseScreen extends StatelessWidget {
   final Widget child;

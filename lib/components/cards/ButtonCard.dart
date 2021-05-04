@@ -18,8 +18,7 @@ class ButtonCard extends StatelessWidget {
     List<Widget> children = _buildWidgets();
 
     return BaseCard(
-      color: kButtonCardColor,
-      elevation: 6,
+      elevation: 3,
       onTap: onTap,
       cardChild: Center(
           child: Column(
@@ -32,7 +31,11 @@ class ButtonCard extends StatelessWidget {
   List<Widget> _buildWidgets() {
     List<Widget> children = [];
     if (icon != null) {
-      children.add(Icon(icon, size: 60, color: kHighlightColour));
+      children.add(Icon(
+        icon,
+        size: 60,
+        color: kHighlightColour,
+      ));
     }
     if (text != null && text != '') {
       children.add(Text(text, style: kButtonTextStyle));

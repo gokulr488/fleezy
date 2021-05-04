@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 const TextStyle _kDriverNameTextStyle =
-    TextStyle(fontWeight: FontWeight.bold, fontSize: 22);
+    TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: kWhite80);
 
 class DriverCard extends StatelessWidget {
   final ModelUser user;
@@ -46,7 +46,7 @@ class DriverCard extends StatelessWidget {
                             width: 120)
                       ])
                 ])),
-        color: user.state == Constants.ACTIVE ? kActiveColor : kInActiveColor);
+        color: user.state == Constants.ACTIVE ? kActiveColor : kCardOverlay[4]);
   }
 
   edit() {}

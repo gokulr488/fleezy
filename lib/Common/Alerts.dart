@@ -16,7 +16,7 @@ class Alerts extends StatelessWidget {
     return AlertDialog(
         title: Text(this.title),
         actions: this.actions,
-        backgroundColor: kInActiveColor,
+        backgroundColor: kAlertColor,
         shape: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20.0))));
   }

@@ -15,7 +15,7 @@ class DatePicker extends StatelessWidget {
       cardChild: Center(
           child: Text(text,
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 18,
                 color: kGreenColor,
                 fontWeight: FontWeight.bold,
               ))),

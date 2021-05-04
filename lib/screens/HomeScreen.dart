@@ -1,3 +1,4 @@
+import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/Common/UiState.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/BottomNavBar.dart';
@@ -8,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 const _headerTextStyle =
-    TextStyle(fontSize: 30, fontFamily: 'FundamentoRegular');
+    TextStyle(fontSize: 30, fontFamily: 'FundamentoRegular', color: kWhite80);
 
 class HomeScreen extends StatelessWidget {
   static const String id = 'HomeScreen';
