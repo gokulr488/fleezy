@@ -11,14 +11,14 @@ class BaseCard extends StatelessWidget {
   @override
   InkWell build(BuildContext context) {
     return InkWell(
-      splashColor: Colors.teal,
+      splashColor: Colors.yellow[400],
       onTap: onTap,
       child: Card(
         child: Center(
           child: cardChild,
         ),
-        color: color ?? kCardOverlay[elevation] ?? kCardOverlay[8],
-        elevation: elevation ?? 8,
+        color: color ?? kCardOverlay[elevation] ?? kCardOverlay[4],
+        elevation: elevation ?? 4,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       ),
     );

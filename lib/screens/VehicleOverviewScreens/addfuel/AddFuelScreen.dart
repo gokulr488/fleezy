@@ -61,7 +61,6 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
                   onChanged: (value) {
                     controller.expenseDo.amount = double.parse(value);
                     controller.calcLitresFilled();
-                    setState(() {});
                   },
                   decoration:
                       kTextFieldDecoration.copyWith(labelText: 'Total Price'),
@@ -73,7 +72,6 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
                     onChanged: (value) {
                       controller.expenseDo.fuelUnitPrice = double.parse(value);
                       controller.calcLitresFilled();
-                      setState(() {});
                     },
                     decoration: kTextFieldDecoration.copyWith(
                         labelText: 'Price Per litre')),
@@ -83,7 +81,6 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
                     onChanged: (value) {
                       controller.expenseDo.fuelQty = double.parse(value);
                       controller.calcTotalPrice();
-                      setState(() {});
                     },
                     decoration: kTextFieldDecoration.copyWith(
                         labelText: 'Litres filled'),

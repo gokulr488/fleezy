@@ -61,7 +61,7 @@ class TripDetailCard extends StatelessWidget {
         ),
       ),
       elevation: 4,
-      color: Colors.grey[900],
+      color: kCardOverlay[4],
       onTap: () {},
     );
   }

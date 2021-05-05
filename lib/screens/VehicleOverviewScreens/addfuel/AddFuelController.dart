@@ -26,9 +26,9 @@ class AddFuelController {
 
   calcTotalPrice() {
     if (expenseDo?.fuelUnitPrice != null &&
-        expenseDo?.amount != null &&
+        expenseDo?.fuelQty != null &&
         expenseDo.fuelUnitPrice > 0 &&
-        expenseDo.amount > 0) {
+        expenseDo.fuelQty > 0) {
       expenseDo.amount = (expenseDo.fuelQty * expenseDo.fuelUnitPrice);
       totalPriceController.text = expenseDo.amount.toStringAsFixed(3);
     }
