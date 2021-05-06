@@ -98,4 +98,15 @@ class Vehicle {
       appData.setAvailableVehicles(vehiclesData);
     }
   }
+
+  Future<CallContext> getVehicleByRegNo(String regNo) async {
+    DocumentSnapshot doc =
+        await fireStore.collection(Constants.VEHICLES).doc(regNo).get();
+    if (doc == null) {
+      callContext.setError('Vehicle not found');
+      return callContext;
+    }
+    callContext.data = ModelVehicle.getVehicleFromDoc(doc);
+    return callContext;
+  }
 }

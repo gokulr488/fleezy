@@ -113,7 +113,7 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
               ])),
               RoundedButton(
                   title: 'Add Fuel',
-                  onPressed: () => controller.onAddFuel(context))
+                  onPressed: () => controller.onAddFuel(context, regNumber))
             ]));
   }
 }
