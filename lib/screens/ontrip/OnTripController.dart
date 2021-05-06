@@ -96,6 +96,8 @@ class OnTripController {
   }
 
   Future<void> calcDistance() async {
+    //if (!await Geolocator.isLocationServiceEnabled()) return;
+
     Position currentPos = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.bestForNavigation);
     double accuracy = currentPos.accuracy;
@@ -117,7 +119,7 @@ class OnTripController {
   }
 
   void killTimer() {
-    if (locTimer.isActive) {
+    if (locTimer != null && locTimer.isActive) {
       locTimer?.cancel();
     }
   }

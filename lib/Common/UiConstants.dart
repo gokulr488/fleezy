@@ -4,14 +4,14 @@ const Color kBackgroundColor = Color(0xFF121212);
 const Color kWhite25 = Color(0x40FFFFFF);
 const Color kWhite80 = Color(0xCCFFFFFF);
 const Color kHighlightColour = Color(0xFFc8a415);
-const Color kLightYellow = Color(0xFFf9a825);
 const Color kRedColor = Color(0xFF7f0000);
 const Color kBlueColor = Color(0xFF002171);
 const Color kGreenColor = Color(0xFF2E7D32);
 const Color kButtonCardColor = Color(0xFF222222);
 const String kDateFormat = 'yyyy-MM-dd';
 const Color kAlertColor = Color(0xFF1F1B24);
-const Color kActiveColor = Color(0x4D2E7D32);
+const Color kActiveTextColor = Color(0xFFffee58);
+const Color kActiveCardColor = Color(0x40ffee58);
 
 const kTextFieldDecoration = InputDecoration(
   labelStyle: TextStyle(fontSize: 18),
@@ -20,7 +20,7 @@ const kTextFieldDecoration = InputDecoration(
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
   enabledBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: kLightYellow, width: 1.0),
+    borderSide: BorderSide(color: kHighlightColour, width: 1.0),
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
   focusedBorder: OutlineInputBorder(

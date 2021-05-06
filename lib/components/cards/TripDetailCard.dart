@@ -5,16 +5,16 @@ import 'package:fleezy/components/cards/BaseCard.dart';
 import 'package:flutter/material.dart';
 
 class TripDetailCard extends StatelessWidget {
-  static const TextStyle _kRegistrationNumberTextStyle =
-      TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: kLightYellow);
-  static const TextStyle _kDriverTextStyle =
-      TextStyle(fontWeight: FontWeight.bold, fontSize: 17, color: kLightYellow);
-  static const TextStyle _ktimerTextStyle =
-      TextStyle(fontSize: 45, color: kLightYellow, fontWeight: FontWeight.bold);
+  static const TextStyle _kRegistrationNumberTextStyle = TextStyle(
+      fontWeight: FontWeight.bold, fontSize: 22, color: kHighlightColour);
+  static const TextStyle _kDriverTextStyle = TextStyle(
+      fontWeight: FontWeight.bold, fontSize: 17, color: kHighlightColour);
+  static const TextStyle _ktimerTextStyle = TextStyle(
+      fontSize: 45, color: kHighlightColour, fontWeight: FontWeight.bold);
   static const TextStyle _kLocationTextStyle =
-      TextStyle(fontSize: 28, color: kLightYellow);
-  static const TextStyle _kDetailsTextStyle =
-      TextStyle(fontSize: 20, color: kLightYellow, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: 28, color: kHighlightColour);
+  static const TextStyle _kDetailsTextStyle = TextStyle(
+      fontSize: 20, color: kHighlightColour, fontWeight: FontWeight.bold);
   final double distance;
   final ModelTrip tripDo;
 

@@ -19,7 +19,6 @@ class RoundedButton extends StatelessWidget {
         child: MaterialButton(
             onPressed: onPressed,
             minWidth: width ?? MediaQuery.of(context).size.width * 0.75,
-            child: Text(title,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))));
+            child: Text(title, style: TextStyle(fontSize: 16))));
   }
 }

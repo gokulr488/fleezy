@@ -9,44 +9,45 @@ import 'package:fleezy/components/cards/BaseCard.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-const TextStyle _kDriverNameTextStyle =
-    TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: kWhite80);
-
 class DriverCard extends StatelessWidget {
   final ModelUser user;
 
   const DriverCard({this.user});
   @override
   Widget build(BuildContext context) {
+    TextStyle _kDriverNameTextStyle = TextStyle(
+        fontSize: 22,
+        color: user.state == Constants.ACTIVE ? kActiveTextColor : kWhite80);
     return BaseCard(
-        cardChild: Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(user.fullName ?? '', style: _kDriverNameTextStyle),
-                        Text(user.phoneNumber ?? '',
-                            style: _kDriverNameTextStyle)
-                      ]),
-                  Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        RoundedButton(
-                            onPressed: edit, title: 'Edit', width: 120),
-                        RoundedButton(
-                            onPressed: () {
-                              deactivate(context);
-                            },
-                            title: user.state == Constants.ACTIVE
-                                ? 'De-Activate'
-                                : 'Activate',
-                            width: 120)
-                      ])
-                ])),
-        color: user.state == Constants.ACTIVE ? kActiveColor : kCardOverlay[4]);
+      cardChild: Padding(
+          padding: const EdgeInsets.all(5.0),
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+              Text(user.fullName ?? '', style: _kDriverNameTextStyle),
+              Text(user.phoneNumber ?? '', style: _kDriverNameTextStyle)
+            ]),
+            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+              RoundedButton(
+                onPressed: edit,
+                title: 'Edit',
+                width: 130,
+                colour: kCardOverlay[8],
+              ),
+              RoundedButton(
+                  colour: kCardOverlay[8],
+                  onPressed: () {
+                    deactivate(context);
+                  },
+                  title: user.state == Constants.ACTIVE
+                      ? 'De-Activate'
+                      : 'Activate',
+                  width: 130)
+            ])
+          ])),
+      color:
+          user.state == Constants.ACTIVE ? kActiveCardColor : kCardOverlay[4],
+    );
   }
 
   edit() {}

@@ -6,11 +6,10 @@ import 'package:flutter/material.dart';
 
 class VehicleCard extends StatelessWidget {
   static const TextStyle _kRegistrationNumberTextStyle =
-      TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: kWhite80);
+      TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: kWhite80);
   static const TextStyle _kDriverTextStyle =
-      TextStyle(fontWeight: FontWeight.bold, fontSize: 17, color: kWhite80);
-  static const TextStyle _kMessagesTextStyle =
-      TextStyle(fontSize: 15, color: Colors.red, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: 17, color: kWhite80);
+  static const TextStyle _kMessagesTextStyle = TextStyle(color: Colors.red);
   final Color color;
   final String registrationNumber;
   final String currentDriver;
@@ -33,7 +32,7 @@ class VehicleCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
             child: Container(
               width: MediaQuery.of(context).size.width * 0.35,
-              height: 120,
+              height: 100,
               child: Image.asset(
                 'assets/images/startPageImage.jpg',
                 fit: BoxFit.fill,

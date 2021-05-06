@@ -26,7 +26,7 @@ class ListVehiclesScreen extends StatelessWidget {
           Expanded(
             child: Consumer<AppData>(builder: (context, appData, _) {
               return ScrollableList(
-                childrenHeight: 120,
+                childrenHeight: 100,
                 items: _populateVehicleCards(appData),
               );
             }),
@@ -68,7 +68,7 @@ class ListVehiclesScreen extends StatelessWidget {
       vehicleCards.add(VehicleCard(
           vehicle: vehicle,
           registrationNumber: vehicle.registrationNo,
-          color: vehicle.isInTrip ? kActiveColor : kCardOverlay[4],
+          color: vehicle.isInTrip ? kActiveCardColor : kCardOverlay[4],
           currentDriver: vehicle.currentDriver ?? '',
           message: ModelVehicle.getWarningMessage(vehicle)));
     }
