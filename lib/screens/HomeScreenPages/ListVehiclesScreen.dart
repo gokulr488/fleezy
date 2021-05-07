@@ -9,6 +9,8 @@ import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/DataModels/ModelVehicle.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/VehicleCard.dart';
+import 'package:fleezy/screens/HomeScreen.dart';
+import 'package:fleezy/screens/StartScreen.dart';
 import 'package:fleezy/screens/ontrip/OnTripScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -48,6 +50,10 @@ class ListVehiclesScreen extends StatelessWidget {
       print('Getting User basic Info.');
       ModelUser user =
           await Roles().getUser(Authentication().getUser().phoneNumber);
+      if (user.state == Constants.INACTIVE) {
+        _logoutUser(context);
+        return;
+      }
       appData.setUser(user);
       if (user.roleName != Constants.ADMIN) {
         Provider.of<UiState>(context, listen: false).setIsAdmin(false);
@@ -73,5 +79,12 @@ class ListVehiclesScreen extends StatelessWidget {
           message: ModelVehicle.getWarningMessage(vehicle)));
     }
     return vehicleCards;
+  }
+
+  void _logoutUser(BuildContext context) {
+    Authentication().logout();
+    Provider.of<UiState>(context, listen: false).setBottomNavBarIndex(1);
+    Navigator.popUntil(context, ModalRoute.withName(HomeScreen.id));
+    Navigator.pushReplacementNamed(context, StartScreen.id);
   }
 }
