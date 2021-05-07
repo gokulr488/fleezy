@@ -117,6 +117,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
   onVerificationCompleted() {
     Provider.of<AppData>(context, listen: false).setUser(user);
+    if (user.uid == null) {
+      user.uid = Authentication().getUser()?.uid;
+      Roles().updateRole(user);
+    }
     if (user.roleName != Constants.ADMIN) {
       Provider.of<UiState>(context, listen: false).setIsAdmin(false);
     }

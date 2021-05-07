@@ -38,7 +38,7 @@ class ModelUser {
     Map data = doc.data();
 
     return ModelUser(
-      uid: doc.id,
+      uid: data['Uid'],
       roleName: data['RoleName'] ?? '',
       fullName: data['FullName'] ?? '',
       userEmailId: data['EmailId'] ?? '',

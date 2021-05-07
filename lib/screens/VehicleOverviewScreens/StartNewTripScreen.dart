@@ -89,7 +89,6 @@ class _StartNewTripScreenState extends State<StartNewTripScreen> {
       trip.driverName = user.fullName ?? user.phoneNumber;
       trip.driverUid = user.uid;
       trip.startDate = Timestamp.now();
-      //trip.timestamp = Timestamp.now();
       trip.vehicleRegNo = vehicle.registrationNumber;
       CallContext callContext =
           await TripApis().startNewTrip(trip, vehicle.vehicle, context);

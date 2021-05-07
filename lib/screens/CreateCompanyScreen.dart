@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/Authentication.dart';
 import 'package:fleezy/Common/UiConstants.dart';
+import 'package:fleezy/DataAccess/DAOs/Roles.dart';
 import 'package:fleezy/DataAccess/UserManagement.dart';
 import 'package:fleezy/DataModels/ModelCompany.dart';
 import 'package:fleezy/DataModels/ModelUser.dart';
@@ -133,7 +134,15 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
     });
   }
 
-  void verify() {
+  void verify() async {
+    ModelUser user = await Roles().getUser(company.phoneNumber);
+    if (user != null) {
+      setState(() {
+        messages = 'Phone Number Already Exists';
+      });
+      return;
+    }
+
     auth.verifyPhone(company.phoneNumber);
     setState(() {
       messages = 'Verifying, Enter you OTP';
