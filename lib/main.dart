@@ -13,7 +13,7 @@ import 'package:fleezy/screens/ManageVehiclesScreens/ManageVehicleScreen.dart';
 import 'package:fleezy/screens/ManageVehiclesScreens/ManageVehiclesScreen.dart';
 import 'package:fleezy/screens/ontrip/OnTripScreen.dart';
 import 'package:fleezy/screens/StartScreen.dart';
-import 'package:fleezy/screens/VehicleOverviewScreens/AddExpenseScreen.dart';
+import 'package:fleezy/screens/VehicleOverviewScreens/addexpense/AddExpenseScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/addfuel/AddFuelScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/StartNewTripScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/VehicleOverviewScreen.dart';

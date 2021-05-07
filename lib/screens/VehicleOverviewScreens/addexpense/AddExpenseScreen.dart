@@ -1,10 +1,12 @@
 import 'package:fleezy/Common/AppData.dart';
+import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/DropDown.dart';
 import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/VehicleCard.dart';
+import 'package:fleezy/screens/VehicleOverviewScreens/addexpense/AddExpenseController.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,16 +17,15 @@ class AddExpenseScreen extends StatefulWidget {
 }
 
 class _AddExpenseScreenState extends State<AddExpenseScreen> {
-  final List<String> expenseTypes = [
-    'Vehicle Service',
-    'Repair',
-    'Spare Parts',
-    'Fines'
-  ];
-  String expenseType = 'Vehicle Service';
-  String expenseDetails = '';
-  String amount = '';
-  String odometerReading = '';
+  AddExpenseController ctrl;
+
+  @override
+  void initState() {
+    super.initState();
+    ctrl = AddExpenseController();
+    ctrl.init();
+  }
+
   @override
   Widget build(BuildContext context) {
     String regNumber = ModalRoute.of(context).settings.arguments;
@@ -43,17 +44,17 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
               Expanded(
                   child: ScrollableList(childrenHeight: 90, items: [
                 DropDown(
-                    defaultValue: expenseType,
-                    values: expenseTypes,
+                    defaultValue: ctrl.expenseDo.expenseType,
+                    values: Constants.EXPENSE_TYPES,
                     onChanged: (String value) {
-                      expenseType = value;
+                      ctrl.expenseDo.expenseType = value;
                     },
                     hintText: 'Expense Type'),
                 TextField(
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
                     onChanged: (value) {
-                      amount = value;
+                      ctrl.expenseDo.amount = double.parse(value);
                     },
                     decoration:
                         kTextFieldDecoration.copyWith(labelText: 'Amount')),
@@ -61,20 +62,23 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
                     onChanged: (value) {
-                      odometerReading = value;
+                      ctrl.expenseDo.odometerReading = int.parse(value);
                     },
                     decoration: kTextFieldDecoration.copyWith(
                         labelText: 'Odometer Reading')),
-                TextField(
+                TextFormField(
+                    minLines: 4,
+                    maxLines: 5,
                     textAlign: TextAlign.center,
                     onChanged: (value) {
-                      expenseDetails = value;
+                      ctrl.expenseDo.expenseDetails = value;
                     },
                     decoration: kTextFieldDecoration.copyWith(
                         labelText: 'Details of Expense'))
               ])),
               RoundedButton(
-                  title: 'Add Expense', onPressed: () => Navigator.pop(context))
+                  title: 'Add Expense',
+                  onPressed: () => ctrl.onAddExpense(context, regNumber))
             ]));
   }
 }

@@ -19,15 +19,14 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
   AddFuelController controller;
   @override
   void initState() {
+    super.initState();
     controller = AddFuelController();
     controller.init();
-    super.initState();
   }
 
   @override
   void dispose() {
     controller.dispose();
-
     super.dispose();
   }
 

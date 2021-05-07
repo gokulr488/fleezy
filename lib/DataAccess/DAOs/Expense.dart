@@ -60,7 +60,7 @@ class Expense {
           'PolicyNumber': expense.policyNumber,
           'TaxExpiryDate': expense.taxExpiryDate,
           'DriverName': expense.driverName,
-          'ExpenseName': expense.expenseName,
+          'ExpenseName': expense.expenseDetails,
           'VehicleRegNo': expense.vehicleRegNo
         })
         .then((value) => print("Expense details updated"))

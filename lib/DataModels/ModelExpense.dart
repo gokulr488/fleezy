@@ -21,7 +21,7 @@ class ModelExpense {
   //driver Specific
   String driverName;
   //Other Expense specific
-  String expenseName; //provide type=OtherExpense
+  String expenseDetails; //provide type=OtherExpense
   String vehicleRegNo; //Doc ID of Model vehicle
 
   ModelExpense(
@@ -38,7 +38,7 @@ class ModelExpense {
       this.policyNumber,
       this.taxExpiryDate,
       this.driverName,
-      this.expenseName,
+      this.expenseDetails,
       this.vehicleRegNo,
       this.payMode,
       this.odometerReading});
@@ -59,7 +59,7 @@ class ModelExpense {
       'policyNumber': expense.policyNumber,
       'taxExpiryDate': expense.taxExpiryDate,
       'driverName': expense.driverName,
-      'expenseName': expense.expenseName,
+      'expenseDetails': expense.expenseDetails,
       'vehicleRegNo': expense.vehicleRegNo,
     };
   }
@@ -83,7 +83,7 @@ class ModelExpense {
       policyNumber: data['policyNumber'],
       taxExpiryDate: data['taxExpiryDate'],
       driverName: data['driverName'] ?? '',
-      expenseName: data['expenseName'] ?? '',
+      expenseDetails: data['expenseDetails'] ?? '',
       vehicleRegNo: data['vehicleRegNo'] ?? '',
     );
   }

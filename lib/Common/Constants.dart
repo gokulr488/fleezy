@@ -12,6 +12,20 @@ class Constants {
   static const String CANCELLED = 'Cancelled';
 
   static const String FUEL = 'Fuel';
+  static const String SERVICE = 'Service';
+  static const String REPAIR = 'Repair';
+  static const String SPARE_PARTS = 'Spare Parts';
+  static const String FINES = 'Fines';
+  static const String OTHER_EXP = 'Other Expense';
+
+  static const List<String> EXPENSE_TYPES = [
+    SERVICE,
+    REPAIR,
+    SPARE_PARTS,
+    FINES,
+    OTHER_EXP
+  ];
+
   static const int MILLISECONDS_PER_MONTH = 2592000000;
 
   static const Pattern EMAIL_PATTERN =
