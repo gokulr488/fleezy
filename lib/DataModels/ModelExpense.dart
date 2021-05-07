@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ModelExpense {
+  String id;
   String expenseType;
   double amount;
   Timestamp timestamp;
@@ -24,7 +25,8 @@ class ModelExpense {
   String vehicleRegNo; //Doc ID of Model vehicle
 
   ModelExpense(
-      {this.expenseType,
+      {this.id,
+      this.expenseType,
       this.amount,
       this.timestamp,
       this.tripNo,
@@ -40,4 +42,49 @@ class ModelExpense {
       this.vehicleRegNo,
       this.payMode,
       this.odometerReading});
+
+  static Map<String, dynamic> getDocOf(ModelExpense expense) {
+    return {
+      'expenseType': expense.expenseType,
+      'amount': expense.amount,
+      'timestamp': expense.timestamp,
+      'tripNo': expense.tripNo,
+      'remarks': expense.remarks,
+      'payMode': expense.payMode,
+      'fuelUnitPrice': expense.fuelUnitPrice,
+      'fuelQty': expense.fuelQty,
+      'isFullTank': expense.isFullTank,
+      'odometerReading': expense.odometerReading,
+      'insuranceExpiryDate': expense.insuranceExpiryDate,
+      'policyNumber': expense.policyNumber,
+      'taxExpiryDate': expense.taxExpiryDate,
+      'driverName': expense.driverName,
+      'expenseName': expense.expenseName,
+      'vehicleRegNo': expense.vehicleRegNo,
+    };
+  }
+
+  static ModelExpense getExpenseFromDoc(DocumentSnapshot doc) {
+    Map data = doc.data();
+
+    return ModelExpense(
+      id: doc.id,
+      expenseType: data['expenseType'],
+      amount: data['amount'],
+      timestamp: data['timestamp'] ?? '',
+      tripNo: data['tripNo'] ?? '',
+      remarks: data['remarks'],
+      payMode: data['payMode'] ?? '',
+      fuelUnitPrice: data['fuelUnitPrice'],
+      fuelQty: data['fuelQty'] ?? '',
+      isFullTank: data['isFullTank'],
+      odometerReading: data['odometerReading'] ?? '',
+      insuranceExpiryDate: data['insuranceExpiryDate'],
+      policyNumber: data['policyNumber'],
+      taxExpiryDate: data['taxExpiryDate'],
+      driverName: data['driverName'] ?? '',
+      expenseName: data['expenseName'] ?? '',
+      vehicleRegNo: data['vehicleRegNo'] ?? '',
+    );
+  }
 }

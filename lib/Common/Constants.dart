@@ -11,6 +11,7 @@ class Constants {
   static const String INACTIVE = "Inactive";
   static const String CANCELLED = 'Cancelled';
 
+  static const String FUEL = 'Fuel';
   static const int MILLISECONDS_PER_MONTH = 2592000000;
 
   static const Pattern EMAIL_PATTERN =

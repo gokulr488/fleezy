@@ -1,7 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/DataModels/ModelExpense.dart';
+import 'package:fleezy/DataModels/ModelUser.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
 
 class Expense {
   FirebaseFirestore fireStore;
@@ -12,35 +16,17 @@ class Expense {
     callContext = CallContext();
   }
 
-  void addExpense(ModelExpense expense, String companyId) async {
-    fireStore
+  Future<CallContext> addExpense(
+      ModelExpense expense, BuildContext context) async {
+    ModelUser user = Provider.of<AppData>(context, listen: false).user;
+    await fireStore
         .collection(Constants.COMPANIES)
-        .doc(companyId)
+        .doc(user.companyId)
         .collection(Constants.EXPENSE)
-        .add({
-          'ExpenseType': expense.expenseType,
-          'Amount': expense.amount,
-          'Timestamp': expense.timestamp,
-          'TripNo': expense.tripNo,
-          'Remarks': expense.remarks,
-          'FuelUnitPrice': expense.fuelUnitPrice,
-          'FuelQty': expense.fuelQty,
-          'IsFullTank': expense.isFullTank,
-          'InsuranceExpiryDate': expense.insuranceExpiryDate,
-          'PolicyNumber': expense.policyNumber,
-          'TaxExpiryDate': expense.taxExpiryDate,
-          'DriverName': expense.driverName,
-          'ExpenseName': expense.expenseName,
-          'VehicleRegNo': expense.vehicleRegNo
-        })
+        .add(ModelExpense.getDocOf(expense))
         .then((value) => callContext.setSuccess('expense added'))
         .catchError((error) => callContext.setError("$error"));
-
-    if (callContext.isError) {
-      print(callContext.errorMessage);
-      return null;
-    } else
-      print(callContext.message);
+    return callContext;
   }
 
   Future<void> updateExpense(

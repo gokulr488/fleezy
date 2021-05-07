@@ -5,7 +5,7 @@ import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
 import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/DataModels/ModelVehicle.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TripApis {
@@ -41,9 +41,6 @@ class TripApis {
     batch.update(driverRef, ModelUser.getDocOf(user));
 
     batch.commit();
-    if (callContext.isError) {
-      return callContext;
-    }
     return callContext;
   }
 

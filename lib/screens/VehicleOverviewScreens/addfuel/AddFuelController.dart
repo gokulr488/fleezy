@@ -1,9 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fleezy/Common/Alerts.dart';
+import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/CallContext.dart';
+import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/Validator.dart';
 import 'package:fleezy/DataAccess/DAOs/Vehicle.dart';
+import 'package:fleezy/DataAccess/ExpenseApis.dart';
 import 'package:fleezy/DataModels/ModelExpense.dart';
+import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/DataModels/ModelVehicle.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AddFuelController {
   ModelExpense expenseDo;
@@ -21,9 +28,19 @@ class AddFuelController {
       vehicleDo = callContext.data;
     }
     if (_valid(context)) {
-      //Todo add api for saving the expense
-      print('object');
-    } else {}
+      _enrichExpenseDo(context);
+      showSendingDialogue(context);
+      CallContext callContext =
+          await ExpenseApis().addNewExpense(expenseDo, vehicleDo, context);
+      Navigator.pop(context);
+      if (callContext.isError) {
+        showErrorAlert(
+            context, 'Failed to Add Fuel.' + callContext.errorMessage);
+      } else {
+        Navigator.pop(context);
+        showSubmitResponse(context, 'Fuel Added');
+      }
+    }
   }
 
   calcLitresFilled() {
@@ -65,5 +82,17 @@ class AddFuelController {
       return false;
     }
     return true;
+  }
+
+  void _enrichExpenseDo(BuildContext context) {
+    AppData appData = Provider.of<AppData>(context, listen: false);
+    ModelUser user = appData.user;
+
+    expenseDo.driverName = user.fullName ?? user.phoneNumber;
+    expenseDo.expenseName = Constants.FUEL;
+    expenseDo.expenseType = Constants.FUEL;
+    expenseDo.vehicleRegNo = vehicleDo.registrationNo;
+    expenseDo.tripNo = appData.trip?.id;
+    expenseDo.timestamp = Timestamp.now();
   }
 }
