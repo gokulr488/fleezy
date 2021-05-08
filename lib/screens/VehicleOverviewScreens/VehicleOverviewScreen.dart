@@ -6,6 +6,7 @@ import 'package:fleezy/components/cards/VehicleCard.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/addexpense/AddExpenseScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/addfuel/AddFuelScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/StartNewTripScreen.dart';
+import 'package:fleezy/screens/VehicleOverviewScreens/triphistory/TripHistoryScreen.dart';
 import 'package:flutter/material.dart';
 
 class VehicleOverviewScreen extends StatelessWidget {
@@ -48,7 +49,14 @@ class VehicleOverviewScreen extends StatelessWidget {
                     Navigator.pushNamed(context, AddExpenseScreen.id,
                         arguments: vehicle.registrationNumber);
                   }),
-              ButtonCard(text: 'Trip History', icon: Icons.location_on),
+              ButtonCard(
+                text: 'Trip History',
+                icon: Icons.location_on,
+                onTap: () {
+                  Navigator.pushNamed(context, TripHistoryScreen.id,
+                      arguments: vehicle.registrationNumber);
+                },
+              ),
             ],
           ),
         ]));

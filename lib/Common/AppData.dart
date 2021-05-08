@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 
 class AppData extends ChangeNotifier {
   List<ModelVehicle> _availableVehicles = [];
+  Map<String, List<ModelTrip>> _tripHistory = {};
   Map<String, ModelUser> _drivers;
   ModelUser _user;
   ModelTrip _trip;
@@ -15,9 +16,18 @@ class AppData extends ChangeNotifier {
   ModelUser get user => _user;
   ModelTrip get trip => _trip;
 
+  List<ModelTrip> getTripHistoryOf(String regNo) {
+    return _tripHistory[regNo];
+  }
+
   //SETTERS
   void setUser(ModelUser user) {
     _user = user;
+    notifyListeners();
+  }
+
+  void setTripHistory(String regNo, List<ModelTrip> tripHistory) {
+    _tripHistory[regNo] = tripHistory;
     notifyListeners();
   }
 
