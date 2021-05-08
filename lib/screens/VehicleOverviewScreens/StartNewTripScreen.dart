@@ -29,7 +29,7 @@ class _StartNewTripScreenState extends State<StartNewTripScreen> {
   ModelTrip trip = ModelTrip();
   @override
   Widget build(BuildContext context) {
-    vehicle = ModalRoute.of(context).settings.arguments;
+    vehicle = ModalRoute.of(context).settings.arguments as VehicleCard;
     return BaseScreen(
         headerText: 'Start New Trip',
         child: Column(

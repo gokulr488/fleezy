@@ -28,6 +28,6 @@ class Constants {
 
   static const int MILLISECONDS_PER_MONTH = 2592000000;
 
-  static const Pattern EMAIL_PATTERN =
+  static const String EMAIL_PATTERN =
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
 }

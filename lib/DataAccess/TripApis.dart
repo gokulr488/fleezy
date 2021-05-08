@@ -69,11 +69,11 @@ class TripApis {
       user.tripId = null;
       batch.update(driverRef, ModelUser.getDocOf(user));
 
-      batch.commit();
+      await batch.commit();
       callContext.setSuccess('Trip Ended');
       return callContext;
     } catch (e) {
-      callContext.setError(e);
+      callContext.setError(e.toString());
       return callContext;
     }
   }
@@ -113,11 +113,11 @@ class TripApis {
       user.tripId = null;
       batch.update(driverRef, ModelUser.getDocOf(user));
 
-      batch.commit();
+      await batch.commit();
       callContext.setSuccess('Trip Cancelled');
       return callContext;
     } catch (e) {
-      callContext.setError(e);
+      callContext.setError(e.toString());
       return callContext;
     }
   }

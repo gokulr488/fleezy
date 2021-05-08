@@ -32,7 +32,7 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String regNumber = ModalRoute.of(context).settings.arguments;
+    String regNumber = ModalRoute.of(context).settings.arguments as String;
     AppData appdata = Provider.of<AppData>(context, listen: false);
     return BaseScreen(
         headerText: 'Add Fuel',

@@ -14,7 +14,7 @@ class Utils {
     return formatter.format(date);
   }
 
-  static getFormattedTimeStamp(Timestamp timestamp) {
+  static String getFormattedTimeStamp(Timestamp timestamp) {
     return getFormattedDate(
         DateTime.fromMillisecondsSinceEpoch(timestamp.millisecondsSinceEpoch));
   }

@@ -72,9 +72,9 @@ class Company {
     }
 
     ModelCompany result = ModelCompany(
-        companyName: snapShot['CompanyName'],
-        companyEmail: snapShot['CompanyEmail'],
-        phoneNumber: snapShot['PhoneNumber']);
+        companyName: snapShot['CompanyName'].toString(),
+        companyEmail: snapShot['CompanyEmail'].toString(),
+        phoneNumber: snapShot['PhoneNumber'].toString());
     if (getVehicle) {
       // CollectionReference vehicles = fireStore
       //     .collection(Constants.COMPANIES)

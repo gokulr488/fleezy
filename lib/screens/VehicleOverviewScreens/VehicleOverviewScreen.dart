@@ -14,7 +14,8 @@ class VehicleOverviewScreen extends StatelessWidget {
       TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
   @override
   Widget build(BuildContext context) {
-    VehicleCard vehicle = ModalRoute.of(context).settings.arguments;
+    VehicleCard vehicle =
+        ModalRoute.of(context).settings.arguments as VehicleCard;
     return BaseScreen(
         headerText: 'Vehicle Overview',
         child: Column(children: [

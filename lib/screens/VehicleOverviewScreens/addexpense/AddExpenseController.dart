@@ -21,7 +21,7 @@ class AddExpenseController {
   onAddExpense(BuildContext context, String regNumber) async {
     if (vehicleDo == null) {
       CallContext callContext = await Vehicle().getVehicleByRegNo(regNumber);
-      vehicleDo = callContext.data;
+      vehicleDo = callContext.data as ModelVehicle;
     }
     if (_valid(context)) {
       _enrichExpenseDo(context);

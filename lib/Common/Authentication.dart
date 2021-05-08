@@ -91,7 +91,7 @@ class Authentication {
     }
   }
 
-  Future<void> signInWithOTP(smsCode) async {
+  Future<void> signInWithOTP(String smsCode) async {
     AuthCredential authCreds = PhoneAuthProvider.credential(
         verificationId: verificationId, smsCode: smsCode);
     await _signIn(authCreds);

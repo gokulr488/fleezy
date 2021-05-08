@@ -16,7 +16,8 @@ class ManageVehicleScreen extends StatelessWidget {
   static const String id = 'manageVehicleScreen';
   @override
   Widget build(BuildContext context) {
-    ManageVehicleCard vehicle = ModalRoute.of(context).settings.arguments;
+    ManageVehicleCard vehicle =
+        ModalRoute.of(context).settings.arguments as ManageVehicleCard;
     return BaseScreen(
         headerText: 'Manage Vehicle',
         child: Column(
@@ -63,7 +64,8 @@ class ManageVehicleScreen extends StatelessWidget {
             ]));
   }
 
-  deleteVehicle(BuildContext context, ModelVehicle vehicle) async {
+  Future<String> deleteVehicle(
+      BuildContext context, ModelVehicle vehicle) async {
     showSendingDialogue(context);
     String resp = await Vehicle().deleteVehicle(vehicle);
     Provider.of<AppData>(context, listen: false).deleteVehicle(vehicle);
