@@ -80,11 +80,20 @@ class Vehicle {
       print('companyId or phoneNumber is null');
       return null;
     }
-    QuerySnapshot snapShot = await fireStore
-        .collection(Constants.VEHICLES)
-        .where('CompanyId', isEqualTo: user.companyId)
-        .where('AllowedDrivers', arrayContains: user.phoneNumber)
-        .get();
+    QuerySnapshot snapShot;
+    if (user.roleName == Constants.ADMIN) {
+      snapShot = await fireStore
+          .collection(Constants.VEHICLES)
+          .where('CompanyId', isEqualTo: user.companyId)
+          .get();
+    } else {
+      snapShot = await fireStore
+          .collection(Constants.VEHICLES)
+          .where('CompanyId', isEqualTo: user.companyId)
+          .where('AllowedDrivers', arrayContains: user.phoneNumber)
+          .get();
+    }
+
     if (snapShot == null) {
       print("No Vehicles Found");
       return null;

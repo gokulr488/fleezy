@@ -56,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Text('Fleezy', style: kFleezyTextStyle),
-          Visibility(visible: showSpinner, child: LoadingDots(size: 50)),
+          if (showSpinner) LoadingDots(size: 50),
           Text(message, style: kMessagesTextStyle),
           TextField(
               keyboardType: TextInputType.number,
