@@ -121,4 +121,16 @@ class TripApis {
       return callContext;
     }
   }
+
+  Future<CallContext> getAllTripsOf(String regNo, BuildContext context) async {
+    ModelUser user = Provider.of<AppData>(context, listen: false).user;
+    QuerySnapshot snapShot = await fireStore
+        .collection(Constants.COMPANIES)
+        .doc(user.companyId)
+        .collection(Constants.TRIP)
+        .where('VehicleRegNo', isEqualTo: regNo)
+        .get();
+    callContext.data = ModelTrip.getTripsFrom(snapShot);
+    return callContext;
+  }
 }

@@ -88,4 +88,12 @@ class ModelTrip {
       status: data['Status'] ?? '',
     );
   }
+
+  static List<ModelTrip> getTripsFrom(QuerySnapshot snapshot) {
+    List<ModelTrip> trips = [];
+    for (QueryDocumentSnapshot doc in snapshot?.docs) {
+      trips.add(getTripFromDoc(doc));
+    }
+    return trips;
+  }
 }

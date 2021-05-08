@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
 import 'package:fleezy/components/cards/BaseCard.dart';
@@ -17,8 +18,9 @@ class TripDetailCard extends StatelessWidget {
       fontSize: 20, color: kHighlightColour, fontWeight: FontWeight.bold);
   final double distance;
   final ModelTrip tripDo;
+  final Function onTap;
 
-  const TripDetailCard({@required this.tripDo, this.distance});
+  const TripDetailCard({@required this.tripDo, this.distance, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +52,7 @@ class TripDetailCard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Distance: ${distance.toStringAsFixed(2) ?? 0}',
+                  Text('Distance: ${distance?.toStringAsFixed(2) ?? 0}',
                       style: _kDetailsTextStyle),
                   Text('Customer: ${tripDo.customerName ?? ''}',
                       style: _kDetailsTextStyle)
@@ -62,13 +64,21 @@ class TripDetailCard extends StatelessWidget {
       ),
       elevation: 4,
       color: kCardOverlay[4],
-      onTap: () {},
+      onTap: onTap,
     );
   }
 
   String _getTimeSpent() {
-    int millisSpent = Timestamp.now().millisecondsSinceEpoch -
-        tripDo.startDate.millisecondsSinceEpoch;
+    if (tripDo.status == Constants.CANCELLED) return '00:00';
+    int millisSpent;
+    if (tripDo.endDate != null) {
+      millisSpent = tripDo.endDate.millisecondsSinceEpoch -
+          tripDo.startDate.millisecondsSinceEpoch;
+    } else {
+      millisSpent = Timestamp.now().millisecondsSinceEpoch -
+          tripDo.startDate.millisecondsSinceEpoch;
+    }
+
     int minutes = (millisSpent / 60000).truncate();
     int hour = 0;
     if (minutes > 59) {

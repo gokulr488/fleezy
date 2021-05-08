@@ -1,5 +1,40 @@
+import 'package:fleezy/Common/AppData.dart';
+import 'package:fleezy/Common/CallContext.dart';
+import 'package:fleezy/DataAccess/TripApis.dart';
+import 'package:fleezy/DataModels/ModelTrip.dart';
+import 'package:fleezy/components/cards/TripDetailCard.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-class TripHistoryController {
-  onRefreshPressed(BuildContext context, String regNumber) {}
+List<TripDetailCard> tripDetailCards = [];
+
+onRefreshPressed(BuildContext context, String regNumber, AppData appdata) {
+  appdata.setTripHistory(regNumber, []);
+  getData(regNumber, context, appdata);
+}
+
+void getData(String regNumber, BuildContext context, AppData appdata) async {
+  if (appdata.getTripHistoryOf(regNumber) == null ||
+      appdata.getTripHistoryOf(regNumber).isEmpty) {
+    await _getDataFromDB(regNumber, context, appdata);
+  }
+  List<ModelTrip> tripHistory = appdata.getTripHistoryOf(regNumber);
+  tripDetailCards = [];
+  for (ModelTrip trip in tripHistory) {
+    tripDetailCards.add(_buildTripDetailCard(trip));
+  }
+}
+
+TripDetailCard _buildTripDetailCard(ModelTrip tripDo) {
+  return TripDetailCard(
+    tripDo: tripDo,
+  );
+}
+
+void _getDataFromDB(
+    String regNumber, BuildContext context, AppData appdata) async {
+  CallContext callContext = await TripApis().getAllTripsOf(regNumber, context);
+  if (!callContext.isError) {
+    List<ModelTrip> tripHistory = callContext.data as List<ModelTrip>;
+    appdata.setTripHistory(regNumber, tripHistory);
+  }
 }

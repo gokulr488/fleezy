@@ -1,5 +1,6 @@
 import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/components/BaseScreen.dart';
+import 'package:fleezy/components/LoadingDots.dart';
 import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/VehicleCard.dart';
@@ -11,9 +12,9 @@ class TripHistoryScreen extends StatelessWidget {
   static const String id = 'TripHistoryScreen';
   @override
   Widget build(BuildContext context) {
-    TripHistoryController ctrl = TripHistoryController();
     String regNumber = ModalRoute.of(context).settings.arguments as String;
     AppData appdata = Provider.of<AppData>(context, listen: false);
+    getData(regNumber, context, appdata);
     return BaseScreen(
         headerText: 'Trip History',
         child: Column(
@@ -25,10 +26,16 @@ class TripHistoryScreen extends StatelessWidget {
                     appdata.user.fullName ?? appdata.user.phoneNumber,
               ),
               SizedBox(height: 15),
-              Expanded(child: ScrollableList(childrenHeight: 90, items: [])),
+              Expanded(
+                child: Consumer<AppData>(builder: (context, misData, _) {
+                  return ScrollableList(
+                      childrenHeight: 250, items: tripDetailCards);
+                }),
+              ),
               RoundedButton(
                   title: 'Refresh',
-                  onPressed: () => ctrl.onRefreshPressed(context, regNumber))
+                  onPressed: () =>
+                      onRefreshPressed(context, regNumber, appdata))
             ]));
   }
 }
