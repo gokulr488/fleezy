@@ -35,7 +35,7 @@ class OnTripController {
       } else {
         AppData appData = Provider.of<AppData>(context, listen: false);
         Vehicle().getVehicleList(appData);
-        Navigator.popAndPushNamed(context, HomeScreen.id);
+        await Navigator.popAndPushNamed(context, HomeScreen.id);
       }
       killTimer();
     }
@@ -69,7 +69,7 @@ class OnTripController {
       AppData appData = Provider.of<AppData>(context, listen: false);
       killTimer();
       Vehicle().getVehicleList(appData);
-      Navigator.popAndPushNamed(context, HomeScreen.id);
+      await Navigator.popAndPushNamed(context, HomeScreen.id);
     }
   }
 

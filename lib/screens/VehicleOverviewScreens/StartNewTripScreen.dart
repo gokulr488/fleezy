@@ -98,7 +98,7 @@ class _StartNewTripScreenState extends State<StartNewTripScreen> {
       } else {
         appData.setTrip(trip);
         Navigator.popUntil(context, ModalRoute.withName(HomeScreen.id));
-        Navigator.pushReplacementNamed(context, OnTripScreen.id);
+        await Navigator.pushReplacementNamed(context, OnTripScreen.id);
       }
     }
   }

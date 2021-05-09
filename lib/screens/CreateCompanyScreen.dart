@@ -170,6 +170,6 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
     appData.setUser(adminUser);
     appData.addNewDriver(adminUser);
     Navigator.popUntil(context, ModalRoute.withName(StartScreen.id));
-    Navigator.pushReplacementNamed(context, HomeScreen.id);
+    await Navigator.pushReplacementNamed(context, HomeScreen.id);
   }
 }

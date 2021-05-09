@@ -1,6 +1,5 @@
 import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/components/BaseScreen.dart';
-import 'package:fleezy/components/LoadingDots.dart';
 import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/VehicleCard.dart';

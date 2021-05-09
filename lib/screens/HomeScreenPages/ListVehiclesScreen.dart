@@ -59,7 +59,7 @@ class ListVehiclesScreen extends StatelessWidget {
         Provider.of<UiState>(context, listen: false).setIsAdmin(false);
       }
       if (user.tripId != null) {
-        Navigator.pushReplacementNamed(context, OnTripScreen.id);
+        await Navigator.pushReplacementNamed(context, OnTripScreen.id);
       }
     }
 

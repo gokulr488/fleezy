@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fleezy/Common/Alerts.dart';
 import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/DataAccess/TripApis.dart';
@@ -137,7 +138,9 @@ class _OnTripScreenState extends State<OnTripScreen> {
       try {
         tripDo = await TripApis()
             .getTripById(appData.user.tripId, appData.user.companyId);
-      } catch (e) {}
+      } catch (e) {
+        showErrorAlert(context, 'Unable to get Trip Details');
+      }
     }
     setState(() {});
   }

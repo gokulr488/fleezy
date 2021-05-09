@@ -82,7 +82,7 @@ class ManageVehicleScreen extends StatelessWidget {
       appData.setDrivers(drivers);
     }
     List<String> allowedDrivers = vehicle.allowedDrivers.toList();
-    showModalBottomSheet(
+    await showModalBottomSheet(
         context: context,
         builder: (builder) {
           return AllowDriversSheet(

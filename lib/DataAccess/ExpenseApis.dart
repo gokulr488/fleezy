@@ -32,7 +32,10 @@ class ExpenseApis {
         fireStore.collection(Constants.VEHICLES).doc(vehicle.registrationNo);
     vehicle.latestOdometerReading = expense.odometerReading;
     batch.update(vehicleRef, ModelVehicle.getDocOf(vehicle));
-    batch.commit();
+    await batch
+        .commit()
+        .then((value) => callContext.setSuccess('Expense added'))
+        .catchError((error) => callContext.setError("$error"));
     return callContext;
   }
 }

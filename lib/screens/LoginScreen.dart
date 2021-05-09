@@ -80,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
           RoundedButton(
             title: verified ? 'Log In' : 'Send OTP',
             onPressed: () async {
-              onButtonPressed();
+              await onButtonPressed();
             },
           ),
         ],

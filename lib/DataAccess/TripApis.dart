@@ -40,7 +40,10 @@ class TripApis {
     user.tripId = tripRef.id;
     batch.update(driverRef, ModelUser.getDocOf(user));
 
-    batch.commit();
+    await batch
+        .commit()
+        .then((value) => callContext.setSuccess('Trip STarted'))
+        .catchError((error) => callContext.setError("$error"));
     return callContext;
   }
 
