@@ -46,8 +46,8 @@ class AddExpenseController {
       validate.stringField(
           expenseDo.expenseType, 'Choose Expense type', context);
       validate.doubleField(expenseDo.amount, 'Enter Amount', context);
-      validate.stringField(
-          expenseDo.expenseDetails, 'Enter Details of Expense', context);
+      // validate.stringField(
+      //     expenseDo.expenseDetails, 'Enter Details of Expense', context);
       validate.odometerReading(expenseDo?.odometerReading,
           vehicleDo?.latestOdometerReading, context);
     } catch (e) {
