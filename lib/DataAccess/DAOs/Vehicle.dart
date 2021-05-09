@@ -14,31 +14,27 @@ class Vehicle {
     callContext = CallContext();
   }
 
-  void addVehicle(ModelVehicle vehicle) async {
+  Future<CallContext> addVehicle(ModelVehicle vehicle) async {
     if (vehicle.companyId == null) {
-      print('companyId is null for the vehicle');
-      return;
+      callContext.setError('companyId is null for the vehicle');
+      return callContext;
     }
-    DocumentSnapshot snapShot = await fireStore
+    DocumentReference docRef = await fireStore
         .collection(Constants.VEHICLES)
-        .doc(vehicle.registrationNo)
-        .get();
-    if (snapShot.data() != null) {
-      print("Vehicle already exists");
-      return;
+        .doc(vehicle.registrationNo);
+    if (docRef != null) {
+      callContext.setError("Vehicle already exists");
+      return callContext;
     }
 
-    fireStore
+    await fireStore
         .collection(Constants.VEHICLES)
         .doc(vehicle.registrationNo)
         .set(ModelVehicle.getDocOf(vehicle))
         .then((value) => callContext.setSuccess('Vehicle added'))
         .catchError((error) => callContext.setError("$error"));
 
-    if (callContext.isError) {
-      print(callContext.errorMessage);
-      return null;
-    }
+    return callContext;
   }
 
   Future<String> deleteVehicle(ModelVehicle vehicle) async {

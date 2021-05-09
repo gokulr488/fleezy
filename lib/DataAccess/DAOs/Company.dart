@@ -33,7 +33,7 @@ class Company {
       print("Failed to add company: $error");
       return;
     });
-    Roles().addRole(company.users.values.first);
+    await Roles().addRole(company.users.values.first);
     return;
   }
 
@@ -57,31 +57,5 @@ class Company {
         })
         .then((value) => print("Company details updated"))
         .catchError((error) => print("Failed to update company: $error"));
-  }
-
-  Future<ModelCompany> getCompany(String docId,
-      {bool getVehicle: false,
-      bool getUsers: false,
-      bool getExpenses: false,
-      bool getTrips: false}) async {
-    final DocumentSnapshot snapShot =
-        await fireStore.collection(Constants.COMPANIES).doc(docId).get();
-    if (snapShot.data() == null) {
-      print("Company not found");
-      return null;
-    }
-
-    ModelCompany result = ModelCompany(
-        companyName: snapShot['CompanyName'].toString(),
-        companyEmail: snapShot['CompanyEmail'].toString(),
-        phoneNumber: snapShot['PhoneNumber'].toString());
-    if (getVehicle) {
-      // CollectionReference vehicles = fireStore
-      //     .collection(Constants.COMPANIES)
-      //     .doc(docId)
-      //     .collection(Constants.VEHICLES);
-      //if(vehicles.)
-    }
-    return result;
   }
 }

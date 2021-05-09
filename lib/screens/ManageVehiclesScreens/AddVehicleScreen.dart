@@ -1,4 +1,6 @@
+import 'package:fleezy/Common/Alerts.dart';
 import 'package:fleezy/Common/AppData.dart';
+import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/Common/Utils.dart';
 import 'package:fleezy/DataAccess/DAOs/Vehicle.dart';
@@ -88,7 +90,7 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
     );
   }
 
-  void _addVehicleToDb() {
+  void _addVehicleToDb() async {
     FocusScope.of(context).requestFocus(FocusNode());
     if (vehicle.registrationNo == null ||
         vehicle.vehicleName == null ||
@@ -101,10 +103,14 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
     vehicle.companyId = appData.user.companyId;
     vehicle.isInTrip = false;
     vehicle.allowedDrivers = [appData.user.phoneNumber];
-    Vehicle().addVehicle(vehicle);
-    Provider.of<AppData>(context, listen: false).addNewVehicle(vehicle);
-    print('Adding vehicle');
-    Navigator.pop(context, vehicle);
+    CallContext callContext = await Vehicle().addVehicle(vehicle);
+    if (callContext.isError) {
+      showErrorAlert(context, callContext.errorMessage);
+    } else {
+      Provider.of<AppData>(context, listen: false).addNewVehicle(vehicle);
+      print('Adding vehicle');
+      Navigator.pop(context, vehicle);
+    }
   }
 
   String _getInsuranceExpiryDate() {

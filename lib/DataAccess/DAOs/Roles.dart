@@ -55,14 +55,7 @@ class Roles {
   }
 
   Future<void> deleteUser(String docid) async {
-    DocumentSnapshot snapShot =
-        await fireStore.collection(Constants.USERS).doc(docid).get();
-    if (snapShot.data() == null) {
-      print("User not found");
-      return null;
-    }
-
-    fireStore.collection(Constants.USERS).doc(docid).delete();
+    await fireStore.collection(Constants.USERS).doc(docid).delete();
   }
 
   Future<ModelUser> verifyUser(String phoneNumber) async {

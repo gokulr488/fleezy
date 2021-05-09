@@ -5,7 +5,7 @@ class Validator {
   bool odometerReading(int userInput, int lastReading, BuildContext context) {
     if (userInput == null || userInput == 0 || userInput < lastReading) {
       showErrorAlert(context, 'Incorrect Odometer Reading');
-      throw new Exception('Incorrect Odometer Reading');
+      throw Exception('Incorrect Odometer Reading');
     }
     return true;
   }
@@ -13,7 +13,7 @@ class Validator {
   bool stringField(String value, String errorMessage, BuildContext context) {
     if (value == null || value.isEmpty) {
       showErrorAlert(context, errorMessage);
-      throw new Exception(errorMessage);
+      throw Exception(errorMessage);
     }
     return true;
   }
@@ -21,7 +21,7 @@ class Validator {
   bool doubleField(double value, String errorMessage, BuildContext context) {
     if (value == null || value == 0) {
       showErrorAlert(context, errorMessage);
-      throw new Exception(errorMessage);
+      throw Exception(errorMessage);
     }
     return true;
   }
