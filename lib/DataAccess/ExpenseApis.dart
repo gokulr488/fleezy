@@ -3,6 +3,7 @@ import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/DataModels/ModelExpense.dart';
+import 'package:fleezy/DataModels/ModelTrip.dart';
 import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/DataModels/ModelVehicle.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,19 @@ class ExpenseApis {
         .commit()
         .then((value) => callContext.setSuccess('Expense added'))
         .catchError((error) => callContext.setError("$error"));
+    return callContext;
+  }
+
+  Future<CallContext> getExpensesInTrip(
+      ModelTrip trip, BuildContext context) async {
+    ModelUser user = Provider.of<AppData>(context, listen: false).user;
+    QuerySnapshot snapShot = await fireStore
+        .collection(Constants.COMPANIES)
+        .doc(user.companyId)
+        .collection(Constants.EXPENSE)
+        .where('tripNo', isEqualTo: trip.id)
+        .get();
+    callContext.data = ModelExpense.getTripsFrom(snapShot);
     return callContext;
   }
 }

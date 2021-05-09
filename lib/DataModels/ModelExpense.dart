@@ -76,7 +76,7 @@ class ModelExpense {
       remarks: data['remarks'],
       payMode: data['payMode'] ?? '',
       fuelUnitPrice: data['fuelUnitPrice'],
-      fuelQty: data['fuelQty'] ?? '',
+      fuelQty: data['fuelQty'],
       isFullTank: data['isFullTank'],
       odometerReading: data['odometerReading'] ?? '',
       insuranceExpiryDate: data['insuranceExpiryDate'],
@@ -86,5 +86,13 @@ class ModelExpense {
       expenseDetails: data['expenseDetails'] ?? '',
       vehicleRegNo: data['vehicleRegNo'] ?? '',
     );
+  }
+
+  static List<ModelExpense> getTripsFrom(QuerySnapshot snapshot) {
+    List<ModelExpense> trips = [];
+    for (QueryDocumentSnapshot doc in snapshot?.docs) {
+      trips.add(getExpenseFromDoc(doc));
+    }
+    return trips;
   }
 }

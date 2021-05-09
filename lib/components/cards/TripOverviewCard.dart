@@ -16,7 +16,7 @@ class TripOverviewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color color;
-    if (tripDo.status == Constants.ACTIVE) {
+    if (tripDo.status == Constants.STARTED) {
       color = kActiveCardColor;
     } else if (tripDo.status == Constants.CANCELLED) {
       color = kCancelledCardColor;

@@ -136,7 +136,7 @@ class TripApis {
         .collection(Constants.TRIP)
         .where('VehicleRegNo', isEqualTo: regNo)
         .get();
-    //TODO oaginate this API
+    //TODO paginate this API
     callContext.data = ModelTrip.getTripsFrom(snapShot);
     return callContext;
   }

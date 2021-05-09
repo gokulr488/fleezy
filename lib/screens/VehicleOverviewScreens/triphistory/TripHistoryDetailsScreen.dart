@@ -3,6 +3,7 @@ import 'package:fleezy/DataModels/ModelTrip.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/HorLine.dart';
 import 'package:fleezy/components/cards/TripDetailCard.dart';
+import 'package:fleezy/screens/VehicleOverviewScreens/triphistory/TripHistoryDetailController.dart';
 import 'package:flutter/material.dart';
 
 class TripHistoryDetailsScreen extends StatelessWidget {
@@ -11,6 +12,7 @@ class TripHistoryDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ModelTrip tripDo = ModalRoute.of(context).settings.arguments as ModelTrip;
+    getExpenses(tripDo, context);
     return BaseScreen(
       headerText: 'Trip Summary',
       child: SingleChildScrollView(
