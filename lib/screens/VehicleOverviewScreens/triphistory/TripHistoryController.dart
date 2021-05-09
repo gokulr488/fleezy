@@ -3,9 +3,10 @@ import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/DataAccess/TripApis.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
 import 'package:fleezy/components/cards/TripDetailCard.dart';
+import 'package:fleezy/components/cards/TripOverviewCard.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-List<TripDetailCard> tripDetailCards = [];
+List<TripOverviewCard> tripDetailCards = [];
 
 onRefreshPressed(BuildContext context, String regNumber, AppData appdata) {
   appdata.setTripHistory(regNumber, []);
@@ -24,8 +25,8 @@ void getData(String regNumber, BuildContext context, AppData appdata) async {
   }
 }
 
-TripDetailCard _buildTripDetailCard(ModelTrip tripDo) {
-  return TripDetailCard(
+TripOverviewCard _buildTripDetailCard(ModelTrip tripDo) {
+  return TripOverviewCard(
     tripDo: tripDo,
   );
 }

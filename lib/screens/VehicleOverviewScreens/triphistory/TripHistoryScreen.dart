@@ -28,7 +28,7 @@ class TripHistoryScreen extends StatelessWidget {
               Expanded(
                 child: Consumer<AppData>(builder: (context, misData, _) {
                   return ScrollableList(
-                      childrenHeight: 250, items: tripDetailCards);
+                      childrenHeight: 100, items: tripDetailCards);
                 }),
               ),
               RoundedButton(
