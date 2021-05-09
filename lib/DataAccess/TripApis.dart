@@ -26,6 +26,7 @@ class TripApis {
         .collection(Constants.TRIP)
         .doc();
     trip.id = tripRef.id;
+    trip.status = Constants.STARTED;
     batch.set(tripRef, ModelTrip.getDocOf(trip));
 
     DocumentReference vehicleRef =
@@ -57,6 +58,7 @@ class TripApis {
           .doc(user.companyId)
           .collection(Constants.TRIP)
           .doc(trip.id);
+      trip.status = Constants.ENDED;
       batch.update(tripRef, ModelTrip.getDocOf(trip));
 
       DocumentReference vehicleRef =
@@ -102,6 +104,7 @@ class TripApis {
           .collection(Constants.TRIP)
           .doc(trip.id);
       trip.status = Constants.CANCELLED;
+      trip.endDate = Timestamp.now();
       batch.update(tripRef, ModelTrip.getDocOf(trip));
 
       DocumentReference vehicleRef =

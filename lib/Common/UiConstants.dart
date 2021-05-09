@@ -12,6 +12,7 @@ const String kDateFormat = 'yyyy-MM-dd';
 const Color kAlertColor = Color(0xFF1F1B24);
 const Color kActiveTextColor = Color(0xFFffee58);
 const Color kActiveCardColor = Color(0x40ffee58);
+const Color kCancelledCardColor = Color(0x40ff5252);
 
 const kTextFieldDecoration = InputDecoration(
   labelStyle: TextStyle(fontSize: 18),

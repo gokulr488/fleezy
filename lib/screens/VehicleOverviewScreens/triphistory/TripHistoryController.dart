@@ -2,7 +2,6 @@ import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/DataAccess/TripApis.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
-import 'package:fleezy/components/cards/TripDetailCard.dart';
 import 'package:fleezy/components/cards/TripOverviewCard.dart';
 import 'package:flutter/src/widgets/framework.dart';
 

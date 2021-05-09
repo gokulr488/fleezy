@@ -9,7 +9,9 @@ class Constants {
   static const String SUPERUSER = "SuperUser";
   static const String ACTIVE = "Active";
   static const String INACTIVE = "Inactive";
+  static const String STARTED = 'Started';
   static const String CANCELLED = 'Cancelled';
+  static const String ENDED = 'Ended';
 
   static const String FUEL = 'Fuel';
   static const String SERVICE = 'Service';
