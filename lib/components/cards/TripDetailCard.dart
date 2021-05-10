@@ -52,9 +52,9 @@ class TripDetailCard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Distance: ${distance?.toStringAsFixed(2) ?? 0}',
+                  Text('Kms: ${distance?.toStringAsFixed(2) ?? 0}',
                       style: _kDetailsTextStyle),
-                  Text('Customer: ${tripDo.customerName ?? ''}',
+                  Text('Party: ${tripDo.customerName ?? ''}',
                       style: _kDetailsTextStyle)
                 ],
               ),

@@ -22,7 +22,7 @@ class TripHistoryDetailsScreen extends StatelessWidget {
         children: [
           TripDetailCard(
             tripDo: tripDo,
-            distance: tripDo.distance.toDouble(),
+            distance: tripDo.distance?.toDouble(),
           ),
           if (tripDo.status != Constants.STARTED) HorLine(),
           if (tripDo.status != Constants.STARTED)

@@ -1,3 +1,4 @@
+import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/Common/Utils.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
@@ -16,10 +17,30 @@ class PaymentDetailsCard extends StatelessWidget {
       cardChild: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SizedBox(
-          height: 100,
+          height: (trip.status != Constants.CANCELLED) ? 100 : 50,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              if (trip.status != Constants.CANCELLED)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text('Total: ' + trip.billAmount.toString(),
+                        style: _kLabelTS),
+                    Text('Paid: ' + trip.paidAmount.toString(),
+                        style: _kLabelTS)
+                  ],
+                ),
+              if (trip.status != Constants.CANCELLED)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text('Balance: ' + trip.balanceAmount.toString(),
+                        style: _kLabelTS),
+                    Text('Driver Salary: ' + trip.driverSalary.toString(),
+                        style: _kLabelTS)
+                  ],
+                ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -27,24 +48,6 @@ class PaymentDetailsCard extends StatelessWidget {
                       style: _kLabelTS),
                   Icon(Icons.keyboard_arrow_right_outlined, size: 30),
                   Text(Utils.getFormattedTimeTimeStamp(trip.endDate ?? '-'),
-                      style: _kLabelTS)
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text('Bill Amount: ' + trip.billAmount.toString(),
-                      style: _kLabelTS),
-                  Text('Paid Amount: ' + trip.paidAmount.toString(),
-                      style: _kLabelTS)
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text('Balance Amount: ' + trip.balanceAmount.toString(),
-                      style: _kLabelTS),
-                  Text('Driver Salary: ' + trip.driverSalary.toString(),
                       style: _kLabelTS)
                 ],
               )
