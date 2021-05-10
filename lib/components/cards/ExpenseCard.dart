@@ -44,7 +44,8 @@ class ExpenseCard extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 child: Text('Details: ' + expense.expenseDetails,
                     style: _kLabelTS)),
-            Text('Payment Mode: ' + expense.payMode, style: _kLabelTS)
+            if (expense.payMode.isNotEmpty)
+              Text('Payment Mode: ' + expense.payMode, style: _kLabelTS)
           ],
         ),
       ),
