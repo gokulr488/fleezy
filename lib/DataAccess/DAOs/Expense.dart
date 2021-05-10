@@ -52,7 +52,6 @@ class Expense {
           'Amount': expense.amount,
           'Timestamp': expense.timestamp,
           'TripNo': expense.tripNo,
-          'Remarks': expense.remarks,
           'FuelUnitPrice': expense.fuelUnitPrice,
           'FuelQty': expense.fuelQty,
           'IsFullTank': expense.isFullTank,

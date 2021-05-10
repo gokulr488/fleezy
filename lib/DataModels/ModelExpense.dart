@@ -6,7 +6,6 @@ class ModelExpense {
   double amount;
   Timestamp timestamp;
   String tripNo;
-  String remarks;
   String payMode;
   //Fuel specific
   double fuelUnitPrice;
@@ -30,7 +29,6 @@ class ModelExpense {
       this.amount,
       this.timestamp,
       this.tripNo,
-      this.remarks,
       this.fuelUnitPrice,
       this.fuelQty,
       this.isFullTank,
@@ -49,7 +47,6 @@ class ModelExpense {
       'amount': expense.amount,
       'timestamp': expense.timestamp,
       'tripNo': expense.tripNo,
-      'remarks': expense.remarks,
       'payMode': expense.payMode,
       'fuelUnitPrice': expense.fuelUnitPrice,
       'fuelQty': expense.fuelQty,
@@ -73,7 +70,6 @@ class ModelExpense {
       amount: data['amount'],
       timestamp: data['timestamp'] ?? '',
       tripNo: data['tripNo'] ?? '',
-      remarks: data['remarks'],
       payMode: data['payMode'] ?? '',
       fuelUnitPrice: data['fuelUnitPrice'],
       fuelQty: data['fuelQty'],

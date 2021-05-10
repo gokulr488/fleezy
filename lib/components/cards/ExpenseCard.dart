@@ -1,10 +1,11 @@
 import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/UiConstants.dart';
+import 'package:fleezy/Common/Utils.dart';
 import 'package:fleezy/DataModels/ModelExpense.dart';
 import 'package:fleezy/components/cards/BaseCard.dart';
 import 'package:flutter/material.dart';
 
-const TextStyle _kLabelTS = TextStyle(fontSize: 16, color: kWhite80);
+const TextStyle _kLabelTS = TextStyle(fontSize: 17, color: kHighlightColour);
 
 class ExpenseCard extends StatelessWidget {
   final ModelExpense expense;
@@ -24,6 +25,8 @@ class ExpenseCard extends StatelessWidget {
               children: [
                 Text('Type: ' + expense.expenseType, style: _kLabelTS),
                 Text('Amount: ' + expense.amount.toString(), style: _kLabelTS),
+                Text(Utils.getFormattedTimeStamp(expense.timestamp) ?? '',
+                    style: _kLabelTS)
               ],
             ),
             if (expense.expenseType == Constants.FUEL)
@@ -37,9 +40,14 @@ class ExpenseCard extends StatelessWidget {
                   if (expense.isFullTank) Text('Full Tank', style: _kLabelTS)
                 ],
               ),
+            SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Text('Details: ' + expense.expenseDetails,
+                    style: _kLabelTS)),
+            Text('Payment Mode: ' + expense.payMode, style: _kLabelTS)
           ],
         ),
       ),
     );
-  } // TODO continue uildnig expense card
+  }
 }

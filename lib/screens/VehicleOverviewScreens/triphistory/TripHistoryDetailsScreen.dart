@@ -37,7 +37,7 @@ class _TripHistoryDetailsScreenState extends State<TripHistoryDetailsScreen> {
 
             return Expanded(
               child:
-                  ScrollableList(childrenHeight: 170, items: ctrl.expenseCards),
+                  ScrollableList(childrenHeight: 150, items: ctrl.expenseCards),
             );
           })
         ],
