@@ -9,6 +9,16 @@ class Utils {
     return Timestamp.fromDate(date);
   }
 
+  static String getFormattedTime(DateTime date) {
+    DateFormat formatter = DateFormat(kTimeFormat);
+    return formatter.format(date);
+  }
+
+  static String getFormattedTimeTimeStamp(Timestamp timestamp) {
+    return getFormattedTime(
+        DateTime.fromMillisecondsSinceEpoch(timestamp.millisecondsSinceEpoch));
+  }
+
   static String getFormattedDate(DateTime date) {
     DateFormat formatter = DateFormat(kDateFormat);
     return formatter.format(date);
