@@ -9,13 +9,21 @@ import 'package:fleezy/screens/VehicleOverviewScreens/triphistory/TripHistoryCon
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class TripHistoryScreen extends StatelessWidget {
+class TripHistoryScreen extends StatefulWidget {
   static const String id = 'TripHistoryScreen';
+
+  @override
+  _TripHistoryScreenState createState() => _TripHistoryScreenState();
+}
+
+class _TripHistoryScreenState extends State<TripHistoryScreen> {
+  TripHistoryController ctrl = TripHistoryController();
+
   @override
   Widget build(BuildContext context) {
     String regNumber = ModalRoute.of(context).settings.arguments as String;
     AppData appdata = Provider.of<AppData>(context, listen: false);
-    getData(regNumber, context, appdata);
+    ctrl.getData(regNumber, context, appdata);
     return BaseScreen(
         headerText: 'Trip History',
         child: Column(
@@ -29,22 +37,22 @@ class TripHistoryScreen extends StatelessWidget {
                 ),
               ),
               DatePicker(
-                  text: '${getDateString()}',
+                  text: '${ctrl.getDateString()}',
                   onTap: () async {
-                    date = await Utils.pickDate(context);
-                    onDateSelected(context, regNumber, appdata);
-                    // setState(() {});
+                    ctrl.date = await Utils.pickDate(context);
+                    ctrl.onDateSelected(context, regNumber, appdata);
+                    setState(() {});
                   }),
               Expanded(
                 child: Consumer<AppData>(builder: (context, misData, _) {
                   return ScrollableList(
-                      childrenHeight: 100, items: tripDetailCards);
+                      childrenHeight: 100, items: ctrl.tripDetailCards);
                 }),
               ),
               RoundedButton(
                   title: 'Refresh',
                   onPressed: () =>
-                      onRefreshPressed(context, regNumber, appdata))
+                      ctrl.onRefreshPressed(context, regNumber, appdata))
             ]));
   }
 }
