@@ -135,8 +135,9 @@ class TripApis {
         .doc(user.companyId)
         .collection(Constants.TRIP)
         .where('VehicleRegNo', isEqualTo: regNo)
+        .orderBy('StartDate', descending: true)
         .get();
-    //TODO paginate this API
+    //TODO paginate this API  .startAt() .endAt()
     callContext.data = ModelTrip.getTripsFrom(snapShot);
     return callContext;
   }
