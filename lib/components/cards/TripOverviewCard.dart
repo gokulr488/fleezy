@@ -37,7 +37,8 @@ class TripOverviewCard extends StatelessWidget {
           Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
             Text('Driver: ' + tripDo.driverName, style: _labelTS),
             Text('Party: ' + tripDo.customerName, style: _labelTS),
-            Text(Utils.getFormattedTimeStamp(tripDo.startDate), style: _labelTS)
+            Text(Utils.getFormattedTimeStamp(tripDo.startDate, kDateFormat),
+                style: _labelTS)
           ])
         ],
       ),

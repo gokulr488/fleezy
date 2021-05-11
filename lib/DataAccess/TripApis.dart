@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/Constants.dart';
+import 'package:fleezy/Common/Utils.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
 import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/DataModels/ModelVehicle.dart';
@@ -129,7 +130,7 @@ class TripApis {
   }
 
   Future<CallContext> filterTrips(BuildContext context,
-      {String regNo, Timestamp date}) async {
+      {String regNo, DateTime date}) async {
     ModelUser user = Provider.of<AppData>(context, listen: false).user;
     Query reference = fireStore
         .collection(Constants.COMPANIES)
@@ -139,7 +140,10 @@ class TripApis {
       reference = reference.where('VehicleRegNo', isEqualTo: regNo);
     }
     if (date != null) {
-      reference = reference.where('StartDate', isGreaterThan: date);
+      reference = reference.where('StartDate',
+          isGreaterThan: Utils.getStartOfDay(date));
+      reference =
+          reference.where('StartDate', isLessThan: Utils.getEndOfDay(date));
     }
 
     QuerySnapshot snapShot =

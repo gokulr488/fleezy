@@ -116,7 +116,8 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
   String _getInsuranceExpiryDate() {
     String expiryDate = '';
     if (vehicle?.insuranceExpiryDate != null) {
-      expiryDate = Utils.getFormattedTimeStamp(vehicle.insuranceExpiryDate);
+      expiryDate =
+          Utils.getFormattedTimeStamp(vehicle.insuranceExpiryDate, kDateFormat);
     }
     return expiryDate;
   }
@@ -124,7 +125,8 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
   String _getTaxExpiryDate() {
     String expiryDate = '';
     if (vehicle?.taxExpiryDate != null) {
-      expiryDate = Utils.getFormattedTimeStamp(vehicle.taxExpiryDate);
+      expiryDate =
+          Utils.getFormattedTimeStamp(vehicle.taxExpiryDate, kDateFormat);
     }
     return expiryDate;
   }

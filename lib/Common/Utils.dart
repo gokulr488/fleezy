@@ -9,24 +9,15 @@ class Utils {
     return Timestamp.fromDate(date);
   }
 
-  static String getFormattedTime(DateTime date) {
-    DateFormat formatter = DateFormat(kTimeFormat);
-    return formatter.format(date);
-  }
-
-  static String getFormattedTimeTimeStamp(Timestamp timestamp) {
-    return getFormattedTime(
-        DateTime.fromMillisecondsSinceEpoch(timestamp.millisecondsSinceEpoch));
-  }
-
-  static String getFormattedDate(DateTime date) {
+  static String getFormattedDate(DateTime date, String format) {
     DateFormat formatter = DateFormat(kDateFormat);
     return formatter.format(date);
   }
 
-  static String getFormattedTimeStamp(Timestamp timestamp) {
+  static String getFormattedTimeStamp(Timestamp timestamp, String format) {
     return getFormattedDate(
-        DateTime.fromMillisecondsSinceEpoch(timestamp.millisecondsSinceEpoch));
+        DateTime.fromMillisecondsSinceEpoch(timestamp.millisecondsSinceEpoch),
+        format);
   }
 
   static Future<DateTime> pickDate(BuildContext context) async {
@@ -53,5 +44,15 @@ class Utils {
       return true;
     }
     return false;
+  }
+
+  static Timestamp getStartOfDay(DateTime date) {
+    DateTime start = DateTime(date.year, date.month, date.day);
+    return Timestamp.fromDate(start);
+  }
+
+  static Timestamp getEndOfDay(DateTime date) {
+    DateTime end = DateTime(date.year, date.month, date.day + 1);
+    return Timestamp.fromDate(end);
   }
 }

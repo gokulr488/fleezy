@@ -44,10 +44,12 @@ class PaymentDetailsCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text(Utils.getFormattedTimeTimeStamp(trip.startDate),
+                  Text(Utils.getFormattedTimeStamp(trip.startDate, kTimeFormat),
                       style: _kLabelTS),
                   Icon(Icons.keyboard_arrow_right_outlined, size: 30),
-                  Text(Utils.getFormattedTimeTimeStamp(trip.endDate ?? '-'),
+                  Text(
+                      Utils.getFormattedTimeStamp(
+                          trip.endDate ?? '-', kTimeFormat),
                       style: _kLabelTS)
                 ],
               )

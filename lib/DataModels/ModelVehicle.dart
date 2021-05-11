@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/Common/Utils.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
 
@@ -79,11 +80,11 @@ class ModelVehicle {
     String warning = '';
     if (Utils.isWarningPeriod(vehicle.insuranceExpiryDate)) {
       warning =
-          'Insurance Expires on ${Utils.getFormattedTimeStamp(vehicle.insuranceExpiryDate)}. ';
+          'Insurance Expires on ${Utils.getFormattedTimeStamp(vehicle.insuranceExpiryDate, kDateFormat)}. ';
     }
     if (Utils.isWarningPeriod(vehicle.taxExpiryDate)) {
       warning = warning +
-          'Tax Expires on ${Utils.getFormattedTimeStamp(vehicle.taxExpiryDate)}';
+          'Tax Expires on ${Utils.getFormattedTimeStamp(vehicle.taxExpiryDate, kDateFormat)}';
     }
     return warning;
   }

@@ -25,7 +25,10 @@ class ExpenseCard extends StatelessWidget {
               children: [
                 Text('Type: ' + expense.expenseType, style: _kLabelTS),
                 Text('Amount: ' + expense.amount.toString(), style: _kLabelTS),
-                Text(Utils.getFormattedTimeStamp(expense.timestamp) ?? '',
+                Text(
+                    Utils.getFormattedTimeStamp(
+                            expense.timestamp, kDateFormat) ??
+                        '',
                     style: _kLabelTS)
               ],
             ),

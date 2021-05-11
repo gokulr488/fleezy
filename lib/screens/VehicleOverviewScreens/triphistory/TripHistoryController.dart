@@ -1,6 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/CallContext.dart';
+import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/Common/Utils.dart';
 import 'package:fleezy/DataAccess/TripApis.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
@@ -8,9 +8,10 @@ import 'package:fleezy/components/cards/TripOverviewCard.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 List<TripOverviewCard> tripDetailCards = [];
-Timestamp date;
+DateTime date;
 
 onRefreshPressed(BuildContext context, String regNumber, AppData appdata) {
+  date = null;
   appdata.setTripHistory(regNumber, []);
   getData(regNumber, context, appdata);
 }
@@ -35,7 +36,6 @@ TripOverviewCard _buildTripDetailCard(ModelTrip tripDo) {
 
 void _getDataFromDB(
     String regNumber, BuildContext context, AppData appdata) async {
-  // CallContext callContext = await TripApis().getAllTripsOf(regNumber, context);
   CallContext callContext =
       await TripApis().filterTrips(context, regNo: regNumber, date: date);
   if (!callContext.isError) {
@@ -44,9 +44,15 @@ void _getDataFromDB(
   }
 }
 
+void onDateSelected(BuildContext context, String regNumber, AppData appdata) {
+  print('Filtering by date');
+  appdata.setTripHistory(regNumber, []);
+  getData(regNumber, context, appdata);
+}
+
 String getDateString() {
   if (date == null) {
-    return 'Choose Date';
+    return 'Filter';
   }
-  return Utils.getFormattedTimeStamp(date);
+  return Utils.getFormattedDate(date, kDateFormat);
 }
