@@ -23,7 +23,7 @@ class ManageVehicleScreen extends StatelessWidget {
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              vehicle,
+              IgnorePointer(child: vehicle),
               SizedBox(height: 15),
               GridLayout(children: [
                 ButtonCard(

@@ -39,10 +39,12 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              VehicleCard(
-                registrationNumber: regNumber,
-                currentDriver:
-                    appdata.user.fullName ?? appdata.user.phoneNumber,
+              IgnorePointer(
+                child: VehicleCard(
+                  registrationNumber: regNumber,
+                  currentDriver:
+                      appdata.user.fullName ?? appdata.user.phoneNumber,
+                ),
               ),
               SizedBox(height: 15),
               Expanded(

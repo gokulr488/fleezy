@@ -35,7 +35,7 @@ class _StartNewTripScreenState extends State<StartNewTripScreen> {
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              vehicle,
+              IgnorePointer(child: vehicle),
               Expanded(
                   child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),

@@ -20,7 +20,7 @@ class VehicleOverviewScreen extends StatelessWidget {
     return BaseScreen(
         headerText: 'Vehicle Overview',
         child: Column(children: [
-          vehicle,
+          IgnorePointer(child: vehicle),
           SizedBox(height: 15),
           GridLayout(
             children: [
