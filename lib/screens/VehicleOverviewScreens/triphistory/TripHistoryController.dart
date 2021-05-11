@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/DataAccess/TripApis.dart';
@@ -6,6 +7,7 @@ import 'package:fleezy/components/cards/TripOverviewCard.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 List<TripOverviewCard> tripDetailCards = [];
+Timestamp date = Timestamp.now();
 
 onRefreshPressed(BuildContext context, String regNumber, AppData appdata) {
   appdata.setTripHistory(regNumber, []);

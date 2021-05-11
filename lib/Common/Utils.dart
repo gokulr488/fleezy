@@ -32,7 +32,7 @@ class Utils {
   static Future<DateTime> pickDate(BuildContext context) async {
     DateTime selectedDate = DateTime.now();
     final DateTime picked = await showDatePicker(
-        initialDatePickerMode: DatePickerMode.year,
+        //initialDatePickerMode: DatePickerMode.year,
         context: context,
         initialDate: selectedDate,
         firstDate: DateTime(1990),

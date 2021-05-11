@@ -1,5 +1,7 @@
 import 'package:fleezy/Common/AppData.dart';
+import 'package:fleezy/Common/Utils.dart';
 import 'package:fleezy/components/BaseScreen.dart';
+import 'package:fleezy/components/DatePicker.dart';
 import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/VehicleCard.dart';
@@ -26,7 +28,13 @@ class TripHistoryScreen extends StatelessWidget {
                       appdata.user.fullName ?? appdata.user.phoneNumber,
                 ),
               ),
-              SizedBox(height: 15),
+              DatePicker(
+                  text: '${Utils.getFormattedTimeStamp(date)}',
+                  onTap: () async {
+                    date = Utils.getTimeStamp(await Utils.pickDate(context));
+
+                    // setState(() {});
+                  }),
               Expanded(
                 child: Consumer<AppData>(builder: (context, misData, _) {
                   return ScrollableList(
