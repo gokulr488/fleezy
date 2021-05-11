@@ -29,7 +29,7 @@ class TripHistoryScreen extends StatelessWidget {
                 ),
               ),
               DatePicker(
-                  text: '${Utils.getFormattedTimeStamp(date)}',
+                  text: '${getDateString()}',
                   onTap: () async {
                     date = Utils.getTimeStamp(await Utils.pickDate(context));
 
