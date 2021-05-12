@@ -19,7 +19,6 @@ class Company {
         .doc(company.companyEmail)
         .get();
     if (snapShot.data() != null) {
-      print(snapShot.data().values);
       print("Company already exists");
       return;
     }
