@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 import '../../Common/UiConstants.dart';
 
-const TextStyle _kLabelTS = TextStyle(fontSize: 17, color: kWhite80);
+const TextStyle _kLabelTS = TextStyle(fontSize: 18, color: kWhite80);
 
 class PaymentDetailsCard extends StatelessWidget {
   final ModelTrip trip;
@@ -19,42 +19,44 @@ class PaymentDetailsCard extends StatelessWidget {
       cardChild: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SizedBox(
-          height: (trip.status != Constants.CANCELLED) ? 100 : 50,
-          child: Column(
+          height: (trip.status != Constants.CANCELLED) ? 140 : 30,
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              if (trip.status != Constants.CANCELLED)
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text('Total: ' + trip.billAmount.toString(),
-                        style: _kLabelTS),
-                    Text('Paid: ' + trip.paidAmount.toString(),
-                        style: _kLabelTS)
-                  ],
-                ),
-              if (trip.status != Constants.CANCELLED)
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text('Balance: ' + trip.balanceAmount.toString(),
-                        style: _kLabelTS),
-                    Text('Driver Salary: ' + trip.driverSalary.toString(),
-                        style: _kLabelTS)
-                  ],
-                ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              Column(
                 children: [
+                  if (trip.status != Constants.CANCELLED)
+                    Text('Total:', style: _kLabelTS),
+                  if (trip.status != Constants.CANCELLED)
+                    Text('Paid:', style: _kLabelTS),
+                  if (trip.status != Constants.CANCELLED)
+                    Text('Balance:', style: _kLabelTS),
+                  if (trip.status != Constants.CANCELLED)
+                    Text('Driver Salary:', style: _kLabelTS),
                   Text(Utils.getFormattedTimeStamp(trip.startDate, kTimeFormat),
                       style: _kLabelTS),
-                  Icon(Icons.keyboard_arrow_right_outlined, size: 30),
-                  Text(
-                      Utils.getFormattedTimeStamp(
-                          trip.endDate ?? '-', kTimeFormat),
+                ],
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              ),
+              Column(
+                children: [
+                  if (trip.status != Constants.CANCELLED)
+                    Text(trip.billAmount.toString() + ' Rs', style: _kLabelTS),
+                  if (trip.status != Constants.CANCELLED)
+                    Text(trip.paidAmount.toString() + ' Rs', style: _kLabelTS),
+                  if (trip.status != Constants.CANCELLED)
+                    Text(trip.balanceAmount.toString() + ' Rs',
+                        style: _kLabelTS),
+                  if (trip.status != Constants.CANCELLED)
+                    Text(trip.driverSalary.toString() + ' Rs',
+                        style: _kLabelTS),
+                  Text(Utils.getFormattedTimeStamp(trip.endDate, kTimeFormat),
                       style: _kLabelTS)
                 ],
-              )
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              ),
             ],
           ),
         ),
