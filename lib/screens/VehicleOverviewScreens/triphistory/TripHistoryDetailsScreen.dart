@@ -10,6 +10,9 @@ import 'package:fleezy/components/cards/TripDetailCard.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/triphistory/TripHistoryDetailController.dart';
 import 'package:flutter/material.dart';
 
+const TextStyle _headingTS = TextStyle(
+    fontSize: 20, color: kHighlightColour, fontWeight: FontWeight.bold);
+
 class TripHistoryDetailsScreen extends StatelessWidget {
   static const String id = 'TripHistoryDetailsScreen';
 
@@ -26,11 +29,11 @@ class TripHistoryDetailsScreen extends StatelessWidget {
           ),
           if (tripDo.status != Constants.STARTED) HorLine(),
           if (tripDo.status != Constants.STARTED)
-            Text('Details', style: TextStyle(fontSize: 20, color: kWhite80)),
+            Text('Details', style: _headingTS),
           if (tripDo.status != Constants.STARTED)
             PaymentDetailsCard(trip: tripDo),
           HorLine(),
-          Text('Expenses', style: TextStyle(fontSize: 20, color: kWhite80)),
+          Text('Expenses', style: _headingTS),
           FutureBuilder(
             future: getExpenses(tripDo, context),
             builder: (BuildContext context, AsyncSnapshot snapshot) {

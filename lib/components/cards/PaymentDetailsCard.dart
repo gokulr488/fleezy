@@ -5,7 +5,9 @@ import 'package:fleezy/DataModels/ModelTrip.dart';
 import 'package:fleezy/components/cards/BaseCard.dart';
 import 'package:flutter/material.dart';
 
-const TextStyle _kLabelTS = TextStyle(fontSize: 17, color: kHighlightColour);
+import '../../Common/UiConstants.dart';
+
+const TextStyle _kLabelTS = TextStyle(fontSize: 17, color: kWhite80);
 
 class PaymentDetailsCard extends StatelessWidget {
   final ModelTrip trip;
