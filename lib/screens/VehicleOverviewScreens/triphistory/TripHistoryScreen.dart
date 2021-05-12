@@ -58,6 +58,8 @@ class _TripHistoryScreenState extends State<TripHistoryScreen> {
 
   void onFilterClicked(
       BuildContext context, AppData appData, String regNumber) async {
+    ctrl.from = DateTime.now();
+    ctrl.to = DateTime.now();
     await showModalBottomSheet(
         context: context,
         builder: (builder) {
