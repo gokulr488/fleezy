@@ -26,13 +26,13 @@ class PaymentDetailsCard extends StatelessWidget {
               Column(
                 children: [
                   if (trip.status != Constants.CANCELLED)
-                    Text('Total:', style: _kLabelTS),
+                    Text('Total', style: _kLabelTS),
                   if (trip.status != Constants.CANCELLED)
-                    Text('Paid:', style: _kLabelTS),
+                    Text('Paid', style: _kLabelTS),
                   if (trip.status != Constants.CANCELLED)
-                    Text('Balance:', style: _kLabelTS),
+                    Text('Balance', style: _kLabelTS),
                   if (trip.status != Constants.CANCELLED)
-                    Text('Driver Salary:', style: _kLabelTS),
+                    Text('Driver Salary', style: _kLabelTS),
                   Text(Utils.getFormattedTimeStamp(trip.startDate, kTimeFormat),
                       style: _kLabelTS),
                 ],
