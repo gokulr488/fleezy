@@ -1,10 +1,10 @@
 import 'package:fleezy/Common/AppData.dart';
-import 'package:fleezy/Common/Utils.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/DatePicker.dart';
 import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/VehicleCard.dart';
+import 'package:fleezy/screens/VehicleOverviewScreens/triphistory/TripFilterSheet.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/triphistory/TripHistoryController.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -37,11 +37,11 @@ class _TripHistoryScreenState extends State<TripHistoryScreen> {
                 ),
               ),
               DatePicker(
-                  text: '${ctrl.getDateString()}',
+                  text: 'Filter',
                   onTap: () async {
-                    ctrl.date = await Utils.pickDate(context);
-                    ctrl.onDateSelected(context, regNumber, appdata);
-                    setState(() {});
+                    onFilterClicked(context, appdata, regNumber);
+                    // ctrl.from = await Utils.pickDate(context);
+                    // ctrl.onDateSelected(context, regNumber, appdata);
                   }),
               Expanded(
                 child: Consumer<AppData>(builder: (context, misData, _) {
@@ -54,5 +54,15 @@ class _TripHistoryScreenState extends State<TripHistoryScreen> {
                   onPressed: () =>
                       ctrl.onRefreshPressed(context, regNumber, appdata))
             ]));
+  }
+
+  void onFilterClicked(
+      BuildContext context, AppData appData, String regNumber) async {
+    await showModalBottomSheet(
+        context: context,
+        builder: (builder) {
+          return TripFilterSheet(
+              ctrl: ctrl, appData: appData, regNumber: regNumber);
+        });
   }
 }

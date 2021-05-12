@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleezy/Common/Constants.dart';
-import 'package:fleezy/Common/UiConstants.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -10,11 +9,13 @@ class Utils {
   }
 
   static String getFormattedDate(DateTime date, String format) {
-    DateFormat formatter = DateFormat(kDateFormat);
+    if (date == null) return null;
+    DateFormat formatter = DateFormat(format);
     return formatter.format(date);
   }
 
   static String getFormattedTimeStamp(Timestamp timestamp, String format) {
+    if (timestamp == null) return null;
     return getFormattedDate(
         DateTime.fromMillisecondsSinceEpoch(timestamp.millisecondsSinceEpoch),
         format);

@@ -130,7 +130,7 @@ class TripApis {
   }
 
   Future<CallContext> filterTrips(BuildContext context,
-      {String regNo, DateTime date}) async {
+      {String regNo, DateTime from, DateTime to}) async {
     ModelUser user = Provider.of<AppData>(context, listen: false).user;
     Query reference = fireStore
         .collection(Constants.COMPANIES)
@@ -139,11 +139,11 @@ class TripApis {
     if (regNo != null) {
       reference = reference.where('VehicleRegNo', isEqualTo: regNo);
     }
-    if (date != null) {
+    if (from != null && to != null) {
       reference = reference.where('StartDate',
-          isGreaterThan: Utils.getStartOfDay(date));
+          isGreaterThan: Utils.getStartOfDay(from));
       reference =
-          reference.where('StartDate', isLessThan: Utils.getEndOfDay(date));
+          reference.where('StartDate', isLessThan: Utils.getEndOfDay(to));
     }
 
     QuerySnapshot snapShot =
