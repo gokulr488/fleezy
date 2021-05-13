@@ -31,17 +31,6 @@ class Expense {
 
   Future<void> updateExpense(
       ModelExpense expense, String companyId, String docid) async {
-    DocumentSnapshot snapShot = await fireStore
-        .collection(Constants.COMPANIES)
-        .doc(companyId)
-        .collection(Constants.EXPENSE)
-        .doc(docid)
-        .get();
-    if (snapShot.data() == null) {
-      print("User not found");
-      return null;
-    }
-
     return fireStore
         .collection(Constants.COMPANIES)
         .doc(companyId)
@@ -67,16 +56,6 @@ class Expense {
   }
 
   Future<void> deleteExpense(String companyId, String docid) async {
-    DocumentSnapshot snapShot = await fireStore
-        .collection(Constants.COMPANIES)
-        .doc(companyId)
-        .collection(Constants.EXPENSE)
-        .doc(docid)
-        .get();
-    if (snapShot.data() == null) {
-      print("Expense not found");
-      return null;
-    }
     return fireStore
         .collection(Constants.COMPANIES)
         .doc(companyId)

@@ -19,10 +19,11 @@ class Vehicle {
       callContext.setError('companyId is null for the vehicle');
       return callContext;
     }
-    DocumentReference docRef = await fireStore
+    DocumentSnapshot docSnap = await fireStore
         .collection(Constants.VEHICLES)
-        .doc(vehicle.registrationNo);
-    if (docRef != null) {
+        .doc(vehicle.registrationNo)
+        .get();
+    if (docSnap.exists) {
       callContext.setError("Vehicle already exists");
       return callContext;
     }
@@ -52,14 +53,6 @@ class Vehicle {
   }
 
   Future<CallContext> updateVehicle(ModelVehicle vehicle) async {
-    DocumentSnapshot snapShot = await fireStore
-        .collection(Constants.VEHICLES)
-        .doc(vehicle.registrationNo)
-        .get();
-    if (snapShot == null) {
-      callContext.setError('Vehicle not found');
-      return callContext;
-    }
     await fireStore
         .collection(Constants.VEHICLES)
         .doc(vehicle.registrationNo)
@@ -107,7 +100,7 @@ class Vehicle {
   Future<CallContext> getVehicleByRegNo(String regNo) async {
     DocumentSnapshot doc =
         await fireStore.collection(Constants.VEHICLES).doc(regNo).get();
-    if (doc == null) {
+    if (!doc.exists) {
       callContext.setError('Vehicle not found');
       return callContext;
     }

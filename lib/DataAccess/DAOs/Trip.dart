@@ -13,17 +13,6 @@ class Trip {
   }
 
   void updateTrip(ModelTrip trip, String companyId, String docid) async {
-    final DocumentSnapshot snapShot = await fireStore
-        .collection(Constants.COMPANIES)
-        .doc(companyId)
-        .collection(Constants.EXPENSE)
-        .doc(docid)
-        .get();
-    if (snapShot.data() == null) {
-      print("Trip not found");
-      return;
-    }
-
     return fireStore
         .collection(Constants.COMPANIES)
         .doc(companyId)
@@ -35,16 +24,6 @@ class Trip {
   }
 
   Future<void> deleteTrip(String companyId, String docid) async {
-    DocumentSnapshot snapShot = await fireStore
-        .collection(Constants.COMPANIES)
-        .doc(companyId)
-        .collection(Constants.TRIP)
-        .doc(docid)
-        .get();
-    if (snapShot.data() == null) {
-      print("Trip not found");
-      return null;
-    }
     return fireStore
         .collection(Constants.COMPANIES)
         .doc(companyId)

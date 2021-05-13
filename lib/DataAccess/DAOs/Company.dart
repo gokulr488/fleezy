@@ -18,7 +18,7 @@ class Company {
         .collection(Constants.COMPANIES)
         .doc(company.companyEmail)
         .get();
-    if (snapShot.data() != null) {
+    if (!snapShot.exists) {
       print("Company already exists");
       return;
     }
@@ -37,15 +37,6 @@ class Company {
   }
 
   void updateCompany(ModelCompany company) async {
-    final DocumentSnapshot snapShot = await fireStore
-        .collection(Constants.COMPANIES)
-        .doc(company.companyEmail)
-        .get();
-    if (snapShot.data() == null) {
-      print("Company not found");
-      return;
-    }
-
     return fireStore
         .collection(Constants.COMPANIES)
         .doc(company.companyEmail)
