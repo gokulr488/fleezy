@@ -13,14 +13,14 @@ class Company {
     callContext = CallContext();
   }
 
-  Future<void> addCompany(ModelCompany company) async {
+  Future<CallContext> addCompany(ModelCompany company) async {
     final DocumentSnapshot snapShot = await fireStore
         .collection(Constants.COMPANIES)
         .doc(company.companyEmail)
         .get();
-    if (!snapShot.exists) {
-      print("Company already exists");
-      return;
+    if (snapShot.exists) {
+      callContext.setError('Company already exists');
+      return callContext;
     }
 
     await fireStore
@@ -29,11 +29,11 @@ class Company {
         .set(ModelCompany.getDocOf(company))
         .then((value) => print("Company Added"))
         .catchError((error) {
-      print("Failed to add company: $error");
-      return;
+      callContext.setError('Failed to add company: $error');
+      return callContext;
     });
-    await Roles().addRole(company.users.values.first);
-    return;
+    callContext = await Roles().addRole(company.users.values.first);
+    return callContext;
   }
 
   void updateCompany(ModelCompany company) async {

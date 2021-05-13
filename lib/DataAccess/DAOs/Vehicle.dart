@@ -65,7 +65,7 @@ class Vehicle {
   }
 
   Future<List<ModelVehicle>> _getVehiclesForUser(ModelUser user) async {
-    if (user.companyId == null || user.phoneNumber == null) {
+    if (user?.companyId == null || user.phoneNumber == null) {
       print('companyId or phoneNumber is null');
       return null;
     }

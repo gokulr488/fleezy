@@ -15,8 +15,7 @@ class Roles {
   Future<CallContext> addRole(ModelUser user) async {
     DocumentSnapshot snapShot =
         await fireStore.collection(Constants.USERS).doc(user.phoneNumber).get();
-    if (!snapShot.exists) {
-      print('User already exists');
+    if (snapShot.exists) {
       callContext.setError('User already exists');
       return callContext;
     }
@@ -28,11 +27,6 @@ class Roles {
             .setSuccess('User Added')) // check this if unknown error is thrown
         .catchError(
             (error) => callContext.setError('Error Adding User $error'));
-
-    if (callContext.isError) {
-      print(callContext.errorMessage);
-      return callContext;
-    }
     return callContext;
   }
 

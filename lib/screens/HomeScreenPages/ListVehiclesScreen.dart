@@ -50,15 +50,15 @@ class ListVehiclesScreen extends StatelessWidget {
       print('Getting User basic Info.');
       ModelUser user =
           await Roles().getUser(Authentication().getUser().phoneNumber);
-      if (user.state == Constants.INACTIVE) {
+      if (user?.state == Constants.INACTIVE) {
         _logoutUser(context);
         return;
       }
       appData.setUser(user);
-      if (user.roleName != Constants.ADMIN) {
+      if (user?.roleName != Constants.ADMIN) {
         Provider.of<UiState>(context, listen: false).setIsAdmin(false);
       }
-      if (user.tripId != null) {
+      if (user?.tripId != null) {
         await Navigator.pushReplacementNamed(context, OnTripScreen.id);
       }
     }

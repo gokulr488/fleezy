@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/Authentication.dart';
+import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/UiConstants.dart';
+import 'package:fleezy/Common/UiState.dart';
 import 'package:fleezy/DataAccess/DAOs/Roles.dart';
 import 'package:fleezy/DataAccess/UserManagement.dart';
 import 'package:fleezy/DataModels/ModelCompany.dart';
@@ -164,11 +166,17 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
     });
     disableButton = true;
     print('adding Company');
-    await UserManagement().addNewCompany(company);
+    CallContext callContext = await UserManagement().addNewCompany(company);
+    if (callContext.isError) {
+      messages = callContext.errorMessage;
+      setState(() {});
+      return;
+    }
     AppData appData = Provider.of<AppData>(context, listen: false);
     ModelUser adminUser = company.users[company.phoneNumber];
     appData.setUser(adminUser);
     appData.addNewDriver(adminUser);
+    Provider.of<UiState>(context, listen: false).setIsAdmin(true);
     Navigator.popUntil(context, ModalRoute.withName(StartScreen.id));
     await Navigator.pushReplacementNamed(context, HomeScreen.id);
   }
