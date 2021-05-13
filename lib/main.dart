@@ -21,6 +21,7 @@ import 'package:fleezy/screens/VehicleOverviewScreens/StartNewTripScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/VehicleOverviewScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 //flutter build apk --split-per-abi
@@ -46,7 +47,9 @@ class FleezyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Fleezy',
         theme: ThemeData(
-            brightness: Brightness.dark, fontFamily: 'RobotoCondensed'),
+            brightness: Brightness.dark,
+            textTheme: GoogleFonts.koHoTextTheme(
+                ThemeData(brightness: Brightness.dark).textTheme)),
         initialRoute: _isLoggedIn(context) ? HomeScreen.id : StartScreen.id,
         routes: {
           HomeScreen.id: (context) => HomeScreen(),

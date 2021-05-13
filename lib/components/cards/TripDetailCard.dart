@@ -44,9 +44,25 @@ class TripDetailCard extends StatelessWidget {
                 )
               ],
             ),
-            Text(tripDo.startingFrom ?? '', style: _kLocationTextStyle),
-            Icon(Icons.arrow_downward_sharp, size: 40),
-            Text(tripDo.destination ?? '', style: _kLocationTextStyle),
+            Row(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Text(tripDo.startingFrom ?? '',
+                        style: _kLocationTextStyle),
+                    scrollDirection: Axis.horizontal,
+                  ),
+                ),
+                Icon(Icons.arrow_right_alt, size: 30),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Text(tripDo.destination ?? '',
+                        style: _kLocationTextStyle),
+                    scrollDirection: Axis.horizontal,
+                  ),
+                ),
+              ],
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: Row(
@@ -90,7 +106,7 @@ class TripDetailCard extends StatelessWidget {
     hour < 10 ? hr = '0$hour' : hr = '$hour';
     minutes < 10 ? min = '0$minutes' : min = '$minutes';
     int seconds = (millisSpent / 1000).truncate();
-    if (seconds % 2 == 0) {
+    if (seconds % 2 != 0) {
       return '$hr:$min';
     } else {
       return '$hr $min';
