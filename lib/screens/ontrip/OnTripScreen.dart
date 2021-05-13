@@ -58,69 +58,73 @@ class _OnTripScreenState extends State<OnTripScreen> {
                       tripDo: tripDo,
                       distance: controller.distance,
                     ),
+                    SizedBox(height: 10),
                     Expanded(
-                        child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 20),
-                            child: ScrollableList(childrenHeight: 80, items: [
-                              TextField(
-                                  textAlign: TextAlign.center,
-                                  keyboardType: TextInputType.number,
-                                  onChanged: (value) {
-                                    tripDo.billAmount = double.parse(value);
-                                  },
-                                  decoration: kTextFieldDecoration.copyWith(
-                                      labelText: 'Bill Amount')),
-                              TextField(
-                                  textAlign: TextAlign.center,
-                                  keyboardType: TextInputType.number,
-                                  onChanged: (value) {
-                                    tripDo.paidAmount = double.parse(value);
-                                  },
-                                  decoration: kTextFieldDecoration.copyWith(
-                                      labelText: 'Paid Amount')),
-                              TextField(
-                                  textAlign: TextAlign.center,
-                                  keyboardType: TextInputType.number,
-                                  onChanged: (value) {
-                                    tripDo.driverSalary = double.parse(value);
-                                  },
-                                  decoration: kTextFieldDecoration.copyWith(
-                                      labelText: 'Driver Salary')),
-                              TextField(
-                                  keyboardType: TextInputType.number,
-                                  textAlign: TextAlign.center,
-                                  onChanged: (value) {
-                                    tripDo.endReading = int.parse(value);
-                                  },
-                                  decoration: kTextFieldDecoration.copyWith(
-                                      labelText: 'Odometer Reading')),
-                              Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    RoundedButton(
-                                      title: 'Cancel Trip',
-                                      onPressed: () => controller
-                                          .onCancelPressed(context, tripDo),
-                                      colour: kRedColor,
-                                      width: 100,
-                                    ),
-                                    RoundedButton(
-                                      title: '+ Expense',
-                                      onPressed: () => Navigator.pushNamed(
-                                          context, AddExpenseScreen.id,
-                                          arguments: tripDo.vehicleRegNo),
-                                      width: 100,
-                                    ),
-                                    RoundedButton(
-                                      title: '+ Fuel',
-                                      onPressed: () => Navigator.pushNamed(
-                                          context, AddFuelScreen.id,
-                                          arguments: tripDo.vehicleRegNo),
-                                      width: 100,
-                                    )
-                                  ])
-                            ]))),
+                        child: ScrollableList(
+                      childrenHeight: 75,
+                      items: [
+                        TextField(
+                            textAlign: TextAlign.center,
+                            keyboardType: TextInputType.number,
+                            onChanged: (value) {
+                              tripDo.billAmount = double.parse(value);
+                            },
+                            decoration: kTextFieldDecoration.copyWith(
+                                labelText: 'Bill Amount')),
+                        TextField(
+                            textAlign: TextAlign.center,
+                            keyboardType: TextInputType.number,
+                            onChanged: (value) {
+                              tripDo.paidAmount = double.parse(value);
+                            },
+                            decoration: kTextFieldDecoration.copyWith(
+                                labelText: 'Paid Amount')),
+                        TextField(
+                            textAlign: TextAlign.center,
+                            keyboardType: TextInputType.number,
+                            onChanged: (value) {
+                              tripDo.driverSalary = double.parse(value);
+                            },
+                            decoration: kTextFieldDecoration.copyWith(
+                                labelText: 'Driver Salary')),
+                        TextField(
+                            keyboardType: TextInputType.number,
+                            textAlign: TextAlign.center,
+                            onChanged: (value) {
+                              tripDo.endReading = int.parse(value);
+                            },
+                            decoration: kTextFieldDecoration.copyWith(
+                                labelText: 'Odometer Reading')),
+                      ],
+                    )),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            RoundedButton(
+                              title: 'Cancel Trip',
+                              onPressed: () =>
+                                  controller.onCancelPressed(context, tripDo),
+                              colour: kRedColor,
+                              width: 100,
+                            ),
+                            RoundedButton(
+                              title: '+ Expense',
+                              onPressed: () => Navigator.pushNamed(
+                                  context, AddExpenseScreen.id,
+                                  arguments: tripDo.vehicleRegNo),
+                              width: 100,
+                            ),
+                            RoundedButton(
+                              title: '+ Fuel',
+                              onPressed: () => Navigator.pushNamed(
+                                  context, AddFuelScreen.id,
+                                  arguments: tripDo.vehicleRegNo),
+                              width: 100,
+                            )
+                          ]),
+                    ),
                     RoundedButton(
                         title: 'End Trip',
                         onPressed: () {
