@@ -20,6 +20,7 @@ dependencies:
   flutter_spinkit: ^5.0.0
   provider: ^5.0.0
   geolocator: ^7.0.3
+  google_fonts: ^2.0.0
 dev_dependencies:
   pedantic: ^1.0.0
   flutter_test:
@@ -33,9 +34,7 @@ flutter:
     - assets/images/
 
   fonts:
-    - family: DancingScript
+    - family: RobotoCondensed
       fonts:
-        - asset: assets/fonts/dancing_script.ttf
-    - family: FundamentoRegular
-      fonts:
-        - asset: assets/fonts/Fondamento-Regular.ttf
+        - asset: assets/fonts/RobotoCondensed-Light.ttf
+          

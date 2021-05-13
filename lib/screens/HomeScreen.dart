@@ -8,8 +8,7 @@ import 'package:fleezy/screens/HomeScreenPages/ManageCompanyScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-const _headerTextStyle =
-    TextStyle(fontSize: 30, fontFamily: 'FundamentoRegular', color: kWhite80);
+const _headerTextStyle = TextStyle(fontSize: 30, color: kWhite80);
 
 class HomeScreen extends StatelessWidget {
   static const String id = 'HomeScreen';

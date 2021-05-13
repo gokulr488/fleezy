@@ -15,6 +15,8 @@ const Color kActiveTextColor = Color(0xFFffee58);
 const Color kActiveCardColor = Color(0x40ffee58);
 const Color kCancelledCardColor = Color(0x40ff5252);
 
+const shadow = [Shadow(offset: Offset(4, 4), blurRadius: 4)];
+
 const kTextFieldDecoration = InputDecoration(
   labelStyle: TextStyle(fontSize: 18),
   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),

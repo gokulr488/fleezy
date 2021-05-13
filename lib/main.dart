@@ -46,8 +46,7 @@ class FleezyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Fleezy',
         theme: ThemeData(
-          brightness: Brightness.dark,
-        ),
+            brightness: Brightness.dark, fontFamily: 'RobotoCondensed'),
         initialRoute: _isLoggedIn(context) ? HomeScreen.id : StartScreen.id,
         routes: {
           HomeScreen.id: (context) => HomeScreen(),

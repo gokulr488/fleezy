@@ -1,13 +1,6 @@
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:flutter/material.dart';
-
-const _kFleezyTextStyle = TextStyle(
-    fontSize: 45,
-    fontFamily: 'DancingScript',
-    fontWeight: FontWeight.bold,
-    color: kHighlightColour);
-const _kWelcomeUserTextStyle =
-    TextStyle(fontSize: 22, fontFamily: 'FundamentoRegular', color: kWhite80);
+import 'package:google_fonts/google_fonts.dart';
 
 class BaseScreen extends StatelessWidget {
   final Widget child;
@@ -24,8 +17,17 @@ class BaseScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(headerText, style: _kWelcomeUserTextStyle),
-                    Text('Fleezy', style: _kFleezyTextStyle)
+                    Text(headerText,
+                        style: GoogleFonts.dancingScript(
+                          color: kWhite80,
+                          fontSize: 28,
+                        )),
+                    Text('Fleezy',
+                        style: GoogleFonts.dancingScript(
+                            color: kHighlightColour,
+                            shadows: shadow,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 45))
                   ]),
             ),
       backgroundColor: kBackgroundColor,
