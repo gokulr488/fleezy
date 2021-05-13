@@ -1,4 +1,3 @@
-import 'package:fleezy/Common/UiConstants.dart';
 import 'package:flutter/material.dart';
 
 class HorLine extends StatelessWidget {
@@ -8,7 +7,7 @@ class HorLine extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 1,
-      color: kWhite25,
+      color: Colors.white60,
       margin: const EdgeInsets.symmetric(vertical: 10),
     );
   }
