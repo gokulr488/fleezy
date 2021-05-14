@@ -7,7 +7,7 @@ class HorLine extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 1,
-      color: Colors.white60,
+      color: Colors.white54,
       margin: const EdgeInsets.symmetric(vertical: 10),
     );
   }

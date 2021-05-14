@@ -5,12 +5,8 @@ import 'package:fleezy/screens/CreateCompanyScreen.dart';
 import 'package:fleezy/screens/LoginScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-TextStyle fleezyTextStyle = TextStyle(
-    fontSize: 60,
-    fontFamily: 'DancingScript',
-    fontWeight: FontWeight.bold,
-    color: kHighlightColour);
 const TextStyle buttonTextStyle = TextStyle(
   fontSize: 25,
   fontWeight: FontWeight.bold,
@@ -28,7 +24,11 @@ class StartScreen extends StatelessWidget {
             child: Center(
               child: Text(
                 'FleeZy',
-                style: fleezyTextStyle,
+                style: GoogleFonts.dancingScript(
+                    color: kHighlightColour,
+                    shadows: shadow,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 60),
               ),
             ),
           ),

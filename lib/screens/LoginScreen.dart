@@ -13,6 +13,7 @@ import 'package:fleezy/screens/CreateCompanyScreen.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
 import 'package:fleezy/screens/StartScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 const TextStyle kMessagesTextStyle = TextStyle(fontSize: 15);
@@ -55,7 +56,12 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Text('Fleezy', style: kFleezyTextStyle),
+          Text('Fleezy',
+              style: GoogleFonts.dancingScript(
+                  color: kHighlightColour,
+                  shadows: shadow,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 60)),
           if (showSpinner) LoadingDots(size: 50),
           Text(message, style: kMessagesTextStyle),
           TextField(

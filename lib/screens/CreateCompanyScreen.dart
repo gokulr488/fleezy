@@ -14,13 +14,9 @@ import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
 import 'package:fleezy/screens/StartScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-const TextStyle kFleezyTextStyle = TextStyle(
-    fontSize: 55,
-    fontFamily: 'DancingScript',
-    fontWeight: FontWeight.bold,
-    color: kHighlightColour);
 const TextStyle _kMessagesTextStyle = TextStyle(fontSize: 15);
 
 class CreateCompanyScreen extends StatefulWidget {
@@ -60,7 +56,12 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
         headerText: '', //To Disable AppBar
         child:
             Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-          Text('FleeZy', style: kFleezyTextStyle),
+          Text('FleeZy',
+              style: GoogleFonts.dancingScript(
+                  color: kHighlightColour,
+                  shadows: shadow,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 60)),
           TextField(
               textAlign: TextAlign.center,
               onChanged: (value) {
