@@ -53,7 +53,14 @@ class TripDetailCard extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                   ),
                 ),
-                Icon(Icons.arrow_right_alt, size: 30),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Icon(
+                      tripDo.isRoundTrip
+                          ? Icons.compare_arrows
+                          : Icons.arrow_right_alt,
+                      size: 35),
+                ),
                 Expanded(
                   child: SingleChildScrollView(
                     child: Text(tripDo.destination ?? '',

@@ -19,7 +19,7 @@ class PaymentDetailsCard extends StatelessWidget {
       cardChild: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SizedBox(
-          height: (trip.status != Constants.CANCELLED) ? 140 : 30,
+          height: (trip.status != Constants.CANCELLED) ? 150 : 30,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -35,6 +35,8 @@ class PaymentDetailsCard extends StatelessWidget {
                     Text('Driver Salary', style: _kLabelTS),
                   Text(Utils.getFormattedTimeStamp(trip.startDate, kTimeFormat),
                       style: _kLabelTS),
+                  if (trip.status != Constants.CANCELLED)
+                    Text('Round Trip', style: _kLabelTS),
                 ],
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -52,7 +54,9 @@ class PaymentDetailsCard extends StatelessWidget {
                     Text(trip.driverSalary.toString() + ' Rs',
                         style: _kLabelTS),
                   Text(Utils.getFormattedTimeStamp(trip.endDate, kTimeFormat),
-                      style: _kLabelTS)
+                      style: _kLabelTS),
+                  if (trip.status != Constants.CANCELLED)
+                    Text(trip.isRoundTrip ? 'YES' : 'NO', style: _kLabelTS),
                 ],
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
