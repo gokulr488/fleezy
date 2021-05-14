@@ -106,6 +106,7 @@ class __EditNameWidgetState extends State<_EditNameWidget> {
             ? SizedBox(
                 width: MediaQuery.of(context).size.width * 0.8,
                 child: TextFormField(
+                  keyboardType: TextInputType.name,
                   controller: nameController,
                   decoration: kTextFieldDecoration,
                 ),

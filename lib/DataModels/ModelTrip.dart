@@ -20,6 +20,7 @@ class ModelTrip {
   String startingFrom;
   String destination;
   String status;
+  bool isRoundTrip;
 
   ModelTrip(
       {this.id,
@@ -39,7 +40,8 @@ class ModelTrip {
       this.driverUid,
       this.startingFrom,
       this.destination,
-      this.status});
+      this.status,
+      this.isRoundTrip});
 
   static Map<String, dynamic> getDocOf(ModelTrip trip) {
     return {
@@ -60,6 +62,7 @@ class ModelTrip {
       'DriverName': trip.driverName,
       'DriverUid': trip.driverUid,
       'Status': trip.status,
+      'IsRoundTrip': trip.isRoundTrip,
     };
   }
 
@@ -82,10 +85,10 @@ class ModelTrip {
       startDate: data['StartDate'],
       startReading: data['StartReading'],
       startingFrom: data['StartingFrom'] ?? '',
-      //timestamp: data['Timestamp'],
       tripNo: data['TripNo'] ?? '',
       vehicleRegNo: data['VehicleRegNo'] ?? '',
       status: data['Status'] ?? '',
+      isRoundTrip: data['IsRoundTrip'] ?? false,
     );
   }
 

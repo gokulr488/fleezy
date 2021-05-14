@@ -95,6 +95,20 @@ class _OnTripScreenState extends State<OnTripScreen> {
                             },
                             decoration: kTextFieldDecoration.copyWith(
                                 labelText: 'Odometer Reading')),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text('Round Trip',
+                                  style: TextStyle(
+                                      fontSize: 20, color: kHighlightColour)),
+                              Checkbox(
+                                  activeColor: kHighlightColour,
+                                  value: tripDo.isRoundTrip,
+                                  onChanged: (bool value) {
+                                    tripDo.isRoundTrip = value;
+                                    setState(() {});
+                                  })
+                            ])
                       ],
                     )),
                     Padding(

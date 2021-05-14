@@ -11,13 +11,13 @@ class ModelCompany {
   String phoneNumber;
   Map<String, ModelVehicle> vehicles;
   Map<String, ModelUser> users;
-  Map<String, ModelExpense> expenses;
-  Map<String, ModelTrip> trips;
+  Map<String, ModelExpense> expense;
+  Map<String, ModelTrip> trip;
 
   ModelCompany(
-      {this.trips,
+      {this.trip,
       this.users,
-      this.expenses,
+      this.expense,
       this.companyName,
       this.companyEmail,
       this.password,
@@ -32,8 +32,8 @@ class ModelCompany {
       'Vehicles': company.vehicles,
       'PhoneNumber': company.phoneNumber,
       'Users': _getListOfUsers(company.users),
-      'Expenses': company.expenses,
-      'Trips': company.trips
+      'Expense': company.expense,
+      'Trip': company.trip
     };
   }
 
@@ -55,8 +55,8 @@ class ModelCompany {
       vehicles: data['Vehicles'] ?? '',
       phoneNumber: data['PhoneNumber'] ?? '',
       users: data['Users'] ?? '',
-      expenses: data['Expenses'] ?? '',
-      trips: data['Trips'] ?? '',
+      expense: data['Expense'] ?? '',
+      trip: data['Trip'] ?? '',
     );
   }
 

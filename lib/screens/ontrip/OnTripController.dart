@@ -89,7 +89,7 @@ class OnTripController {
           'Location permissions are permanently denied, we cannot request permissions.');
     }
     await calcDistance();
-    Timer.periodic(Duration(seconds: 1), (t) {
+    Timer.periodic(Duration(seconds: 3), (t) {
       locTimer = t;
       calcDistance();
     });
@@ -104,7 +104,6 @@ class OnTripController {
     if (accuracy > 100) {
       return;
     }
-    print(currentPos.accuracy);
     if (prevPos == null) {
       prevPos = currentPos;
     }
