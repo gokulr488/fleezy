@@ -19,6 +19,7 @@ import 'package:fleezy/screens/VehicleOverviewScreens/addexpense/AddExpenseScree
 import 'package:fleezy/screens/VehicleOverviewScreens/addfuel/AddFuelScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/StartNewTripScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/VehicleOverviewScreen.dart';
+import 'package:fleezy/screens/reports/ReportsScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -69,6 +70,7 @@ class FleezyApp extends StatelessWidget {
           OnTripScreen.id: (context) => OnTripScreen(),
           TripHistoryScreen.id: (context) => TripHistoryScreen(),
           TripHistoryDetailsScreen.id: (context) => TripHistoryDetailsScreen(),
+          ReportsScreen.id: (context) => ReportsScreen(),
         });
   }
 }

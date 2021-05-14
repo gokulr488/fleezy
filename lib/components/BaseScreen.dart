@@ -18,9 +18,9 @@ class BaseScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(headerText,
-                        style: GoogleFonts.dancingScript(
+                        style: GoogleFonts.laila(
                           color: kWhite80,
-                          fontSize: 28,
+                          fontSize: 26,
                         )),
                     Text('Fleezy',
                         style: GoogleFonts.dancingScript(
