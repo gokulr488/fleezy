@@ -5,7 +5,6 @@ const Color kWhite80 = Color(0xCCFFFFFF);
 const Color kHighlightColour = Color(0xFFc8a415);
 const Color kRedColor = Color(0xFF7f0000);
 const Color kBlueColor = Color(0xFF002171);
-const Color kGreenColor = Color(0xFF2E7D32);
 const Color kButtonCardColor = Color(0xFF222222);
 const String kDateFormat = 'dd-MM-yy';
 const String kTimeFormat = 'hh:mm dd-MM-yy';
