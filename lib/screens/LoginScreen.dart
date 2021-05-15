@@ -9,7 +9,6 @@ import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/LoadingDots.dart';
 import 'package:fleezy/components/RoundedButton.dart';
-import 'package:fleezy/screens/CreateCompanyScreen.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
 import 'package:fleezy/screens/StartScreen.dart';
 import 'package:flutter/material.dart';

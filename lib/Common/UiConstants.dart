@@ -18,19 +18,27 @@ const shadow = [Shadow(offset: Offset(4, 4), blurRadius: 4)];
 
 const kTextFieldDecoration = InputDecoration(
   labelStyle: TextStyle(fontSize: 18),
-  contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+  contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
   border: OutlineInputBorder(
-    borderRadius: BorderRadius.all(Radius.circular(32.0)),
+    borderRadius: BorderRadius.all(Radius.circular(25)),
   ),
   enabledBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: kHighlightColour, width: 1.0),
-    borderRadius: BorderRadius.all(Radius.circular(32.0)),
+    borderSide: BorderSide(color: kHighlightColour, width: 1),
+    borderRadius: BorderRadius.all(Radius.circular(25)),
   ),
   focusedBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Color(0xFFd84315), width: 2.0),
-    borderRadius: BorderRadius.all(Radius.circular(32.0)),
+    borderSide: BorderSide(color: Color(0xFFd84315), width: 2),
+    borderRadius: BorderRadius.all(Radius.circular(25)),
   ),
 );
+
+const kDropDownDecoration = InputDecoration(
+    labelStyle: TextStyle(fontSize: 18, color: kHighlightColour),
+    contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Color(0x00000000), width: 1.0),
+      borderRadius: BorderRadius.all(Radius.circular(25)),
+    ));
 
 const Map<int, Color> kCardOverlay = {
   1: Color(0x0DFFFFFF),
