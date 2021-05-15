@@ -9,7 +9,7 @@ class TripSummaryCard extends StatelessWidget {
     return BaseCard(
       elevation: 4,
       cardChild: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 30),
+        padding: const EdgeInsets.all(8),
         child: Column(
           children: [
             Text('Trips Overview',
