@@ -2,9 +2,9 @@ import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/DropDownButton.dart';
 import 'package:fleezy/components/HorLine.dart';
-import 'package:fleezy/screens/reports/FuelExpensesCard.dart';
-import 'package:fleezy/screens/reports/SummaryReportCard.dart';
-import 'package:fleezy/screens/reports/TripsSummaryCard.dart';
+import 'package:fleezy/screens/reports/cards/FuelExpensesCard.dart';
+import 'package:fleezy/screens/reports/cards/SummaryReportCard.dart';
+import 'package:fleezy/screens/reports/cards/TripsSummaryCard.dart';
 import 'package:flutter/material.dart';
 
 class ReportsScreen extends StatelessWidget {
