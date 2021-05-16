@@ -28,7 +28,7 @@ class ListVehiclesScreen extends StatelessWidget {
           Expanded(
             child: Consumer<AppData>(builder: (context, appData, _) {
               return ScrollableList(
-                childrenHeight: 100,
+                childrenHeight: 120,
                 items: _populateVehicleCards(appData),
               );
             }),
@@ -73,6 +73,7 @@ class ListVehiclesScreen extends StatelessWidget {
     for (ModelVehicle vehicle in appData.availableVehicles) {
       vehicleCards.add(VehicleCard(
           vehicle: vehicle,
+          vehicleName: vehicle.vehicleName,
           registrationNumber: vehicle.registrationNo,
           color: vehicle.isInTrip ? kActiveCardColor : kCardOverlay[4],
           currentDriver: vehicle.currentDriver ?? '',

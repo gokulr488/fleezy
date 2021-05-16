@@ -15,7 +15,7 @@ class TimePeriodSelector extends StatelessWidget {
       child: DropDownButton(
           icon: Icons.calendar_today,
           hintText: getHint(repData),
-          defaultValue: getDefaultValue(repData),
+          value: getDefaultValue(repData),
           values: getFilterValues(repData),
           onChanged: (String value) {}),
     );

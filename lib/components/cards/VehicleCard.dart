@@ -14,6 +14,7 @@ class VehicleCard extends StatelessWidget {
   final String registrationNumber;
   final String currentDriver;
   final String message;
+  final String vehicleName;
   final ModelVehicle vehicle;
 
   const VehicleCard(
@@ -21,7 +22,8 @@ class VehicleCard extends StatelessWidget {
       this.currentDriver,
       this.message,
       this.registrationNumber,
-      this.vehicle});
+      this.vehicle,
+      this.vehicleName});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class VehicleCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
             child: Container(
               width: MediaQuery.of(context).size.width * 0.35,
-              height: 100,
+              height: 120,
               child: Image.asset(
                 'assets/images/startPageImage.jpg',
                 fit: BoxFit.fill,
@@ -46,6 +48,7 @@ class VehicleCard extends StatelessWidget {
             children: [
               Text(registrationNumber ?? '',
                   style: _kRegistrationNumberTextStyle),
+              Text(vehicleName ?? '', style: _kDriverTextStyle),
               Text('Driver: ' + currentDriver, style: _kDriverTextStyle),
               Container(
                   width: MediaQuery.of(context).size.width * 0.5,

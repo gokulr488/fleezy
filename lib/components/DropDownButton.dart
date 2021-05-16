@@ -3,17 +3,13 @@ import 'package:flutter/material.dart';
 
 class DropDownButton extends StatelessWidget {
   final Function onChanged;
-  final String defaultValue;
+  final String value;
   final List<String> values;
   final String hintText;
   final IconData icon;
 
   const DropDownButton(
-      {this.onChanged,
-      this.defaultValue,
-      this.values,
-      this.hintText,
-      this.icon});
+      {this.onChanged, this.value, this.values, this.hintText, this.icon});
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -23,7 +19,7 @@ class DropDownButton extends StatelessWidget {
       child: DropdownButtonFormField<String>(
         icon: Icon(icon ?? Icons.arrow_drop_down),
         decoration: kDropDownDecoration.copyWith(labelText: hintText ?? ''),
-        value: defaultValue,
+        value: value,
         onChanged: onChanged,
         items: values
             .map((value) => DropdownMenuItem(value: value, child: Text(value)))

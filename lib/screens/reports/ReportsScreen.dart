@@ -53,7 +53,7 @@ class _FilterWidget extends StatelessWidget {
           child: DropDownButton(
               icon: Icons.calendar_today,
               hintText: 'Month',
-              defaultValue: 'May',
+              value: 'May',
               values: getMonths(),
               onChanged: (String value) {}),
         ),
@@ -63,8 +63,8 @@ class _FilterWidget extends StatelessWidget {
           child: DropDownButton(
               icon: Icons.drive_eta_rounded,
               hintText: 'Vehicle',
-              defaultValue: 'All',
-              values: ['All', 'May', 'June'],
+              value: 'All',
+              values: ['All', 'Fortuner', 'Duke'],
               onChanged: (String value) {}),
         ),
         IconButton(

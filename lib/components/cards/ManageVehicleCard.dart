@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 
 class ManageVehicleCard extends StatelessWidget {
   static const TextStyle _kRegistrationNumberTextStyle =
-      TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: kWhite80);
+      TextStyle(fontWeight: FontWeight.bold, fontSize: 21, color: kWhite80);
   static const TextStyle _kDriverTextStyle =
-      TextStyle(fontWeight: FontWeight.bold, fontSize: 17, color: kWhite80);
+      TextStyle(fontSize: 17, color: kWhite80);
   static const TextStyle _kMessagesTextStyle =
       TextStyle(fontSize: 15, color: Colors.red, fontWeight: FontWeight.bold);
   final Color color;
@@ -46,6 +46,8 @@ class ManageVehicleCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(registrationNumber, style: _kRegistrationNumberTextStyle),
+              Text(vehicle.vehicleName ?? '',
+                  style: _kRegistrationNumberTextStyle),
               Text('Driver: ' + currentDriver, style: _kDriverTextStyle),
               Container(
                   width: MediaQuery.of(context).size.width * 0.5,

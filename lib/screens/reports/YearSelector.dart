@@ -14,7 +14,7 @@ class YearSelector extends StatelessWidget {
       child: DropDownButton(
           icon: Icons.calendar_today,
           hintText: 'Year',
-          defaultValue: DateFormat('yyyy').format(repData.selectedYear),
+          value: DateFormat('yyyy').format(repData.selectedYear),
           values: getYears(),
           onChanged: (String value) {}),
     );
