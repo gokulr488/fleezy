@@ -3,6 +3,7 @@ import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/DropDownButton.dart';
 import 'package:fleezy/components/HorLine.dart';
 import 'package:fleezy/screens/reports/FilterReportsSheet.dart';
+import 'package:fleezy/screens/reports/ReportsController.dart';
 import 'package:fleezy/screens/reports/cards/FinesOtherExpenseCard.dart';
 import 'package:fleezy/screens/reports/cards/FuelExpensesCard.dart';
 import 'package:fleezy/screens/reports/cards/ServiceRepairCard.dart';
@@ -53,7 +54,7 @@ class _FilterWidget extends StatelessWidget {
               icon: Icons.calendar_today,
               hintText: 'Month',
               defaultValue: 'May',
-              values: ['April', 'May', 'June'],
+              values: getMonths(),
               onChanged: (String value) {}),
         ),
         SizedBox(

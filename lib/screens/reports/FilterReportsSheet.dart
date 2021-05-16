@@ -4,6 +4,8 @@ import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/components/DropDownButton.dart';
 import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/screens/reports/ReportsController.dart';
+import 'package:fleezy/screens/reports/TimePeriodSelector.dart';
+import 'package:fleezy/screens/reports/YearSelector.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +36,13 @@ class _FilterReportsSheetState extends State<FilterReportsSheet> {
               ],
             ),
           ),
-          _TimePeriodSelector(),
+          Row(
+            children: [
+              Expanded(child: YearSelector()),
+              if (repData.filterPeriod != Constants.YEARLY)
+                Expanded(child: TimePeriodSelector()),
+            ],
+          ),
           Spacer(flex: 5),
           RoundedButton(
             onPressed: () {
@@ -58,47 +66,5 @@ class _FilterReportsSheetState extends State<FilterReportsSheet> {
       colour: repData.filterPeriod == period ? kHighlightColour : null,
       elevation: 4,
     );
-  }
-}
-
-class _TimePeriodSelector extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    ReportData repData = Provider.of<ReportData>(context, listen: false);
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.5,
-        child: DropDownButton(
-            icon: Icons.calendar_today,
-            hintText: getHint(repData),
-            defaultValue: getDefaultValue(repData),
-            values: getFilterValues(repData),
-            onChanged: (String value) {}),
-      ),
-    );
-  }
-
-  String getHint(ReportData repData) {
-    if (repData.filterPeriod == Constants.MONTHLY) return 'Month';
-    if (repData.filterPeriod == Constants.QUARTERLY) return 'Quarter';
-    if (repData.filterPeriod == Constants.YEARLY) return 'Year';
-    return '';
-  }
-
-  String getDefaultValue(ReportData repData) {
-    if (repData.filterPeriod == Constants.MONTHLY) {
-      DateTime now = DateTime.now();
-      String month = DateFormat('MMM').format(now);
-      return month;
-    }
-
-    if (repData.filterPeriod == Constants.QUARTERLY) return Constants.Q1;
-    if (repData.filterPeriod == Constants.YEARLY) {
-      DateTime now = DateTime.now();
-      String year = DateFormat('yyyy').format(now);
-      return year;
-    }
-    return '';
   }
 }
