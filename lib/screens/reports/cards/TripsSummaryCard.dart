@@ -14,7 +14,8 @@ class TripSummaryCard extends StatelessWidget {
           children: [
             Text('Trips Overview',
                 style: TextStyle(fontSize: 20, color: kHighlightColour)),
-            DataRowWidget(field: 'Total Trips', value: '2'),
+            DataRowWidget(field: 'Total Trips', value: '5'),
+            DataRowWidget(field: 'Payment Pending Trips', value: '2'),
             DataRowWidget(field: 'Cancelled Trips', value: '1'),
             DataRowWidget(field: 'Kms Travelled', value: '8,000 Km'),
           ],

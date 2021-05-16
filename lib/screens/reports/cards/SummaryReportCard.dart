@@ -1,5 +1,6 @@
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/components/cards/BaseCard.dart';
+import 'package:fleezy/screens/reports/DataRowWidget.dart';
 import 'package:flutter/material.dart';
 
 class SummaryReportCard extends StatelessWidget {
@@ -13,26 +14,26 @@ class SummaryReportCard extends StatelessWidget {
           children: [
             Text('May 2021 Summary',
                 style: TextStyle(fontSize: 22, color: kHighlightColour)),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Income',
-                    style: TextStyle(fontSize: 20, color: Colors.green[500])),
-                Text('Expense',
-                    style: TextStyle(fontSize: 20, color: Colors.red[500]))
-              ],
+            DataRowWidget(
+              field: 'Income',
+              value: '1,00,000 Rs',
+              color: Colors.green[500],
+              fontSize: 20,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('1,00,000 Rs',
-                    style: TextStyle(fontSize: 20, color: Colors.green[500])),
-                Text('60,00,00 Rs',
-                    style: TextStyle(fontSize: 20, color: Colors.red[500]))
-              ],
+            DataRowWidget(
+              field: 'Pending Balances',
+              value: '10,000 Rs',
+              color: Colors.red[500],
+              fontSize: 20,
             ),
-            Text('Profit  40,000 Rs',
-                style: TextStyle(fontSize: 20, color: Colors.green[500])),
+            DataRowWidget(
+              field: 'Expense',
+              value: '60,000 Rs',
+              color: Colors.red[500],
+              fontSize: 20,
+            ),
+            Text('Profit  30,000 Rs',
+                style: TextStyle(fontSize: 22, color: Colors.green[500])),
           ],
         ),
       ),

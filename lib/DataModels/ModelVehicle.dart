@@ -15,6 +15,7 @@ class ModelVehicle {
   bool isInTrip;
   List<String> allowedDrivers;
   List<ModelTrip> trips;
+  double avgMileage;
 
   ModelVehicle(
       {this.vehicleName,
@@ -27,7 +28,8 @@ class ModelVehicle {
       this.trips,
       this.allowedDrivers,
       this.currentDriver,
-      this.companyId});
+      this.companyId,
+      this.avgMileage});
 
   static Map<String, dynamic> getDocOf(ModelVehicle vehicle) {
     return {
@@ -42,6 +44,7 @@ class ModelVehicle {
       'CurrentDriver': vehicle.currentDriver,
       'AllowedDrivers': vehicle.allowedDrivers,
       'CompanyId': vehicle.companyId,
+      'AvgMileage': vehicle.avgMileage
     };
   }
 
@@ -60,6 +63,7 @@ class ModelVehicle {
       currentDriver: data['CurrentDriver'] ?? '',
       allowedDrivers: List<String>.from(data['AllowedDrivers'] ?? []),
       companyId: data['CompanyId'] ?? '',
+      avgMileage: data['AvgMileage'] ?? 0,
     );
   }
 
