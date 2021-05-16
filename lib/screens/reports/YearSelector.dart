@@ -10,7 +10,7 @@ class YearSelector extends StatelessWidget {
   Widget build(BuildContext context) {
     ReportData repData = Provider.of<ReportData>(context, listen: false);
     return Padding(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(10),
       child: DropDownButton(
           icon: Icons.calendar_today,
           hintText: 'Year',
