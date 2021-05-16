@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fleezy/Common/AppData.dart';
+import 'package:fleezy/Common/ReportData.dart';
 import 'package:fleezy/Common/UiState.dart';
 import 'package:fleezy/screens/CreateCompanyScreen.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
@@ -32,7 +33,8 @@ Future<void> main() async {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => AppData()),
-      ChangeNotifierProvider(create: (_) => UiState())
+      ChangeNotifierProvider(create: (_) => UiState()),
+      ChangeNotifierProvider(create: (_) => ReportData()),
     ],
     child: FleezyApp(),
   ));

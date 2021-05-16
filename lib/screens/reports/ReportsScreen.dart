@@ -2,6 +2,7 @@ import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/DropDownButton.dart';
 import 'package:fleezy/components/HorLine.dart';
+import 'package:fleezy/screens/reports/FilterReportsSheet.dart';
 import 'package:fleezy/screens/reports/cards/FinesOtherExpenseCard.dart';
 import 'package:fleezy/screens/reports/cards/FuelExpensesCard.dart';
 import 'package:fleezy/screens/reports/cards/ServiceRepairCard.dart';
@@ -65,8 +66,18 @@ class _FilterWidget extends StatelessWidget {
               values: ['All', 'May', 'June'],
               onChanged: (String value) {}),
         ),
-        IconButton(icon: Icon(Icons.filter_list), onPressed: () {}),
+        IconButton(
+            icon: Icon(Icons.filter_list),
+            onPressed: () async => onFilterClicked(context)),
       ],
     );
+  }
+
+  void onFilterClicked(BuildContext context) async {
+    await showModalBottomSheet(
+        context: context,
+        builder: (builder) {
+          return FilterReportsSheet();
+        });
   }
 }

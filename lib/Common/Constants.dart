@@ -20,6 +20,15 @@ class Constants {
   static const String FINES = 'Fines';
   static const String OTHER_EXP = 'Other Expense';
 
+  static const String MONTHLY = 'Monthly';
+  static const String QUARTERLY = 'Quarterly';
+  static const String YEARLY = 'Yearly';
+
+  static const String Q1 = 'Jan-Mar';
+  static const String Q2 = 'Apr-Jun';
+  static const String Q3 = 'Jul-Sep';
+  static const String Q4 = 'Oct-Dec';
+
   static const List<String> EXPENSE_TYPES = [
     SERVICE,
     REPAIR,

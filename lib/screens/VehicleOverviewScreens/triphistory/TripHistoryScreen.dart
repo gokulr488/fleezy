@@ -40,8 +40,6 @@ class _TripHistoryScreenState extends State<TripHistoryScreen> {
                   text: 'Filter',
                   onTap: () async {
                     onFilterClicked(context, appdata, regNumber);
-                    // ctrl.from = await Utils.pickDate(context);
-                    // ctrl.onDateSelected(context, regNumber, appdata);
                   }),
               Expanded(
                 child: Consumer<AppData>(builder: (context, misData, _) {
