@@ -130,7 +130,7 @@ class TripApis {
   }
 
   Future<CallContext> filterTrips(BuildContext context,
-      {String regNo, DateTime from, DateTime to}) async {
+      {String regNo, DateTime from, DateTime to, bool hasBalance}) async {
     ModelUser user = Provider.of<AppData>(context, listen: false).user;
     Query reference = fireStore
         .collection(Constants.COMPANIES)
@@ -144,6 +144,9 @@ class TripApis {
           isGreaterThan: Utils.getStartOfDay(from));
       reference =
           reference.where('StartDate', isLessThan: Utils.getEndOfDay(to));
+    }
+    if (hasBalance) {
+      reference = reference.where('BalanceAmount', isGreaterThan: 0);
     }
 
     QuerySnapshot snapShot =

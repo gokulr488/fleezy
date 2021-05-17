@@ -21,19 +21,30 @@ class _ManageCompanyScreenState extends State<ManageCompanyScreen> {
         ? GridLayout(children: [
             ButtonCard(
                 text: 'Manage Vehicles',
+                icon: Icons.car_repair,
                 onTap: () {
                   Navigator.pushNamed(context, ManageVehiclesScreen.id);
                 }),
             ButtonCard(
                 text: 'Manage Drivers',
+                icon: Icons.account_circle,
                 onTap: () {
                   Navigator.pushNamed(context, ManageDriversScreen.id);
                 }),
             ButtonCard(
                 text: 'Reports',
+                icon: Icons.receipt_long_rounded,
                 onTap: () {
                   Navigator.pushNamed(context, ReportsScreen.id);
-                })
+                }),
+            ButtonCard(
+              text: 'Pending Balances',
+              icon: Icons.attach_money,
+              onTap: () {
+                // Navigator.pushNamed(context, TripHistoryScreen.id,
+                //     arguments: vehicle.registrationNumber);
+              },
+            ),
           ])
         : BaseCard(
             cardChild: SizedBox(

@@ -12,6 +12,7 @@ import 'package:fleezy/screens/ManageDriverScreens/ManageDriversScreen.dart';
 import 'package:fleezy/screens/ManageVehiclesScreens/AddVehicleScreen.dart';
 import 'package:fleezy/screens/ManageVehiclesScreens/ManageVehicleScreen.dart';
 import 'package:fleezy/screens/ManageVehiclesScreens/ManageVehiclesScreen.dart';
+import 'package:fleezy/screens/VehicleOverviewScreens/pendingbalance/PendingBalanceScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/triphistory/TripHistoryDetailsScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/triphistory/TripHistoryScreen.dart';
 import 'package:fleezy/screens/ontrip/OnTripScreen.dart';
@@ -73,6 +74,7 @@ class FleezyApp extends StatelessWidget {
           TripHistoryScreen.id: (context) => TripHistoryScreen(),
           TripHistoryDetailsScreen.id: (context) => TripHistoryDetailsScreen(),
           ReportsScreen.id: (context) => ReportsScreen(),
+          PendingBalanceScreen.id: (context) => PendingBalanceScreen(),
         });
   }
 }
@@ -80,7 +82,7 @@ class FleezyApp extends StatelessWidget {
 bool _isLoggedIn(BuildContext context) {
   final _auth = FirebaseAuth.instance;
   if (_auth.currentUser != null) {
-    Provider.of<UiState>(context, listen: false).setIsAdmin(true);
+    //Provider.of<UiState>(context, listen: false).setIsAdmin(true);
     return true;
   } else {
     return false;

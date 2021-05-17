@@ -6,7 +6,7 @@ class UiState extends ChangeNotifier {
     1: 'Our Vehicles',
     2: 'User Info'
   };
-  bool _isAdmin = false;
+  bool _isAdmin = true;
   int _bottomNavBarIndex = 1;
 
   //GETTERS
@@ -16,7 +16,7 @@ class UiState extends ChangeNotifier {
 //SETTERS
   void setIsAdmin(bool value) {
     _isAdmin = value;
-    //notifyListeners(); uncomment this if admin switching is not happening
+    notifyListeners(); //uncomment this if admin switching is not happening
   }
 
   void setBottomNavBarIndex(int index) {
