@@ -146,7 +146,7 @@ class TripApis {
           reference.where('StartDate', isLessThan: Utils.getEndOfDay(to));
     }
     if (hasBalance) {
-      reference = reference.where('BalanceAmount', isGreaterThan: 0);
+      reference = reference.where('BalanceAmount', isNotEqualTo: 0);
     }
 
     QuerySnapshot snapShot =
