@@ -37,8 +37,16 @@ class AppData extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setPendingBalance(String regNo, List<ModelTrip> pendingBals) {
-    _pendingBalance[regNo] = pendingBals;
+  void addPendingBalance(String regNo, ModelTrip pendingBal) {
+    if (_pendingBalance[regNo] == null) {
+      _pendingBalance[regNo] = [];
+    }
+    _pendingBalance[regNo].add(pendingBal);
+    notifyListeners();
+  }
+
+  void resetPendingBalances() {
+    _pendingBalance = {};
     notifyListeners();
   }
 

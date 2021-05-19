@@ -16,7 +16,7 @@ class PendingBalanceController {
         appdata.getTripHistoryOf(regNumber).isEmpty) {
       await _getDataFromDB(regNumber, context, appdata);
     }
-    List<ModelTrip> pendingBalTrips = appdata.getTripHistoryOf(regNumber);
+    List<ModelTrip> pendingBalTrips = appdata.getPendingBalanceOf(regNumber);
     pendingBalCards = [];
     for (ModelTrip trip in pendingBalTrips) {
       pendingBalCards.add(_buildPendingBalCard(trip));
@@ -29,7 +29,10 @@ class PendingBalanceController {
         await TripApis().getPendingBalanceTrips(context, regNumber, lastDoc);
     if (!callContext.isError) {
       List<ModelTrip> tripHistory = callContext.data as List<ModelTrip>;
-      appdata.setTripHistory(regNumber, tripHistory);
+      for (ModelTrip trip in tripHistory) {
+        appdata.addPendingBalance(trip.vehicleRegNo, trip);
+      }
+
       lastDoc = callContext.pageInfo ?? lastDoc;
     }
   }
@@ -41,7 +44,7 @@ class PendingBalanceController {
   void onRefreshPressed(
       String regNumber, BuildContext context, AppData appdata) {
     lastDoc = null;
-    appdata.setPendingBalance(regNumber, []);
+    appdata.resetPendingBalances();
     getData(regNumber, context, appdata);
   }
 }
