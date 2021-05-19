@@ -4,6 +4,7 @@ import 'package:fleezy/components/cards/BaseCard.dart';
 import 'package:fleezy/components/cards/ButtonCard.dart';
 import 'package:fleezy/screens/ManageDriverScreens/ManageDriversScreen.dart';
 import 'package:fleezy/screens/ManageVehiclesScreens/ManageVehiclesScreen.dart';
+import 'package:fleezy/screens/VehicleOverviewScreens/pendingbalance/PendingBalanceScreen.dart';
 import 'package:fleezy/screens/reports/ReportsScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -41,8 +42,7 @@ class _ManageCompanyScreenState extends State<ManageCompanyScreen> {
               text: 'Pending Balances',
               icon: Icons.attach_money,
               onTap: () {
-                // Navigator.pushNamed(context, TripHistoryScreen.id,
-                //     arguments: vehicle.registrationNumber);
+                Navigator.pushNamed(context, PendingBalanceScreen.id);
               },
             ),
           ])

@@ -12,11 +12,21 @@ class PendingBalanceController {
   DocumentSnapshot lastDoc;
 
   void getData(String regNumber, BuildContext context, AppData appdata) async {
-    if (appdata.getTripHistoryOf(regNumber) == null ||
-        appdata.getTripHistoryOf(regNumber).isEmpty) {
-      await _getDataFromDB(regNumber, context, appdata);
+    List<ModelTrip> pendingBalTrips;
+    if (regNumber == null) {
+      if (appdata.getAllPendingBalances() == null ||
+          appdata.getAllPendingBalances().isEmpty) {
+        await _getDataFromDB(regNumber, context, appdata);
+      }
+      pendingBalTrips = appdata.getAllPendingBalances();
+    } else {
+      if (appdata.getPendingBalanceOf(regNumber) == null ||
+          appdata.getPendingBalanceOf(regNumber).isEmpty) {
+        await _getDataFromDB(regNumber, context, appdata);
+      }
+      pendingBalTrips = appdata.getPendingBalanceOf(regNumber);
     }
-    List<ModelTrip> pendingBalTrips = appdata.getPendingBalanceOf(regNumber);
+
     pendingBalCards = [];
     for (ModelTrip trip in pendingBalTrips) {
       pendingBalCards.add(_buildPendingBalCard(trip));

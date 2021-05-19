@@ -25,6 +25,14 @@ class AppData extends ChangeNotifier {
     return _pendingBalance[regNo];
   }
 
+  List<ModelTrip> getAllPendingBalances() {
+    List<ModelTrip> pendingBals = [];
+    for (ModelVehicle vehicle in _availableVehicles) {
+      pendingBals.addAll(_pendingBalance[vehicle.registrationNo] ?? []);
+    }
+    return pendingBals;
+  }
+
   //SETTERS
 
   void setUser(ModelUser user) {
