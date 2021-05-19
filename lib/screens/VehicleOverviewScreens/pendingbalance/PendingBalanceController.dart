@@ -34,11 +34,14 @@ class PendingBalanceController {
     }
   }
 
-  PendingBalanceCard _buildPendingBalCard(ModelTrip trip) {}
+  PendingBalanceCard _buildPendingBalCard(ModelTrip trip) {
+    return PendingBalanceCard(trip: trip);
+  }
 
   void onRefreshPressed(
       String regNumber, BuildContext context, AppData appdata) {
     lastDoc = null;
+    appdata.setPendingBalance(regNumber, []);
     getData(regNumber, context, appdata);
   }
 }

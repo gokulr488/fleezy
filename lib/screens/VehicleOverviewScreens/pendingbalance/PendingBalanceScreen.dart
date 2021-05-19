@@ -18,6 +18,7 @@ class PendingBalanceScreen extends StatelessWidget {
     scrollCtrl.addListener(_scrollListener);
     String regNumber = ModalRoute.of(context).settings.arguments as String;
     AppData appdata = Provider.of<AppData>(context, listen: false);
+    ctrl.getData(regNumber, context, appdata);
     return BaseScreen(
       headerText: 'Pending Balances',
       child:
@@ -32,12 +33,14 @@ class PendingBalanceScreen extends StatelessWidget {
         Expanded(
           child: Consumer<AppData>(builder: (context, misData, _) {
             return ScrollableList(
-                childrenHeight: 100, items: [], scrollController: scrollCtrl);
+                childrenHeight: 160,
+                items: ctrl.pendingBalCards,
+                scrollController: scrollCtrl);
           }),
         ),
         RoundedButton(
           title: 'Refresh',
-          onPressed: () => {},
+          onPressed: () => ctrl.onRefreshPressed(regNumber, context, appdata),
         )
       ]),
     );

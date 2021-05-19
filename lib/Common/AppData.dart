@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 class AppData extends ChangeNotifier {
   List<ModelVehicle> _availableVehicles = [];
   Map<String, List<ModelTrip>> _tripHistory = {};
+  Map<String, List<ModelTrip>> _pendingBalance = {};
   Map<String, ModelUser> _drivers;
   ModelUser _user;
   ModelTrip _trip;
@@ -20,6 +21,10 @@ class AppData extends ChangeNotifier {
     return _tripHistory[regNo];
   }
 
+  List<ModelTrip> getPendingBalanceOf(String regNo) {
+    return _pendingBalance[regNo];
+  }
+
   //SETTERS
 
   void setUser(ModelUser user) {
@@ -29,6 +34,11 @@ class AppData extends ChangeNotifier {
 
   void setTripHistory(String regNo, List<ModelTrip> tripHistory) {
     _tripHistory[regNo] = tripHistory;
+    notifyListeners();
+  }
+
+  void setPendingBalance(String regNo, List<ModelTrip> pendingBals) {
+    _pendingBalance[regNo] = pendingBals;
     notifyListeners();
   }
 
