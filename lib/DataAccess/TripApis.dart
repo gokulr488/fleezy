@@ -130,7 +130,7 @@ class TripApis {
   }
 
   Future<CallContext> filterTrips(BuildContext context,
-      {String regNo, DateTime from, DateTime to, bool hasBalance}) async {
+      {String regNo, DateTime from, DateTime to}) async {
     ModelUser user = Provider.of<AppData>(context, listen: false).user;
     Query reference = fireStore
         .collection(Constants.COMPANIES)
@@ -145,14 +145,45 @@ class TripApis {
       reference =
           reference.where('StartDate', isLessThan: Utils.getEndOfDay(to));
     }
-    if (hasBalance) {
-      reference = reference.where('BalanceAmount', isNotEqualTo: 0);
-    }
 
     QuerySnapshot snapShot =
         await reference.orderBy('StartDate', descending: true).limit(15).get();
 
     callContext.data = ModelTrip.getTripsFrom(snapShot);
+    return callContext;
+  }
+
+  Future<CallContext> getPendingBalanceTrips(
+      BuildContext context, String regNo, DocumentSnapshot page) async {
+    try {
+      ModelUser user = Provider.of<AppData>(context, listen: false).user;
+      Query reference = fireStore
+          .collection(Constants.COMPANIES)
+          .doc(user.companyId)
+          .collection(Constants.TRIP);
+      if (regNo != null) {
+        reference = reference.where('VehicleRegNo', isEqualTo: regNo);
+      }
+
+      reference = reference.where('BalanceAmount', isGreaterThan: 0);
+      QuerySnapshot snapShot;
+      if (page != null) {
+        snapShot = await reference
+            .orderBy('BalanceAmount')
+            .startAfterDocument(page)
+            .limit(25)
+            .get();
+      } else {
+        snapShot = await reference.limit(15).get();
+      }
+      if (snapShot.docs.isNotEmpty) {
+        callContext.pageInfo = snapShot.docs[snapShot.docs.length - 1];
+      }
+
+      callContext.data = ModelTrip.getTripsFrom(snapShot);
+    } catch (e) {
+      callContext.setError(e.toString());
+    }
     return callContext;
   }
 }

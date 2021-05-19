@@ -1,15 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/DataAccess/TripApis.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/pendingbalance/PendingBalanceCard.dart';
-import 'package:fleezy/screens/VehicleOverviewScreens/triphistory/TripHistoryController.dart';
+
 import 'package:flutter/material.dart';
 
-class PendingBalanceController extends TripHistoryController {
+class PendingBalanceController {
   List<PendingBalanceCard> pendingBalCards = [];
+  DocumentSnapshot lastDoc;
 
-  @override
   void getData(String regNumber, BuildContext context, AppData appdata) async {
     if (appdata.getTripHistoryOf(regNumber) == null ||
         appdata.getTripHistoryOf(regNumber).isEmpty) {
@@ -24,13 +25,20 @@ class PendingBalanceController extends TripHistoryController {
 
   void _getDataFromDB(
       String regNumber, BuildContext context, AppData appdata) async {
-    CallContext callContext = await TripApis().filterTrips(context,
-        regNo: regNumber, from: from, to: to, hasBalance: true);
+    CallContext callContext =
+        await TripApis().getPendingBalanceTrips(context, regNumber, lastDoc);
     if (!callContext.isError) {
       List<ModelTrip> tripHistory = callContext.data as List<ModelTrip>;
       appdata.setTripHistory(regNumber, tripHistory);
+      lastDoc = callContext.pageInfo ?? lastDoc;
     }
   }
 
   PendingBalanceCard _buildPendingBalCard(ModelTrip trip) {}
+
+  void onRefreshPressed(
+      String regNumber, BuildContext context, AppData appdata) {
+    lastDoc = null;
+    getData(regNumber, context, appdata);
+  }
 }

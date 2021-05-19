@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class CallContext {
@@ -5,6 +6,7 @@ class CallContext {
   bool isError = false;
   dynamic data;
   String _errorMessage;
+  DocumentSnapshot pageInfo;
 
   String get message => _message;
   String get errorMessage => _errorMessage;
