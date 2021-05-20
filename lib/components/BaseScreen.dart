@@ -20,7 +20,7 @@ class BaseScreen extends StatelessWidget {
                     Text(headerText,
                         style: GoogleFonts.laila(
                           color: kWhite80,
-                          fontSize: 23,
+                          fontSize: 21,
                         )),
                     Text('Fleezy',
                         style: GoogleFonts.dancingScript(
