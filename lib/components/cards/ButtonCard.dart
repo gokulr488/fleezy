@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class ButtonCard extends StatelessWidget {
   static final TextStyle kButtonTextStyle = TextStyle(
-      fontSize: 20, fontWeight: FontWeight.bold, color: kHighlightColour);
+      fontSize: 18, fontWeight: FontWeight.bold, color: kHighlightColour);
   final String text;
   final Function onTap;
   final Widget child;
