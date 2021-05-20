@@ -71,7 +71,15 @@ class _StartNewTripScreenState extends State<StartNewTripScreen> {
                         trip.customerName = value;
                       },
                       decoration: kTextFieldDecoration.copyWith(
-                          labelText: 'Customer Name'))
+                          labelText: 'Customer Name')),
+                  TextField(
+                      keyboardType: TextInputType.number,
+                      textAlign: TextAlign.center,
+                      onChanged: (value) {
+                        trip.customerPhone = value;
+                      },
+                      decoration: kTextFieldDecoration.copyWith(
+                          labelText: 'Customer Phone Number'))
                 ]),
               )),
               RoundedButton(

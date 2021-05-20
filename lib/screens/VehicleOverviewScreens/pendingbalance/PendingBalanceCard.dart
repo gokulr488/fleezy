@@ -1,5 +1,6 @@
 import 'package:fleezy/DataModels/ModelTrip.dart';
 import 'package:fleezy/components/cards/BaseCard.dart';
+import 'package:fleezy/screens/VehicleOverviewScreens/pendingbalance/PendingBalanceDetailScreen.dart';
 import 'package:fleezy/screens/reports/DataRowWidget.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,10 @@ class PendingBalanceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseCard(
+      onTap: () {
+        Navigator.pushNamed(context, PendingBalanceDetailScreen.id,
+            arguments: trip);
+      },
       elevation: 8,
       cardChild: Padding(
         padding: const EdgeInsets.all(8.0),

@@ -15,6 +15,7 @@ class ModelTrip {
   double balanceAmount;
   double driverSalary;
   String customerName;
+  String customerPhone;
   String tripNo;
   String vehicleRegNo;
   String startingFrom;
@@ -41,7 +42,8 @@ class ModelTrip {
       this.startingFrom,
       this.destination,
       this.status,
-      this.isRoundTrip});
+      this.isRoundTrip,
+      this.customerPhone});
 
   static Map<String, dynamic> getDocOf(ModelTrip trip) {
     return {
@@ -63,6 +65,7 @@ class ModelTrip {
       'DriverUid': trip.driverUid,
       'Status': trip.status,
       'IsRoundTrip': trip.isRoundTrip,
+      'CustomerPhone': trip.customerPhone,
     };
   }
 
@@ -89,6 +92,7 @@ class ModelTrip {
       vehicleRegNo: data['VehicleRegNo'] ?? '',
       status: data['Status'] ?? '',
       isRoundTrip: data['IsRoundTrip'] ?? false,
+      customerPhone: data['CustomerPhone'] ?? '',
     );
   }
 

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fleezy/Common/Alerts.dart';
 import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/DataAccess/TripApis.dart';
@@ -56,5 +57,27 @@ class PendingBalanceController {
     lastDoc = null;
     appdata.resetPendingBalances();
     getData(regNumber, context, appdata);
+  }
+
+  onPendingBalanceSave(
+      BuildContext context, ModelTrip trip, String amount, bool isIgnore) {
+    if (isIgnore) {
+      showWarningAlert(context, 'Ignore the pending balance of $amount Rs ?',
+          () => ignorePendingBalance(context, trip));
+    } else {
+      showWarningAlert(context, 'Pending Balance of $amount Rs received ?',
+          () => pendingBalanceReceived(context, trip));
+    }
+  }
+
+  void ignorePendingBalance(BuildContext context, ModelTrip trip) {
+    print(trip);
+  }
+
+  void pendingBalanceReceived(BuildContext context, ModelTrip trip) {}
+
+  bool valid(BuildContext context, ModelTrip trip, String balanceReceived,
+      bool ignorePending) {
+    return true;
   }
 }

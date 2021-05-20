@@ -1,4 +1,3 @@
-import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/BottomNavBar.dart';
@@ -6,9 +5,6 @@ import 'package:fleezy/screens/HomeScreenPages/CurrentUserScreen.dart';
 import 'package:fleezy/screens/HomeScreenPages/ListVehiclesScreen.dart';
 import 'package:fleezy/screens/HomeScreenPages/ManageCompanyScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-const _headerTextStyle = TextStyle(fontSize: 30, color: kWhite80);
 
 class HomeScreen extends StatefulWidget {
   static const String id = 'HomeScreen';
@@ -35,15 +31,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
-        child: SizedBox.expand(
-          child: PageView(
-              controller: _pageController,
-              onPageChanged: (index) {
-                navBarIndex = index;
-                setState(() {});
-              },
-              children: _screens),
-        ),
+        child: PageView(
+            controller: _pageController,
+            onPageChanged: (index) {
+              navBarIndex = index;
+              setState(() {});
+            },
+            children: _screens),
         bottomNavBar: BottomNavBar(
           onTap: (int index) {
             navBarIndex = index;
