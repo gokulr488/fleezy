@@ -1,3 +1,4 @@
+import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/BottomNavBar.dart';
@@ -5,6 +6,7 @@ import 'package:fleezy/screens/HomeScreenPages/CurrentUserScreen.dart';
 import 'package:fleezy/screens/HomeScreenPages/ListVehiclesScreen.dart';
 import 'package:fleezy/screens/HomeScreenPages/ManageCompanyScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 const _headerTextStyle = TextStyle(fontSize: 30, color: kWhite80);
 
@@ -16,6 +18,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  PageController _pageController;
   int navBarIndex = 1;
   final List<Widget> _screens = [
     ManageCompanyScreen(),
@@ -24,37 +27,40 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   @override
-  Widget build(BuildContext context) {
-    return BaseScreen(
-        child: Column(
-          children: [
-            _HeaderWidget(index: navBarIndex),
-            _screens[navBarIndex],
-          ],
-        ),
-        bottomNavBar: BottomNavBar(onTap: (int index) {
-          navBarIndex = index;
-          setState(() {});
-        }),
-        headerText: 'Welcome'
-        // Provider.of<AppData>(context, listen: false).user?.phoneNumber ?? '',
-        );
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: 1);
   }
-}
 
-class _HeaderWidget extends StatelessWidget {
-  final int index;
-  final Map<int, String> screenHeaderMap = {
-    0: 'Manage Company',
-    1: 'Our Vehicles',
-    2: 'User Info'
-  };
-
-  _HeaderWidget({@required this.index});
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text(screenHeaderMap[index], style: _headerTextStyle));
+    return BaseScreen(
+        child: SizedBox.expand(
+          child: PageView(
+              controller: _pageController,
+              onPageChanged: (index) {
+                navBarIndex = index;
+                setState(() {});
+              },
+              children: _screens),
+        ),
+        bottomNavBar: BottomNavBar(
+          onTap: (int index) {
+            navBarIndex = index;
+            _pageController.animateToPage(index,
+                duration: kAnimDuraction, curve: kAnimCurve);
+            setState(() {});
+          },
+          selectedIndex: navBarIndex,
+        ),
+        headerText: 'Welcome'
+        //Provider.of<AppData>(context, listen: false).user?.fullName ?? '',
+        );
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 }

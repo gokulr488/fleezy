@@ -21,25 +21,23 @@ class ListVehiclesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _getUserData(context);
-    return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Expanded(
-            child: Consumer<AppData>(builder: (context, appData, _) {
-              return ScrollableList(
-                childrenHeight: 120,
-                items: _populateVehicleCards(appData),
-              );
-            }),
-          ),
-          TextField(
-              onChanged: (value) {
-                // searchKeyword = value;
-              },
-              decoration: kTextFieldDecoration.copyWith(labelText: 'Search')),
-        ],
-      ),
+    return Column(
+      children: [
+        Text('Our Vehicles', style: kHeaderTextStyle),
+        Expanded(
+          child: Consumer<AppData>(builder: (context, appData, _) {
+            return ScrollableList(
+              childrenHeight: 120,
+              items: _populateVehicleCards(appData),
+            );
+          }),
+        ),
+        TextField(
+            onChanged: (value) {
+              // searchKeyword = value;
+            },
+            decoration: kTextFieldDecoration.copyWith(labelText: 'Search')),
+      ],
     );
   }
 

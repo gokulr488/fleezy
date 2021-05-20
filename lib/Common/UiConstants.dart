@@ -53,3 +53,5 @@ const Map<int, Color> kCardOverlay = {
   16: Color(0x26FFFFFF),
   24: Color(0x29FFFFFF),
 };
+
+const kHeaderTextStyle = TextStyle(fontSize: 30, color: kWhite80);

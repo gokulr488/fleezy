@@ -19,66 +19,65 @@ class CurrentUserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppData appData = Provider.of<AppData>(context, listen: false);
-    return Expanded(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Icon(
-            Icons.account_circle,
-            size: 100,
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(Icons.account_circle, size: 18),
-                        SizedBox(width: 10),
-                        Text('Name', style: _kLabelTS),
-                      ],
-                    ),
-                    _EditNameWidget(),
-                    HorLine(),
-                    Row(
-                      children: [
-                        Icon(Icons.phone, size: 18),
-                        SizedBox(width: 10),
-                        Text('Phone Number', style: _kLabelTS),
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    Text(appData.user.phoneNumber ?? '', style: _kFieldTS),
-                    HorLine(),
-                    Row(
-                      children: [
-                        Icon(Icons.info_outline, size: 18),
-                        SizedBox(width: 10),
-                        Text('User Type', style: _kLabelTS),
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    Text(appData.user.roleName ?? '', style: _kFieldTS),
-                    HorLine(),
-                  ],
-                ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text('User Info', style: kHeaderTextStyle),
+        Icon(
+          Icons.account_circle,
+          size: 100,
+        ),
+        Expanded(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.account_circle, size: 18),
+                      SizedBox(width: 10),
+                      Text('Name', style: _kLabelTS),
+                    ],
+                  ),
+                  _EditNameWidget(),
+                  HorLine(),
+                  Row(
+                    children: [
+                      Icon(Icons.phone, size: 18),
+                      SizedBox(width: 10),
+                      Text('Phone Number', style: _kLabelTS),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Text(appData.user.phoneNumber ?? '', style: _kFieldTS),
+                  HorLine(),
+                  Row(
+                    children: [
+                      Icon(Icons.info_outline, size: 18),
+                      SizedBox(width: 10),
+                      Text('User Type', style: _kLabelTS),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Text(appData.user.roleName ?? '', style: _kFieldTS),
+                  HorLine(),
+                ],
               ),
             ),
           ),
-          RoundedButton(
-              colour: kRedColor,
-              title: 'Logout',
-              onPressed: () {
-                Authentication().logout();
+        ),
+        RoundedButton(
+            colour: kRedColor,
+            title: 'Logout',
+            onPressed: () {
+              Authentication().logout();
 
-                Navigator.popUntil(context, ModalRoute.withName(HomeScreen.id));
-                Navigator.pushReplacementNamed(context, StartScreen.id);
-              })
-        ],
-      ),
+              Navigator.popUntil(context, ModalRoute.withName(HomeScreen.id));
+              Navigator.pushReplacementNamed(context, StartScreen.id);
+            })
+      ],
     );
   }
 }
