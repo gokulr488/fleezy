@@ -15,6 +15,9 @@ const Color kCancelledCardColor = Color(0x40ff5252);
 
 const shadow = [Shadow(offset: Offset(4, 4), blurRadius: 4)];
 
+const kAnimDuraction = Duration(milliseconds: 500);
+const kAnimCurve = Curves.easeOut;
+
 const kTextFieldDecoration = InputDecoration(
   labelStyle: TextStyle(fontSize: 18),
   contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
