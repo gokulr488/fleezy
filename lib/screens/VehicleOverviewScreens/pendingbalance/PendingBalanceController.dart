@@ -5,7 +5,6 @@ import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/DataAccess/DAOs/Trip.dart';
 import 'package:fleezy/DataAccess/TripApis.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
-import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/pendingbalance/PendingBalanceCard.dart';
 
 import 'package:flutter/material.dart';
@@ -62,18 +61,25 @@ class PendingBalanceController {
     getData(regNumber, context, appdata);
   }
 
-  onPendingBalanceSave(
-      BuildContext context, ModelTrip trip, String amount, bool isIgnore) {
+  onPendingBalanceSave(BuildContext context, ModelTrip trip, String amount,
+      bool isIgnore, Function updateUi) async {
     if (isIgnore) {
       showWarningAlert(context, 'Ignore the pending balance of $amount Rs ?',
-          () => ignorePendingBalance(context, trip));
+          () async {
+        await ignorePendingBalance(context, trip);
+        updateUi.call();
+      });
     } else {
       showWarningAlert(context, 'Pending Balance of $amount Rs received ?',
-          () => pendingBalanceReceived(context, trip));
+          () async {
+        await pendingBalanceReceived(context, trip, amount);
+        updateUi.call();
+      });
     }
   }
 
-  void ignorePendingBalance(BuildContext context, ModelTrip trip) async {
+  Future<void> ignorePendingBalance(
+      BuildContext context, ModelTrip trip) async {
     trip.billAmount -= trip.balanceAmount;
     trip.balanceAmount = 0;
     Navigator.pop(context);
@@ -87,7 +93,19 @@ class PendingBalanceController {
     }
   }
 
-  void pendingBalanceReceived(BuildContext context, ModelTrip trip) {}
+  Future<void> pendingBalanceReceived(
+      BuildContext context, ModelTrip trip, String amount) async {
+    trip.balanceAmount -= int.parse(amount);
+    Navigator.pop(context);
+    AppData appData = Provider.of<AppData>(context, listen: false);
+    CallContext callContext =
+        await Trip().updateTrip(trip, appData?.user?.companyId);
+    if (callContext.isError) {
+      showErrorAlert(context, callContext.errorMessage);
+    } else {
+      showSubmitResponse(context, '$amount Rs Received');
+    }
+  }
 
   bool valid(BuildContext context, ModelTrip trip, String balanceReceived,
       bool ignorePending) {

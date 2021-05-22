@@ -76,21 +76,25 @@ class _PendingBalanceDetailScreenState
             title: 'Save',
             onPressed: () {
               if (!ctrl.valid(context, trip, balanceReceived, ignorePending)) {
-                showErrorAlert(context, 'Incorrect Balance Amount');
+                showErrorAlert(context, 'Incorrect Balance');
                 return;
               }
               if (ignorePending) {
                 ctrl.onPendingBalanceSave(context, trip,
-                    trip.balanceAmount.toString(), ignorePending);
+                    trip.balanceAmount.toString(), ignorePending, updateUi);
               } else {
                 ctrl.onPendingBalanceSave(
-                    context, trip, balanceReceived, ignorePending);
+                    context, trip, balanceReceived, ignorePending, updateUi);
               }
             },
           )
         ],
       ),
     );
+  }
+
+  void updateUi() {
+    setState(() {});
   }
 }
 
