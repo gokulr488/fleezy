@@ -2,7 +2,7 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:flutter/material.dart';
 
-const TextStyle _kIconTextTS = TextStyle(fontSize: 18);
+const TextStyle _kIconTextTS = TextStyle(fontSize: 16);
 
 class BottomNavBar extends StatelessWidget {
   static const Color kThemeColour = kHighlightColour;
