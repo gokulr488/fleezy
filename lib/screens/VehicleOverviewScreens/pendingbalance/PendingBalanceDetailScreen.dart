@@ -1,3 +1,4 @@
+import 'package:fleezy/Common/Alerts.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/Common/UiState.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
@@ -75,6 +76,7 @@ class _PendingBalanceDetailScreenState
             title: 'Save',
             onPressed: () {
               if (!ctrl.valid(context, trip, balanceReceived, ignorePending)) {
+                showErrorAlert(context, 'Incorrect Balance Amount');
                 return;
               }
               if (ignorePending) {

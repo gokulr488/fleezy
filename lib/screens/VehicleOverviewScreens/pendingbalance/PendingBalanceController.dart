@@ -2,11 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleezy/Common/Alerts.dart';
 import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/CallContext.dart';
+import 'package:fleezy/DataAccess/DAOs/Trip.dart';
 import 'package:fleezy/DataAccess/TripApis.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
+import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/pendingbalance/PendingBalanceCard.dart';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class PendingBalanceController {
   List<PendingBalanceCard> pendingBalCards = [];
@@ -70,14 +73,29 @@ class PendingBalanceController {
     }
   }
 
-  void ignorePendingBalance(BuildContext context, ModelTrip trip) {
-    print(trip);
+  void ignorePendingBalance(BuildContext context, ModelTrip trip) async {
+    trip.billAmount -= trip.balanceAmount;
+    trip.balanceAmount = 0;
+    Navigator.pop(context);
+    AppData appData = Provider.of<AppData>(context, listen: false);
+    CallContext callContext =
+        await Trip().updateTrip(trip, appData?.user?.companyId);
+    if (callContext.isError) {
+      showErrorAlert(context, callContext.errorMessage);
+    } else {
+      showSubmitResponse(context, 'Pending Balance ignored');
+    }
   }
 
   void pendingBalanceReceived(BuildContext context, ModelTrip trip) {}
 
   bool valid(BuildContext context, ModelTrip trip, String balanceReceived,
       bool ignorePending) {
+    if (!ignorePending) {
+      if (trip.balanceAmount < int.parse(balanceReceived)) {
+        return false;
+      }
+    }
     return true;
   }
 }

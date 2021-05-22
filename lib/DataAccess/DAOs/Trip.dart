@@ -12,15 +12,17 @@ class Trip {
     callContext = CallContext();
   }
 
-  void updateTrip(ModelTrip trip, String companyId, String docid) async {
-    return fireStore
+  Future<CallContext> updateTrip(ModelTrip trip, String companyId) async {
+    await fireStore
         .collection(Constants.COMPANIES)
         .doc(companyId)
         .collection(Constants.TRIP)
-        .doc(docid)
+        .doc(trip.id)
         .update(ModelTrip.getDocOf(trip))
-        .then((value) => print("trip details updated"))
-        .catchError((error) => print("Failed to update trip: $error"));
+        .then((value) => callContext.setSuccess('Trip updated'))
+        .catchError((error) =>
+            callContext.setError('Error Updating Trip ${error.toString()}'));
+    return callContext;
   }
 
   Future<void> deleteTrip(String companyId, String docid) async {
