@@ -60,7 +60,7 @@ class ModelReport {
     };
   }
 
-  static ModelReport getCompanyFromDoc(DocumentSnapshot doc) {
+  static ModelReport getReportFromDoc(DocumentSnapshot doc) {
     Map data = doc.data();
 
     return ModelReport(
@@ -84,16 +84,16 @@ class ModelReport {
     );
   }
 
-  static List<ModelReport> getCompanyFrom(QuerySnapshot snapshot) {
+  static List<ModelReport> getReportFrom(QuerySnapshot snapshot) {
     List<ModelReport> users = [];
     for (QueryDocumentSnapshot doc in snapshot.docs) {
-      users.add(getCompanyFromDoc(doc));
+      users.add(getReportFromDoc(doc));
     }
     return users;
   }
 
-  static ModelReport getUserFromSnapshot(QuerySnapshot snapshot) {
+  static ModelReport getReportFromSnapshot(QuerySnapshot snapshot) {
     QueryDocumentSnapshot doc = snapshot.docs.first;
-    return getCompanyFromDoc(doc);
+    return getReportFromDoc(doc);
   }
 }

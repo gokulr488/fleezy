@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/Utils.dart';
+import 'package:fleezy/DataModels/ModelReport.dart';
 import 'package:flutter/cupertino.dart';
 
 class ReportData extends ChangeNotifier {
+  List<ModelReport> _reports;
+
   DateTime _selectedYear = DateTime.now();
   Timestamp _startDate = Utils.getStartOfMonth(DateTime.now());
   Timestamp _endDate = Utils.getEndOfMonth(DateTime.now());
@@ -12,6 +15,7 @@ class ReportData extends ChangeNotifier {
   //Getters
   String get filterPeriod => _filterPeriod;
   DateTime get selectedYear => _selectedYear;
+  List<ModelReport> get reports => _reports;
 
   void setFilterPeriod(String filterPeriod) {
     _filterPeriod = filterPeriod;
