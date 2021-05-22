@@ -15,7 +15,7 @@ const Color kCancelledCardColor = Color(0x40ff5252);
 
 const shadow = [Shadow(offset: Offset(4, 4), blurRadius: 4)];
 
-const kAnimDuraction = Duration(milliseconds: 500);
+const kAnimDuraction = Duration(milliseconds: 350);
 const kAnimCurve = Curves.easeOut;
 
 const kTextFieldDecoration = InputDecoration(
