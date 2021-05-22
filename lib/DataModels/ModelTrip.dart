@@ -21,7 +21,7 @@ class ModelTrip {
   String startingFrom;
   String destination;
   String status;
-  bool isRoundTrip;
+  bool isRoundTrip = false;
 
   ModelTrip(
       {this.id,
