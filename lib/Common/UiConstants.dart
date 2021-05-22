@@ -10,7 +10,7 @@ const String kDateFormat = 'dd-MM-yy';
 const String kTimeFormat = 'hh:mm dd-MM-yy';
 const Color kAlertColor = Color(0xFF1F1B24);
 const Color kActiveTextColor = Color(0xFFffee58);
-const Color kActiveCardColor = Color(0x40ffee58);
+const Color kActiveCardColor = Color(0x18ffee58);
 const Color kCancelledCardColor = Color(0x40ff5252);
 
 const shadow = [Shadow(offset: Offset(4, 4), blurRadius: 4)];

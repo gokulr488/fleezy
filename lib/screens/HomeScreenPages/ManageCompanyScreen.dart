@@ -54,6 +54,7 @@ class _ManageCompanyScreenState extends State<ManageCompanyScreen> {
             ],
           )
         : BaseCard(
+            elevation: 1,
             cardChild: SizedBox(
               height: 100,
               child: Center(

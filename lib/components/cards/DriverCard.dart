@@ -16,7 +16,7 @@ class DriverCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextStyle _kDriverNameTextStyle = TextStyle(
-        fontSize: 22,
+        fontSize: 18,
         color: user.state == Constants.ACTIVE ? kActiveTextColor : kWhite80);
     return BaseCard(
       cardChild: Padding(
