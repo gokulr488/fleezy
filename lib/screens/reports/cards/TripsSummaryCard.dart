@@ -20,17 +20,16 @@ class TripSummaryCard extends StatelessWidget {
             Text('Trips Overview',
                 style: TextStyle(fontSize: 20, color: kHighlightColour)),
             DataRowWidget(
-                field: 'Total Trips',
-                value: formatNumberNoDec(report.totalTrips)),
+                field: 'Total Trips', value: formatInt(report.totalTrips)),
             DataRowWidget(
                 field: 'Payment Pending Trips',
-                value: formatNumberNoDec(report.pendingPayTrips)),
+                value: formatInt(report.pendingPayTrips)),
             DataRowWidget(
                 field: 'Cancelled Trips',
-                value: formatNumberNoDec(report.cancelledTrips)),
+                value: formatInt(report.cancelledTrips)),
             DataRowWidget(
                 field: 'Kms Travelled',
-                value: formatNumber(report.kmsTravelled)),
+                value: formatDouble(report.kmsTravelled)),
           ],
         ),
       ),

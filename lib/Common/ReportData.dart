@@ -11,6 +11,7 @@ class ReportData extends ChangeNotifier {
       income: 100000,
       expense: 60000,
       pendingBal: 10000,
+      driverSal: 2000,
       totalTrips: 5,
       pendingPayTrips: 2,
       cancelledTrips: 1,
@@ -25,7 +26,7 @@ class ReportData extends ChangeNotifier {
       reportId: 'KL-01-BQ-4086_JAN-MAR-2021',
       serviceCost: 3000,
       spareCost: 2000);
-  Map<String, ModelReport> _reports;
+  Map<String, ModelReport> _reports = {};
   List<ModelTrip> _trips;
   List<ModelExpense> _expenses;
 

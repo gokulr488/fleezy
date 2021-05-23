@@ -21,19 +21,19 @@ class SummaryReportCard extends StatelessWidget {
                 style: TextStyle(fontSize: 22, color: kHighlightColour)),
             DataRowWidget(
               field: 'Income',
-              value: formatNumber(report.income) + ' Rs',
+              value: formatDouble(report.income) + ' Rs',
               color: Colors.green[500],
               fontSize: 20,
             ),
             DataRowWidget(
               field: 'Pending Balances',
-              value: formatNumber(report.pendingBal) + ' Rs',
+              value: formatDouble(report.pendingBal) + ' Rs',
               color: Colors.red[500],
               fontSize: 20,
             ),
             DataRowWidget(
               field: 'Expense',
-              value: formatNumber(report.expense) + ' Rs',
+              value: formatDouble(report.expense) + ' Rs',
               color: Colors.red[500],
               fontSize: 20,
             ),
@@ -56,6 +56,6 @@ class SummaryReportCard extends StatelessWidget {
   String _getProfit() {
     double profit =
         report.income - report.expense - report.pendingBal - report.driverSal;
-    return formatNumber(profit);
+    return formatDouble(profit);
   }
 }

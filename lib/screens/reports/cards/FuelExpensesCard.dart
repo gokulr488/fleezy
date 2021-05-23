@@ -22,12 +22,12 @@ class FuelExpensesCard extends StatelessWidget {
                 style: TextStyle(fontSize: 20, color: kHighlightColour)),
             DataRowWidget(
               field: 'Total Fuel Cost',
-              value: formatNumber(report.fuelCost) + ' Rs',
+              value: formatDouble(report.fuelCost) + ' Rs',
               color: Colors.red[500],
             ),
             DataRowWidget(
                 field: 'Litres Filled',
-                value: formatNumber(report.ltrs) + ' Litres'),
+                value: formatDouble(report.ltrs) + ' Litres'),
             DataRowWidget(
                 field: 'Average Fuel Price',
                 value: '${_getAvgFuelRate()} Rs/L'),
@@ -44,7 +44,7 @@ class FuelExpensesCard extends StatelessWidget {
   _getAvgFuelRate() {
     try {
       double rate = report.fuelCost / report.ltrs;
-      return formatNumber(rate);
+      return formatDouble(rate);
     } catch (e) {
       debugPrint(e);
       return '0.0';
@@ -54,7 +54,7 @@ class FuelExpensesCard extends StatelessWidget {
   _getAvgMileage() {
     try {
       double mileage = report.kmsTravelled / report.ltrs;
-      return formatNumber(mileage);
+      return formatDouble(mileage);
     } catch (e) {
       debugPrint(e);
       return '0.0';
@@ -64,7 +64,7 @@ class FuelExpensesCard extends StatelessWidget {
   _getAvgCost() {
     try {
       double cost = report.fuelCost / report.kmsTravelled;
-      return formatNumber(cost);
+      return formatDouble(cost);
     } catch (e) {
       debugPrint(e);
       return '0.0';

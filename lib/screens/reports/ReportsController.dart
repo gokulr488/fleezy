@@ -3,12 +3,13 @@ import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/ReportData.dart';
 import 'package:fleezy/Common/Utils.dart';
 import 'package:fleezy/DataAccess/TripApis.dart';
-import 'package:fleezy/DataModels/ModelReport.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
 import 'package:fleezy/screens/reports/ReportProcessor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+
+bool thisMnthDataLoaded = false;
 
 List<String> getFilterValues(ReportData repData) {
   if (repData.filterPeriod == Constants.MONTHLY) return getMonths();
@@ -18,12 +19,15 @@ List<String> getFilterValues(ReportData repData) {
 }
 
 void getCurrentMonthData(BuildContext context) async {
-  ReportData reportData = Provider.of<ReportData>(context, listen: false);
-  DateTime now = DateTime.now();
-  CallContext callContext = await TripApis().filterTrips(context,
-      from: Utils.getStartOfMonth(now), to: Utils.getEndOfMonth(now));
-  if (!callContext.isError) {
-    processTrips(callContext.data as List<ModelTrip>, reportData);
+  if (!thisMnthDataLoaded) {
+    thisMnthDataLoaded = true;
+    ReportData reportData = Provider.of<ReportData>(context, listen: false);
+    DateTime now = DateTime.now();
+    CallContext callContext = await TripApis().filterTrips(context,
+        from: Utils.getStartOfMonth(now), to: Utils.getEndOfMonth(now));
+    if (!callContext.isError) {
+      processTrips(callContext.data as List<ModelTrip>, reportData);
+    }
   }
 }
 
@@ -50,12 +54,12 @@ List<String> getMonths() {
 
 final curFormat = NumberFormat("##,##,##,##0.00");
 
-String formatNumber(double value) {
+String formatDouble(double value) {
   if (value == null) return '0.00';
   return curFormat.format(value);
 }
 
-String formatNumberNoDec(double value) {
-  if (value == null) return '0.00';
+String formatInt(int value) {
+  if (value == null) return '0';
   return value.toStringAsFixed(0);
 }

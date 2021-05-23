@@ -21,16 +21,15 @@ class FinesOtherExpensesCard extends StatelessWidget {
             Text('Fines & Other Expenses',
                 style: TextStyle(fontSize: 20, color: kHighlightColour)),
             DataRowWidget(
-                field: 'No Of Fines',
-                value: formatNumberNoDec(report.noOfFines)),
+                field: 'No Of Fines', value: formatInt(report.noOfFines)),
             DataRowWidget(
               field: 'Total Fines',
-              value: formatNumber(report.fineCost) + ' Rs',
+              value: formatDouble(report.fineCost) + ' Rs',
               color: Colors.red[500],
             ),
             DataRowWidget(
               field: 'Other Expenses',
-              value: formatNumber(report.otherCost) + ' Rs',
+              value: formatDouble(report.otherCost) + ' Rs',
               color: Colors.red[500],
             )
           ],

@@ -22,22 +22,21 @@ class ServiceRepairCard extends StatelessWidget {
                 style: TextStyle(fontSize: 20, color: kHighlightColour)),
             DataRowWidget(
               field: 'Service Cost',
-              value: formatNumber(report.serviceCost) + ' Rs',
+              value: formatDouble(report.serviceCost) + ' Rs',
               color: Colors.red[500],
             ),
             DataRowWidget(
               field: 'Repair Cost',
-              value: formatNumber(report.repairCost) + ' Rs',
+              value: formatDouble(report.repairCost) + ' Rs',
               color: Colors.red[500],
             ),
             DataRowWidget(
               field: 'Spares Cost',
-              value: formatNumber(report.spareCost) + ' Rs',
+              value: formatDouble(report.spareCost) + ' Rs',
               color: Colors.red[500],
             ),
             DataRowWidget(
-                field: 'No Of Services',
-                value: formatNumberNoDec(report.noOfService)),
+                field: 'No Of Services', value: formatInt(report.noOfService)),
           ],
         ),
       ),

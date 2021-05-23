@@ -16,12 +16,12 @@ void _processTrip(ModelTrip trip, ReportData reportData) {
   if (vehicleReport == null) {
     vehicleReport = ModelReport();
   }
-  vehicleReport.income += trip.billAmount;
-  vehicleReport.kmsTravelled += trip.distance;
-  vehicleReport.driverSal += trip.driverSalary;
+  vehicleReport.income += (trip.billAmount ?? 0);
+  vehicleReport.kmsTravelled += (trip.distance ?? 0);
+  vehicleReport.driverSal += (trip.driverSalary ?? 0);
   vehicleReport.totalTrips++;
 
-  if (trip.balanceAmount > 0) {
+  if (trip.balanceAmount != null && trip.balanceAmount > 0) {
     vehicleReport.pendingBal += trip.balanceAmount;
     vehicleReport.pendingPayTrips++;
   }

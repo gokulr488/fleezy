@@ -2,43 +2,44 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ModelReport {
   String reportId;
-  double income = 0;
-  double pendingBal = 0;
-  double driverSal = 0;
-  double expense = 0;
-  double totalTrips = 0;
-  double pendingPayTrips = 0;
-  double cancelledTrips = 0;
-  double kmsTravelled = 0;
-  double fuelCost = 0;
-  double ltrs = 0;
-  double serviceCost = 0;
-  double repairCost = 0;
-  double spareCost = 0;
-  double noOfService = 0;
-  double noOfFines = 0;
-  double fineCost = 0;
-  double otherCost = 0;
+  double income;
+  double pendingBal;
+  double driverSal;
+  double expense;
+  int totalTrips;
+  int pendingPayTrips;
+  int cancelledTrips;
+  double kmsTravelled;
+  double fuelCost;
+  double ltrs;
+  double serviceCost;
+  double repairCost;
+  double spareCost;
+  int noOfService;
+  int noOfFines;
+  double fineCost;
+  double otherCost;
 
-  ModelReport(
-      {this.reportId,
-      this.income,
-      this.pendingBal,
-      this.driverSal,
-      this.expense,
-      this.totalTrips,
-      this.pendingPayTrips,
-      this.cancelledTrips,
-      this.kmsTravelled,
-      this.fuelCost,
-      this.ltrs,
-      this.serviceCost,
-      this.repairCost,
-      this.spareCost,
-      this.noOfService,
-      this.noOfFines,
-      this.fineCost,
-      this.otherCost});
+  ModelReport({
+    this.reportId,
+    this.income = 0,
+    this.pendingBal = 0,
+    this.driverSal = 0,
+    this.expense = 0,
+    this.totalTrips = 0,
+    this.pendingPayTrips = 0,
+    this.cancelledTrips = 0,
+    this.kmsTravelled = 0,
+    this.fuelCost = 0,
+    this.ltrs = 0,
+    this.serviceCost = 0,
+    this.repairCost = 0,
+    this.spareCost = 0,
+    this.noOfService = 0,
+    this.noOfFines = 0,
+    this.fineCost = 0,
+    this.otherCost = 0,
+  });
 
   static Map<String, dynamic> getDocOf(ModelReport report) {
     return {

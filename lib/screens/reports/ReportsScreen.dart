@@ -18,6 +18,7 @@ class ReportsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> expenses = ['All', 'Fuel', 'June'];
+    getCurrentMonthData(context);
     expenses.addAll(Constants.EXPENSE_TYPES);
     return BaseScreen(
       headerText: 'Reports',
