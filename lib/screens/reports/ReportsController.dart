@@ -29,3 +29,16 @@ List<String> getMonths() {
   }
   return months;
 }
+
+final oCcy = NumberFormat("#,##0.00", "en_US");
+
+String formatNumber(double value) {
+  if (value == null) return '0.00';
+  //oCcy.format(value.toStringAsFixed(2));
+  return value.toStringAsFixed(2);
+}
+
+String formatNumberNoDec(double value) {
+  if (value == null) return '0.00';
+  return value.toStringAsFixed(0);
+}

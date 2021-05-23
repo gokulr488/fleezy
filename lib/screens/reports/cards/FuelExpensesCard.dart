@@ -1,9 +1,14 @@
 import 'package:fleezy/Common/UiConstants.dart';
+import 'package:fleezy/DataModels/ModelReport.dart';
 import 'package:fleezy/components/cards/BaseCard.dart';
 import 'package:fleezy/screens/reports/DataRowWidget.dart';
 import 'package:flutter/material.dart';
 
 class FuelExpensesCard extends StatelessWidget {
+  final ModelReport report;
+
+  const FuelExpensesCard({@required this.report});
+
   @override
   Widget build(BuildContext context) {
     return BaseCard(
@@ -16,16 +21,52 @@ class FuelExpensesCard extends StatelessWidget {
                 style: TextStyle(fontSize: 20, color: kHighlightColour)),
             DataRowWidget(
               field: 'Total Fuel Cost',
-              value: '40,000,00 Rs',
+              value: (report.fuelCost?.toStringAsFixed(2) ?? '') + ' Rs',
               color: Colors.red[500],
             ),
-            DataRowWidget(field: 'Litres Filled', value: '4,444 Litres'),
-            DataRowWidget(field: 'Average Fuel Price', value: '90 Rs/L'),
-            DataRowWidget(field: 'Average Mileage', value: '1.8 Km/L'),
-            DataRowWidget(field: 'Cost per Km', value: '5 Rs/Km'),
+            DataRowWidget(
+                field: 'Litres Filled',
+                value: (report.ltrs?.toStringAsFixed(2) ?? '') + ' Litres'),
+            DataRowWidget(
+                field: 'Average Fuel Price',
+                value: '${_getAvgFuelRate()} Rs/L'),
+            DataRowWidget(
+                field: 'Average Mileage', value: '${_getAvgMileage()} Km/L'),
+            DataRowWidget(
+                field: 'Cost per Km', value: '${_getAvgCost()} Rs/Km'),
           ],
         ),
       ),
     );
+  }
+
+  _getAvgFuelRate() {
+    try {
+      double rate = report.fuelCost / report.ltrs;
+      return rate.toStringAsFixed(2);
+    } catch (e) {
+      debugPrint(e);
+      return '0.0';
+    }
+  }
+
+  _getAvgMileage() {
+    try {
+      double mileage = report.kmsTravelled / report.ltrs;
+      return mileage.toStringAsFixed(2);
+    } catch (e) {
+      debugPrint(e);
+      return '0.0';
+    }
+  }
+
+  _getAvgCost() {
+    try {
+      double cost = report.fuelCost / report.kmsTravelled;
+      return cost.toStringAsFixed(2);
+    } catch (e) {
+      debugPrint(e);
+      return '0.0';
+    }
   }
 }

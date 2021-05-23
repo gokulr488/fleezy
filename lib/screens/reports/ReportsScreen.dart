@@ -1,4 +1,5 @@
 import 'package:fleezy/Common/Constants.dart';
+import 'package:fleezy/Common/ReportData.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/DropDownButton.dart';
 import 'package:fleezy/components/HorLine.dart';
@@ -10,6 +11,7 @@ import 'package:fleezy/screens/reports/cards/ServiceRepairCard.dart';
 import 'package:fleezy/screens/reports/cards/SummaryReportCard.dart';
 import 'package:fleezy/screens/reports/cards/TripsSummaryCard.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ReportsScreen extends StatelessWidget {
   static const String id = 'ReportsScreen';
@@ -20,21 +22,23 @@ class ReportsScreen extends StatelessWidget {
     return BaseScreen(
       headerText: 'Reports',
       child: SingleChildScrollView(
-        child: Column(
-          children: [
-            _FilterWidget(),
-            SummaryReportCard(),
-            TripSummaryCard(),
-            Text(
-              'Expenses',
-              style: TextStyle(fontSize: 20, color: Colors.red[500]),
-            ),
-            HorLine(),
-            FuelExpensesCard(),
-            ServiceRepairCard(),
-            FinesOtherExpensesCard(),
-          ],
-        ),
+        child: Consumer<ReportData>(builder: (context, reportData, _) {
+          return Column(
+            children: [
+              _FilterWidget(),
+              SummaryReportCard(report: reportData.generatedReport),
+              TripSummaryCard(report: reportData.generatedReport),
+              Text(
+                'Expenses',
+                style: TextStyle(fontSize: 20, color: Colors.red[500]),
+              ),
+              HorLine(),
+              FuelExpensesCard(report: reportData.generatedReport),
+              ServiceRepairCard(report: reportData.generatedReport),
+              FinesOtherExpensesCard(report: reportData.generatedReport),
+            ],
+          );
+        }),
       ),
     );
   }
