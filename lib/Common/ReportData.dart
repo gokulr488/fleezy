@@ -22,7 +22,7 @@ class ReportData extends ChangeNotifier {
       noOfService: 2,
       otherCost: 7000,
       repairCost: 5000,
-      reportId: 'MAY-2021',
+      reportId: 'KL-01-BQ-4086_JAN-MAR-2021',
       serviceCost: 3000,
       spareCost: 2000);
   Map<String, ModelReport> _reports;

@@ -2,6 +2,7 @@ import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/DataModels/ModelReport.dart';
 import 'package:fleezy/components/cards/BaseCard.dart';
 import 'package:fleezy/screens/reports/DataRowWidget.dart';
+import 'package:fleezy/screens/reports/ReportsController.dart';
 import 'package:flutter/material.dart';
 
 class FuelExpensesCard extends StatelessWidget {
@@ -21,12 +22,12 @@ class FuelExpensesCard extends StatelessWidget {
                 style: TextStyle(fontSize: 20, color: kHighlightColour)),
             DataRowWidget(
               field: 'Total Fuel Cost',
-              value: (report.fuelCost?.toStringAsFixed(2) ?? '') + ' Rs',
+              value: formatNumber(report.fuelCost) + ' Rs',
               color: Colors.red[500],
             ),
             DataRowWidget(
                 field: 'Litres Filled',
-                value: (report.ltrs?.toStringAsFixed(2) ?? '') + ' Litres'),
+                value: formatNumber(report.ltrs) + ' Litres'),
             DataRowWidget(
                 field: 'Average Fuel Price',
                 value: '${_getAvgFuelRate()} Rs/L'),
@@ -43,7 +44,7 @@ class FuelExpensesCard extends StatelessWidget {
   _getAvgFuelRate() {
     try {
       double rate = report.fuelCost / report.ltrs;
-      return rate.toStringAsFixed(2);
+      return formatNumber(rate);
     } catch (e) {
       debugPrint(e);
       return '0.0';
@@ -53,7 +54,7 @@ class FuelExpensesCard extends StatelessWidget {
   _getAvgMileage() {
     try {
       double mileage = report.kmsTravelled / report.ltrs;
-      return mileage.toStringAsFixed(2);
+      return formatNumber(mileage);
     } catch (e) {
       debugPrint(e);
       return '0.0';
@@ -63,7 +64,7 @@ class FuelExpensesCard extends StatelessWidget {
   _getAvgCost() {
     try {
       double cost = report.fuelCost / report.kmsTravelled;
-      return cost.toStringAsFixed(2);
+      return formatNumber(cost);
     } catch (e) {
       debugPrint(e);
       return '0.0';
