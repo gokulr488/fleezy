@@ -45,6 +45,7 @@ class SummaryReportCard extends StatelessWidget {
     );
   }
 
+//TODO add driver salary column and make correction to profit calculation
   String _getSummaryName(String reportId) {
     if (!reportId.contains('_')) return reportId;
 
@@ -53,7 +54,8 @@ class SummaryReportCard extends StatelessWidget {
   }
 
   String _getProfit() {
-    double profit = report.income - report.expense - report.pendingBal;
+    double profit =
+        report.income - report.expense - report.pendingBal - report.driverSal;
     return formatNumber(profit);
   }
 }

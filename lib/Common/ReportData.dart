@@ -30,8 +30,8 @@ class ReportData extends ChangeNotifier {
   List<ModelExpense> _expenses;
 
   DateTime _selectedYear = DateTime.now();
-  Timestamp _startDate = Utils.getStartOfMonth(DateTime.now());
-  Timestamp _endDate = Utils.getEndOfMonth(DateTime.now());
+  // Timestamp _startDate = Utils.getStartOfMonth(DateTime.now());
+  // Timestamp _endDate = Utils.getEndOfMonth(DateTime.now());
   String _filterPeriod = Constants.MONTHLY;
 
   //Getters

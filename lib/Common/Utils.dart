@@ -57,16 +57,16 @@ class Utils {
     return Timestamp.fromDate(end);
   }
 
-  static Timestamp getStartOfMonth(DateTime dayOfMonth) {
+  static DateTime getStartOfMonth(DateTime dayOfMonth) {
     DateTime start = DateTime(dayOfMonth.year, dayOfMonth.month);
-    return Timestamp.fromDate(start);
+    return start;
   }
 
-  static Timestamp getEndOfMonth(DateTime dayOfMonth) {
+  static DateTime getEndOfMonth(DateTime dayOfMonth) {
     int millis =
         DateTime(dayOfMonth.year, dayOfMonth.month + 1).millisecondsSinceEpoch -
             1;
     DateTime end = DateTime.fromMillisecondsSinceEpoch(millis);
-    return Timestamp.fromDate(end);
+    return end;
   }
 }

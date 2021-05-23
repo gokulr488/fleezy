@@ -2,27 +2,29 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ModelReport {
   String reportId;
-  double income;
-  double pendingBal;
-  double expense;
-  double totalTrips;
-  double pendingPayTrips;
-  double cancelledTrips;
-  double kmsTravelled;
-  double fuelCost;
-  double ltrs;
-  double serviceCost;
-  double repairCost;
-  double spareCost;
-  double noOfService;
-  double noOfFines;
-  double fineCost;
-  double otherCost;
+  double income = 0;
+  double pendingBal = 0;
+  double driverSal = 0;
+  double expense = 0;
+  double totalTrips = 0;
+  double pendingPayTrips = 0;
+  double cancelledTrips = 0;
+  double kmsTravelled = 0;
+  double fuelCost = 0;
+  double ltrs = 0;
+  double serviceCost = 0;
+  double repairCost = 0;
+  double spareCost = 0;
+  double noOfService = 0;
+  double noOfFines = 0;
+  double fineCost = 0;
+  double otherCost = 0;
 
   ModelReport(
       {this.reportId,
       this.income,
       this.pendingBal,
+      this.driverSal,
       this.expense,
       this.totalTrips,
       this.pendingPayTrips,
@@ -43,6 +45,7 @@ class ModelReport {
       'reportId': report.reportId,
       'income': report.income,
       'pendingBal': report.pendingBal,
+      'driverSal': report.driverSal,
       'expense': report.expense,
       'totalTrips': report.totalTrips,
       'pendingPayTrips': report.pendingPayTrips,
@@ -67,6 +70,7 @@ class ModelReport {
       reportId: data['reportId'] ?? '',
       income: data['income'] ?? 0,
       pendingBal: data['pendingBal'] ?? 0,
+      driverSal: data['driverSal'] ?? 0,
       expense: data['expense'] ?? 0,
       totalTrips: data['totalTrips'] ?? 0,
       pendingPayTrips: data['pendingPayTrips'] ?? 0,
