@@ -1,7 +1,5 @@
 import 'package:fleezy/Common/Constants.dart';
-import 'package:fleezy/DataModels/ModelExpense.dart';
 import 'package:fleezy/DataModels/ModelReport.dart';
-import 'package:fleezy/DataModels/ModelTrip.dart';
 import 'package:flutter/cupertino.dart';
 
 class ReportData extends ChangeNotifier {

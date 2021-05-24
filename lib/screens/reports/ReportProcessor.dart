@@ -16,6 +16,13 @@ class ReportProcessor {
     }
   }
 
+  processExpenses(List<ModelExpense> expenses) {
+    _expenses = expenses;
+    for (ModelExpense expense in expenses) {
+      _processExpenses(expense);
+    }
+  }
+
   void _processTrip(ModelTrip trip) {
     String reportId = _getReportId(trip.vehicleRegNo);
     ModelReport vehicleReport = _reports[reportId];
@@ -41,5 +48,37 @@ class ReportProcessor {
   String _getReportId(regNo) {
     //KL-01-BQ-4086_MAY-2021
     return regNo + '_' + Utils.getFormattedDate(DateTime.now(), 'MMM-yyyy');
+  }
+
+  void _processExpenses(ModelExpense expense) {
+    String reportId = _getReportId(expense.vehicleRegNo);
+    ModelReport vehicleReport = _reports[reportId];
+    if (vehicleReport == null) {
+      vehicleReport = ModelReport();
+    }
+    vehicleReport.expense += (expense.amount ?? 0);
+    if (expense.expenseType == Constants.FUEL) {
+      vehicleReport.fuelCost += (expense.amount);
+      vehicleReport.ltrs += (expense.fuelQty);
+    }
+    if (expense.expenseType == Constants.SERVICE) {
+      vehicleReport.serviceCost += (expense.amount);
+      vehicleReport.noOfService++;
+    }
+    if (expense.expenseType == Constants.REPAIR) {
+      vehicleReport.repairCost += (expense.amount);
+    }
+    if (expense.expenseType == Constants.SPARE_PARTS) {
+      vehicleReport.spareCost += (expense.amount);
+    }
+    if (expense.expenseType == Constants.FINES) {
+      vehicleReport.fineCost += (expense.amount);
+      vehicleReport.noOfFines++;
+    }
+    if (expense.expenseType == Constants.OTHER_EXP) {
+      vehicleReport.otherCost += (expense.amount);
+    }
+
+    _reports[reportId] = vehicleReport;
   }
 }

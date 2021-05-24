@@ -2,7 +2,9 @@ import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/ReportData.dart';
 import 'package:fleezy/Common/Utils.dart';
+import 'package:fleezy/DataAccess/ExpenseApis.dart';
 import 'package:fleezy/DataAccess/TripApis.dart';
+import 'package:fleezy/DataModels/ModelExpense.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
 import 'package:fleezy/screens/reports/ReportProcessor.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,6 +31,12 @@ class ReportsController {
           from: Utils.getStartOfMonth(now), to: Utils.getEndOfMonth(now));
       if (!callContext.isError) {
         processor.processTrips(callContext.data as List<ModelTrip>);
+      }
+
+      callContext = await ExpenseApis().filterExpense(context, null,
+          from: Utils.getStartOfMonth(now), to: Utils.getEndOfMonth(now));
+      if (!callContext.isError) {
+        processor.processExpenses(callContext.data as List<ModelExpense>);
       }
     }
   }

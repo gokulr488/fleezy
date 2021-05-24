@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/Constants.dart';
+import 'package:fleezy/Common/Utils.dart';
 import 'package:fleezy/DataModels/ModelExpense.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
 import 'package:fleezy/DataModels/ModelUser.dart';
@@ -49,6 +50,37 @@ class ExpenseApis {
         .collection(Constants.EXPENSE)
         .where('tripNo', isEqualTo: trip.id)
         .get();
+    callContext.data = ModelExpense.getTripsFrom(snapShot);
+    return callContext;
+  }
+
+  Future<CallContext> filterExpense(BuildContext context, int limit,
+      {String regNo, DateTime from, DateTime to}) async {
+    ModelUser user = Provider.of<AppData>(context, listen: false).user;
+    Query reference = fireStore
+        .collection(Constants.COMPANIES)
+        .doc(user.companyId)
+        .collection(Constants.EXPENSE);
+    if (regNo != null) {
+      reference = reference.where('vehicleRegNo', isEqualTo: regNo);
+    }
+    if (from != null && to != null) {
+      reference = reference.where('timestamp',
+          isGreaterThan: Utils.getStartOfDay(from));
+      reference =
+          reference.where('timestamp', isLessThan: Utils.getEndOfDay(to));
+    }
+
+    QuerySnapshot snapShot;
+    if (limit == null && from != null && to != null) {
+      snapShot = await reference.orderBy('timestamp', descending: true).get();
+    } else {
+      snapShot = await reference
+          .orderBy('timestamp', descending: true)
+          .limit(limit)
+          .get();
+    }
+
     callContext.data = ModelExpense.getTripsFrom(snapShot);
     return callContext;
   }

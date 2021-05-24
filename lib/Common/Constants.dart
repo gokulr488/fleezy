@@ -18,6 +18,7 @@ class Constants {
   static const String REPAIR = 'Repair';
   static const String SPARE_PARTS = 'Spare Parts';
   static const String FINES = 'Fines';
+  static const String DRIVER_SALARY = 'Driver Salary';
   static const String OTHER_EXP = 'Other Expense';
 
   static const String MONTHLY = 'Monthly';
