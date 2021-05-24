@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 
 class ReportsController {
   static bool thisMnthDataLoaded = false;
+  static bool reportReady = false;
   final ReportProcessor processor = ReportProcessor();
 
   List<String> getFilterValues(ReportData repData) {
@@ -25,8 +26,8 @@ class ReportsController {
   void getCurrentMonthData(BuildContext context) async {
     if (!thisMnthDataLoaded) {
       thisMnthDataLoaded = true;
-      ReportData reportData = Provider.of<ReportData>(context, listen: false);
       DateTime now = DateTime.now();
+
       CallContext callContext = await TripApis().filterTrips(context, null,
           from: Utils.getStartOfMonth(now), to: Utils.getEndOfMonth(now));
       if (!callContext.isError) {
@@ -39,6 +40,9 @@ class ReportsController {
         processor.processExpenses(callContext.data as List<ModelExpense>);
       }
     }
+    ReportData reportData = Provider.of<ReportData>(context, listen: false);
+    reportData.setGeneratedReport(processor.getReportFor('May-2021'));
+    reportReady = true;
   }
 
   List<String> getYears() {

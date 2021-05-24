@@ -23,6 +23,41 @@ class ReportProcessor {
     }
   }
 
+  ModelReport getReportFor(String reportId) {
+    if (_reports[reportId] != null) {
+      return _reports[reportId];
+    }
+    ModelReport newReport = ModelReport(reportId: reportId);
+    for (MapEntry<String, ModelReport> entry in _reports.entries) {
+      if (entry.key.contains(reportId)) {
+        combineReports(newReport, entry.value);
+      }
+    }
+    _reports[reportId] = newReport;
+    return newReport;
+  }
+
+  ModelReport combineReports(ModelReport target, ModelReport source) {
+    target.income += (source.income ?? 0);
+    target.pendingBal += (source.pendingBal ?? 0);
+    target.driverSal += (source.driverSal ?? 0);
+    target.expense += (source.expense ?? 0);
+    target.totalTrips += (source.totalTrips ?? 0);
+    target.pendingPayTrips += (source.pendingPayTrips ?? 0);
+    target.cancelledTrips += (source.cancelledTrips ?? 0);
+    target.kmsTravelled += (source.kmsTravelled ?? 0);
+    target.fuelCost += (source.fuelCost ?? 0);
+    target.ltrs += (source.ltrs ?? 0);
+    target.serviceCost += (source.serviceCost ?? 0);
+    target.repairCost += (source.repairCost ?? 0);
+    target.spareCost += (source.spareCost ?? 0);
+    target.noOfService += (source.noOfService ?? 0);
+    target.noOfFines += (source.noOfFines ?? 0);
+    target.fineCost += (source.fineCost ?? 0);
+    target.otherCost += (source.otherCost ?? 0);
+    return target;
+  }
+
   void _processTrip(ModelTrip trip) {
     String reportId = _getReportId(trip.vehicleRegNo);
     ModelReport vehicleReport = _reports[reportId];

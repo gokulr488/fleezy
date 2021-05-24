@@ -4,6 +4,7 @@ import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/DropDownButton.dart';
 import 'package:fleezy/components/HorLine.dart';
+import 'package:fleezy/components/LoadingDots.dart';
 import 'package:fleezy/screens/reports/FilterReportsSheet.dart';
 import 'package:fleezy/screens/reports/ReportsController.dart';
 import 'package:fleezy/screens/reports/cards/FinesOtherExpenseCard.dart';
@@ -26,23 +27,26 @@ class ReportsScreen extends StatelessWidget {
       headerText: 'Reports',
       child: SingleChildScrollView(
         child: Consumer<ReportData>(builder: (context, reportData, _) {
-          return Column(
-            children: [
-              _FilterWidget(),
-              Text(_getSummaryName(reportData.generatedReport.reportId),
-                  style: TextStyle(fontSize: 21, color: kHighlightColour)),
-              SummaryReportCard(report: reportData.generatedReport),
-              TripSummaryCard(report: reportData.generatedReport),
-              Text(
-                'Expenses',
-                style: TextStyle(fontSize: 20, color: Colors.red[500]),
-              ),
-              HorLine(),
-              FuelExpensesCard(report: reportData.generatedReport),
-              ServiceRepairCard(report: reportData.generatedReport),
-              FinesOtherExpensesCard(report: reportData.generatedReport),
-            ],
-          );
+          return ReportsController.reportReady
+              ? Column(
+                  children: [
+                    _FilterWidget(),
+                    Text(_getSummaryName(reportData.generatedReport.reportId),
+                        style:
+                            TextStyle(fontSize: 21, color: kHighlightColour)),
+                    SummaryReportCard(report: reportData.generatedReport),
+                    TripSummaryCard(report: reportData.generatedReport),
+                    Text(
+                      'Expenses',
+                      style: TextStyle(fontSize: 20, color: Colors.red[500]),
+                    ),
+                    HorLine(),
+                    FuelExpensesCard(report: reportData.generatedReport),
+                    ServiceRepairCard(report: reportData.generatedReport),
+                    FinesOtherExpensesCard(report: reportData.generatedReport),
+                  ],
+                )
+              : LoadingDots(size: 100);
         }),
       ),
     );
