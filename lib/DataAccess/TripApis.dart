@@ -129,7 +129,7 @@ class TripApis {
     }
   }
 
-  Future<CallContext> filterTrips(BuildContext context,
+  Future<CallContext> filterTrips(BuildContext context, int limit,
       {String regNo, DateTime from, DateTime to}) async {
     ModelUser user = Provider.of<AppData>(context, listen: false).user;
     Query reference = fireStore
@@ -146,8 +146,15 @@ class TripApis {
           reference.where('StartDate', isLessThan: Utils.getEndOfDay(to));
     }
 
-    QuerySnapshot snapShot =
-        await reference.orderBy('StartDate', descending: true).limit(15).get();
+    QuerySnapshot snapShot;
+    if (limit == null && from != null && to != null) {
+      snapShot = await reference.orderBy('StartDate', descending: true).get();
+    } else {
+      snapShot = await reference
+          .orderBy('StartDate', descending: true)
+          .limit(limit)
+          .get();
+    }
 
     callContext.data = ModelTrip.getTripsFrom(snapShot);
     return callContext;
@@ -171,10 +178,10 @@ class TripApis {
         snapShot = await reference
             .orderBy('BalanceAmount')
             .startAfterDocument(page)
-            .limit(25)
+            .limit(8)
             .get();
       } else {
-        snapShot = await reference.limit(15).get();
+        snapShot = await reference.limit(8).get();
       }
       if (snapShot.docs.isNotEmpty) {
         callContext.pageInfo = snapShot.docs[snapShot.docs.length - 1];

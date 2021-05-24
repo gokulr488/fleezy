@@ -23,7 +23,7 @@ void getCurrentMonthData(BuildContext context) async {
     thisMnthDataLoaded = true;
     ReportData reportData = Provider.of<ReportData>(context, listen: false);
     DateTime now = DateTime.now();
-    CallContext callContext = await TripApis().filterTrips(context,
+    CallContext callContext = await TripApis().filterTrips(context, null,
         from: Utils.getStartOfMonth(now), to: Utils.getEndOfMonth(now));
     if (!callContext.isError) {
       processTrips(callContext.data as List<ModelTrip>, reportData);

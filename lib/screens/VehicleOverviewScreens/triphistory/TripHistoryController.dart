@@ -37,7 +37,7 @@ class TripHistoryController {
   void _getDataFromDB(
       String regNumber, BuildContext context, AppData appdata) async {
     CallContext callContext = await TripApis()
-        .filterTrips(context, regNo: regNumber, from: from, to: to);
+        .filterTrips(context, 8, regNo: regNumber, from: from, to: to);
     if (!callContext.isError) {
       List<ModelTrip> tripHistory = callContext.data as List<ModelTrip>;
       appdata.setTripHistory(regNumber, tripHistory);

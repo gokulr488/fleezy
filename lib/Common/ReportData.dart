@@ -1,6 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleezy/Common/Constants.dart';
-import 'package:fleezy/Common/Utils.dart';
 import 'package:fleezy/DataModels/ModelExpense.dart';
 import 'package:fleezy/DataModels/ModelReport.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
