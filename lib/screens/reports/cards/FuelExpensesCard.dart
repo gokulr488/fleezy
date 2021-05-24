@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 
 class FuelExpensesCard extends StatelessWidget {
   final ModelReport report;
-
-  const FuelExpensesCard({@required this.report});
+  final ReportsController ctrl;
+  FuelExpensesCard({@required this.report, @required this.ctrl});
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +22,12 @@ class FuelExpensesCard extends StatelessWidget {
                 style: TextStyle(fontSize: 20, color: kHighlightColour)),
             DataRowWidget(
               field: 'Total Fuel Cost',
-              value: formatDouble(report.fuelCost) + ' Rs',
+              value: ctrl.formatDouble(report.fuelCost) + ' Rs',
               color: Colors.red[500],
             ),
             DataRowWidget(
                 field: 'Litres Filled',
-                value: formatDouble(report.ltrs) + ' Litres'),
+                value: ctrl.formatDouble(report.ltrs) + ' Litres'),
             DataRowWidget(
                 field: 'Average Fuel Price',
                 value: '${_getAvgFuelRate()} Rs/L'),
@@ -44,7 +44,7 @@ class FuelExpensesCard extends StatelessWidget {
   _getAvgFuelRate() {
     try {
       double rate = report.fuelCost / report.ltrs;
-      return formatDouble(rate);
+      return ctrl.formatDouble(rate);
     } catch (e) {
       debugPrint(e);
       return '0.0';
@@ -54,7 +54,7 @@ class FuelExpensesCard extends StatelessWidget {
   _getAvgMileage() {
     try {
       double mileage = report.kmsTravelled / report.ltrs;
-      return formatDouble(mileage);
+      return ctrl.formatDouble(mileage);
     } catch (e) {
       debugPrint(e);
       return '0.0';
@@ -64,7 +64,7 @@ class FuelExpensesCard extends StatelessWidget {
   _getAvgCost() {
     try {
       double cost = report.fuelCost / report.kmsTravelled;
-      return formatDouble(cost);
+      return ctrl.formatDouble(cost);
     } catch (e) {
       debugPrint(e);
       return '0.0';

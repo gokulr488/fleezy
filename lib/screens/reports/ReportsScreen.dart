@@ -16,10 +16,11 @@ import 'package:provider/provider.dart';
 
 class ReportsScreen extends StatelessWidget {
   static const String id = 'ReportsScreen';
+  final ReportsController ctrl = ReportsController();
   @override
   Widget build(BuildContext context) {
     List<String> expenses = ['All', 'Fuel', 'June'];
-    getCurrentMonthData(context);
+    ctrl.getCurrentMonthData(context);
     expenses.addAll(Constants.EXPENSE_TYPES);
     return BaseScreen(
       headerText: 'Reports',
@@ -30,16 +31,17 @@ class ReportsScreen extends StatelessWidget {
               _FilterWidget(),
               Text(_getSummaryName(reportData.generatedReport.reportId),
                   style: TextStyle(fontSize: 21, color: kHighlightColour)),
-              SummaryReportCard(report: reportData.generatedReport),
-              TripSummaryCard(report: reportData.generatedReport),
+              SummaryReportCard(report: reportData.generatedReport, ctrl: ctrl),
+              TripSummaryCard(report: reportData.generatedReport, ctrl: ctrl),
               Text(
                 'Expenses',
                 style: TextStyle(fontSize: 20, color: Colors.red[500]),
               ),
               HorLine(),
-              FuelExpensesCard(report: reportData.generatedReport),
-              ServiceRepairCard(report: reportData.generatedReport),
-              FinesOtherExpensesCard(report: reportData.generatedReport),
+              FuelExpensesCard(report: reportData.generatedReport, ctrl: ctrl),
+              ServiceRepairCard(report: reportData.generatedReport, ctrl: ctrl),
+              FinesOtherExpensesCard(
+                  report: reportData.generatedReport, ctrl: ctrl),
             ],
           );
         }),
@@ -57,6 +59,7 @@ class ReportsScreen extends StatelessWidget {
 }
 
 class _FilterWidget extends StatelessWidget {
+  final ReportsController ctrl = ReportsController();
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -70,7 +73,7 @@ class _FilterWidget extends StatelessWidget {
               icon: Icons.calendar_today,
               hintText: 'Month',
               value: 'May',
-              values: getMonths(),
+              values: ctrl.getMonths(),
               onChanged: (String value) {}),
         ),
         SizedBox(

@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class TimePeriodSelector extends StatelessWidget {
+  final ReportsController ctrl = ReportsController();
   @override
   Widget build(BuildContext context) {
     ReportData repData = Provider.of<ReportData>(context, listen: false);
@@ -16,7 +17,7 @@ class TimePeriodSelector extends StatelessWidget {
           icon: Icons.calendar_today,
           hintText: getHint(repData),
           value: getDefaultValue(repData),
-          values: getFilterValues(repData),
+          values: ctrl.getFilterValues(repData),
           onChanged: (String value) {}),
     );
   }

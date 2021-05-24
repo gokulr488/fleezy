@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class YearSelector extends StatelessWidget {
+  final ReportsController ctrl = ReportsController();
   @override
   Widget build(BuildContext context) {
     ReportData repData = Provider.of<ReportData>(context, listen: false);
@@ -15,7 +16,7 @@ class YearSelector extends StatelessWidget {
           icon: Icons.calendar_today,
           hintText: 'Year',
           value: DateFormat('yyyy').format(repData.selectedYear),
-          values: getYears(),
+          values: ctrl.getYears(),
           onChanged: (String value) {}),
     );
   }

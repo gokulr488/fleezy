@@ -6,9 +6,10 @@ import 'package:fleezy/screens/reports/ReportsController.dart';
 import 'package:flutter/material.dart';
 
 class SummaryReportCard extends StatelessWidget {
+  final ReportsController ctrl;
   final ModelReport report;
 
-  const SummaryReportCard({@required this.report});
+  const SummaryReportCard({@required this.report, @required this.ctrl});
   @override
   Widget build(BuildContext context) {
     return BaseCard(
@@ -21,25 +22,25 @@ class SummaryReportCard extends StatelessWidget {
                 style: TextStyle(fontSize: 20, color: kHighlightColour)),
             DataRowWidget(
               field: 'Income',
-              value: formatDouble(report.income) + ' Rs',
+              value: ctrl.formatDouble(report.income) + ' Rs',
               color: Colors.green[500],
               fontSize: 20,
             ),
             DataRowWidget(
               field: 'Pending Balances',
-              value: formatDouble(report.pendingBal) + ' Rs',
+              value: ctrl.formatDouble(report.pendingBal) + ' Rs',
               color: Colors.red[500],
               fontSize: 20,
             ),
             DataRowWidget(
               field: 'Driver Salary',
-              value: formatDouble(report.driverSal) + ' Rs',
+              value: ctrl.formatDouble(report.driverSal) + ' Rs',
               color: Colors.red[500],
               fontSize: 20,
             ),
             DataRowWidget(
               field: 'Expenses',
-              value: formatDouble(report.expense) + ' Rs',
+              value: ctrl.formatDouble(report.expense) + ' Rs',
               color: Colors.red[500],
               fontSize: 20,
             ),
@@ -54,6 +55,6 @@ class SummaryReportCard extends StatelessWidget {
   String _getProfit() {
     double profit =
         report.income - report.expense - report.pendingBal - report.driverSal;
-    return formatDouble(profit);
+    return ctrl.formatDouble(profit);
   }
 }

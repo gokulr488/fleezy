@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 
 class TripSummaryCard extends StatelessWidget {
   final ModelReport report;
-
-  const TripSummaryCard({@required this.report});
+  final ReportsController ctrl;
+  const TripSummaryCard({@required this.report, @required this.ctrl});
   @override
   Widget build(BuildContext context) {
     return BaseCard(
@@ -20,16 +20,16 @@ class TripSummaryCard extends StatelessWidget {
             Text('Trips Overview',
                 style: TextStyle(fontSize: 20, color: kHighlightColour)),
             DataRowWidget(
-                field: 'Total Trips', value: formatInt(report.totalTrips)),
+                field: 'Total Trips', value: ctrl.formatInt(report.totalTrips)),
             DataRowWidget(
                 field: 'Payment Pending Trips',
-                value: formatInt(report.pendingPayTrips)),
+                value: ctrl.formatInt(report.pendingPayTrips)),
             DataRowWidget(
                 field: 'Cancelled Trips',
-                value: formatInt(report.cancelledTrips)),
+                value: ctrl.formatInt(report.cancelledTrips)),
             DataRowWidget(
                 field: 'Kms Travelled',
-                value: formatDouble(report.kmsTravelled)),
+                value: ctrl.formatDouble(report.kmsTravelled)),
           ],
         ),
       ),

@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 
 class FinesOtherExpensesCard extends StatelessWidget {
   final ModelReport report;
-
-  const FinesOtherExpensesCard({@required this.report});
+  final ReportsController ctrl;
+  FinesOtherExpensesCard({@required this.report, @required this.ctrl});
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +21,15 @@ class FinesOtherExpensesCard extends StatelessWidget {
             Text('Fines & Other Expenses',
                 style: TextStyle(fontSize: 20, color: kHighlightColour)),
             DataRowWidget(
-                field: 'No Of Fines', value: formatInt(report.noOfFines)),
+                field: 'No Of Fines', value: ctrl.formatInt(report.noOfFines)),
             DataRowWidget(
               field: 'Total Fines',
-              value: formatDouble(report.fineCost) + ' Rs',
+              value: ctrl.formatDouble(report.fineCost) + ' Rs',
               color: Colors.red[500],
             ),
             DataRowWidget(
               field: 'Other Expenses',
-              value: formatDouble(report.otherCost) + ' Rs',
+              value: ctrl.formatDouble(report.otherCost) + ' Rs',
               color: Colors.red[500],
             )
           ],
