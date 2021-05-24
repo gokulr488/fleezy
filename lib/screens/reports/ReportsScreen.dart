@@ -1,5 +1,6 @@
 import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/ReportData.dart';
+import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/DropDownButton.dart';
 import 'package:fleezy/components/HorLine.dart';
@@ -27,6 +28,8 @@ class ReportsScreen extends StatelessWidget {
           return Column(
             children: [
               _FilterWidget(),
+              Text(_getSummaryName(reportData.generatedReport.reportId),
+                  style: TextStyle(fontSize: 21, color: kHighlightColour)),
               SummaryReportCard(report: reportData.generatedReport),
               TripSummaryCard(report: reportData.generatedReport),
               Text(
@@ -42,6 +45,14 @@ class ReportsScreen extends StatelessWidget {
         }),
       ),
     );
+  }
+
+  String _getSummaryName(String reportId) {
+    if (!reportId.contains('_')) return reportId;
+
+    // List<String> parts = reportId.split('_');
+    // return parts[1];
+    return reportId.replaceAll('_', '   ');
   }
 }
 

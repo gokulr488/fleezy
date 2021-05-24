@@ -17,8 +17,8 @@ class SummaryReportCard extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            Text(_getSummaryName(report.reportId) + ' Summary',
-                style: TextStyle(fontSize: 22, color: kHighlightColour)),
+            Text('Summary',
+                style: TextStyle(fontSize: 20, color: kHighlightColour)),
             DataRowWidget(
               field: 'Income',
               value: formatDouble(report.income) + ' Rs',
@@ -32,7 +32,13 @@ class SummaryReportCard extends StatelessWidget {
               fontSize: 20,
             ),
             DataRowWidget(
-              field: 'Expense',
+              field: 'Driver Salary',
+              value: formatDouble(report.driverSal) + ' Rs',
+              color: Colors.red[500],
+              fontSize: 20,
+            ),
+            DataRowWidget(
+              field: 'Expenses',
               value: formatDouble(report.expense) + ' Rs',
               color: Colors.red[500],
               fontSize: 20,
@@ -43,14 +49,6 @@ class SummaryReportCard extends StatelessWidget {
         ),
       ),
     );
-  }
-
-//TODO add driver salary column and make correction to profit calculation
-  String _getSummaryName(String reportId) {
-    if (!reportId.contains('_')) return reportId;
-
-    List<String> parts = reportId.split('_');
-    return parts[1];
   }
 
   String _getProfit() {
