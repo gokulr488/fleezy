@@ -1,14 +1,13 @@
 import 'package:fleezy/Common/UiConstants.dart';
+import 'package:fleezy/Common/Utils.dart';
 import 'package:fleezy/DataModels/ModelReport.dart';
 import 'package:fleezy/components/cards/BaseCard.dart';
 import 'package:fleezy/screens/reports/DataRowWidget.dart';
-import 'package:fleezy/screens/reports/ReportsController.dart';
 import 'package:flutter/material.dart';
 
 class TripSummaryCard extends StatelessWidget {
   final ModelReport report;
-  final ReportsController ctrl;
-  const TripSummaryCard({@required this.report, @required this.ctrl});
+  const TripSummaryCard({@required this.report});
   @override
   Widget build(BuildContext context) {
     return BaseCard(
@@ -20,16 +19,17 @@ class TripSummaryCard extends StatelessWidget {
             Text('Trips Overview',
                 style: TextStyle(fontSize: 20, color: kHighlightColour)),
             DataRowWidget(
-                field: 'Total Trips', value: ctrl.formatInt(report.totalTrips)),
+                field: 'Total Trips',
+                value: Utils.formatInt(report.totalTrips)),
             DataRowWidget(
                 field: 'Payment Pending Trips',
-                value: ctrl.formatInt(report.pendingPayTrips)),
+                value: Utils.formatInt(report.pendingPayTrips)),
             DataRowWidget(
                 field: 'Cancelled Trips',
-                value: ctrl.formatInt(report.cancelledTrips)),
+                value: Utils.formatInt(report.cancelledTrips)),
             DataRowWidget(
                 field: 'Kms Travelled',
-                value: ctrl.formatDouble(report.kmsTravelled)),
+                value: Utils.formatDouble(report.kmsTravelled)),
           ],
         ),
       ),

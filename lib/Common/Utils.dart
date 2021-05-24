@@ -69,4 +69,16 @@ class Utils {
     DateTime end = DateTime.fromMillisecondsSinceEpoch(millis);
     return end;
   }
+
+  static final curFormat = NumberFormat("##,##,##,##0.00");
+
+  static String formatDouble(double value) {
+    if (value == null) return '0.00';
+    return curFormat.format(value);
+  }
+
+  static String formatInt(int value) {
+    if (value == null) return '0';
+    return value.toStringAsFixed(0);
+  }
 }

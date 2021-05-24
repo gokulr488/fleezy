@@ -31,17 +31,16 @@ class ReportsScreen extends StatelessWidget {
               _FilterWidget(),
               Text(_getSummaryName(reportData.generatedReport.reportId),
                   style: TextStyle(fontSize: 21, color: kHighlightColour)),
-              SummaryReportCard(report: reportData.generatedReport, ctrl: ctrl),
-              TripSummaryCard(report: reportData.generatedReport, ctrl: ctrl),
+              SummaryReportCard(report: reportData.generatedReport),
+              TripSummaryCard(report: reportData.generatedReport),
               Text(
                 'Expenses',
                 style: TextStyle(fontSize: 20, color: Colors.red[500]),
               ),
               HorLine(),
-              FuelExpensesCard(report: reportData.generatedReport, ctrl: ctrl),
-              ServiceRepairCard(report: reportData.generatedReport, ctrl: ctrl),
-              FinesOtherExpensesCard(
-                  report: reportData.generatedReport, ctrl: ctrl),
+              FuelExpensesCard(report: reportData.generatedReport),
+              ServiceRepairCard(report: reportData.generatedReport),
+              FinesOtherExpensesCard(report: reportData.generatedReport),
             ],
           );
         }),

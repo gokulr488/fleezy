@@ -1,14 +1,13 @@
 import 'package:fleezy/Common/UiConstants.dart';
+import 'package:fleezy/Common/Utils.dart';
 import 'package:fleezy/DataModels/ModelReport.dart';
 import 'package:fleezy/components/cards/BaseCard.dart';
 import 'package:fleezy/screens/reports/DataRowWidget.dart';
-import 'package:fleezy/screens/reports/ReportsController.dart';
 import 'package:flutter/material.dart';
 
 class FuelExpensesCard extends StatelessWidget {
   final ModelReport report;
-  final ReportsController ctrl;
-  FuelExpensesCard({@required this.report, @required this.ctrl});
+  FuelExpensesCard({@required this.report});
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +21,12 @@ class FuelExpensesCard extends StatelessWidget {
                 style: TextStyle(fontSize: 20, color: kHighlightColour)),
             DataRowWidget(
               field: 'Total Fuel Cost',
-              value: ctrl.formatDouble(report.fuelCost) + ' Rs',
+              value: Utils.formatDouble(report.fuelCost) + ' Rs',
               color: Colors.red[500],
             ),
             DataRowWidget(
                 field: 'Litres Filled',
-                value: ctrl.formatDouble(report.ltrs) + ' Litres'),
+                value: Utils.formatDouble(report.ltrs) + ' Litres'),
             DataRowWidget(
                 field: 'Average Fuel Price',
                 value: '${_getAvgFuelRate()} Rs/L'),
@@ -44,7 +43,7 @@ class FuelExpensesCard extends StatelessWidget {
   _getAvgFuelRate() {
     try {
       double rate = report.fuelCost / report.ltrs;
-      return ctrl.formatDouble(rate);
+      return Utils.formatDouble(rate);
     } catch (e) {
       debugPrint(e);
       return '0.0';
@@ -54,7 +53,7 @@ class FuelExpensesCard extends StatelessWidget {
   _getAvgMileage() {
     try {
       double mileage = report.kmsTravelled / report.ltrs;
-      return ctrl.formatDouble(mileage);
+      return Utils.formatDouble(mileage);
     } catch (e) {
       debugPrint(e);
       return '0.0';
@@ -64,7 +63,7 @@ class FuelExpensesCard extends StatelessWidget {
   _getAvgCost() {
     try {
       double cost = report.fuelCost / report.kmsTravelled;
-      return ctrl.formatDouble(cost);
+      return Utils.formatDouble(cost);
     } catch (e) {
       debugPrint(e);
       return '0.0';

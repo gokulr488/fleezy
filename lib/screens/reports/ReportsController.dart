@@ -53,16 +53,4 @@ class ReportsController {
     }
     return months;
   }
-
-  final curFormat = NumberFormat("##,##,##,##0.00");
-
-  String formatDouble(double value) {
-    if (value == null) return '0.00';
-    return curFormat.format(value);
-  }
-
-  String formatInt(int value) {
-    if (value == null) return '0';
-    return value.toStringAsFixed(0);
-  }
 }
