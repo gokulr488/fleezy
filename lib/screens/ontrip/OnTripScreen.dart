@@ -103,7 +103,7 @@ class _OnTripScreenState extends State<OnTripScreen> {
                                       fontSize: 20, color: kHighlightColour)),
                               Checkbox(
                                   activeColor: kHighlightColour,
-                                  value: false,
+                                  value: tripDo.isRoundTrip ?? false,
                                   onChanged: (bool value) {
                                     tripDo.isRoundTrip = value;
                                     setState(() {});

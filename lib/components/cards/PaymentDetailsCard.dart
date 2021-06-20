@@ -19,7 +19,7 @@ class PaymentDetailsCard extends StatelessWidget {
       cardChild: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SizedBox(
-          height: (trip.status != Constants.CANCELLED) ? 175 : 30,
+          height: (trip.status != Constants.CANCELLED) ? 175 : 75,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
