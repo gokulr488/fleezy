@@ -51,7 +51,7 @@ class CurrentUserScreen extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 10),
-                  Text(appData.user.phoneNumber ?? '', style: _kFieldTS),
+                  Text(appData.user?.phoneNumber ?? '', style: _kFieldTS),
                   HorLine(),
                   Row(
                     children: [
@@ -61,7 +61,7 @@ class CurrentUserScreen extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 10),
-                  Text(appData.user.roleName ?? '', style: _kFieldTS),
+                  Text(appData.user?.roleName ?? '', style: _kFieldTS),
                   HorLine(),
                 ],
               ),
