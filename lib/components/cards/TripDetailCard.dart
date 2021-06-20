@@ -56,7 +56,7 @@ class TripDetailCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: Icon(
-                      tripDo.isRoundTrip
+                      tripDo.isRoundTrip ?? false
                           ? Icons.compare_arrows
                           : Icons.arrow_right_alt,
                       size: 35),
