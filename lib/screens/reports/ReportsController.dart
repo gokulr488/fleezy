@@ -41,7 +41,7 @@ class ReportsController {
       }
     }
     ReportData reportData = Provider.of<ReportData>(context, listen: false);
-    reportData.setGeneratedReport(processor.getReportFor('May-2021'));
+    reportData.setGeneratedReport(processor.getReportFor('Jul-2021'));
     reportReady = true;
   }
 

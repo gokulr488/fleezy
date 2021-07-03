@@ -68,11 +68,11 @@ class ModelVehicle {
   }
 
   static List<ModelVehicle> getVehicleFrom(QuerySnapshot snapshot) {
-    List<ModelVehicle> users = [];
+    List<ModelVehicle> vehicles = [];
     for (QueryDocumentSnapshot doc in snapshot.docs) {
-      users.add(getVehicleFromDoc(doc));
+      vehicles.add(getVehicleFromDoc(doc));
     }
-    return users;
+    return vehicles;
   }
 
   static ModelVehicle getUserFromSnapshot(QuerySnapshot snapshot) {

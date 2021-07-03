@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fleezy/Common/AppData.dart';
@@ -83,6 +84,8 @@ class FleezyApp extends StatelessWidget {
 }
 
 bool _isLoggedIn(BuildContext context) {
+  // FirebaseFirestore.instance.settings =
+  //     Settings(host: '10.0.2.2:8080', sslEnabled: false);
   final _auth = FirebaseAuth.instance;
   if (_auth.currentUser != null) {
     //Provider.of<UiState>(context, listen: false).setIsAdmin(true);

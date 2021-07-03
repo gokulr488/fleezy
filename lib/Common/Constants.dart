@@ -3,6 +3,7 @@ class Constants {
   static const String VEHICLES = "Vehicles";
   static const String USERS = "Users";
   static const String EXPENSE = "Expense";
+  static const String REPORT = "Report";
   static const String TRIP = "Trip";
   static const String ADMIN = "Admin";
   static const String DRIVER = "Driver";
