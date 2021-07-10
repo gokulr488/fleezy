@@ -23,7 +23,6 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
   void initState() {
     super.initState();
     ctrl = AddExpenseController();
-    ctrl.init();
   }
 
   @override

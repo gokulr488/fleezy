@@ -21,6 +21,8 @@ class Constants {
   static const String FINES = 'Fines';
   static const String DRIVER_SALARY = 'Driver Salary';
   static const String OTHER_EXP = 'Other Expense';
+  static const String TAX_EXP = 'Tax Payment';
+  static const String INSURANCE_EXP = 'Insurance Payment';
 
   static const String MONTHLY = 'Monthly';
   static const String QUARTERLY = 'Quarterly';

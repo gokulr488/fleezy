@@ -14,7 +14,8 @@ import 'package:provider/provider.dart';
 class AddExpenseController {
   ModelExpense expenseDo;
   ModelVehicle vehicleDo;
-  void init() {
+
+  AddExpenseController() {
     expenseDo = ModelExpense();
   }
 

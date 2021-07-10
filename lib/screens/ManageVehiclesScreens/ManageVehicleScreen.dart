@@ -9,6 +9,7 @@ import 'package:fleezy/components/GridLayout.dart';
 import 'package:fleezy/components/cards/ButtonCard.dart';
 import 'package:fleezy/components/cards/ManageVehicleCard.dart';
 import 'package:fleezy/screens/ManageVehiclesScreens/AllowDriversBottomSheet.dart';
+import 'package:fleezy/screens/ManageVehiclesScreens/TaxPaymentScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,17 +28,26 @@ class ManageVehicleScreen extends StatelessWidget {
               SizedBox(height: 15),
               GridLayout(children: [
                 ButtonCard(
-                    text: 'Tax Payment', onTap: () => Navigator.pop(context)),
+                  text: 'Tax Payment',
+                  icon: Icons.payment,
+                  onTap: () {
+                    Navigator.pushNamed(context, TaxPaymentScreen.id,
+                        arguments: vehicle);
+                  },
+                ),
                 ButtonCard(
                     text: 'Insurance Payment',
-                    onTap: () => Navigator.pop(context)),
+                    icon: Icons.payment,
+                    onTap: () {}),
                 ButtonCard(
                     text: 'Allowed Drivers',
+                    icon: Icons.account_circle,
                     onTap: () {
                       allowedDrivers(context, vehicle.vehicle);
                     }),
                 ButtonCard(
                     text: 'Delete Vehicle',
+                    icon: Icons.delete,
                     onTap: () {
                       showDialog(
                           context: context,

@@ -51,6 +51,14 @@ class VehicleOverviewScreen extends StatelessWidget {
                         arguments: vehicle.registrationNumber);
                   }),
               ButtonCard(
+                text: 'Pending Balance',
+                icon: Icons.attach_money,
+                onTap: () {
+                  Navigator.pushNamed(context, PendingBalanceScreen.id,
+                      arguments: vehicle.registrationNumber);
+                },
+              ),
+              ButtonCard(
                 text: 'Trip History',
                 icon: Icons.location_on,
                 onTap: () {
@@ -59,11 +67,10 @@ class VehicleOverviewScreen extends StatelessWidget {
                 },
               ),
               ButtonCard(
-                text: 'Pending Balance',
-                icon: Icons.attach_money,
+                text: 'Expenses History',
+                icon: Icons.history,
                 onTap: () {
-                  Navigator.pushNamed(context, PendingBalanceScreen.id,
-                      arguments: vehicle.registrationNumber);
+                  showErrorAlert(context, 'Under Development');
                 },
               ),
             ],

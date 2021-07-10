@@ -142,25 +142,21 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> verify() async {
-    setState(() {
-      message = 'Gathering Account Info...';
-    });
+    message = 'Gathering Account Info...';
+    setState(() {});
     user = await Roles().verifyUser(phoneNo);
     if (user == null) {
-      setState(() {
-        message = 'This Phone Number is not Registered';
-      });
+      message = 'This Phone Number is not Registered';
+      setState(() {});
       return;
     } else if (user.state != Constants.ACTIVE) {
-      setState(() {
-        message = 'This Phone Number is in ${user.state} state';
-      });
+      message = 'This Phone Number is in ${user.state} state';
+      setState(() {});
       return;
     }
     auth.verifyPhone(phoneNo);
-    setState(() {
-      message = 'Verifying, Enter your OTP';
-      verified = true;
-    });
+    message = 'Verifying, Enter your OTP';
+    verified = true;
+    setState(() {});
   }
 }

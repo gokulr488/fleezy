@@ -17,6 +17,7 @@ class DatePicker extends StatelessWidget {
               style: TextStyle(
                 fontSize: 20,
                 color: kHighlightColour,
+                fontWeight: FontWeight.bold,
               )),
         ),
       ),
