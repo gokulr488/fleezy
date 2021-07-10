@@ -51,7 +51,7 @@ class ModelUser {
 
   static List<ModelUser> getUsersFrom(QuerySnapshot snapshot) {
     List<ModelUser> users = [];
-    for (QueryDocumentSnapshot doc in snapshot.docs) {
+    for (final doc in snapshot.docs) {
       users.add(getUserFromDoc(doc));
     }
     return users;
@@ -61,7 +61,7 @@ class ModelUser {
     if (snapshot.docs.isEmpty) {
       return null;
     }
-    QueryDocumentSnapshot doc = snapshot.docs.first;
+    final doc = snapshot.docs.first;
     return getUserFromDoc(doc);
   }
 }

@@ -1,5 +1,4 @@
 import 'package:fleezy/Common/Alerts.dart';
-import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/DataAccess/DAOs/Vehicle.dart';
 import 'package:fleezy/DataModels/ModelUser.dart';
@@ -43,8 +42,8 @@ class _AllowDriversSheetState extends State<AllowDriversSheet> {
   List<Widget> getDriverChoosers(
       List<ModelUser> allDrivers, List<String> allowedDrivers) {
     List<Widget> driverChoosers = [];
-    for (ModelUser driver in allDrivers) {
-      bool allowed = allowedDrivers.contains(driver.phoneNumber);
+    for (final driver in allDrivers) {
+      var allowed = allowedDrivers.contains(driver.phoneNumber);
       driverChoosers.add(Padding(
         padding: const EdgeInsets.all(10.0),
         child:
@@ -71,11 +70,11 @@ class _AllowDriversSheetState extends State<AllowDriversSheet> {
     return driverChoosers;
   }
 
-  saveAllowedDrivers(ModelVehicle vehicle, List<String> allowedDrivers,
-      BuildContext context) async {
-    List<String> currentList = vehicle.allowedDrivers.toList();
+  Future<void> saveAllowedDrivers(ModelVehicle vehicle,
+      List<String> allowedDrivers, BuildContext context) async {
+    final currentList = vehicle.allowedDrivers.toList();
     vehicle.allowedDrivers = allowedDrivers;
-    CallContext callContext = await Vehicle().updateVehicle(vehicle);
+    final callContext = await Vehicle().updateVehicle(vehicle);
     if (callContext.isError) {
       showSubmitResponse(context, callContext.message);
       vehicle.allowedDrivers = currentList;

@@ -90,15 +90,15 @@ class ModelReport {
   }
 
   static List<ModelReport> getReportFrom(QuerySnapshot snapshot) {
-    List<ModelReport> users = [];
-    for (QueryDocumentSnapshot doc in snapshot.docs) {
+    final users = [];
+    for (final doc in snapshot.docs) {
       users.add(getReportFromDoc(doc));
     }
     return users;
   }
 
   static ModelReport getReportFromSnapshot(QuerySnapshot snapshot) {
-    QueryDocumentSnapshot doc = snapshot.docs.first;
+    final doc = snapshot.docs.first;
     return getReportFromDoc(doc);
   }
 }

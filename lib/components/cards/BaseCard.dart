@@ -14,12 +14,12 @@ class BaseCard extends StatelessWidget {
       splashColor: Colors.yellow[400],
       onTap: onTap,
       child: Card(
-        child: Center(
-          child: cardChild,
-        ),
         color: color ?? kCardOverlay[elevation] ?? kCardOverlay[4],
         elevation: elevation ?? 4,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        child: Center(
+          child: cardChild,
+        ),
       ),
     );
   }

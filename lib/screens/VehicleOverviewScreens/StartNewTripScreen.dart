@@ -1,12 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleezy/Common/Alerts.dart';
 import 'package:fleezy/Common/AppData.dart';
-import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/Common/Validator.dart';
 import 'package:fleezy/DataAccess/TripApis.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
-import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/components/ScrollableList.dart';
@@ -92,13 +90,13 @@ class _StartNewTripScreenState extends State<StartNewTripScreen> {
 
   void _startTrip(BuildContext context) async {
     if (valid()) {
-      AppData appData = Provider.of<AppData>(context, listen: false);
-      ModelUser user = appData.user;
+      final appData = Provider.of<AppData>(context, listen: false);
+      final user = appData.user;
       trip.driverName = user.fullName ?? user.phoneNumber;
       trip.driverUid = user.uid;
       trip.startDate = Timestamp.now();
       trip.vehicleRegNo = vehicle.registrationNumber;
-      CallContext callContext =
+      final callContext =
           await TripApis().startNewTrip(trip, vehicle.vehicle, context);
       if (callContext.isError) {
         message = callContext.errorMessage;
@@ -112,7 +110,7 @@ class _StartNewTripScreenState extends State<StartNewTripScreen> {
   }
 
   bool valid() {
-    Validator validate = Validator();
+    final validate = Validator();
     try {
       validate.stringField(trip.startingFrom, 'Enter Start Location', context);
       validate.stringField(trip.destination, 'Enter Destination', context);

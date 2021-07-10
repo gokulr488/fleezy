@@ -120,17 +120,17 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  onVerificationCompleted() {
+  Future<void> onVerificationCompleted() async {
     Provider.of<AppData>(context, listen: false).setUser(user);
     if (user.uid == null) {
       user.uid = Authentication().getUser()?.uid;
-      Roles().updateRole(user);
+      await Roles().updateRole(user);
     }
     if (user.roleName != Constants.ADMIN) {
       Provider.of<UiState>(context, listen: false).setIsAdmin(false);
     }
     Navigator.popUntil(context, ModalRoute.withName(StartScreen.id));
-    Navigator.pushReplacementNamed(context, HomeScreen.id);
+    await Navigator.pushReplacementNamed(context, HomeScreen.id);
   }
 
   Future<void> login() async {

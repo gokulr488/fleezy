@@ -10,7 +10,7 @@ class TimePeriodSelector extends StatelessWidget {
   final ReportsController ctrl = ReportsController();
   @override
   Widget build(BuildContext context) {
-    ReportData repData = Provider.of<ReportData>(context, listen: false);
+    final repData = Provider.of<ReportData>(context, listen: false);
     return Padding(
       padding: const EdgeInsets.all(10),
       child: DropDownButton(
@@ -31,15 +31,15 @@ class TimePeriodSelector extends StatelessWidget {
 
   String getDefaultValue(ReportData repData) {
     if (repData.filterPeriod == Constants.MONTHLY) {
-      DateTime now = DateTime.now();
-      String month = DateFormat('MMM').format(now);
+      final now = DateTime.now();
+      final month = DateFormat('MMM').format(now);
       return month;
     }
 
     if (repData.filterPeriod == Constants.QUARTERLY) return Constants.Q1;
     if (repData.filterPeriod == Constants.YEARLY) {
-      DateTime now = DateTime.now();
-      String year = DateFormat('yyyy').format(now);
+      final now = DateTime.now();
+      final year = DateFormat('yyyy').format(now);
       return year;
     }
     return '';

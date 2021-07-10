@@ -40,9 +40,9 @@ class FuelExpensesCard extends StatelessWidget {
     );
   }
 
-  _getAvgFuelRate() {
+  String _getAvgFuelRate() {
     try {
-      double rate = report.fuelCost / report.ltrs;
+      final rate = report.fuelCost / report.ltrs;
       return Utils.formatDouble(rate);
     } catch (e) {
       debugPrint(e);
@@ -50,9 +50,9 @@ class FuelExpensesCard extends StatelessWidget {
     }
   }
 
-  _getAvgMileage() {
+  String _getAvgMileage() {
     try {
-      double mileage = report.kmsTravelled / report.ltrs;
+      final mileage = report.kmsTravelled / report.ltrs;
       return Utils.formatDouble(mileage);
     } catch (e) {
       debugPrint(e);
@@ -60,9 +60,9 @@ class FuelExpensesCard extends StatelessWidget {
     }
   }
 
-  _getAvgCost() {
+  String _getAvgCost() {
     try {
-      double cost = report.fuelCost / report.kmsTravelled;
+      final cost = report.fuelCost / report.kmsTravelled;
       return Utils.formatDouble(cost);
     } catch (e) {
       debugPrint(e);

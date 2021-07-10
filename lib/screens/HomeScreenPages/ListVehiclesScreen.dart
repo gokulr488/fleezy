@@ -5,7 +5,6 @@ import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/Common/UiState.dart';
 import 'package:fleezy/DataAccess/DAOs/Roles.dart';
 import 'package:fleezy/DataAccess/DAOs/Vehicle.dart';
-import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/DataModels/ModelVehicle.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/VehicleCard.dart';
@@ -42,11 +41,11 @@ class ListVehiclesScreen extends StatelessWidget {
   }
 
   Future<void> _getUserData(BuildContext context) async {
-    AppData appData = Provider.of<AppData>(context,
+    final appData = Provider.of<AppData>(context,
         listen: false); //check if listen false is causing issues here
     if (appData.user == null) {
       print('Getting User basic Info.');
-      ModelUser user =
+      final user =
           await Roles().getUser(Authentication().getUser().phoneNumber);
       if (user?.state == Constants.INACTIVE) {
         _logoutUser(context);
@@ -68,7 +67,7 @@ class ListVehiclesScreen extends StatelessWidget {
 
   List<VehicleCard> _populateVehicleCards(AppData appData) {
     List<VehicleCard> vehicleCards = [];
-    for (ModelVehicle vehicle in appData.availableVehicles) {
+    for (final vehicle in appData.availableVehicles) {
       vehicleCards.add(VehicleCard(
           vehicle: vehicle,
           vehicleName: vehicle.vehicleName,

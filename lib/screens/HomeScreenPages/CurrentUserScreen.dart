@@ -1,10 +1,8 @@
 import 'package:fleezy/Common/Alerts.dart';
 import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/Authentication.dart';
-import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/DataAccess/DAOs/Roles.dart';
-import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/components/HorLine.dart';
 import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
@@ -18,7 +16,7 @@ const TextStyle _kFieldTS = TextStyle(fontSize: 18);
 class CurrentUserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    AppData appData = Provider.of<AppData>(context, listen: false);
+    final appData = Provider.of<AppData>(context, listen: false);
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -94,7 +92,7 @@ class __EditNameWidgetState extends State<_EditNameWidget> {
 
   @override
   Widget build(BuildContext context) {
-    AppData appData = Provider.of<AppData>(context, listen: false);
+    final appData = Provider.of<AppData>(context, listen: false);
     nameController = TextEditingController(text: appData.user.fullName ?? '');
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -116,15 +114,15 @@ class __EditNameWidgetState extends State<_EditNameWidget> {
     );
   }
 
-  onPressed(AppData appData) async {
+  void onPressed(AppData appData) async {
     if (!isEditEnabled) {
       isEditEnabled = !isEditEnabled;
       setState(() {});
       return;
     }
-    ModelUser user = appData.user;
+    final user = appData.user;
     user.fullName = nameController.text;
-    CallContext callContext = await Roles().updateRole(user);
+    final callContext = await Roles().updateRole(user);
     if (callContext.isError) {
       showErrorAlert(context, 'Unable to modify Name');
       return;

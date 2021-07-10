@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleezy/Common/Alerts.dart';
 import 'package:fleezy/Common/AppData.dart';
-import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/Validator.dart';
 import 'package:fleezy/DataAccess/DAOs/Vehicle.dart';
 import 'package:fleezy/DataAccess/TripApis.dart';
@@ -28,12 +27,12 @@ class OnTripController {
       tripDo.endDate = Timestamp.now();
       tripDo.balanceAmount = tripDo.billAmount - tripDo.paidAmount;
       tripDo.distance = tripDo.endReading - tripDo.startReading;
-      CallContext callContext = await TripApis().endTrip(tripDo, context);
+      final callContext = await TripApis().endTrip(tripDo, context);
       if (callContext.isError) {
         message = callContext.errorMessage;
         showErrorAlert(context, message);
       } else {
-        AppData appData = Provider.of<AppData>(context, listen: false);
+        final appData = Provider.of<AppData>(context, listen: false);
         appData.setTrip(null);
         Vehicle().getVehicleList(appData);
         await Navigator.popAndPushNamed(context, HomeScreen.id);
@@ -43,7 +42,7 @@ class OnTripController {
   }
 
   bool valid(ModelTrip tripDo, BuildContext context) {
-    Validator validate = Validator();
+    final validate = Validator();
     try {
       validate.doubleField(tripDo.billAmount, 'Enter Bill amount', context);
       validate.doubleField(tripDo.paidAmount, 'Enter Paid Amount', context);
@@ -55,19 +54,19 @@ class OnTripController {
     return true;
   }
 
-  onCancelPressed(BuildContext context, ModelTrip tripDo) {
+  void onCancelPressed(BuildContext context, ModelTrip tripDo) {
     showWarningAlert(context, 'Are you sure you want to cancel the trip?',
         () => _cancelTrip(tripDo, context, message));
   }
 
   void _cancelTrip(
       ModelTrip tripDo, BuildContext context, String message) async {
-    CallContext callContext = await TripApis().cancelTrip(tripDo, context);
+    final callContext = await TripApis().cancelTrip(tripDo, context);
     if (callContext.isError) {
       message = callContext.errorMessage;
       showErrorAlert(context, message);
     } else {
-      AppData appData = Provider.of<AppData>(context, listen: false);
+      final appData = Provider.of<AppData>(context, listen: false);
       appData.setTrip(null);
       killTimer();
       Vehicle().getVehicleList(appData);
@@ -100,16 +99,15 @@ class OnTripController {
   Future<void> calcDistance() async {
     //if (!await Geolocator.isLocationServiceEnabled()) return;
 
-    Position currentPos = await Geolocator.getCurrentPosition(
+    final currentPos = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.bestForNavigation);
-    double accuracy = currentPos.accuracy;
+    final accuracy = currentPos.accuracy;
     if (accuracy > 100) {
       return;
     }
-    if (prevPos == null) {
-      prevPos = currentPos;
-    }
-    double travelledDist = Geolocator.distanceBetween(
+    prevPos ??= currentPos;
+
+    final travelledDist = Geolocator.distanceBetween(
       prevPos.latitude,
       prevPos.longitude,
       currentPos.latitude,

@@ -5,20 +5,20 @@ import 'package:fleezy/DataModels/ModelReport.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
 
 class ReportProcessor {
-  static Map<String, ModelReport> _reports = {};
+  static final Map<String, ModelReport> _reports = {};
   static List<ModelTrip> _trips;
   static List<ModelExpense> _expenses;
 
-  processTrips(List<ModelTrip> trips) {
+  void processTrips(List<ModelTrip> trips) {
     _trips = trips;
-    for (ModelTrip trip in trips) {
+    for (final trip in trips) {
       _processTrip(trip);
     }
   }
 
-  processExpenses(List<ModelExpense> expenses) {
+  void processExpenses(List<ModelExpense> expenses) {
     _expenses = expenses;
-    for (ModelExpense expense in expenses) {
+    for (final expense in expenses) {
       _processExpenses(expense);
     }
   }
@@ -27,8 +27,8 @@ class ReportProcessor {
     if (_reports[reportId] != null) {
       return _reports[reportId];
     }
-    ModelReport newReport = ModelReport(reportId: reportId);
-    for (MapEntry<String, ModelReport> entry in _reports.entries) {
+    final newReport = ModelReport(reportId: reportId);
+    for (final entry in _reports.entries) {
       if (entry.key.contains(reportId)) {
         combineReports(newReport, entry.value);
       }
@@ -59,11 +59,10 @@ class ReportProcessor {
   }
 
   void _processTrip(ModelTrip trip) {
-    String reportId = _getReportId(trip.vehicleRegNo);
-    ModelReport vehicleReport = _reports[reportId];
-    if (vehicleReport == null) {
-      vehicleReport = ModelReport();
-    }
+    final reportId = _getReportId(trip.vehicleRegNo);
+    var vehicleReport = _reports[reportId];
+    vehicleReport ??= ModelReport();
+
     vehicleReport.income += (trip.billAmount ?? 0);
     vehicleReport.kmsTravelled += (trip.distance ?? 0);
     vehicleReport.driverSal += (trip.driverSalary ?? 0);
@@ -86,11 +85,10 @@ class ReportProcessor {
   }
 
   void _processExpenses(ModelExpense expense) {
-    String reportId = _getReportId(expense.vehicleRegNo);
-    ModelReport vehicleReport = _reports[reportId];
-    if (vehicleReport == null) {
-      vehicleReport = ModelReport();
-    }
+    final reportId = _getReportId(expense.vehicleRegNo);
+    var vehicleReport = _reports[reportId];
+    vehicleReport ??= ModelReport();
+
     vehicleReport.expense += (expense.amount ?? 0);
     if (expense.expenseType == Constants.FUEL) {
       vehicleReport.fuelCost += (expense.amount);

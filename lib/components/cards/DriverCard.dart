@@ -1,5 +1,4 @@
 import 'package:fleezy/Common/AppData.dart';
-import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/DataAccess/DAOs/Roles.dart';
@@ -15,7 +14,7 @@ class DriverCard extends StatelessWidget {
   const DriverCard({this.user});
   @override
   Widget build(BuildContext context) {
-    TextStyle _kDriverNameTextStyle = TextStyle(
+    final _kDriverNameTextStyle = TextStyle(
         fontSize: 18,
         color: user.state == Constants.ACTIVE ? kActiveTextColor : kWhite80);
     return BaseCard(
@@ -50,17 +49,17 @@ class DriverCard extends StatelessWidget {
     );
   }
 
-  edit() {}
+  void edit() {}
 
-  deactivate(BuildContext context) async {
+  Future<void> deactivate(BuildContext context) async {
     user.state == Constants.INACTIVE
         ? user.state = Constants.ACTIVE
         : user.state = Constants.INACTIVE;
-    CallContext callContect = await Roles().updateRole(user);
+    final callContect = await Roles().updateRole(user);
     if (callContect.isError) {
       // show warning pop up
     } else {
-      AppData appData = Provider.of<AppData>(context, listen: false);
+      final appData = Provider.of<AppData>(context, listen: false);
       appData.updateDriver(user);
     }
   }

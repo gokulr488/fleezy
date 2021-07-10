@@ -1,12 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleezy/Common/Alerts.dart';
 import 'package:fleezy/Common/AppData.dart';
-import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/Validator.dart';
 import 'package:fleezy/DataAccess/DAOs/Vehicle.dart';
 import 'package:fleezy/DataAccess/ExpenseApis.dart';
 import 'package:fleezy/DataModels/ModelExpense.dart';
-import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/DataModels/ModelVehicle.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,15 +17,15 @@ class AddExpenseController {
     expenseDo = ModelExpense();
   }
 
-  onAddExpense(BuildContext context, String regNumber) async {
+  Future<void> onAddExpense(BuildContext context, String regNumber) async {
     if (vehicleDo == null) {
-      CallContext callContext = await Vehicle().getVehicleByRegNo(regNumber);
+      final callContext = await Vehicle().getVehicleByRegNo(regNumber);
       vehicleDo = callContext.data as ModelVehicle;
     }
     if (_valid(context)) {
       _enrichExpenseDo(context);
       showSendingDialogue(context);
-      CallContext callContext =
+      final callContext =
           await ExpenseApis().addNewExpense(expenseDo, vehicleDo, context);
       Navigator.pop(context);
       if (callContext.isError) {
@@ -41,7 +39,7 @@ class AddExpenseController {
   }
 
   bool _valid(BuildContext context) {
-    Validator validate = Validator();
+    final validate = Validator();
     try {
       //validate.stringField(expenseDo.payMode, 'Choose Payment type', context);
       validate.stringField(
@@ -58,8 +56,8 @@ class AddExpenseController {
   }
 
   void _enrichExpenseDo(BuildContext context) {
-    AppData appData = Provider.of<AppData>(context, listen: false);
-    ModelUser user = appData.user;
+    final appData = Provider.of<AppData>(context, listen: false);
+    final user = appData.user;
     expenseDo.driverName = user.fullName ?? user.phoneNumber;
     expenseDo.vehicleRegNo = vehicleDo.registrationNo;
     expenseDo.tripNo = appData.trip?.id;

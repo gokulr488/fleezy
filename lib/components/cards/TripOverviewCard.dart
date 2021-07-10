@@ -46,7 +46,7 @@ class TripOverviewCard extends StatelessWidget {
     );
   }
 
-  onTap(BuildContext context) {
+  void onTap(BuildContext context) {
     Navigator.pushNamed(context, TripHistoryDetailsScreen.id,
         arguments: tripDo);
   }

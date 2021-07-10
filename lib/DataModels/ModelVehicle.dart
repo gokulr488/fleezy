@@ -69,19 +69,19 @@ class ModelVehicle {
 
   static List<ModelVehicle> getVehicleFrom(QuerySnapshot snapshot) {
     List<ModelVehicle> vehicles = [];
-    for (QueryDocumentSnapshot doc in snapshot.docs) {
+    for (final doc in snapshot.docs) {
       vehicles.add(getVehicleFromDoc(doc));
     }
     return vehicles;
   }
 
   static ModelVehicle getUserFromSnapshot(QuerySnapshot snapshot) {
-    QueryDocumentSnapshot doc = snapshot.docs.first;
+    final doc = snapshot.docs.first;
     return getVehicleFromDoc(doc);
   }
 
   static String getWarningMessage(ModelVehicle vehicle) {
-    String warning = '';
+    var warning = '';
     if (Utils.isWarningPeriod(vehicle.insuranceExpiryDate)) {
       warning =
           'Insurance Expires on ${Utils.getFormattedTimeStamp(vehicle.insuranceExpiryDate, kDateFormat)}. ';

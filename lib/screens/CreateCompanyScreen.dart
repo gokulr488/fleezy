@@ -1,13 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/Authentication.dart';
-import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/Common/UiState.dart';
 import 'package:fleezy/DataAccess/DAOs/Roles.dart';
 import 'package:fleezy/DataAccess/UserManagement.dart';
 import 'package:fleezy/DataModels/ModelCompany.dart';
-import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/LoadingDots.dart';
 import 'package:fleezy/components/RoundedButton.dart';
@@ -138,7 +136,7 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
   }
 
   void verify() async {
-    ModelUser user = await Roles().getUser(company.phoneNumber);
+    final user = await Roles().getUser(company.phoneNumber);
     if (user != null) {
       setState(() {
         messages = 'Phone Number Already Exists';
@@ -167,14 +165,14 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
     });
     disableButton = true;
     print('adding Company');
-    CallContext callContext = await UserManagement().addNewCompany(company);
+    final callContext = await UserManagement().addNewCompany(company);
     if (callContext.isError) {
       messages = callContext.errorMessage;
       setState(() {});
       return;
     }
-    AppData appData = Provider.of<AppData>(context, listen: false);
-    ModelUser adminUser = company.users[company.phoneNumber];
+    final appData = Provider.of<AppData>(context, listen: false);
+    final adminUser = company.users[company.phoneNumber];
     appData.setUser(adminUser);
     appData.addNewDriver(adminUser);
     Provider.of<UiState>(context, listen: false).setIsAdmin(true);

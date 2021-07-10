@@ -149,7 +149,7 @@ class _OnTripScreenState extends State<OnTripScreen> {
   }
 
   void _getTripDo(BuildContext context) async {
-    AppData appData = Provider.of<AppData>(context, listen: false);
+    final appData = Provider.of<AppData>(context, listen: false);
     if (appData.trip != null) {
       tripDo = appData.trip;
     } else {

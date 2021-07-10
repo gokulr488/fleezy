@@ -1,13 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleezy/Common/Alerts.dart';
 import 'package:fleezy/Common/AppData.dart';
-import 'package:fleezy/Common/CallContext.dart';
+
 import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/Validator.dart';
 import 'package:fleezy/DataAccess/DAOs/Vehicle.dart';
 import 'package:fleezy/DataAccess/ExpenseApis.dart';
 import 'package:fleezy/DataModels/ModelExpense.dart';
-import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/DataModels/ModelVehicle.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,15 +21,15 @@ class AddFuelController {
     expenseDo.isFullTank = false;
   }
 
-  onAddFuel(BuildContext context, String regNumber) async {
+  Future<void> onAddFuel(BuildContext context, String regNumber) async {
     if (vehicleDo == null) {
-      CallContext callContext = await Vehicle().getVehicleByRegNo(regNumber);
+      final callContext = await Vehicle().getVehicleByRegNo(regNumber);
       vehicleDo = callContext.data as ModelVehicle;
     }
     if (_valid(context)) {
       _enrichExpenseDo(context);
       showSendingDialogue(context);
-      CallContext callContext =
+      final callContext =
           await ExpenseApis().addNewExpense(expenseDo, vehicleDo, context);
       Navigator.pop(context);
       if (callContext.isError) {
@@ -43,7 +42,7 @@ class AddFuelController {
     }
   }
 
-  calcLitresFilled() {
+  void calcLitresFilled() {
     if (expenseDo?.fuelUnitPrice != null &&
         expenseDo?.amount != null &&
         expenseDo.fuelUnitPrice > 0 &&
@@ -53,7 +52,7 @@ class AddFuelController {
     }
   }
 
-  calcTotalPrice() {
+  void calcTotalPrice() {
     if (expenseDo?.fuelUnitPrice != null &&
         expenseDo?.fuelQty != null &&
         expenseDo.fuelUnitPrice > 0 &&
@@ -69,7 +68,7 @@ class AddFuelController {
   }
 
   bool _valid(BuildContext context) {
-    Validator validate = Validator();
+    final validate = Validator();
     try {
       validate.stringField(expenseDo.payMode, 'Choose Payment type', context);
       validate.doubleField(expenseDo.amount, 'Enter Total price', context);
@@ -85,8 +84,8 @@ class AddFuelController {
   }
 
   void _enrichExpenseDo(BuildContext context) {
-    AppData appData = Provider.of<AppData>(context, listen: false);
-    ModelUser user = appData.user;
+    final appData = Provider.of<AppData>(context, listen: false);
+    final user = appData.user;
 
     expenseDo.driverName = user.fullName ?? user.phoneNumber;
     expenseDo.expenseDetails = 'Fuel Added';

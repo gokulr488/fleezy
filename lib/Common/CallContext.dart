@@ -11,16 +11,16 @@ class CallContext {
   String get message => _message;
   String get errorMessage => _errorMessage;
 
-  setError(String msg) {
+  void setError(String msg) {
     print(msg);
-    this._message = msg;
-    this._errorMessage = msg;
+    _message = msg;
+    _errorMessage = msg;
     isError = true;
   }
 
-  setSuccess(String msg) {
+  void setSuccess(String msg) {
     print(msg);
-    this._message = msg;
+    _message = msg;
     isError = false;
   }
 

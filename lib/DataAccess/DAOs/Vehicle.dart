@@ -24,7 +24,7 @@ class Vehicle {
         .doc(vehicle.registrationNo)
         .get();
     if (docSnap.exists) {
-      callContext.setError("Vehicle already exists");
+      callContext.setError('Vehicle already exists');
       return callContext;
     }
 
@@ -33,7 +33,7 @@ class Vehicle {
         .doc(vehicle.registrationNo)
         .set(ModelVehicle.getDocOf(vehicle))
         .then((value) => callContext.setSuccess('Vehicle added'))
-        .catchError((error) => callContext.setError("$error"));
+        .catchError((error) => callContext.setError('$error'));
 
     return callContext;
   }
@@ -84,14 +84,14 @@ class Vehicle {
     }
 
     if (snapShot == null) {
-      print("No Vehicles Found");
+      print('No Vehicles Found');
       return null;
     }
     return ModelVehicle.getVehicleFrom(snapShot);
   }
 
   void getVehicleList(AppData appData) async {
-    List<ModelVehicle> vehiclesData = await _getVehiclesForUser(appData.user);
+    final vehiclesData = await _getVehiclesForUser(appData.user);
     if (vehiclesData != null && vehiclesData.isNotEmpty) {
       appData.setAvailableVehicles(vehiclesData);
     }

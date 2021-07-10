@@ -24,6 +24,8 @@ class PaymentDetailsCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   if (trip.status != Constants.CANCELLED)
                     Text('Total', style: _kLabelTS),
@@ -39,10 +41,10 @@ class PaymentDetailsCard extends StatelessWidget {
                   if (trip.status != Constants.CANCELLED)
                     Text('Round Trip', style: _kLabelTS),
                 ],
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               ),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   if (trip.status != Constants.CANCELLED)
                     Text(trip.billAmount.toString() + ' Rs', style: _kLabelTS),
@@ -60,8 +62,6 @@ class PaymentDetailsCard extends StatelessWidget {
                   if (trip.status != Constants.CANCELLED)
                     Text(trip.isRoundTrip ? 'YES' : 'NO', style: _kLabelTS),
                 ],
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               ),
             ],
           ),

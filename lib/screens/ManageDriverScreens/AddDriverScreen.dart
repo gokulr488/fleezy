@@ -1,5 +1,4 @@
 import 'package:fleezy/Common/AppData.dart';
-import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/DataAccess/DAOs/Roles.dart';
@@ -77,15 +76,15 @@ class _AddDriverScreenState extends State<AddDriverScreen> {
         ));
   }
 
-  _addDriverToDb(BuildContext context) async {
+  Future<void> _addDriverToDb(BuildContext context) async {
     FocusScope.of(context).unfocus();
     if (valid()) {
       showLoading = true;
       setState(() {});
-      AppData appData = Provider.of<AppData>(context, listen: false);
+      final appData = Provider.of<AppData>(context, listen: false);
       user.companyId = appData.user.companyId;
       user.state = Constants.ACTIVE;
-      CallContext callContext = await Roles().addRole(user);
+      final callContext = await Roles().addRole(user);
       if (!callContext.isError) {
         appData.addNewDriver(user);
         Navigator.pop(context);

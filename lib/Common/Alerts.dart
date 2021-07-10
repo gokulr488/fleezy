@@ -14,8 +14,8 @@ class Alerts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-        title: Text(this.title),
-        actions: this.actions,
+        title: Text(title),
+        actions: actions,
         backgroundColor: kAlertColor,
         shape: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20.0))));

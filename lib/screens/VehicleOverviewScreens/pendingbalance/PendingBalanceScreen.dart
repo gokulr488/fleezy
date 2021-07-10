@@ -16,8 +16,8 @@ class PendingBalanceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     scrollCtrl.addListener(_scrollListener);
-    String regNumber = ModalRoute.of(context).settings.arguments as String;
-    AppData appdata = Provider.of<AppData>(context, listen: false);
+    final regNumber = ModalRoute.of(context).settings.arguments as String;
+    final appdata = Provider.of<AppData>(context, listen: false);
     ctrl.getData(regNumber, context, appdata);
     return BaseScreen(
       headerText: 'Pending Balances',
@@ -49,7 +49,7 @@ class PendingBalanceScreen extends StatelessWidget {
   void _scrollListener() {
     if (scrollCtrl.offset >= scrollCtrl.position.maxScrollExtent &&
         !scrollCtrl.position.outOfRange) {
-      print("at the end of list");
+      print('at the end of list');
       //ctrl.getData();
     }
   }

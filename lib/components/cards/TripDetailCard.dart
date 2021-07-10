@@ -48,9 +48,9 @@ class TripDetailCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
                     child: Text(tripDo.startingFrom ?? '',
                         style: _kLocationTextStyle),
-                    scrollDirection: Axis.horizontal,
                   ),
                 ),
                 Padding(
@@ -63,9 +63,9 @@ class TripDetailCard extends StatelessWidget {
                 ),
                 Expanded(
                   child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
                     child: Text(tripDo.destination ?? '',
                         style: _kLocationTextStyle),
-                    scrollDirection: Axis.horizontal,
                   ),
                 ),
               ],
@@ -102,17 +102,17 @@ class TripDetailCard extends StatelessWidget {
           tripDo.startDate.millisecondsSinceEpoch;
     }
 
-    int minutes = (millisSpent / 60000).truncate();
-    int hour = 0;
+    var minutes = (millisSpent / 60000).truncate();
+    var hour = 0;
     if (minutes > 59) {
       hour = (minutes / 60).truncate();
       minutes = minutes - (hour * 60);
     }
-    String hr = '';
-    String min = '';
+    var hr = '';
+    var min = '';
     hour < 10 ? hr = '0$hour' : hr = '$hour';
     minutes < 10 ? min = '0$minutes' : min = '$minutes';
-    int seconds = (millisSpent / 1000).truncate();
+    final seconds = (millisSpent / 1000).truncate();
     if (seconds % 2 != 0) {
       return '$hr:$min';
     } else {

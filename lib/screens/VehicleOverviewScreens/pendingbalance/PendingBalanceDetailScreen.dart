@@ -30,7 +30,7 @@ class _PendingBalanceDetailScreenState
   @override
   Widget build(BuildContext context) {
     trip = ModalRoute.of(context).settings.arguments as ModelTrip;
-    UiState uiState = Provider.of<UiState>(context, listen: false);
+    final uiState = Provider.of<UiState>(context, listen: false);
     return BaseScreen(
       headerText: 'Balance Details',
       child: Column(

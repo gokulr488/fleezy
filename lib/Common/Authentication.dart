@@ -81,9 +81,10 @@ class Authentication {
     }
   }
 
-  _signIn(AuthCredential authCreds) async {
+  Future<bool> _signIn(AuthCredential authCreds) async {
     try {
       await _auth.signInWithCredential(authCreds);
+      return true;
     } catch (e) {
       print('Unable To Sign In');
       print(e);
@@ -108,12 +109,12 @@ class Authentication {
     };
 
     final PhoneCodeSent smsSent = (String verId, [int forceResend]) {
-      this.verificationId = verId;
+      verificationId = verId;
       print(verId);
     };
 
     final PhoneCodeAutoRetrievalTimeout autoTimeout = (String verId) {
-      this.verificationId = verId;
+      verificationId = verId;
     };
 
     _auth.verifyPhoneNumber(
@@ -125,5 +126,5 @@ class Authentication {
         codeAutoRetrievalTimeout: autoTimeout);
   }
 
-  loginWithPhone(String phoneNo) {}
+  void loginWithPhone(String phoneNo) {}
 }

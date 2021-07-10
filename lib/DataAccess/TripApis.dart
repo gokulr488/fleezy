@@ -19,9 +19,9 @@ class TripApis {
 
   Future<CallContext> startNewTrip(
       ModelTrip trip, ModelVehicle vehicle, BuildContext context) async {
-    ModelUser user = Provider.of<AppData>(context, listen: false).user;
-    WriteBatch batch = fireStore.batch();
-    DocumentReference tripRef = fireStore
+    final user = Provider.of<AppData>(context, listen: false).user;
+    final batch = fireStore.batch();
+    final tripRef = fireStore
         .collection(Constants.COMPANIES)
         .doc(user.companyId)
         .collection(Constants.TRIP)
@@ -45,16 +45,16 @@ class TripApis {
     await batch
         .commit()
         .then((value) => callContext.setSuccess('Trip STarted'))
-        .catchError((error) => callContext.setError("$error"));
+        .catchError((error) => callContext.setError('$error'));
     return callContext;
   }
 
   Future<CallContext> endTrip(ModelTrip trip, BuildContext context) async {
-    ModelUser user = Provider.of<AppData>(context, listen: false).user;
+    final user = Provider.of<AppData>(context, listen: false).user;
     try {
-      WriteBatch batch = fireStore.batch();
+      final batch = fireStore.batch();
 
-      DocumentReference tripRef = fireStore
+      final tripRef = fireStore
           .collection(Constants.COMPANIES)
           .doc(user.companyId)
           .collection(Constants.TRIP)
@@ -62,15 +62,14 @@ class TripApis {
       trip.status = Constants.ENDED;
       batch.update(tripRef, ModelTrip.getDocOf(trip));
 
-      DocumentReference vehicleRef =
+      final vehicleRef =
           fireStore.collection(Constants.VEHICLES).doc(trip.vehicleRegNo);
-      ModelVehicle vehicle =
-          ModelVehicle.getVehicleFromDoc(await vehicleRef.get());
+      final vehicle = ModelVehicle.getVehicleFromDoc(await vehicleRef.get());
       vehicle.isInTrip = false;
       vehicle.latestOdometerReading = trip.endReading;
       batch.update(vehicleRef, ModelVehicle.getDocOf(vehicle));
 
-      DocumentReference driverRef =
+      final driverRef =
           fireStore.collection(Constants.USERS).doc(user.phoneNumber);
       user.tripId = null;
       batch.update(driverRef, ModelUser.getDocOf(user));
@@ -95,11 +94,11 @@ class TripApis {
   }
 
   Future<CallContext> cancelTrip(ModelTrip trip, BuildContext context) async {
-    ModelUser user = Provider.of<AppData>(context, listen: false).user;
+    final user = Provider.of<AppData>(context, listen: false).user;
     try {
-      WriteBatch batch = fireStore.batch();
+      final batch = fireStore.batch();
 
-      DocumentReference tripRef = fireStore
+      final tripRef = fireStore
           .collection(Constants.COMPANIES)
           .doc(user.companyId)
           .collection(Constants.TRIP)
@@ -108,14 +107,13 @@ class TripApis {
       trip.endDate = Timestamp.now();
       batch.update(tripRef, ModelTrip.getDocOf(trip));
 
-      DocumentReference vehicleRef =
+      final vehicleRef =
           fireStore.collection(Constants.VEHICLES).doc(trip.vehicleRegNo);
-      ModelVehicle vehicle =
-          ModelVehicle.getVehicleFromDoc(await vehicleRef.get());
+      final vehicle = ModelVehicle.getVehicleFromDoc(await vehicleRef.get());
       vehicle.isInTrip = false;
       batch.update(vehicleRef, ModelVehicle.getDocOf(vehicle));
 
-      DocumentReference driverRef =
+      final driverRef =
           fireStore.collection(Constants.USERS).doc(user.phoneNumber);
       user.tripId = null;
       batch.update(driverRef, ModelUser.getDocOf(user));
@@ -131,7 +129,7 @@ class TripApis {
 
   Future<CallContext> filterTrips(BuildContext context, int limit,
       {String regNo, DateTime from, DateTime to}) async {
-    ModelUser user = Provider.of<AppData>(context, listen: false).user;
+    final user = Provider.of<AppData>(context, listen: false).user;
     Query reference = fireStore
         .collection(Constants.COMPANIES)
         .doc(user.companyId)
@@ -163,7 +161,7 @@ class TripApis {
   Future<CallContext> getPendingBalanceTrips(
       BuildContext context, String regNo, DocumentSnapshot page) async {
     try {
-      ModelUser user = Provider.of<AppData>(context, listen: false).user;
+      final user = Provider.of<AppData>(context, listen: false).user;
       Query reference = fireStore
           .collection(Constants.COMPANIES)
           .doc(user.companyId)

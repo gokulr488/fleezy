@@ -5,7 +5,6 @@ import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/Utils.dart';
 import 'package:fleezy/DataModels/ModelExpense.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
-import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/DataModels/ModelVehicle.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,8 +19,8 @@ class ExpenseApis {
 
   Future<CallContext> addNewExpense(
       ModelExpense expense, ModelVehicle vehicle, BuildContext context) async {
-    ModelUser user = Provider.of<AppData>(context, listen: false).user;
-    WriteBatch batch = fireStore.batch();
+    final user = Provider.of<AppData>(context, listen: false).user;
+    final batch = fireStore.batch();
     DocumentReference expenseRef = fireStore
         .collection(Constants.COMPANIES)
         .doc(user.companyId)
@@ -37,14 +36,14 @@ class ExpenseApis {
     await batch
         .commit()
         .then((value) => callContext.setSuccess('Expense added'))
-        .catchError((error) => callContext.setError("$error"));
+        .catchError((error) => callContext.setError('$error'));
     return callContext;
   }
 
   Future<CallContext> getExpensesInTrip(
       ModelTrip trip, BuildContext context) async {
-    ModelUser user = Provider.of<AppData>(context, listen: false).user;
-    QuerySnapshot snapShot = await fireStore
+    final user = Provider.of<AppData>(context, listen: false).user;
+    final snapShot = await fireStore
         .collection(Constants.COMPANIES)
         .doc(user.companyId)
         .collection(Constants.EXPENSE)
@@ -56,7 +55,7 @@ class ExpenseApis {
 
   Future<CallContext> filterExpense(BuildContext context, int limit,
       {String regNo, DateTime from, DateTime to}) async {
-    ModelUser user = Provider.of<AppData>(context, listen: false).user;
+    final user = Provider.of<AppData>(context, listen: false).user;
     Query reference = fireStore
         .collection(Constants.COMPANIES)
         .doc(user.companyId)

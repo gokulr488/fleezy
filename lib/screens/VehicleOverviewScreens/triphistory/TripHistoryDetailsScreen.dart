@@ -18,7 +18,7 @@ class TripHistoryDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ModelTrip tripDo = ModalRoute.of(context).settings.arguments as ModelTrip;
+    final tripDo = ModalRoute.of(context).settings.arguments as ModelTrip;
     return BaseScreen(
       headerText: 'Trip Summary',
       child: Column(

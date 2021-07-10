@@ -43,7 +43,7 @@ class ReportData extends ChangeNotifier {
     notifyListeners();
   }
 
-  setGeneratedReport(ModelReport report) {
+  void setGeneratedReport(ModelReport report) {
     _generatedReport = report;
     notifyListeners();
   }

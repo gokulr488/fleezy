@@ -1,6 +1,5 @@
 import 'package:fleezy/Common/Alerts.dart';
 import 'package:fleezy/Common/AppData.dart';
-import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/Common/Utils.dart';
 import 'package:fleezy/DataAccess/DAOs/Vehicle.dart';
@@ -99,11 +98,11 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
       print(message);
       return;
     }
-    AppData appData = Provider.of<AppData>(context, listen: false);
+    final appData = Provider.of<AppData>(context, listen: false);
     vehicle.companyId = appData.user.companyId;
     vehicle.isInTrip = false;
     vehicle.allowedDrivers = [appData.user.phoneNumber];
-    CallContext callContext = await Vehicle().addVehicle(vehicle);
+    final callContext = await Vehicle().addVehicle(vehicle);
     if (callContext.isError) {
       showErrorAlert(context, callContext.errorMessage);
     } else {
@@ -114,7 +113,7 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
   }
 
   String _getInsuranceExpiryDate() {
-    String expiryDate = '';
+    var expiryDate = '';
     if (vehicle?.insuranceExpiryDate != null) {
       expiryDate =
           Utils.getFormattedTimeStamp(vehicle.insuranceExpiryDate, kDateFormat);
@@ -123,7 +122,7 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
   }
 
   String _getTaxExpiryDate() {
-    String expiryDate = '';
+    var expiryDate = '';
     if (vehicle?.taxExpiryDate != null) {
       expiryDate =
           Utils.getFormattedTimeStamp(vehicle.taxExpiryDate, kDateFormat);

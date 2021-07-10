@@ -24,7 +24,7 @@ class ManageVehiclesScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 20),
             child: Consumer<AppData>(builder: (context, appData, _) {
               List<ManageVehicleCard> vehicleCards = [];
-              for (ModelVehicle vehicle in appData.availableVehicles ?? []) {
+              for (final vehicle in appData.availableVehicles ?? []) {
                 vehicleCards.add(buildVehicleCard(vehicle));
               }
               return ScrollableList(childrenHeight: 120, items: vehicleCards);

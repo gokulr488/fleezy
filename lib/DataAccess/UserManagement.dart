@@ -18,7 +18,7 @@ class UserManagement {
       user = Authentication().getUser();
       if (user != null) {
         print('Adding Company to Database with default Admin user');
-        ModelUser adminUser = ModelUser(
+        final adminUser = ModelUser(
             fullName: Constants.ADMIN,
             companyId: modelCompany.companyEmail,
             phoneNumber: modelCompany.phoneNumber,

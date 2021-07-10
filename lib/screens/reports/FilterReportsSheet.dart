@@ -16,7 +16,7 @@ class FilterReportsSheet extends StatefulWidget {
 class _FilterReportsSheetState extends State<FilterReportsSheet> {
   @override
   Widget build(BuildContext context) {
-    ReportData repData = Provider.of<ReportData>(context, listen: false);
+    final repData = Provider.of<ReportData>(context, listen: false);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(

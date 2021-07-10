@@ -52,7 +52,7 @@ class SummaryReportCard extends StatelessWidget {
   }
 
   String _getProfit() {
-    double profit =
+    final profit =
         report.income - report.expense - report.pendingBal - report.driverSal;
     return Utils.formatDouble(profit);
   }

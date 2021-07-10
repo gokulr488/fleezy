@@ -73,11 +73,12 @@ class _TaxPaymentScreenState extends State<TaxPaymentScreen> {
               RoundedButton(
                   title: 'Save Tax Payment',
                   onPressed: () => ctrl.onAddExpense(context, null))
+              //need to update vehicle model also to change tax expiry date
             ]));
   }
 
   String _getTaxExpiryDate() {
-    String expiryDate = '';
+    var expiryDate = '';
     if (ctrl.expenseDo?.taxExpiryDate != null) {
       expiryDate = Utils.getFormattedTimeStamp(
           ctrl.expenseDo.taxExpiryDate, kDateFormat);

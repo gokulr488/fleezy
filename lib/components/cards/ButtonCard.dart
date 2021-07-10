@@ -15,7 +15,7 @@ class ButtonCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> children = _buildWidgets();
+    final children = _buildWidgets();
 
     return BaseCard(
       elevation: 3,

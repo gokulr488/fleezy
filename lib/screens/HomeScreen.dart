@@ -31,25 +31,25 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
-        child: PageView(
-            controller: _pageController,
-            onPageChanged: (index) {
-              navBarIndex = index;
-              setState(() {});
-            },
-            children: _screens),
-        bottomNavBar: BottomNavBar(
-          onTap: (int index) {
+      bottomNavBar: BottomNavBar(
+        onTap: (int index) {
+          navBarIndex = index;
+          _pageController.animateToPage(index,
+              duration: kAnimDuraction, curve: kAnimCurve);
+          setState(() {});
+        },
+        selectedIndex: navBarIndex,
+      ),
+      headerText: 'Welcome',
+      //Provider.of<AppData>(context, listen: false).user?.fullName ?? '',
+      child: PageView(
+          controller: _pageController,
+          onPageChanged: (index) {
             navBarIndex = index;
-            _pageController.animateToPage(index,
-                duration: kAnimDuraction, curve: kAnimCurve);
             setState(() {});
           },
-          selectedIndex: navBarIndex,
-        ),
-        headerText: 'Welcome'
-        //Provider.of<AppData>(context, listen: false).user?.fullName ?? '',
-        );
+          children: _screens),
+    );
   }
 
   @override

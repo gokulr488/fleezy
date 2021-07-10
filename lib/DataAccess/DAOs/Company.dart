@@ -27,7 +27,7 @@ class Company {
         .collection(Constants.COMPANIES)
         .doc(company.companyEmail)
         .set(ModelCompany.getDocOf(company))
-        .then((value) => print("Company Added"))
+        .then((value) => print('Company Added'))
         .catchError((error) {
       callContext.setError('Failed to add company: $error');
       return callContext;
@@ -45,7 +45,7 @@ class Company {
           'CompanyEmail': company.companyEmail,
           'PhoneNumber': company.phoneNumber,
         })
-        .then((value) => print("Company details updated"))
-        .catchError((error) => print("Failed to update company: $error"));
+        .then((value) => print('Company details updated'))
+        .catchError((error) => print('Failed to update company: $error'));
   }
 }

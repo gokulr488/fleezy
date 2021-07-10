@@ -23,7 +23,7 @@ class ManageDriversScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 20),
             child: Consumer<AppData>(builder: (context, appData, _) {
               List<DriverCard> driverCards = [];
-              for (ModelUser driver in appData.drivers ?? []) {
+              for (final driver in appData.drivers ?? []) {
                 driverCards.add(buildDriverCard(driver));
               }
               return ScrollableList(childrenHeight: 120, items: driverCards);
@@ -40,9 +40,9 @@ class ManageDriversScreen extends StatelessWidget {
   }
 
   void _getDrivers(BuildContext context) async {
-    AppData appData = Provider.of<AppData>(context, listen: false);
+    final appData = Provider.of<AppData>(context, listen: false);
     if (appData.drivers == null) {
-      List<ModelUser> drivers =
+      final drivers =
           await Roles().getAllUsersInCompany(appData.user.companyId);
       appData.setDrivers(drivers);
     }

@@ -18,7 +18,7 @@ class ManageCompanyScreen extends StatefulWidget {
 class _ManageCompanyScreenState extends State<ManageCompanyScreen> {
   @override
   Widget build(BuildContext context) {
-    UiState uiState = Provider.of<UiState>(context, listen: false);
+    final uiState = Provider.of<UiState>(context, listen: false);
     return uiState.isAdmin
         ? Column(
             children: [

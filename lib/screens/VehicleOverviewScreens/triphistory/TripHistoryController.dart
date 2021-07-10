@@ -1,5 +1,5 @@
 import 'package:fleezy/Common/AppData.dart';
-import 'package:fleezy/Common/CallContext.dart';
+
 import 'package:fleezy/DataAccess/TripApis.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
 import 'package:fleezy/components/cards/TripOverviewCard.dart';
@@ -10,7 +10,8 @@ class TripHistoryController {
   DateTime from;
   DateTime to;
 
-  onRefreshPressed(BuildContext context, String regNumber, AppData appdata) {
+  void onRefreshPressed(
+      BuildContext context, String regNumber, AppData appdata) {
     from = null;
     appdata.setTripHistory(regNumber, []);
     getData(regNumber, context, appdata);
@@ -21,9 +22,9 @@ class TripHistoryController {
         appdata.getTripHistoryOf(regNumber).isEmpty) {
       await _getDataFromDB(regNumber, context, appdata);
     }
-    List<ModelTrip> tripHistory = appdata.getTripHistoryOf(regNumber);
+    final tripHistory = appdata.getTripHistoryOf(regNumber);
     tripDetailCards = [];
-    for (ModelTrip trip in tripHistory) {
+    for (final trip in tripHistory) {
       tripDetailCards.add(_buildTripDetailCard(trip));
     }
   }
@@ -34,12 +35,12 @@ class TripHistoryController {
     );
   }
 
-  void _getDataFromDB(
+  Future<void> _getDataFromDB(
       String regNumber, BuildContext context, AppData appdata) async {
-    CallContext callContext = await TripApis()
+    final callContext = await TripApis()
         .filterTrips(context, 8, regNo: regNumber, from: from, to: to);
     if (!callContext.isError) {
-      List<ModelTrip> tripHistory = callContext.data as List<ModelTrip>;
+      final tripHistory = callContext.data as List<ModelTrip>;
       appdata.setTripHistory(regNumber, tripHistory);
     }
   }

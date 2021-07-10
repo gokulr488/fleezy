@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleezy/Common/Alerts.dart';
 import 'package:fleezy/Common/AppData.dart';
-import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/DataAccess/DAOs/Trip.dart';
 import 'package:fleezy/DataAccess/TripApis.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
@@ -31,18 +30,18 @@ class PendingBalanceController {
     }
 
     pendingBalCards = [];
-    for (ModelTrip trip in pendingBalTrips) {
+    for (final trip in pendingBalTrips) {
       pendingBalCards.add(_buildPendingBalCard(trip));
     }
   }
 
-  void _getDataFromDB(
+  Future<void> _getDataFromDB(
       String regNumber, BuildContext context, AppData appdata) async {
-    CallContext callContext =
+    final callContext =
         await TripApis().getPendingBalanceTrips(context, regNumber, lastDoc);
     if (!callContext.isError) {
-      List<ModelTrip> tripHistory = callContext.data as List<ModelTrip>;
-      for (ModelTrip trip in tripHistory) {
+      final tripHistory = callContext.data as List<ModelTrip>;
+      for (final trip in tripHistory) {
         appdata.addPendingBalance(trip.vehicleRegNo, trip);
       }
 
@@ -61,8 +60,8 @@ class PendingBalanceController {
     getData(regNumber, context, appdata);
   }
 
-  onPendingBalanceSave(BuildContext context, ModelTrip trip, String amount,
-      bool isIgnore, Function updateUi) async {
+  Future<void> onPendingBalanceSave(BuildContext context, ModelTrip trip,
+      String amount, bool isIgnore, Function updateUi) async {
     if (isIgnore) {
       showWarningAlert(context, 'Ignore the pending balance of $amount Rs ?',
           () async {
@@ -83,9 +82,8 @@ class PendingBalanceController {
     trip.billAmount -= trip.balanceAmount;
     trip.balanceAmount = 0;
     Navigator.pop(context);
-    AppData appData = Provider.of<AppData>(context, listen: false);
-    CallContext callContext =
-        await Trip().updateTrip(trip, appData?.user?.companyId);
+    final appData = Provider.of<AppData>(context, listen: false);
+    final callContext = await Trip().updateTrip(trip, appData?.user?.companyId);
     if (callContext.isError) {
       showErrorAlert(context, callContext.errorMessage);
     } else {
@@ -97,9 +95,8 @@ class PendingBalanceController {
       BuildContext context, ModelTrip trip, String amount) async {
     trip.balanceAmount -= int.parse(amount);
     Navigator.pop(context);
-    AppData appData = Provider.of<AppData>(context, listen: false);
-    CallContext callContext =
-        await Trip().updateTrip(trip, appData?.user?.companyId);
+    final appData = Provider.of<AppData>(context, listen: false);
+    final callContext = await Trip().updateTrip(trip, appData?.user?.companyId);
     if (callContext.isError) {
       showErrorAlert(context, callContext.errorMessage);
     } else {

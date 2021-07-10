@@ -2,7 +2,6 @@ import 'package:fleezy/Common/Alerts.dart';
 import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/DataAccess/DAOs/Roles.dart';
 import 'package:fleezy/DataAccess/DAOs/Vehicle.dart';
-import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/DataModels/ModelVehicle.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/GridLayout.dart';
@@ -17,7 +16,7 @@ class ManageVehicleScreen extends StatelessWidget {
   static const String id = 'manageVehicleScreen';
   @override
   Widget build(BuildContext context) {
-    ManageVehicleCard vehicle =
+    final vehicle =
         ModalRoute.of(context).settings.arguments as ManageVehicleCard;
     return BaseScreen(
         headerText: 'Manage Vehicle',
@@ -61,7 +60,7 @@ class ManageVehicleScreen extends StatelessWidget {
                                       child: Text('NO')),
                                   TextButton(
                                       onPressed: () async {
-                                        String resp = await deleteVehicle(
+                                        final resp = await deleteVehicle(
                                             context, vehicle.vehicle);
                                         Navigator.of(context).pop();
                                         showSubmitResponse(context, resp);
@@ -77,7 +76,7 @@ class ManageVehicleScreen extends StatelessWidget {
   Future<String> deleteVehicle(
       BuildContext context, ModelVehicle vehicle) async {
     showSendingDialogue(context);
-    String resp = await Vehicle().deleteVehicle(vehicle);
+    final resp = await Vehicle().deleteVehicle(vehicle);
     Provider.of<AppData>(context, listen: false).deleteVehicle(vehicle);
     Navigator.of(context).pop();
     Navigator.of(context).pop();
@@ -85,13 +84,13 @@ class ManageVehicleScreen extends StatelessWidget {
   }
 
   void allowedDrivers(BuildContext context, ModelVehicle vehicle) async {
-    AppData appData = Provider.of<AppData>(context, listen: false);
+    final appData = Provider.of<AppData>(context, listen: false);
     if (appData.drivers == null) {
-      List<ModelUser> drivers =
+      final drivers =
           await Roles().getAllUsersInCompany(appData.user.companyId);
       appData.setDrivers(drivers);
     }
-    List<String> allowedDrivers = vehicle.allowedDrivers.toList();
+    final allowedDrivers = vehicle.allowedDrivers.toList();
     await showModalBottomSheet(
         context: context,
         builder: (builder) {

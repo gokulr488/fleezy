@@ -39,7 +39,7 @@ class ModelCompany {
 
   static List<String> _getListOfUsers(Map<String, ModelUser> users) {
     List<String> userList = [];
-    for (ModelUser user in users.values) {
+    for (final user in users.values) {
       userList.add(user.phoneNumber);
     }
     return userList;
@@ -61,15 +61,15 @@ class ModelCompany {
   }
 
   static List<ModelCompany> getCompanyFrom(QuerySnapshot snapshot) {
-    List<ModelCompany> users = [];
-    for (QueryDocumentSnapshot doc in snapshot.docs) {
+    final users = [];
+    for (final doc in snapshot.docs) {
       users.add(getCompanyFromDoc(doc));
     }
     return users;
   }
 
   static ModelCompany getUserFromSnapshot(QuerySnapshot snapshot) {
-    QueryDocumentSnapshot doc = snapshot.docs.first;
+    final doc = snapshot.docs.first;
     return getCompanyFromDoc(doc);
   }
 }

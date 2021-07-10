@@ -3,7 +3,6 @@ import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/DataModels/ModelExpense.dart';
-import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
@@ -18,14 +17,14 @@ class Expense {
 
   Future<CallContext> addExpense(
       ModelExpense expense, BuildContext context) async {
-    ModelUser user = Provider.of<AppData>(context, listen: false).user;
+    final user = Provider.of<AppData>(context, listen: false).user;
     await fireStore
         .collection(Constants.COMPANIES)
         .doc(user.companyId)
         .collection(Constants.EXPENSE)
         .add(ModelExpense.getDocOf(expense))
         .then((value) => callContext.setSuccess('expense added'))
-        .catchError((error) => callContext.setError("$error"));
+        .catchError((error) => callContext.setError('$error'));
     return callContext;
   }
 
@@ -51,8 +50,8 @@ class Expense {
           'ExpenseName': expense.expenseDetails,
           'VehicleRegNo': expense.vehicleRegNo
         })
-        .then((value) => print("Expense details updated"))
-        .catchError((error) => print("Failed to update expense: $error"));
+        .then((value) => print('Expense details updated'))
+        .catchError((error) => print('Failed to update expense: $error'));
   }
 
   Future<void> deleteExpense(String companyId, String docid) async {
