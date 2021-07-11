@@ -29,9 +29,9 @@ class _TaxPaymentScreenState extends State<TaxPaymentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var vehicle =
+    final vehicle =
         ModalRoute.of(context).settings.arguments as ManageVehicleCard;
-    ctrl.vehicleDo = vehicle.vehicle;
+    ctrl.vehicleDo ??= vehicle.vehicle;
     return BaseScreen(
         headerText: 'Tax Payment',
         child: Column(
@@ -44,13 +44,7 @@ class _TaxPaymentScreenState extends State<TaxPaymentScreen> {
                 child: ScrollableList(childrenHeight: 80, items: [
                   DatePicker(
                       text: 'Tax Expiry Date:  ${_getTaxExpiryDate()}',
-                      onTap: () async {
-                        ctrl.expenseDo.taxExpiryDate =
-                            Utils.getTimeStamp(await Utils.pickDate(context));
-                        vehicle.vehicle?.taxExpiryDate =
-                            ctrl.expenseDo?.taxExpiryDate;
-                        setState(() {});
-                      }),
+                      onTap: onDatePickerTap),
                   Center(
                     child: TextField(
                         keyboardType: TextInputType.number,
@@ -77,6 +71,8 @@ class _TaxPaymentScreenState extends State<TaxPaymentScreen> {
                   onPressed: () async {
                     final isSuccess = await ctrl.onAddExpense(context, null);
                     if (isSuccess) {
+                      vehicle.vehicle.taxExpiryDate =
+                          ctrl.vehicleDo.taxExpiryDate;
                       Navigator.popUntil(
                           context, ModalRoute.withName(HomeScreen.id));
                     }
@@ -84,11 +80,20 @@ class _TaxPaymentScreenState extends State<TaxPaymentScreen> {
             ]));
   }
 
+  Future<void> onDatePickerTap() async {
+    final currentDate = Utils.getDateTime(ctrl.vehicleDo?.taxExpiryDate);
+    final selectedDate =
+        await Utils.pickDate(context, selectedDate: currentDate);
+    ctrl.expenseDo.taxExpiryDate = Utils.getTimeStamp(selectedDate);
+    ctrl.vehicleDo.taxExpiryDate = ctrl.expenseDo?.taxExpiryDate;
+    setState(() {});
+  }
+
   String _getTaxExpiryDate() {
     var expiryDate = '';
-    if (ctrl.expenseDo?.taxExpiryDate != null) {
+    if (ctrl.vehicleDo?.taxExpiryDate != null) {
       expiryDate = Utils.getFormattedTimeStamp(
-          ctrl.expenseDo.taxExpiryDate, kDateFormat);
+          ctrl.vehicleDo.taxExpiryDate, kDateFormat);
     }
     return expiryDate;
   }

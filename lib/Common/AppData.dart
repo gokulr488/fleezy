@@ -27,7 +27,7 @@ class AppData extends ChangeNotifier {
 
   List<ModelTrip> getAllPendingBalances() {
     List<ModelTrip> pendingBals = [];
-    for (var vehicle in _availableVehicles) {
+    for (final vehicle in _availableVehicles) {
       pendingBals.addAll(_pendingBalance[vehicle.registrationNo] ?? []);
     }
     return pendingBals;
@@ -72,7 +72,7 @@ class AppData extends ChangeNotifier {
   void setDrivers(List<ModelUser> users) {
     _drivers ??= {};
 
-    for (var user in users) {
+    for (final user in users) {
       _drivers[user.phoneNumber] = user;
     }
     notifyListeners();

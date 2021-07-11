@@ -10,15 +10,20 @@ class DatePicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseCard(
-      cardChild: SizedBox(
+      cardChild: Container(
+        padding: EdgeInsets.symmetric(horizontal: 15),
         height: 40,
-        child: Center(
-          child: Text(text,
-              style: TextStyle(
-                fontSize: 20,
-                color: kHighlightColour,
-                fontWeight: FontWeight.bold,
-              )),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(text,
+                style: TextStyle(
+                  fontSize: 20,
+                  color: kHighlightColour,
+                  fontWeight: FontWeight.bold,
+                )),
+            Icon(Icons.date_range, color: kHighlightColour, size: 30)
+          ],
         ),
       ),
       onTap: onTap,

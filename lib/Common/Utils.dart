@@ -8,9 +8,14 @@ class Utils {
     return Timestamp.fromDate(date);
   }
 
+  static DateTime getDateTime(Timestamp timestamp) {
+    return DateTime.fromMillisecondsSinceEpoch(
+        timestamp.millisecondsSinceEpoch);
+  }
+
   static String getFormattedDate(DateTime date, String format) {
     if (date == null) return null;
-    var formatter = DateFormat(format);
+    final formatter = DateFormat(format);
     return formatter.format(date);
   }
 
@@ -21,12 +26,12 @@ class Utils {
         format);
   }
 
-  static Future<DateTime> pickDate(BuildContext context) async {
-    var selectedDate = DateTime.now();
+  static Future<DateTime> pickDate(BuildContext context,
+      {DateTime selectedDate}) async {
     final picked = await showDatePicker(
         //initialDatePickerMode: DatePickerMode.year,
         context: context,
-        initialDate: selectedDate,
+        initialDate: selectedDate ?? DateTime.now(),
         firstDate: DateTime(1990),
         lastDate: DateTime(2100));
     if (picked != null && picked != selectedDate) {

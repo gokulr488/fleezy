@@ -7,9 +7,6 @@ import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/ManageVehicleCard.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
-import 'package:fleezy/screens/HomeScreenPages/ManageCompanyScreen.dart';
-import 'package:fleezy/screens/ManageVehiclesScreens/ManageVehicleScreen.dart';
-import 'package:fleezy/screens/ManageVehiclesScreens/ManageVehiclesScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/addexpense/AddExpenseController.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +31,7 @@ class _InsurancePaymentScreenState extends State<InsurancePaymentScreen> {
   Widget build(BuildContext context) {
     var vehicle =
         ModalRoute.of(context).settings.arguments as ManageVehicleCard;
-    ctrl.vehicleDo = vehicle.vehicle;
+    ctrl.vehicleDo ??= vehicle.vehicle;
     return BaseScreen(
         headerText: 'Insurance Payment',
         child: Column(
@@ -47,13 +44,7 @@ class _InsurancePaymentScreenState extends State<InsurancePaymentScreen> {
                 child: ScrollableList(childrenHeight: 80, items: [
                   DatePicker(
                       text: 'Insurance Expiry Date:  ${_getInsExpiryDate()}',
-                      onTap: () async {
-                        ctrl.expenseDo.insuranceExpiryDate =
-                            Utils.getTimeStamp(await Utils.pickDate(context));
-                        vehicle.vehicle?.insuranceExpiryDate =
-                            ctrl.expenseDo?.insuranceExpiryDate;
-                        setState(() {});
-                      }),
+                      onTap: onDatePickerTap),
                   Center(
                     child: TextField(
                         keyboardType: TextInputType.number,
@@ -96,11 +87,20 @@ class _InsurancePaymentScreenState extends State<InsurancePaymentScreen> {
             ]));
   }
 
+  Future<void> onDatePickerTap() async {
+    final currentDate = Utils.getDateTime(ctrl.vehicleDo?.insuranceExpiryDate);
+    final selectedDate =
+        await Utils.pickDate(context, selectedDate: currentDate);
+    ctrl.expenseDo.insuranceExpiryDate = Utils.getTimeStamp(selectedDate);
+    ctrl.vehicleDo.insuranceExpiryDate = ctrl.expenseDo?.insuranceExpiryDate;
+    setState(() {});
+  }
+
   String _getInsExpiryDate() {
     var expiryDate = '';
-    if (ctrl.expenseDo?.insuranceExpiryDate != null) {
+    if (ctrl.vehicleDo?.insuranceExpiryDate != null) {
       expiryDate = Utils.getFormattedTimeStamp(
-          ctrl.expenseDo.insuranceExpiryDate, kDateFormat);
+          ctrl.vehicleDo.insuranceExpiryDate, kDateFormat);
     }
     return expiryDate;
   }
