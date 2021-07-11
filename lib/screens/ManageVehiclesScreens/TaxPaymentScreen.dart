@@ -23,6 +23,7 @@ class _TaxPaymentScreenState extends State<TaxPaymentScreen> {
     super.initState();
     ctrl = AddExpenseController();
     ctrl.expenseDo.expenseType = Constants.TAX_EXP;
+    ctrl.validateOdoMeter = false;
   }
 
   @override

@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 class AddExpenseController {
   ModelExpense expenseDo;
   ModelVehicle vehicleDo;
+  bool validateOdoMeter = true;
 
   AddExpenseController() {
     expenseDo = ModelExpense();
@@ -47,8 +48,10 @@ class AddExpenseController {
       validate.doubleField(expenseDo.amount, 'Enter Amount', context);
       // validate.stringField(
       //     expenseDo.expenseDetails, 'Enter Details of Expense', context);
-      validate.odometerReading(expenseDo?.odometerReading,
-          vehicleDo?.latestOdometerReading, context);
+      if (validateOdoMeter) {
+        validate.odometerReading(expenseDo?.odometerReading,
+            vehicleDo?.latestOdometerReading, context);
+      }
     } catch (e) {
       return false;
     }
