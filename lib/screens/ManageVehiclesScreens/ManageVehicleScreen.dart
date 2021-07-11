@@ -8,6 +8,7 @@ import 'package:fleezy/components/GridLayout.dart';
 import 'package:fleezy/components/cards/ButtonCard.dart';
 import 'package:fleezy/components/cards/ManageVehicleCard.dart';
 import 'package:fleezy/screens/ManageVehiclesScreens/AllowDriversBottomSheet.dart';
+import 'package:fleezy/screens/ManageVehiclesScreens/InsurancePaymentScreen.dart';
 import 'package:fleezy/screens/ManageVehiclesScreens/TaxPaymentScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -37,7 +38,10 @@ class ManageVehicleScreen extends StatelessWidget {
                 ButtonCard(
                     text: 'Insurance Payment',
                     icon: Icons.payment,
-                    onTap: () {}),
+                    onTap: () {
+                      Navigator.pushNamed(context, InsurancePaymentScreen.id,
+                          arguments: vehicle);
+                    }),
                 ButtonCard(
                     text: 'Allowed Drivers',
                     icon: Icons.account_circle,

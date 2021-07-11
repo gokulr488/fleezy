@@ -18,7 +18,7 @@ class AddExpenseController {
     expenseDo = ModelExpense();
   }
 
-  Future<void> onAddExpense(BuildContext context, String regNumber) async {
+  Future<bool> onAddExpense(BuildContext context, String regNumber) async {
     if (vehicleDo == null) {
       final callContext = await Vehicle().getVehicleByRegNo(regNumber);
       vehicleDo = callContext.data as ModelVehicle;
@@ -35,8 +35,10 @@ class AddExpenseController {
       } else {
         Navigator.pop(context);
         showSubmitResponse(context, 'Expense Added');
+        return true;
       }
     }
+    return false;
   }
 
   bool _valid(BuildContext context) {

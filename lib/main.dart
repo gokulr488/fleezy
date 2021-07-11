@@ -10,6 +10,7 @@ import 'package:fleezy/screens/LoginScreen.dart';
 import 'package:fleezy/screens/ManageDriverScreens/AddDriverScreen.dart';
 import 'package:fleezy/screens/ManageDriverScreens/ManageDriversScreen.dart';
 import 'package:fleezy/screens/ManageVehiclesScreens/AddVehicleScreen.dart';
+import 'package:fleezy/screens/ManageVehiclesScreens/InsurancePaymentScreen.dart';
 import 'package:fleezy/screens/ManageVehiclesScreens/ManageVehicleScreen.dart';
 import 'package:fleezy/screens/ManageVehiclesScreens/ManageVehiclesScreen.dart';
 import 'package:fleezy/screens/ManageVehiclesScreens/TaxPaymentScreen.dart';
@@ -80,6 +81,7 @@ class FleezyApp extends StatelessWidget {
           PendingBalanceDetailScreen.id: (context) =>
               PendingBalanceDetailScreen(),
           TaxPaymentScreen.id: (context) => TaxPaymentScreen(),
+          InsurancePaymentScreen.id: (context) => InsurancePaymentScreen(),
         });
   }
 }

@@ -7,23 +7,26 @@ import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/ManageVehicleCard.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
+import 'package:fleezy/screens/HomeScreenPages/ManageCompanyScreen.dart';
+import 'package:fleezy/screens/ManageVehiclesScreens/ManageVehicleScreen.dart';
+import 'package:fleezy/screens/ManageVehiclesScreens/ManageVehiclesScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/addexpense/AddExpenseController.dart';
 import 'package:flutter/material.dart';
 
-class TaxPaymentScreen extends StatefulWidget {
-  static const String id = 'TaxPaymentScreen';
+class InsurancePaymentScreen extends StatefulWidget {
+  static const String id = 'InsurancePaymentScreen';
   @override
-  _TaxPaymentScreenState createState() => _TaxPaymentScreenState();
+  _InsurancePaymentScreenState createState() => _InsurancePaymentScreenState();
 }
 
-class _TaxPaymentScreenState extends State<TaxPaymentScreen> {
+class _InsurancePaymentScreenState extends State<InsurancePaymentScreen> {
   AddExpenseController ctrl;
 
   @override
   void initState() {
     super.initState();
     ctrl = AddExpenseController();
-    ctrl.expenseDo.expenseType = Constants.TAX_EXP;
+    ctrl.expenseDo.expenseType = Constants.INSURANCE_EXP;
     ctrl.validateOdoMeter = false;
   }
 
@@ -33,7 +36,7 @@ class _TaxPaymentScreenState extends State<TaxPaymentScreen> {
         ModalRoute.of(context).settings.arguments as ManageVehicleCard;
     ctrl.vehicleDo = vehicle.vehicle;
     return BaseScreen(
-        headerText: 'Tax Payment',
+        headerText: 'Insurance Payment',
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -43,12 +46,12 @@ class _TaxPaymentScreenState extends State<TaxPaymentScreen> {
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: ScrollableList(childrenHeight: 80, items: [
                   DatePicker(
-                      text: 'Tax Expiry Date:  ${_getTaxExpiryDate()}',
+                      text: 'Insurance Expiry Date:  ${_getInsExpiryDate()}',
                       onTap: () async {
-                        ctrl.expenseDo.taxExpiryDate =
+                        ctrl.expenseDo.insuranceExpiryDate =
                             Utils.getTimeStamp(await Utils.pickDate(context));
-                        vehicle.vehicle?.taxExpiryDate =
-                            ctrl.expenseDo?.taxExpiryDate;
+                        vehicle.vehicle?.insuranceExpiryDate =
+                            ctrl.expenseDo?.insuranceExpiryDate;
                         setState(() {});
                       }),
                   Center(
@@ -60,6 +63,15 @@ class _TaxPaymentScreenState extends State<TaxPaymentScreen> {
                         },
                         decoration:
                             kTextFieldDecoration.copyWith(labelText: 'Amount')),
+                  ),
+                  Center(
+                    child: TextField(
+                        textAlign: TextAlign.center,
+                        onChanged: (value) {
+                          ctrl.expenseDo.policyNumber = value;
+                        },
+                        decoration: kTextFieldDecoration.copyWith(
+                            labelText: 'Insurance Policy Number')),
                   ),
                   TextFormField(
                       minLines: 4,
@@ -73,7 +85,7 @@ class _TaxPaymentScreenState extends State<TaxPaymentScreen> {
                 ]),
               )),
               RoundedButton(
-                  title: 'Save Tax Payment',
+                  title: 'Save Insurance Payment',
                   onPressed: () async {
                     final isSuccess = await ctrl.onAddExpense(context, null);
                     if (isSuccess) {
@@ -84,11 +96,11 @@ class _TaxPaymentScreenState extends State<TaxPaymentScreen> {
             ]));
   }
 
-  String _getTaxExpiryDate() {
+  String _getInsExpiryDate() {
     var expiryDate = '';
-    if (ctrl.expenseDo?.taxExpiryDate != null) {
+    if (ctrl.expenseDo?.insuranceExpiryDate != null) {
       expiryDate = Utils.getFormattedTimeStamp(
-          ctrl.expenseDo.taxExpiryDate, kDateFormat);
+          ctrl.expenseDo.insuranceExpiryDate, kDateFormat);
     }
     return expiryDate;
   }
