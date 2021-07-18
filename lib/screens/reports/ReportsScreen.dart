@@ -1,6 +1,6 @@
-import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/ReportData.dart';
 import 'package:fleezy/Common/UiConstants.dart';
+import 'package:fleezy/Common/Utils.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/DropDownButton.dart';
 import 'package:fleezy/components/HorLine.dart';
@@ -20,9 +20,7 @@ class ReportsScreen extends StatelessWidget {
   final ReportsController ctrl = ReportsController();
   @override
   Widget build(BuildContext context) {
-    List<String> expenses = ['All', 'Fuel', 'June'];
     ctrl.getCurrentMonthData(context);
-    expenses.addAll(Constants.EXPENSE_TYPES);
     return BaseScreen(
       headerText: 'Reports',
       child: SingleChildScrollView(
@@ -70,23 +68,23 @@ class _FilterWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          width: MediaQuery.of(context).size.width * 0.35,
+          width: MediaQuery.of(context).size.width * 0.3,
           height: 40,
           child: DropDownButton(
-              icon: Icons.calendar_today,
+              icon: Icons.calendar_today_outlined,
               hintText: 'Month',
-              value: 'May',
+              value: Utils.getFormattedDate(DateTime.now(), 'MMM'),
               values: ctrl.getMonths(),
               onChanged: (String value) {}),
         ),
         SizedBox(
-          width: MediaQuery.of(context).size.width * 0.35,
+          width: MediaQuery.of(context).size.width * 0.45,
           height: 40,
           child: DropDownButton(
               icon: Icons.drive_eta_rounded,
               hintText: 'Vehicle',
               value: 'All',
-              values: ['All', 'Fortuner', 'Duke'],
+              values: ctrl.getVehicleList(context),
               onChanged: (String value) {}),
         ),
         IconButton(

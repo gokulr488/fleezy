@@ -1,4 +1,5 @@
 import 'package:fleezy/Common/Alerts.dart';
+import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/ReportData.dart';
 import 'package:fleezy/Common/Utils.dart';
@@ -47,8 +48,10 @@ class ReportsController {
       }
     }
     final reportData = Provider.of<ReportData>(context, listen: false);
+    final report = processor
+        .getReportFor(Utils.getFormattedDate(DateTime.now(), 'MMM-yyyy'));
     reportReady = true;
-    reportData.setGeneratedReport(processor.getReportFor('Jul-2021'));
+    reportData.setGeneratedReport(report);
   }
 
   List<String> getYears() {
@@ -70,5 +73,14 @@ class ReportsController {
       months.add(DateFormat('MMM').format(now));
     }
     return months;
+  }
+
+  List<String> getVehicleList(BuildContext context) {
+    List<String> vehicles = ['All'];
+    final appData = Provider.of<AppData>(context, listen: false);
+    for (final vehicle in appData.availableVehicles) {
+      vehicles.add(vehicle.registrationNo);
+    }
+    return vehicles;
   }
 }
