@@ -1,3 +1,4 @@
+import 'package:fleezy/Common/Alerts.dart';
 import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/ReportData.dart';
 import 'package:fleezy/Common/Utils.dart';
@@ -31,17 +32,23 @@ class ReportsController {
           from: Utils.getStartOfMonth(now), to: Utils.getEndOfMonth(now));
       if (!callContext.isError) {
         processor.processTrips(callContext.data as List<ModelTrip>);
+      } else {
+        showErrorAlert(context, 'Error Generating Report');
+        return;
       }
 
       callContext = await ExpenseApis().filterExpense(context, null,
           from: Utils.getStartOfMonth(now), to: Utils.getEndOfMonth(now));
       if (!callContext.isError) {
         processor.processExpenses(callContext.data as List<ModelExpense>);
+      } else {
+        showErrorAlert(context, 'Error Generating Report');
+        return;
       }
     }
     final reportData = Provider.of<ReportData>(context, listen: false);
-    reportData.setGeneratedReport(processor.getReportFor('Jul-2021'));
     reportReady = true;
+    reportData.setGeneratedReport(processor.getReportFor('Jul-2021'));
   }
 
   List<String> getYears() {

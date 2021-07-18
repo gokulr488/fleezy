@@ -18,6 +18,7 @@ class ModelReport {
   int noOfService;
   int noOfFines;
   double fineCost;
+  double taxInsuranceCost;
   double otherCost;
 
   ModelReport({
@@ -38,6 +39,7 @@ class ModelReport {
     this.noOfService = 0,
     this.noOfFines = 0,
     this.fineCost = 0,
+    this.taxInsuranceCost = 0,
     this.otherCost = 0,
   });
 
@@ -61,6 +63,7 @@ class ModelReport {
       'noOfFines': report.noOfFines,
       'fineCost': report.fineCost,
       'otherCost': report.otherCost,
+      'taxInsuranceCost': report.taxInsuranceCost,
     };
   }
 
@@ -86,6 +89,7 @@ class ModelReport {
       noOfFines: data['noOfFines'] ?? 0,
       fineCost: data['fineCost'] ?? 0,
       otherCost: data['otherCost'] ?? 0,
+      taxInsuranceCost: data['taxInsuranceCost'] ?? 0,
     );
   }
 

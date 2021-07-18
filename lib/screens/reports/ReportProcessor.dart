@@ -55,6 +55,7 @@ class ReportProcessor {
     target.noOfFines += (source.noOfFines ?? 0);
     target.fineCost += (source.fineCost ?? 0);
     target.otherCost += (source.otherCost ?? 0);
+    target.taxInsuranceCost += (source.taxInsuranceCost ?? 0);
     return target;
   }
 
@@ -110,6 +111,10 @@ class ReportProcessor {
     }
     if (expense.expenseType == Constants.OTHER_EXP) {
       vehicleReport.otherCost += (expense.amount);
+    }
+    if (expense.expenseType == Constants.TAX_EXP ||
+        expense.expenseType == Constants.INSURANCE_EXP) {
+      vehicleReport.taxInsuranceCost += (expense.amount);
     }
 
     _reports[reportId] = vehicleReport;

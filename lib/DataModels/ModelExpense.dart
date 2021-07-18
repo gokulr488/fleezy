@@ -74,7 +74,7 @@ class ModelExpense {
       fuelUnitPrice: data['fuelUnitPrice'],
       fuelQty: data['fuelQty'],
       isFullTank: data['isFullTank'],
-      odometerReading: data['odometerReading'] ?? '',
+      odometerReading: data['odometerReading'] ?? 0,
       insuranceExpiryDate: data['insuranceExpiryDate'],
       policyNumber: data['policyNumber'],
       taxExpiryDate: data['taxExpiryDate'],

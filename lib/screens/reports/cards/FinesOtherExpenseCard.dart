@@ -27,6 +27,11 @@ class FinesOtherExpensesCard extends StatelessWidget {
               color: Colors.red[500],
             ),
             DataRowWidget(
+              field: 'Tax & Insurance',
+              value: Utils.formatDouble(report.taxInsuranceCost) + ' Rs',
+              color: Colors.red[500],
+            ),
+            DataRowWidget(
               field: 'Other Expenses',
               value: Utils.formatDouble(report.otherCost) + ' Rs',
               color: Colors.red[500],
