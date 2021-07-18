@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fleezy/DataModels/ModelUser.dart';
 
 class Authentication {
   final _auth = FirebaseAuth.instance;
@@ -9,26 +8,22 @@ class Authentication {
     try {
       if (_auth.currentUser != null) {
         return _auth.currentUser;
-      } else {
-        return null;
       }
     } catch (e) {
       print(e);
-      return null;
     }
+    return null;
   }
 
   bool isLoggedIn() {
     try {
       if (_auth.currentUser != null) {
         return true;
-      } else {
-        return false;
       }
     } catch (e) {
       print(e);
-      return false;
     }
+    return false;
   }
 
   Future<bool> deleteUser() async {
@@ -36,35 +31,33 @@ class Authentication {
       if (_auth.currentUser != null) {
         await _auth.currentUser.delete();
         return true;
-      } else {
-        return false;
       }
     } catch (e) {
       print(e);
-      return false;
     }
+    return false;
   }
 
-  Future<bool> login(ModelUser user) async {
-    try {
-      if (user != null && user.password != null && user.userEmailId != null) {
-        await _auth.signInWithEmailAndPassword(
-            email: user.userEmailId, password: user.password);
-        if (_auth.currentUser != null) {
-          print('Sign In Successful');
-          return true;
-        }
-        return false;
-      } else {
-        print('Email ID or password is null');
-        return false;
-      }
-    } catch (e) {
-      print('Unable To Sign In');
-      print(e);
-      return false;
-    }
-  }
+  // Future<bool> login(ModelUser user) async {
+  //   try {
+  //     if (user != null && user.password != null && user.userEmailId != null) {
+  //       await _auth.signInWithEmailAndPassword(
+  //           email: user.userEmailId, password: user.password);
+  //       if (_auth.currentUser != null) {
+  //         print('Sign In Successful');
+  //         return true;
+  //       }
+  //       return false;
+  //     } else {
+  //       print('Email ID or password is null');
+  //       return false;
+  //     }
+  //   } catch (e) {
+  //     print('Unable To Sign In');
+  //     print(e);
+  //     return false;
+  //   }
+  // }
 
   Future<bool> logout() async {
     try {
