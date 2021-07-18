@@ -38,27 +38,6 @@ class Authentication {
     return false;
   }
 
-  // Future<bool> login(ModelUser user) async {
-  //   try {
-  //     if (user != null && user.password != null && user.userEmailId != null) {
-  //       await _auth.signInWithEmailAndPassword(
-  //           email: user.userEmailId, password: user.password);
-  //       if (_auth.currentUser != null) {
-  //         print('Sign In Successful');
-  //         return true;
-  //       }
-  //       return false;
-  //     } else {
-  //       print('Email ID or password is null');
-  //       return false;
-  //     }
-  //   } catch (e) {
-  //     print('Unable To Sign In');
-  //     print(e);
-  //     return false;
-  //   }
-  // }
-
   Future<bool> logout() async {
     try {
       if (_auth.currentUser != null) {
@@ -66,12 +45,10 @@ class Authentication {
         print('Signed Out');
         return true;
       }
-      return false;
     } catch (e) {
-      print('Unable to Sign Out');
-      print(e);
-      return false;
+      print('Unable to Sign Out. $e');
     }
+    return false;
   }
 
   Future<bool> _signIn(AuthCredential authCreds) async {
@@ -79,10 +56,9 @@ class Authentication {
       await _auth.signInWithCredential(authCreds);
       return true;
     } catch (e) {
-      print('Unable To Sign In');
-      print(e);
-      return false;
+      print('Unable To Sign In. $e');
     }
+    return false;
   }
 
   Future<void> signInWithOTP(String smsCode) async {
@@ -118,6 +94,4 @@ class Authentication {
         codeSent: smsSent,
         codeAutoRetrievalTimeout: autoTimeout);
   }
-
-  void loginWithPhone(String phoneNo) {}
 }
