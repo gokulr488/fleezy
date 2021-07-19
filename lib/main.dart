@@ -88,8 +88,8 @@ class FleezyApp extends StatelessWidget {
 }
 
 bool _isLoggedIn(BuildContext context) {
-  FirebaseFirestore.instance.settings =
-      Settings(host: '10.0.2.2:8080', sslEnabled: false);
+  // FirebaseFirestore.instance.settings =
+  //     Settings(host: '10.0.2.2:8080', sslEnabled: false);
   final _auth = FirebaseAuth.instance;
   if (_auth.currentUser != null) {
     //Provider.of<UiState>(context, listen: false).setIsAdmin(true);
