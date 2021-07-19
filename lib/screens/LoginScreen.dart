@@ -3,7 +3,7 @@ import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/LoadingDots.dart';
 import 'package:fleezy/components/RoundedButton.dart';
-import 'package:fleezy/screens/AuthenticationController.dart';
+import 'package:fleezy/screens/LoginController.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -16,7 +16,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  AuthenticationController ctrl = AuthenticationController();
+  LoginController ctrl = LoginController();
   String message = '';
 
   @override

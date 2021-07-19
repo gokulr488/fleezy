@@ -1,19 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fleezy/Common/AppData.dart';
-import 'package:fleezy/Common/Authentication.dart';
 import 'package:fleezy/Common/UiConstants.dart';
-import 'package:fleezy/Common/UiState.dart';
-import 'package:fleezy/DataAccess/DAOs/Roles.dart';
-import 'package:fleezy/DataAccess/UserManagement.dart';
-import 'package:fleezy/DataModels/ModelCompany.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/LoadingDots.dart';
 import 'package:fleezy/components/RoundedButton.dart';
-import 'package:fleezy/screens/HomeScreen.dart';
-import 'package:fleezy/screens/StartScreen.dart';
+import 'package:fleezy/screens/CreateCompanyController.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 const TextStyle _kMessagesTextStyle = TextStyle(fontSize: 15);
 
@@ -24,32 +16,25 @@ class CreateCompanyScreen extends StatefulWidget {
 }
 
 class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
-  ModelCompany company = ModelCompany();
-  String otp;
-  bool showSpinner = false;
-  bool verified = false;
-  bool disableButton = false;
-  bool allowCompanyRegistration = false;
-  String messages = '';
-  Authentication auth = Authentication();
+  CreateCompanyController ctrl = CreateCompanyController();
+  String message = '';
+
+  @override
+  void initState() {
+    super.initState();
+    ctrl.initListener();
+    ctrl.userSubscription = ctrl.userStream.listen(onUserStreamEvent);
+    ctrl.messages.listen(onMessage);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    ctrl.userSubscription.cancel();
+  }
+
   @override
   Widget build(BuildContext context) {
-    FirebaseAuth.instance.authStateChanges().listen((User user) async {
-      if (allowCompanyRegistration) {
-        allowCompanyRegistration = false;
-        if (user == null) {
-          print('Create Company Screen: User is currently signed out!');
-        } else {
-          setState(() {
-            showSpinner = true;
-            disableButton = true;
-          });
-          await onVerificationCompleted(context);
-          print('User signed in!');
-        }
-      }
-    });
-
     return BaseScreen(
         headerText: '', //To Disable AppBar
         child:
@@ -63,7 +48,7 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
           TextField(
               textAlign: TextAlign.center,
               onChanged: (value) {
-                company.companyName = value;
+                ctrl.company.companyName = value;
               },
               decoration:
                   kTextFieldDecoration.copyWith(labelText: 'Company Name')),
@@ -71,112 +56,56 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
               keyboardType: TextInputType.emailAddress,
               textAlign: TextAlign.center,
               onChanged: (value) {
-                company.companyEmail = value;
+                ctrl.company.companyEmail = value;
               },
               decoration: kTextFieldDecoration.copyWith(labelText: 'Email ID')),
           TextField(
               keyboardType: TextInputType.phone,
               textAlign: TextAlign.center,
               onChanged: (value) {
-                company.phoneNumber = '+91' + value; //TODO change this impl
+                ctrl.company.phoneNumber = '+91$value'; //TODO change this impl
               },
               decoration:
                   kTextFieldDecoration.copyWith(labelText: 'Phone number')),
           Visibility(
-              visible: verified,
+              visible: ctrl.verified,
               child: TextField(
                   textAlign: TextAlign.center,
                   obscureText: true,
                   keyboardType: TextInputType.number,
                   onChanged: (value) {
-                    otp = value;
+                    ctrl.otp = value;
                   },
                   decoration: kTextFieldDecoration.copyWith(labelText: 'OTP'))),
-          Visibility(visible: showSpinner, child: LoadingDots(size: 40)),
-          Text(messages, style: _kMessagesTextStyle),
+          Visibility(visible: ctrl.showSpinner, child: LoadingDots(size: 40)),
+          Text(message, style: _kMessagesTextStyle),
           RoundedButton(
-              title: verified ? 'Login' : 'Send OTP',
+              title: ctrl.verified ? 'Login' : 'Send OTP',
               onPressed: () async {
-                await onButtonPressed();
+                await ctrl.onButtonPressed(context);
+                setState(() {});
               })
         ]));
   }
 
-  Future<void> onButtonPressed() async {
-    if (disableButton) {
-      return;
-    }
-    if (company.companyName == null ||
-        company.companyEmail == null ||
-        company.phoneNumber == null) {
-      if (verified) {
-        if (otp == null) {
-          print('OTP is blank');
-          return;
-        }
+  void onUserStreamEvent(User user) async {
+    if (ctrl.allowCompanyRegistration) {
+      ctrl.allowCompanyRegistration = false;
+      if (user == null) {
+        print('Create Company Screen: User is currently signed out!');
+      } else {
+        ctrl.showSpinner = true;
+        ctrl.disableButton = true;
+        setState(() {});
+        await ctrl.onVerificationCompleted(context);
+        print('User signed in!');
       }
-      print('Some fields are left empty');
-      return;
     }
-    FocusScope.of(context).requestFocus(FocusNode());
-    setState(() {
-      showSpinner = true;
-      disableButton = true;
-    });
-    try {
-      verified ? await login(context) : verify();
-    } catch (e) {
-      print(e);
-      messages = 'Unable To Create Company';
-    }
-    setState(() {
-      showSpinner = false;
-      disableButton = false;
-    });
   }
 
-  void verify() async {
-    final user = await Roles().getUser(company.phoneNumber);
-    if (user != null) {
-      setState(() {
-        messages = 'Phone Number Already Exists';
-      });
-      return;
-    }
-
-    auth.verifyPhone(company.phoneNumber);
-    setState(() {
-      messages = 'Verifying, Enter you OTP';
-      verified = true;
-    });
-  }
-
-  Future<void> login(BuildContext context) async {
-    setState(() {
-      messages = 'Signing Up...';
-    });
-    await auth.signInWithOTP(otp);
-    await onVerificationCompleted(context);
-  }
-
-  Future<void> onVerificationCompleted(BuildContext context) async {
-    setState(() {
-      messages = 'Creating Your Company...';
-    });
-    disableButton = true;
-    print('adding Company');
-    final callContext = await UserManagement().addNewCompany(company);
-    if (callContext.isError) {
-      messages = callContext.errorMessage;
-      setState(() {});
-      return;
-    }
-    final appData = Provider.of<AppData>(context, listen: false);
-    final adminUser = company.users[company.phoneNumber];
-    appData.setUser(adminUser);
-    appData.addNewDriver(adminUser);
-    Provider.of<UiState>(context, listen: false).setIsAdmin(true);
-    Navigator.popUntil(context, ModalRoute.withName(StartScreen.id));
-    await Navigator.pushReplacementNamed(context, HomeScreen.id);
+  void onMessage(String event) {
+    message = event;
+    print(message);
+    setState(() {});
   }
 }

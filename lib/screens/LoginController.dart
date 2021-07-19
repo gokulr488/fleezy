@@ -13,7 +13,7 @@ import 'package:fleezy/screens/StartScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class AuthenticationController {
+class LoginController {
   Stream<User> userStream;
   StreamSubscription<User> userSubscription;
 
