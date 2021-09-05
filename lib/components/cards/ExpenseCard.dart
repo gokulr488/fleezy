@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 import '../../Common/UiConstants.dart';
 
-const TextStyle _kLabelTS = TextStyle(fontSize: 17, color: kWhite80);
+const TextStyle _kLabelTS = TextStyle(fontSize: 17, color: kTextColor);
 
 class ExpenseCard extends StatelessWidget {
   final ModelExpense expense;

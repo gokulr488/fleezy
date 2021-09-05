@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 
 class VehicleCard extends StatelessWidget {
   static const TextStyle _kRegistrationNumberTextStyle =
-      TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: kWhite80);
+      TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: kTextColor);
   static const TextStyle _kDriverTextStyle =
-      TextStyle(fontSize: 17, color: kWhite80);
+      TextStyle(fontSize: 17, color: kTextColor);
   static const TextStyle _kMessagesTextStyle = TextStyle(color: Colors.red);
   final Color color;
   final String registrationNumber;

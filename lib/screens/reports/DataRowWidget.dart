@@ -18,10 +18,10 @@ class DataRowWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(field,
-              style: TextStyle(fontSize: fontSize ?? 18, color: kWhite80)),
+              style: TextStyle(fontSize: fontSize ?? 18, color: kTextColor)),
           Text(value,
               style: TextStyle(
-                  fontSize: fontSize ?? 18, color: color ?? kWhite80)),
+                  fontSize: fontSize ?? 18, color: color ?? kTextColor)),
         ],
       ),
     );

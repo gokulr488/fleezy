@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 const Color kBackgroundColor = Color(0xFF121212);
-const Color kWhite80 = Color(0xCCFFFFFF);
+const Color kTextColor = Color(0xCCFFFFFF);
 const Color kHighlightColour = Color(0xFFc8a415);
 const Color kRedColor = Color(0xFF7f0000);
 const Color kBlueColor = Color(0xFF002171);
@@ -54,4 +54,4 @@ const Map<int, Color> kCardOverlay = {
   24: Color(0x29FFFFFF),
 };
 
-const kHeaderTextStyle = TextStyle(fontSize: 30, color: kWhite80);
+const kHeaderTextStyle = TextStyle(fontSize: 30, color: kTextColor);

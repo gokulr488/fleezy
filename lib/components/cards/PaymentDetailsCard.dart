@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 import '../../Common/UiConstants.dart';
 
-const TextStyle _kLabelTS = TextStyle(fontSize: 18, color: kWhite80);
+const TextStyle _kLabelTS = TextStyle(fontSize: 18, color: kTextColor);
 
 class PaymentDetailsCard extends StatelessWidget {
   final ModelTrip trip;
