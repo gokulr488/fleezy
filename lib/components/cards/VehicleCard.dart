@@ -8,8 +8,9 @@ class VehicleCard extends StatelessWidget {
   static const TextStyle _kRegistrationNumberTextStyle =
       TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: kTextColor);
   static const TextStyle _kDriverTextStyle =
-      TextStyle(fontSize: 17, color: kTextColor);
-  static const TextStyle _kMessagesTextStyle = TextStyle(color: Colors.red);
+      TextStyle(fontSize: 17, color: kTextColor, fontWeight: FontWeight.bold);
+  static const TextStyle _kMessagesTextStyle =
+      TextStyle(color: Colors.red, fontWeight: FontWeight.bold);
   final Color color;
   final String registrationNumber;
   final String currentDriver;

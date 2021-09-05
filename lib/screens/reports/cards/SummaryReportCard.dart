@@ -17,8 +17,7 @@ class SummaryReportCard extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            Text('Summary',
-                style: TextStyle(fontSize: 20, color: kHighlightColour)),
+            Text('Summary', style: kReportCardHeaderTS),
             DataRowWidget(
               field: 'Income',
               value: Utils.formatDouble(report.income) + ' Rs',

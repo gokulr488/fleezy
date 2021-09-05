@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 
-const Color kBackgroundColor = Color(0xFF121212);
-const Color kTextColor = Color(0xCCFFFFFF);
-const Color kHighlightColour = Color(0xFFc8a415);
-const Color kRedColor = Color(0xFF7f0000);
-const Color kBlueColor = Color(0xFF002171);
+const Color kBackgroundColor = Color(0xFFefefef);
+const Color kTextColor = Color(0xFF000000);
+const Color kPrimaryColor = Color(0xFFffa000);
+const Color kHighlightColour = Color(0xFFf9a825);
+const Color kRedColor = Color(0xFFd32f2f);
+const Color kBlueColor = Color(0xFF0d47a1);
 const Color kButtonCardColor = Color(0xFF222222);
 const String kDateFormat = 'dd-MM-yy';
 const String kTimeFormat = 'hh:mm dd-MM-yy';
-const Color kAlertColor = Color(0xFF1F1B24);
-const Color kActiveTextColor = Color(0xFFffee58);
-const Color kActiveCardColor = Color(0x18ffee58);
-const Color kCancelledCardColor = Color(0x40ff5252);
+const Color kAlertColor = Color(0xFFfbe9e7);
+const Color kActiveTextColor = Color(0xFF000000);
+const Color kActiveCardColor = Color(0xFFffe97d);
 
-const shadow = [Shadow(offset: Offset(4, 4), blurRadius: 4)];
+const Color kCancelledCardColor = Color(0xffcb9ca1);
+
+const shadow = [Shadow(offset: Offset(2, 2), blurRadius: 7)];
 
 const kAnimDuraction = Duration(milliseconds: 350);
 const kAnimCurve = Curves.easeOut;
@@ -43,15 +45,18 @@ const kDropDownDecoration = InputDecoration(
     ));
 
 const Map<int, Color> kCardOverlay = {
-  1: Color(0x0DFFFFFF),
-  2: Color(0x12FFFFFF),
-  3: Color(0x14FFFFFF),
-  4: Color(0x17FFFFFF),
-  6: Color(0x1CFFFFFF),
-  8: Color(0x1FFFFFFF),
-  12: Color(0x24FFFFFF),
-  16: Color(0x26FFFFFF),
-  24: Color(0x29FFFFFF),
+  1: Color(0xFFffffe5),
+  2: Color(0xFFffffe5),
+  3: Color(0xFFffffe5),
+  4: Color(0xFFffffe5),
+  6: Color(0xFFffffe5),
+  8: Color(0xFFffffe5),
+  12: Color(0xFFffffe5),
+  16: Color(0xFFffffe5),
+  24: Color(0xFFffffe5),
 };
 
 const kHeaderTextStyle = TextStyle(fontSize: 30, color: kTextColor);
+
+const kReportCardHeaderTS = TextStyle(
+    fontSize: 20, color: kHighlightColour, fontWeight: FontWeight.bold);

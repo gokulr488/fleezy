@@ -30,8 +30,10 @@ class PendingBalanceController {
     }
 
     pendingBalCards = [];
-    for (final trip in pendingBalTrips) {
-      pendingBalCards.add(_buildPendingBalCard(trip));
+    if (pendingBalTrips != null) {
+      for (final trip in pendingBalTrips) {
+        pendingBalCards.add(_buildPendingBalCard(trip));
+      }
     }
   }
 

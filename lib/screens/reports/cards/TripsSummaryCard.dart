@@ -16,8 +16,7 @@ class TripSummaryCard extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         child: Column(
           children: [
-            Text('Trips Overview',
-                style: TextStyle(fontSize: 20, color: kHighlightColour)),
+            Text('Trips Overview', style: kReportCardHeaderTS),
             DataRowWidget(
                 field: 'Total Trips',
                 value: Utils.formatInt(report.totalTrips)),

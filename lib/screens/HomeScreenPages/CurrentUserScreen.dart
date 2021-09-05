@@ -10,8 +10,10 @@ import 'package:fleezy/screens/StartScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-const TextStyle _kLabelTS = TextStyle(fontSize: 16, color: Colors.white54);
-const TextStyle _kFieldTS = TextStyle(fontSize: 18);
+const TextStyle _kLabelTS =
+    TextStyle(fontSize: 16, color: Colors.black54, fontWeight: FontWeight.bold);
+const TextStyle _kFieldTS =
+    TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
 
 class CurrentUserScreen extends StatelessWidget {
   @override

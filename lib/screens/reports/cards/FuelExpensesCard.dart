@@ -17,8 +17,7 @@ class FuelExpensesCard extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            Text('Fuel Expenses',
-                style: TextStyle(fontSize: 20, color: kHighlightColour)),
+            Text('Fuel Expenses', style: kReportCardHeaderTS),
             DataRowWidget(
               field: 'Total Fuel Cost',
               value: Utils.formatDouble(report.fuelCost) + ' Rs',

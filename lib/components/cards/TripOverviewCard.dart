@@ -6,7 +6,8 @@ import 'package:fleezy/components/cards/BaseCard.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/triphistory/TripHistoryDetailsScreen.dart';
 import 'package:flutter/material.dart';
 
-const TextStyle _labelTS = TextStyle(fontSize: 16, color: kHighlightColour);
+const TextStyle _labelTS = TextStyle(
+    fontSize: 16, color: kHighlightColour, fontWeight: FontWeight.bold);
 
 class TripOverviewCard extends StatelessWidget {
   final ModelTrip tripDo;

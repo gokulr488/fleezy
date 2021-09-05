@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/ReportData.dart';
+import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/Common/UiState.dart';
 import 'package:fleezy/screens/CreateCompanyScreen.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
@@ -54,9 +55,10 @@ class FleezyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Fleezy',
         theme: ThemeData(
-            brightness: Brightness.dark,
+            primaryColor: kPrimaryColor,
+            //brightness: Brightness.dark,
             textTheme: GoogleFonts.koHoTextTheme(
-                ThemeData(brightness: Brightness.dark).textTheme)),
+                ThemeData(brightness: Brightness.light).textTheme)),
         initialRoute: _isLoggedIn(context) ? HomeScreen.id : StartScreen.id,
         routes: {
           HomeScreen.id: (context) => HomeScreen(),

@@ -17,8 +17,7 @@ class ServiceRepairCard extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            Text('Service, Repairs & Spares',
-                style: TextStyle(fontSize: 20, color: kHighlightColour)),
+            Text('Service, Repairs & Spares', style: kReportCardHeaderTS),
             DataRowWidget(
               field: 'Service Cost',
               value: Utils.formatDouble(report.serviceCost) + ' Rs',
