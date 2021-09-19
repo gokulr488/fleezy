@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleezy/Common/Alerts.dart';
 import 'package:fleezy/Common/AppData.dart';
@@ -8,14 +10,18 @@ import 'package:fleezy/DataAccess/DAOs/Vehicle.dart';
 import 'package:fleezy/DataAccess/ExpenseApis.dart';
 import 'package:fleezy/DataModels/ModelExpense.dart';
 import 'package:fleezy/DataModels/ModelVehicle.dart';
+import 'package:fleezy/services/ImageService.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AddFuelController {
+  StatefulWidget screen;
   ModelExpense expenseDo;
   ModelVehicle vehicleDo;
   TextEditingController litresController = TextEditingController();
   TextEditingController totalPriceController = TextEditingController();
+
+  File photo;
   void init() {
     expenseDo = ModelExpense();
     expenseDo.isFullTank = false;
@@ -93,5 +99,9 @@ class AddFuelController {
     expenseDo.vehicleRegNo = vehicleDo.registrationNo;
     expenseDo.tripNo = appData.trip?.id;
     expenseDo.timestamp = Timestamp.now();
+  }
+
+  Future<void> takePhoto() async {
+    photo = await ImageService().getImage();
   }
 }

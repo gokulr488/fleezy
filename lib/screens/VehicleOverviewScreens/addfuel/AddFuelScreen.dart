@@ -17,6 +17,8 @@ class AddFuelScreen extends StatefulWidget {
 
 class _AddFuelScreenState extends State<AddFuelScreen> {
   AddFuelController controller;
+  final TextStyle _ts = TextStyle(
+      fontWeight: FontWeight.bold, fontSize: 20, color: kHighlightColour);
   @override
   void initState() {
     super.initState();
@@ -97,11 +99,7 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text('Full Tank',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: kHighlightColour)),
+                      Text('Full Tank', style: _ts),
                       Checkbox(
                           activeColor: kHighlightColour,
                           value: controller.expenseDo.isFullTank,
@@ -112,10 +110,36 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
                           })
                     ])
               ])),
+              Row(
+                children: [
+                  _getPhotoWidget(),
+                  IconButton(
+                      onPressed: () async {
+                        await controller.takePhoto();
+                        setState(() {});
+                      },
+                      icon: Icon(Icons.camera_alt_outlined),
+                      iconSize: 50),
+                ],
+              ),
               RoundedButton(
                   title: 'Add Fuel',
                   onPressed: () => controller.onAddFuel(context, regNumber))
             ]));
   }
+
+  Widget _getPhotoWidget() {
+    return Container(
+      width: MediaQuery.of(context).size.width - 100,
+      child: controller.photo != null
+          ? Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+              child: Image.file(
+                controller.photo,
+                height: 100,
+              ),
+            )
+          : Center(child: Text('Add Fuel Bill', style: _ts)),
+    );
+  }
 }
-//TODO complete the APIs and impl
