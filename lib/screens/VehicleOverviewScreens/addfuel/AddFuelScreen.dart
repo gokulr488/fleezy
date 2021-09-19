@@ -6,6 +6,7 @@ import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/VehicleCard.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/addfuel/AddFuelController.dart';
+import 'package:fleezy/services/ImageViewerScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -132,12 +133,19 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
     return Container(
       width: MediaQuery.of(context).size.width - 100,
       child: controller.photo != null
-          ? Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-              child: Image.file(
-                controller.photo,
-                height: 100,
+          ? GestureDetector(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                child: Image.file(
+                  controller.photo,
+                  height: 100,
+                ),
               ),
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          ImageViewerScreen(photo: controller.photo))),
             )
           : Center(child: Text('Add Fuel Bill', style: _ts)),
     );
