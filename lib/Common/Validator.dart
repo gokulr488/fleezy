@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:fleezy/Common/Alerts.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +22,14 @@ class Validator {
 
   bool doubleField(double value, String errorMessage, BuildContext context) {
     if (value == null || value == 0) {
+      showErrorAlert(context, errorMessage);
+      throw Exception(errorMessage);
+    }
+    return true;
+  }
+
+  bool fileObject(File file, String errorMessage, BuildContext context) {
+    if (file == null) {
       showErrorAlert(context, errorMessage);
       throw Exception(errorMessage);
     }

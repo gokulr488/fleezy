@@ -1,6 +1,6 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fleezy/Common/Alerts.dart';
 import 'package:fleezy/Common/AppData.dart';
 
@@ -10,9 +10,11 @@ import 'package:fleezy/DataAccess/DAOs/Vehicle.dart';
 import 'package:fleezy/DataAccess/ExpenseApis.dart';
 import 'package:fleezy/DataModels/ModelExpense.dart';
 import 'package:fleezy/DataModels/ModelVehicle.dart';
+import 'package:fleezy/services/FirebaseStorageService.dart';
 import 'package:fleezy/services/ImageService.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:path/path.dart';
 
 class AddFuelController {
   StatefulWidget screen;
@@ -20,6 +22,7 @@ class AddFuelController {
   ModelVehicle vehicleDo;
   TextEditingController litresController = TextEditingController();
   TextEditingController totalPriceController = TextEditingController();
+  UploadTask uploadTask;
 
   File photo;
   void init() {
@@ -33,6 +36,7 @@ class AddFuelController {
       vehicleDo = callContext.data as ModelVehicle;
     }
     if (_valid(context)) {
+      await uploadPhoto(context);
       _enrichExpenseDo(context);
       showSendingDialogue(context);
       final callContext =
@@ -76,6 +80,7 @@ class AddFuelController {
   bool _valid(BuildContext context) {
     final validate = Validator();
     try {
+      validate.fileObject(photo, 'Fuel Pump photo not added', context);
       validate.stringField(expenseDo.payMode, 'Choose Payment type', context);
       validate.doubleField(expenseDo.amount, 'Enter Total price', context);
       validate.doubleField(
@@ -103,5 +108,18 @@ class AddFuelController {
 
   Future<void> takePhoto() async {
     photo = await ImageService().getImage();
+  }
+
+  Future<void> uploadPhoto(BuildContext context) async {
+    if (photo != null) {
+      final filePath = Constants.FUEL_BILLS_FOLDER + basename(photo.path);
+      uploadTask = FirebaseStorageService.uploadFile(filePath, photo);
+      final snapshot = await uploadTask.whenComplete(() {});
+      final urlDownload = await snapshot.ref.getDownloadURL();
+      expenseDo.imagePath = urlDownload;
+      print('Download-Link: $urlDownload');
+    } else {
+      showErrorAlert(context, 'Fuel Pump photo not added');
+    }
   }
 }

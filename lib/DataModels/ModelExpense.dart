@@ -22,6 +22,7 @@ class ModelExpense {
   //Other Expense specific
   String expenseDetails; //provide type=OtherExpense
   String vehicleRegNo; //Doc ID of Model vehicle
+  String imagePath;
 
   ModelExpense(
       {this.id,
@@ -39,7 +40,8 @@ class ModelExpense {
       this.expenseDetails,
       this.vehicleRegNo,
       this.payMode,
-      this.odometerReading});
+      this.odometerReading,
+      this.imagePath});
 
   static Map<String, dynamic> getDocOf(ModelExpense expense) {
     return {
@@ -58,6 +60,7 @@ class ModelExpense {
       'driverName': expense.driverName,
       'expenseDetails': expense.expenseDetails,
       'vehicleRegNo': expense.vehicleRegNo,
+      'imagePath': expense.imagePath,
     };
   }
 
@@ -81,6 +84,7 @@ class ModelExpense {
       driverName: data['driverName'] ?? '',
       expenseDetails: data['expenseDetails'] ?? '',
       vehicleRegNo: data['vehicleRegNo'] ?? '',
+      imagePath: data['imagePath'],
     );
   }
 

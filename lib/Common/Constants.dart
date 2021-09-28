@@ -14,6 +14,8 @@ class Constants {
   static const String CANCELLED = 'Cancelled';
   static const String ENDED = 'Ended';
 
+  static const String FUEL_BILLS_FOLDER = 'fuel_bills/';
+
   static const String FUEL = 'Fuel';
   static const String SERVICE = 'Service';
   static const String REPAIR = 'Repair';
