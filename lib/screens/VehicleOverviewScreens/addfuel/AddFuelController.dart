@@ -36,9 +36,9 @@ class AddFuelController {
       vehicleDo = callContext.data as ModelVehicle;
     }
     if (_valid(context)) {
+      showSendingDialogue(context);
       await uploadPhoto(context);
       _enrichExpenseDo(context);
-      showSendingDialogue(context);
       final callContext =
           await ExpenseApis().addNewExpense(expenseDo, vehicleDo, context);
       Navigator.pop(context);

@@ -8,7 +8,7 @@ class ImageService {
 
   Future<File> getImage() async {
     final image = await imagePicker.pickImage(
-        source: ImageSource.camera, imageQuality: 50);
+        source: ImageSource.camera, imageQuality: 35);
     _image = File(image?.path);
     return _image;
   }
