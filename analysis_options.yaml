@@ -6,6 +6,7 @@ linter:
     avoid_classes_with_only_static_members: false
     file_names: false
     require_trailing_commas: false
+    prefer_constructors_over_static_methods: false
 
     sort_constructors_first: true
     prefer_single_quotes: true

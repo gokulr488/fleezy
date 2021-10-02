@@ -22,7 +22,7 @@ class RoundedButton extends StatelessWidget {
         color: colour ?? kCardOverlay[elevation] ?? kHighlightColour,
         borderRadius: BorderRadius.circular(30.0),
         child: MaterialButton(
-            onPressed: onPressed,
+            onPressed: () => onPressed(),
             minWidth: width ?? MediaQuery.of(context).size.width * 0.75,
             child: Text(title,
                 style: const TextStyle(

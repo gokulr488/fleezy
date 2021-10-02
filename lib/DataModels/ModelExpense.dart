@@ -64,8 +64,8 @@ class ModelExpense {
     };
   }
 
-  static ModelExpense getExpenseFromDoc(DocumentSnapshot doc) {
-    Map data = doc.data();
+  static ModelExpense getExpenseFromDoc(DocumentSnapshot<dynamic> doc) {
+    final Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
 
     return ModelExpense(
       id: doc.id,
@@ -88,9 +88,9 @@ class ModelExpense {
     );
   }
 
-  static List<ModelExpense> getTripsFrom(QuerySnapshot snapshot) {
-    List<ModelExpense> trips = [];
-    for (final doc in snapshot?.docs) {
+  static List<ModelExpense> getTripsFrom(QuerySnapshot<dynamic> snapshot) {
+    final List<ModelExpense> trips = <ModelExpense>[];
+    for (final DocumentSnapshot<dynamic> doc in snapshot?.docs) {
       trips.add(getExpenseFromDoc(doc));
     }
     return trips;

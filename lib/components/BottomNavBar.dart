@@ -14,7 +14,7 @@ class BottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomNavyBar(
       selectedIndex: selectedIndex,
-      onItemSelected: onTap,
+      onItemSelected: (int index) => onTap(index),
       backgroundColor: kBackgroundColor,
       iconSize: 30,
       animationDuration: kAnimDuraction,

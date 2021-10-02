@@ -78,7 +78,8 @@ void showWarningAlert(
               TextButton(
                   onPressed: () => Navigator.of(context).pop(),
                   child: const Text('No')),
-              TextButton(onPressed: onConfirmed, child: const Text('Yes'))
+              TextButton(
+                  onPressed: () => onConfirmed(), child: const Text('Yes'))
             ],
           ),
         ],

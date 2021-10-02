@@ -5,15 +5,6 @@ import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/DataModels/ModelVehicle.dart';
 
 class ModelCompany {
-  String companyName;
-  String companyEmail;
-  String password;
-  String phoneNumber;
-  Map<String, ModelVehicle> vehicles;
-  Map<String, ModelUser> users;
-  Map<String, ModelExpense> expense;
-  Map<String, ModelTrip> trip;
-
   ModelCompany(
       {this.trip,
       this.users,
@@ -24,8 +15,17 @@ class ModelCompany {
       this.phoneNumber,
       this.vehicles});
 
+  String companyName;
+  String companyEmail;
+  String password;
+  String phoneNumber;
+  Map<String, ModelVehicle> vehicles;
+  Map<String, ModelUser> users;
+  Map<String, ModelExpense> expense;
+  Map<String, ModelTrip> trip;
+
   static Map<String, dynamic> getDocOf(ModelCompany company) {
-    return {
+    return <String, dynamic>{
       'CompanyName': company.companyName,
       'CompanyEmail': company.companyEmail,
       'Password': company.password,
@@ -38,38 +38,38 @@ class ModelCompany {
   }
 
   static List<String> _getListOfUsers(Map<String, ModelUser> users) {
-    List<String> userList = [];
-    for (final user in users.values) {
+    final List<String> userList = <String>[];
+    for (final ModelUser user in users.values) {
       userList.add(user.phoneNumber);
     }
     return userList;
   }
 
-  static ModelCompany getCompanyFromDoc(DocumentSnapshot doc) {
-    final Map<String, dynamic> data = doc.data();
+  static ModelCompany getCompanyFromDoc(DocumentSnapshot<String> doc) {
+    final Map<String, String> data = doc.data() as Map<String, String>;
 
     return ModelCompany(
       companyName: data['CompanyName'] ?? '',
       companyEmail: data['CompanyEmail'] ?? '',
       password: data['Password'] ?? '',
-      vehicles: data['Vehicles'] ?? '',
+      //vehicles: data['Vehicles'] ?? '',
       phoneNumber: data['PhoneNumber'] ?? '',
-      users: data['Users'] ?? '',
-      expense: data['Expense'] ?? '',
-      trip: data['Trip'] ?? '',
+      //users: data['Users'] ?? '',
+      //expense: data['Expense'] ?? '',
+      //trip: data['Trip'] ?? '',
     );
   }
 
-  static List<ModelCompany> getCompanyFrom(QuerySnapshot snapshot) {
-    final users = [];
-    for (final doc in snapshot.docs) {
+  static List<ModelCompany> getCompanyFrom(QuerySnapshot<String> snapshot) {
+    final List<ModelCompany> users = <ModelCompany>[];
+    for (final DocumentSnapshot<String> doc in snapshot.docs) {
       users.add(getCompanyFromDoc(doc));
     }
     return users;
   }
 
-  static ModelCompany getUserFromSnapshot(QuerySnapshot snapshot) {
-    final doc = snapshot.docs.first;
+  static ModelCompany getUserFromSnapshot(QuerySnapshot<String> snapshot) {
+    final DocumentSnapshot<String> doc = snapshot.docs.first;
     return getCompanyFromDoc(doc);
   }
 }
