@@ -7,6 +7,7 @@ import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/VehicleCard.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/addexpense/AddExpenseController.dart';
+import 'package:fleezy/services/ImageViewerScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,6 +19,8 @@ class AddExpenseScreen extends StatefulWidget {
 
 class _AddExpenseScreenState extends State<AddExpenseScreen> {
   AddExpenseController ctrl;
+  final TextStyle _ts = TextStyle(
+      fontWeight: FontWeight.bold, fontSize: 20, color: kHighlightColour);
 
   @override
   void initState() {
@@ -77,9 +80,43 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                     decoration: kTextFieldDecoration.copyWith(
                         labelText: 'Details of Expense'))
               ])),
+              Row(
+                children: [
+                  _getPhotoWidget(),
+                  IconButton(
+                      onPressed: () async {
+                        await ctrl.takePhoto();
+                        setState(() {});
+                      },
+                      icon: Icon(Icons.camera_alt_outlined),
+                      iconSize: 50),
+                ],
+              ),
               RoundedButton(
                   title: 'Add Expense',
                   onPressed: () => ctrl.onAddExpense(context, regNumber))
             ]));
+  }
+
+  Widget _getPhotoWidget() {
+    return Container(
+      width: MediaQuery.of(context).size.width - 100,
+      child: ctrl.photo != null
+          ? GestureDetector(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                child: Image.file(
+                  ctrl.photo,
+                  height: 100,
+                ),
+              ),
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          ImageViewerScreen(photo: ctrl.photo))),
+            )
+          : Center(child: Text('Add Expense Bill', style: _ts)),
+    );
   }
 }

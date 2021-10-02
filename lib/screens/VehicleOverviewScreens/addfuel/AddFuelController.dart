@@ -37,7 +37,7 @@ class AddFuelController {
     }
     if (_valid(context)) {
       showSendingDialogue(context);
-      await uploadPhoto(context);
+      await _uploadPhoto(context);
       _enrichExpenseDo(context);
       final callContext =
           await ExpenseApis().addNewExpense(expenseDo, vehicleDo, context);
@@ -110,7 +110,7 @@ class AddFuelController {
     photo = await ImageService().getImage();
   }
 
-  Future<void> uploadPhoto(BuildContext context) async {
+  Future<void> _uploadPhoto(BuildContext context) async {
     if (photo != null) {
       final filePath = Constants.FUEL_BILLS_FOLDER + basename(photo.path);
       uploadTask = FirebaseStorageService.uploadFile(filePath, photo);
