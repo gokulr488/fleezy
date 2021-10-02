@@ -1,3 +1,5 @@
+// ignore_for_file: always_specify_types
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -12,14 +14,14 @@ class CallContext {
   String get errorMessage => _errorMessage;
 
   void setError(String msg) {
-    print(msg);
+    debugPrint(msg);
     _message = msg;
     _errorMessage = msg;
     isError = true;
   }
 
   void setSuccess(String msg) {
-    print(msg);
+    debugPrint(msg);
     _message = msg;
     isError = false;
   }

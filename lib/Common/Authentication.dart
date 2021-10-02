@@ -1,8 +1,13 @@
+// ignore_for_file: prefer_function_declarations_over_variables
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 
 class Authentication {
-  final _auth = FirebaseAuth.instance;
-  String phoneNo, verificationId, smsCode;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  String phoneNo;
+  String verificationId;
+  String smsCode;
 
   User getUser() {
     try {
@@ -10,7 +15,7 @@ class Authentication {
         return _auth.currentUser;
       }
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
     return null;
   }
@@ -21,7 +26,7 @@ class Authentication {
         return true;
       }
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
     return false;
   }
@@ -33,7 +38,7 @@ class Authentication {
         return true;
       }
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
     return false;
   }
@@ -42,11 +47,11 @@ class Authentication {
     try {
       if (_auth.currentUser != null) {
         await _auth.signOut();
-        print('Signed Out');
+        debugPrint('Signed Out');
         return true;
       }
     } catch (e) {
-      print('Unable to Sign Out. $e');
+      debugPrint('Unable to Sign Out. $e');
     }
     return false;
   }
@@ -56,13 +61,13 @@ class Authentication {
       await _auth.signInWithCredential(authCreds);
       return true;
     } catch (e) {
-      print('Unable To Sign In. $e');
+      debugPrint('Unable To Sign In. $e');
     }
     return false;
   }
 
   Future<void> signInWithOTP(String smsCode) async {
-    AuthCredential authCreds = PhoneAuthProvider.credential(
+    final AuthCredential authCreds = PhoneAuthProvider.credential(
         verificationId: verificationId, smsCode: smsCode);
     await _signIn(authCreds);
   }
@@ -74,12 +79,12 @@ class Authentication {
 
     final PhoneVerificationFailed verificationFailed =
         (FirebaseAuthException authException) {
-      print('${authException.message}');
+      debugPrint(authException.message);
     };
 
     final PhoneCodeSent smsSent = (String verId, [int forceResend]) {
       verificationId = verId;
-      print(verId);
+      debugPrint(verId);
     };
 
     final PhoneCodeAutoRetrievalTimeout autoTimeout = (String verId) {

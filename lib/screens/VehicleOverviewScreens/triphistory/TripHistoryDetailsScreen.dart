@@ -1,5 +1,6 @@
 import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/UiConstants.dart';
+import 'package:fleezy/DataModels/ModelExpense.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/HorLine.dart';
@@ -18,32 +19,34 @@ class TripHistoryDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tripDo = ModalRoute.of(context).settings.arguments as ModelTrip;
+    final ModelTrip tripDo =
+        ModalRoute.of(context).settings.arguments as ModelTrip;
     return BaseScreen(
       headerText: 'Trip Summary',
       child: Column(
-        children: [
+        children: <Widget>[
           TripDetailCard(
             tripDo: tripDo,
             distance: tripDo.distance?.toDouble(),
           ),
-          if (tripDo.status != Constants.STARTED) HorLine(),
+          if (tripDo.status != Constants.STARTED) const HorLine(),
           if (tripDo.status != Constants.STARTED)
-            Text('Details', style: _headingTS),
+            const Text('Details', style: _headingTS),
           if (tripDo.status != Constants.STARTED)
             PaymentDetailsCard(trip: tripDo),
-          HorLine(),
-          Text('Expenses', style: _headingTS),
-          FutureBuilder(
+          const HorLine(),
+          const Text('Expenses', style: _headingTS),
+          FutureBuilder<List<ModelExpense>>(
             future: getExpenses(tripDo, context),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
+            builder: (BuildContext context,
+                AsyncSnapshot<List<ModelExpense>> snapshot) {
               if (snapshot.hasData) {
                 return Expanded(
                   child: ScrollableList(
                       childrenHeight: 150, items: buildCards(snapshot.data)),
                 );
               } else {
-                return LoadingDots(size: 100);
+                return const LoadingDots(size: 100);
               }
             },
           ),

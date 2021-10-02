@@ -6,8 +6,8 @@ import 'package:fleezy/screens/reports/DataRowWidget.dart';
 import 'package:flutter/material.dart';
 
 class FuelExpensesCard extends StatelessWidget {
+  const FuelExpensesCard({@required this.report});
   final ModelReport report;
-  FuelExpensesCard({@required this.report});
 
   @override
   Widget build(BuildContext context) {
@@ -16,16 +16,16 @@ class FuelExpensesCard extends StatelessWidget {
       cardChild: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
-          children: [
-            Text('Fuel Expenses', style: kReportCardHeaderTS),
+          children: <Widget>[
+            const Text('Fuel Expenses', style: kReportCardHeaderTS),
             DataRowWidget(
               field: 'Total Fuel Cost',
-              value: Utils.formatDouble(report.fuelCost) + ' Rs',
+              value: '${Utils.formatDouble(report.fuelCost)} Rs',
               color: Colors.red[500],
             ),
             DataRowWidget(
                 field: 'Litres Filled',
-                value: Utils.formatDouble(report.ltrs) + ' Litres'),
+                value: '${Utils.formatDouble(report.ltrs)} Litres'),
             DataRowWidget(
                 field: 'Average Fuel Price',
                 value: '${_getAvgFuelRate()} Rs/L'),
@@ -41,30 +41,30 @@ class FuelExpensesCard extends StatelessWidget {
 
   String _getAvgFuelRate() {
     try {
-      final rate = report.fuelCost / report.ltrs;
+      final double rate = report.fuelCost / report.ltrs;
       return Utils.formatDouble(rate);
     } catch (e) {
-      debugPrint(e);
+      debugPrint(e.toString());
       return '0.0';
     }
   }
 
   String _getAvgMileage() {
     try {
-      final mileage = report.kmsTravelled / report.ltrs;
+      final double mileage = report.kmsTravelled / report.ltrs;
       return Utils.formatDouble(mileage);
     } catch (e) {
-      debugPrint(e);
+      debugPrint(e.toString());
       return '0.0';
     }
   }
 
   String _getAvgCost() {
     try {
-      final cost = report.fuelCost / report.kmsTravelled;
+      final double cost = report.fuelCost / report.kmsTravelled;
       return Utils.formatDouble(cost);
     } catch (e) {
-      debugPrint(e);
+      debugPrint(e.toString());
       return '0.0';
     }
   }

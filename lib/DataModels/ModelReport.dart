@@ -1,26 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ModelReport {
-  String reportId;
-  double income;
-  double pendingBal;
-  double driverSal;
-  double expense;
-  int totalTrips;
-  int pendingPayTrips;
-  int cancelledTrips;
-  double kmsTravelled;
-  double fuelCost;
-  double ltrs;
-  double serviceCost;
-  double repairCost;
-  double spareCost;
-  int noOfService;
-  int noOfFines;
-  double fineCost;
-  double taxInsuranceCost;
-  double otherCost;
-
   ModelReport({
     this.reportId,
     this.income = 0,
@@ -43,8 +23,28 @@ class ModelReport {
     this.otherCost = 0,
   });
 
+  String reportId;
+  double income;
+  double pendingBal;
+  double driverSal;
+  double expense;
+  int totalTrips;
+  int pendingPayTrips;
+  int cancelledTrips;
+  double kmsTravelled;
+  double fuelCost;
+  double ltrs;
+  double serviceCost;
+  double repairCost;
+  double spareCost;
+  int noOfService;
+  int noOfFines;
+  double fineCost;
+  double taxInsuranceCost;
+  double otherCost;
+
   static Map<String, dynamic> getDocOf(ModelReport report) {
-    return {
+    return <String, dynamic>{
       'reportId': report.reportId,
       'income': report.income,
       'pendingBal': report.pendingBal,
@@ -68,7 +68,7 @@ class ModelReport {
   }
 
   static ModelReport getReportFromDoc(DocumentSnapshot doc) {
-    Map data = doc.data();
+    final Map data = doc.data();
 
     return ModelReport(
       reportId: data['reportId'] ?? '',
@@ -94,15 +94,15 @@ class ModelReport {
   }
 
   static List<ModelReport> getReportFrom(QuerySnapshot snapshot) {
-    final users = [];
-    for (final doc in snapshot.docs) {
-      users.add(getReportFromDoc(doc));
+    final List<ModelReport> reports = <ModelReport>[];
+    for (final DocumentSnapshot doc in snapshot.docs) {
+      reports.add(getReportFromDoc(doc));
     }
-    return users;
+    return reports;
   }
 
   static ModelReport getReportFromSnapshot(QuerySnapshot snapshot) {
-    final doc = snapshot.docs.first;
+    final DocumentSnapshot doc = snapshot.docs.first;
     return getReportFromDoc(doc);
   }
 }

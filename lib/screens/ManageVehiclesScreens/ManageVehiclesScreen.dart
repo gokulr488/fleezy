@@ -18,13 +18,16 @@ class ManageVehiclesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseScreen(
         headerText: 'Manage Vehicles',
-        child: Column(children: [
+        child: Column(children: <Widget>[
           Expanded(
               child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
-            child: Consumer<AppData>(builder: (context, appData, _) {
-              List<ManageVehicleCard> vehicleCards = [];
-              for (final vehicle in appData.availableVehicles ?? []) {
+            child: Consumer<AppData>(
+                builder: (BuildContext context, AppData appData, _) {
+              final List<ManageVehicleCard> vehicleCards =
+                  <ManageVehicleCard>[];
+              for (final ModelVehicle vehicle
+                  in appData.availableVehicles ?? <ModelVehicle>[]) {
                 vehicleCards.add(buildVehicleCard(vehicle));
               }
               return ScrollableList(childrenHeight: 120, items: vehicleCards);
