@@ -4,7 +4,6 @@ import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/screens/CreateCompanyScreen.dart';
 import 'package:fleezy/screens/LoginScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 const TextStyle buttonTextStyle = TextStyle(
