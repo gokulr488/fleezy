@@ -5,6 +5,13 @@ import 'package:fleezy/screens/VehicleOverviewScreens/VehicleOverviewScreen.dart
 import 'package:flutter/material.dart';
 
 class VehicleCard extends StatelessWidget {
+  const VehicleCard(
+      {this.color,
+      this.currentDriver,
+      this.message,
+      this.registrationNumber,
+      this.vehicle,
+      this.vehicleName});
   static const TextStyle _kRegistrationNumberTextStyle =
       TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: kTextColor);
   static const TextStyle _kDriverTextStyle =
@@ -18,22 +25,14 @@ class VehicleCard extends StatelessWidget {
   final String vehicleName;
   final ModelVehicle vehicle;
 
-  const VehicleCard(
-      {this.color,
-      this.currentDriver,
-      this.message,
-      this.registrationNumber,
-      this.vehicle,
-      this.vehicleName});
-
   @override
   Widget build(BuildContext context) {
     return BaseCard(
       cardChild: Row(
-        children: [
+        children: <Widget>[
           ClipRRect(
             borderRadius: BorderRadius.circular(15),
-            child: Container(
+            child: SizedBox(
               width: MediaQuery.of(context).size.width * 0.35,
               height: 120,
               child: Image.asset(
@@ -42,16 +41,16 @@ class VehicleCard extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(width: 12),
+          const SizedBox(width: 12),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+            children: <Widget>[
               Text(registrationNumber ?? '',
                   style: _kRegistrationNumberTextStyle),
               Text(vehicleName ?? '', style: _kDriverTextStyle),
-              Text('Driver: ' + currentDriver, style: _kDriverTextStyle),
-              Container(
+              Text('Driver: $currentDriver', style: _kDriverTextStyle),
+              SizedBox(
                   width: MediaQuery.of(context).size.width * 0.5,
                   child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,

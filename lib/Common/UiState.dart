@@ -7,8 +7,8 @@ class UiState extends ChangeNotifier {
   bool get isAdmin => _isAdmin;
 
 //SETTERS
-  void setIsAdmin(bool value) {
-    _isAdmin = value;
+  void setIsAdmin({bool isAdmin}) {
+    _isAdmin = isAdmin;
     notifyListeners(); //uncomment this if admin switching is not happening
   }
 }

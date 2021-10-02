@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class ScrollableList extends StatelessWidget {
+  const ScrollableList(
+      {this.items, @required this.childrenHeight, this.scrollController});
   final List<Widget> items;
   final double childrenHeight;
   final ScrollController scrollController;
-  ScrollableList(
-      {this.items, @required this.childrenHeight, this.scrollController});
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -13,7 +13,7 @@ class ScrollableList extends StatelessWidget {
       itemCount: items.length,
       controller: scrollController,
       itemBuilder: (BuildContext context, int index) {
-        return Container(
+        return SizedBox(
           height: childrenHeight,
           child: items[index],
         );

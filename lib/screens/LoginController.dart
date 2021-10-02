@@ -40,7 +40,7 @@ class LoginController {
       await Roles().updateRole(user);
     }
     if (user.roleName != Constants.ADMIN) {
-      Provider.of<UiState>(context, listen: false).setIsAdmin(false);
+      Provider.of<UiState>(context, listen: false).setIsAdmin(isAdmin: false);
     }
     Navigator.popUntil(context, ModalRoute.withName(StartScreen.id));
     await Navigator.pushReplacementNamed(context, HomeScreen.id);

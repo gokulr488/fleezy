@@ -47,7 +47,7 @@ class CreateCompanyController {
     final adminUser = company.users[company.phoneNumber];
     appData.setUser(adminUser);
     appData.addNewDriver(adminUser);
-    Provider.of<UiState>(context, listen: false).setIsAdmin(true);
+    Provider.of<UiState>(context, listen: false).setIsAdmin(isAdmin: true);
     Navigator.popUntil(context, ModalRoute.withName(StartScreen.id));
     await Navigator.pushReplacementNamed(context, HomeScreen.id);
     await messageStream.close();
@@ -106,5 +106,9 @@ class CreateCompanyController {
     messageStream.add('Signing Up...');
     await auth.signInWithOTP(otp);
     await onVerificationCompleted(context);
+  }
+
+  void dispose() {
+    userSubscription.cancel();
   }
 }

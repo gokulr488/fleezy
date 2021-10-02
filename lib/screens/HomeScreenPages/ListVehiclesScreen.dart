@@ -53,7 +53,7 @@ class ListVehiclesScreen extends StatelessWidget {
       }
       appData.setUser(user);
       if (user?.roleName != Constants.ADMIN) {
-        Provider.of<UiState>(context, listen: false).setIsAdmin(false);
+        Provider.of<UiState>(context, listen: false).setIsAdmin(isAdmin: false);
       }
       if (user?.tripId != null) {
         await Navigator.pushReplacementNamed(context, OnTripScreen.id);

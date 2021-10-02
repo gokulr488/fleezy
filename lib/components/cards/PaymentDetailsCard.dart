@@ -10,9 +10,9 @@ import '../../Common/UiConstants.dart';
 const TextStyle _kLabelTS = TextStyle(fontSize: 18, color: kTextColor);
 
 class PaymentDetailsCard extends StatelessWidget {
+  const PaymentDetailsCard({@required this.trip});
   final ModelTrip trip;
 
-  const PaymentDetailsCard({@required this.trip});
   @override
   Widget build(BuildContext context) {
     return BaseCard(
@@ -22,40 +22,38 @@ class PaymentDetailsCard extends StatelessWidget {
           height: (trip.status != Constants.CANCELLED) ? 175 : 75,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
+            children: <Widget>[
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
+                children: <Widget>[
                   if (trip.status != Constants.CANCELLED)
-                    Text('Total', style: _kLabelTS),
+                    const Text('Total', style: _kLabelTS),
                   if (trip.status != Constants.CANCELLED)
-                    Text('Paid', style: _kLabelTS),
+                    const Text('Paid', style: _kLabelTS),
                   if (trip.status != Constants.CANCELLED)
-                    Text('Balance', style: _kLabelTS),
+                    const Text('Balance', style: _kLabelTS),
                   if (trip.status != Constants.CANCELLED)
-                    Text('Driver Salary', style: _kLabelTS),
-                  Text('Party Phone No', style: _kLabelTS),
+                    const Text('Driver Salary', style: _kLabelTS),
+                  const Text('Party Phone No', style: _kLabelTS),
                   Text(Utils.getFormattedTimeStamp(trip.startDate, kTimeFormat),
                       style: _kLabelTS),
                   if (trip.status != Constants.CANCELLED)
-                    Text('Round Trip', style: _kLabelTS),
+                    const Text('Round Trip', style: _kLabelTS),
                 ],
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
+                children: <Widget>[
                   if (trip.status != Constants.CANCELLED)
-                    Text(trip.billAmount.toString() + ' Rs', style: _kLabelTS),
+                    Text('${trip.billAmount} Rs', style: _kLabelTS),
                   if (trip.status != Constants.CANCELLED)
-                    Text(trip.paidAmount.toString() + ' Rs', style: _kLabelTS),
+                    Text('${trip.paidAmount} Rs', style: _kLabelTS),
                   if (trip.status != Constants.CANCELLED)
-                    Text(trip.balanceAmount.toString() + ' Rs',
-                        style: _kLabelTS),
+                    Text('${trip.balanceAmount} Rs', style: _kLabelTS),
                   if (trip.status != Constants.CANCELLED)
-                    Text(trip.driverSalary.toString() + ' Rs',
-                        style: _kLabelTS),
+                    Text('${trip.driverSalary} Rs', style: _kLabelTS),
                   Text(trip.customerPhone ?? '', style: _kLabelTS),
                   Text(Utils.getFormattedTimeStamp(trip.endDate, kTimeFormat),
                       style: _kLabelTS),

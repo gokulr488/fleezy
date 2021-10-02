@@ -10,9 +10,8 @@ const TextStyle _labelTS = TextStyle(
     fontSize: 16, color: kHighlightColour, fontWeight: FontWeight.bold);
 
 class TripOverviewCard extends StatelessWidget {
-  final ModelTrip tripDo;
-
   const TripOverviewCard({@required this.tripDo});
+  final ModelTrip tripDo;
 
   @override
   Widget build(BuildContext context) {
@@ -26,19 +25,21 @@ class TripOverviewCard extends StatelessWidget {
       onTap: () => onTap(context),
       cardChild: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
+        children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
+            children: <Widget>[
               Text(tripDo.startingFrom, style: _labelTS),
-              Icon(Icons.keyboard_arrow_right_outlined, size: 30),
+              const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
               Text(tripDo.destination, style: _labelTS)
             ],
           ),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            Text('Driver: ' + tripDo.driverName, style: _labelTS),
-            Text('Party: ' + tripDo.customerName, style: _labelTS),
-          ]),
+          Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Text('Driver: ${tripDo.driverName}', style: _labelTS),
+                Text('Party: ${tripDo.customerName}', style: _labelTS),
+              ]),
           Text(Utils.getFormattedTimeStamp(tripDo.startDate, kDateFormat),
               style: _labelTS)
         ],

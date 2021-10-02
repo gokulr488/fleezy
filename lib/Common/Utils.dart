@@ -15,7 +15,7 @@ class Utils {
 
   static String getFormattedDate(DateTime date, String format) {
     if (date == null) return null;
-    final formatter = DateFormat(format);
+    final DateFormat formatter = DateFormat(format);
     return formatter.format(date);
   }
 
@@ -28,7 +28,7 @@ class Utils {
 
   static Future<DateTime> pickDate(BuildContext context,
       {DateTime selectedDate}) async {
-    final picked = await showDatePicker(
+    final DateTime picked = await showDatePicker(
         //initialDatePickerMode: DatePickerMode.year,
         context: context,
         initialDate: selectedDate ?? DateTime.now(),
@@ -44,7 +44,7 @@ class Utils {
     if (timestamp == null) {
       return false;
     }
-    final currentTime = DateTime.now().millisecondsSinceEpoch;
+    final int currentTime = DateTime.now().millisecondsSinceEpoch;
     if (currentTime + Constants.MILLISECONDS_PER_MONTH >=
         timestamp.millisecondsSinceEpoch) {
       return true;
@@ -53,29 +53,29 @@ class Utils {
   }
 
   static Timestamp getStartOfDay(DateTime date) {
-    final start = DateTime(date.year, date.month, date.day);
+    final DateTime start = DateTime(date.year, date.month, date.day);
     return Timestamp.fromDate(start);
   }
 
   static Timestamp getEndOfDay(DateTime date) {
-    final end = DateTime(date.year, date.month, date.day + 1);
+    final DateTime end = DateTime(date.year, date.month, date.day + 1);
     return Timestamp.fromDate(end);
   }
 
   static DateTime getStartOfMonth(DateTime dayOfMonth) {
-    final start = DateTime(dayOfMonth.year, dayOfMonth.month);
+    final DateTime start = DateTime(dayOfMonth.year, dayOfMonth.month);
     return start;
   }
 
   static DateTime getEndOfMonth(DateTime dayOfMonth) {
-    final millis =
+    final int millis =
         DateTime(dayOfMonth.year, dayOfMonth.month + 1).millisecondsSinceEpoch -
             1;
-    final end = DateTime.fromMillisecondsSinceEpoch(millis);
+    final DateTime end = DateTime.fromMillisecondsSinceEpoch(millis);
     return end;
   }
 
-  static final curFormat = NumberFormat('##,##,##,##0.00');
+  static final NumberFormat curFormat = NumberFormat('##,##,##,##0.00');
 
   static String formatDouble(double value) {
     if (value == null) return '0.00';

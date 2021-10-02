@@ -6,6 +6,7 @@ import 'package:fleezy/components/cards/BaseCard.dart';
 import 'package:flutter/material.dart';
 
 class TripDetailCard extends StatelessWidget {
+  const TripDetailCard({@required this.tripDo, this.distance, this.onTap});
   static const TextStyle _kRegistrationNumberTextStyle = TextStyle(
       fontWeight: FontWeight.bold, fontSize: 22, color: kHighlightColour);
   static const TextStyle _kDriverTextStyle = TextStyle(
@@ -20,32 +21,30 @@ class TripDetailCard extends StatelessWidget {
   final ModelTrip tripDo;
   final Function onTap;
 
-  const TripDetailCard({@required this.tripDo, this.distance, this.onTap});
-
   @override
   Widget build(BuildContext context) {
     return BaseCard(
       cardChild: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
-          children: [
+          children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
+              children: <Widget>[
                 Text(_getTimeSpent(), style: _ktimerTextStyle),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                  children: <Widget>[
                     Text(tripDo.vehicleRegNo ?? '',
                         style: _kRegistrationNumberTextStyle),
-                    Text('Driver: ' + tripDo.driverName,
+                    Text('Driver: ${tripDo.driverName}',
                         style: _kDriverTextStyle),
                   ],
                 )
               ],
             ),
             Row(
-              children: [
+              children: <Widget>[
                 Expanded(
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
@@ -74,7 +73,7 @@ class TripDetailCard extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: <Widget>[
                   Text('Kms: ${distance?.toStringAsFixed(2) ?? 0}',
                       style: _kDetailsTextStyle),
                   Text('Party: ${tripDo.customerName ?? ''}',
@@ -102,17 +101,17 @@ class TripDetailCard extends StatelessWidget {
           tripDo.startDate.millisecondsSinceEpoch;
     }
 
-    var minutes = (millisSpent / 60000).truncate();
-    var hour = 0;
+    int minutes = (millisSpent / 60000).truncate();
+    int hour = 0;
     if (minutes > 59) {
       hour = (minutes / 60).truncate();
       minutes = minutes - (hour * 60);
     }
-    var hr = '';
-    var min = '';
+    String hr = '';
+    String min = '';
     hour < 10 ? hr = '0$hour' : hr = '$hour';
     minutes < 10 ? min = '0$minutes' : min = '$minutes';
-    final seconds = (millisSpent / 1000).truncate();
+    final int seconds = (millisSpent / 1000).truncate();
     if (seconds % 2 != 0) {
       return '$hr:$min';
     } else {

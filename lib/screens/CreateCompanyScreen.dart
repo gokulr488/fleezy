@@ -30,7 +30,7 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
   @override
   void dispose() {
     super.dispose();
-    ctrl.userSubscription.cancel();
+    ctrl.dispose();
   }
 
   @override
@@ -38,7 +38,8 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
     return BaseScreen(
         headerText: '', //To Disable AppBar
         child:
-            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: <
+                Widget>[
           Text('FleeZy',
               style: GoogleFonts.dancingScript(
                   color: kHighlightColour,
@@ -47,7 +48,7 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
                   fontSize: 60)),
           TextField(
               textAlign: TextAlign.center,
-              onChanged: (value) {
+              onChanged: (String value) {
                 ctrl.company.companyName = value;
               },
               decoration:
@@ -55,14 +56,14 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
           TextField(
               keyboardType: TextInputType.emailAddress,
               textAlign: TextAlign.center,
-              onChanged: (value) {
+              onChanged: (String value) {
                 ctrl.company.companyEmail = value;
               },
               decoration: kTextFieldDecoration.copyWith(labelText: 'Email ID')),
           TextField(
               keyboardType: TextInputType.phone,
               textAlign: TextAlign.center,
-              onChanged: (value) {
+              onChanged: (String value) {
                 ctrl.company.phoneNumber = '+91$value'; //TODO change this impl
               },
               decoration:
@@ -73,11 +74,12 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
                   textAlign: TextAlign.center,
                   obscureText: true,
                   keyboardType: TextInputType.number,
-                  onChanged: (value) {
+                  onChanged: (String value) {
                     ctrl.otp = value;
                   },
                   decoration: kTextFieldDecoration.copyWith(labelText: 'OTP'))),
-          Visibility(visible: ctrl.showSpinner, child: LoadingDots(size: 40)),
+          Visibility(
+              visible: ctrl.showSpinner, child: const LoadingDots(size: 40)),
           Text(message, style: _kMessagesTextStyle),
           RoundedButton(
               title: ctrl.verified ? 'Login' : 'Send OTP',
@@ -88,24 +90,24 @@ class _CreateCompanyScreenState extends State<CreateCompanyScreen> {
         ]));
   }
 
-  void onUserStreamEvent(User user) async {
+  Future<void> onUserStreamEvent(User user) async {
     if (ctrl.allowCompanyRegistration) {
       ctrl.allowCompanyRegistration = false;
       if (user == null) {
-        print('Create Company Screen: User is currently signed out!');
+        debugPrint('Create Company Screen: User is currently signed out!');
       } else {
         ctrl.showSpinner = true;
         ctrl.disableButton = true;
         setState(() {});
         await ctrl.onVerificationCompleted(context);
-        print('User signed in!');
+        debugPrint('User signed in!');
       }
     }
   }
 
   void onMessage(String event) {
     message = event;
-    print(message);
+    debugPrint(message);
     setState(() {});
   }
 }

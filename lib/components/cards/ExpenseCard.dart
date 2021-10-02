@@ -10,9 +10,8 @@ import '../../Common/UiConstants.dart';
 const TextStyle _kLabelTS = TextStyle(fontSize: 17, color: kTextColor);
 
 class ExpenseCard extends StatelessWidget {
-  final ModelExpense expense;
-
   const ExpenseCard({this.expense});
+  final ModelExpense expense;
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +20,12 @@ class ExpenseCard extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
+          children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text('Type: ' + expense.expenseType, style: _kLabelTS),
-                Text('Amount: ' + expense.amount.toString(), style: _kLabelTS),
+              children: <Widget>[
+                Text('Type: ${expense.expenseType}', style: _kLabelTS),
+                Text('Amount: ${expense.amount}', style: _kLabelTS),
                 Text(
                     Utils.getFormattedTimeStamp(
                             expense.timestamp, kDateFormat) ??
@@ -37,20 +36,21 @@ class ExpenseCard extends StatelessWidget {
             if (expense.expenseType == Constants.FUEL)
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text('Litres: ' + expense.fuelQty.toStringAsFixed(2),
+                children: <Widget>[
+                  Text('Litres: ${expense.fuelQty.toStringAsFixed(2)}',
                       style: _kLabelTS),
-                  Text('Fuel Price: ' + expense.fuelUnitPrice.toString(),
+                  Text('Fuel Price: ${expense.fuelUnitPrice}',
                       style: _kLabelTS),
-                  if (expense.isFullTank) Text('Full Tank', style: _kLabelTS)
+                  if (expense.isFullTank)
+                    const Text('Full Tank', style: _kLabelTS)
                 ],
               ),
             SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child: Text('Details: ' + expense.expenseDetails,
+                child: Text('Details: ${expense.expenseDetails}',
                     style: _kLabelTS)),
             if (expense.payMode.isNotEmpty)
-              Text('Payment Mode: ' + expense.payMode, style: _kLabelTS)
+              Text('Payment Mode: ${expense.payMode}', style: _kLabelTS)
           ],
         ),
       ),

@@ -5,13 +5,12 @@ import 'package:fleezy/DataAccess/DAOs/Roles.dart';
 import 'package:fleezy/DataModels/ModelCompany.dart';
 
 class Company {
-  FirebaseFirestore fireStore;
-  CallContext callContext;
-
   Company() {
     fireStore = FirebaseFirestore.instance;
     callContext = CallContext();
   }
+  FirebaseFirestore fireStore;
+  CallContext callContext;
 
   Future<CallContext> addCompany(ModelCompany company) async {
     final DocumentSnapshot snapShot = await fireStore

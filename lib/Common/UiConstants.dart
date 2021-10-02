@@ -15,19 +15,21 @@ const Color kActiveCardColor = Color(0xFFffe97d);
 
 const Color kCancelledCardColor = Color(0xffcb9ca1);
 
-const shadow = [Shadow(offset: Offset(2, 2), blurRadius: 7)];
+const List<Shadow> shadow = <Shadow>[
+  Shadow(offset: Offset(2, 2), blurRadius: 7)
+];
 
-const kAnimDuraction = Duration(milliseconds: 350);
-const kAnimCurve = Curves.easeOut;
+const Duration kAnimDuraction = Duration(milliseconds: 350);
+const Cubic kAnimCurve = Curves.easeOut;
 
-const kTextFieldDecoration = InputDecoration(
+const InputDecoration kTextFieldDecoration = InputDecoration(
   labelStyle: TextStyle(fontSize: 18),
   contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
   border: OutlineInputBorder(
     borderRadius: BorderRadius.all(Radius.circular(25)),
   ),
   enabledBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: kHighlightColour, width: 1),
+    borderSide: BorderSide(color: kHighlightColour),
     borderRadius: BorderRadius.all(Radius.circular(25)),
   ),
   focusedBorder: OutlineInputBorder(
@@ -36,15 +38,15 @@ const kTextFieldDecoration = InputDecoration(
   ),
 );
 
-const kDropDownDecoration = InputDecoration(
+const InputDecoration kDropDownDecoration = InputDecoration(
     labelStyle: TextStyle(fontSize: 18, color: kHighlightColour),
     contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
     enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Color(0x00000000), width: 1.0),
+      borderSide: BorderSide(color: Color(0x00000000)),
       borderRadius: BorderRadius.all(Radius.circular(25)),
     ));
 
-const Map<int, Color> kCardOverlay = {
+const Map<int, Color> kCardOverlay = <int, Color>{
   1: Color(0xFFffffe5),
   2: Color(0xFFffffe5),
   3: Color(0xFFffffe5),
@@ -56,7 +58,7 @@ const Map<int, Color> kCardOverlay = {
   24: Color(0xFFffffe5),
 };
 
-const kHeaderTextStyle = TextStyle(fontSize: 30, color: kTextColor);
+const TextStyle kHeaderTextStyle = TextStyle(fontSize: 30, color: kTextColor);
 
-const kReportCardHeaderTS = TextStyle(
+const TextStyle kReportCardHeaderTS = TextStyle(
     fontSize: 20, color: kHighlightColour, fontWeight: FontWeight.bold);

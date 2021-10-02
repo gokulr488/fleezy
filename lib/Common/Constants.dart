@@ -35,7 +35,7 @@ class Constants {
   static const String Q3 = 'Jul-Sep';
   static const String Q4 = 'Oct-Dec';
 
-  static const List<String> EXPENSE_TYPES = [
+  static const List<String> EXPENSE_TYPES = <String>[
     SERVICE,
     REPAIR,
     SPARE_PARTS,

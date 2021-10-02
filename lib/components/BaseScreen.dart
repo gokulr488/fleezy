@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BaseScreen extends StatelessWidget {
+  const BaseScreen({this.child, this.bottomNavBar, @required this.headerText});
   final Widget child;
   final Widget bottomNavBar;
   final String headerText;
-  BaseScreen({this.child, this.bottomNavBar, @required this.headerText});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,8 +15,7 @@ class BaseScreen extends StatelessWidget {
           : AppBar(
               title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
+                  children: <Widget>[
                     Text(headerText,
                         style: GoogleFonts.laila(
                           color: kTextColor,

@@ -3,7 +3,8 @@ import 'package:fleezy/components/cards/BaseCard.dart';
 import 'package:flutter/material.dart';
 
 class ButtonCard extends StatelessWidget {
-  static final TextStyle kButtonTextStyle = TextStyle(
+  const ButtonCard({this.text, this.onTap, this.child, this.height, this.icon});
+  static TextStyle kButtonTextStyle = const TextStyle(
       fontSize: 18, fontWeight: FontWeight.bold, color: kHighlightColour);
   final String text;
   final Function onTap;
@@ -11,11 +12,9 @@ class ButtonCard extends StatelessWidget {
   final double height;
   final IconData icon;
 
-  const ButtonCard({this.text, this.onTap, this.child, this.height, this.icon});
-
   @override
   Widget build(BuildContext context) {
-    final children = _buildWidgets();
+    final List<Widget> children = _buildWidgets();
 
     return BaseCard(
       elevation: 3,
@@ -29,7 +28,7 @@ class ButtonCard extends StatelessWidget {
   }
 
   List<Widget> _buildWidgets() {
-    List<Widget> children = [];
+    final List<Widget> children = <Widget>[];
     if (icon != null) {
       children.add(Icon(
         icon,
