@@ -46,7 +46,7 @@ class ModelCompany {
   }
 
   static ModelCompany getCompanyFromDoc(DocumentSnapshot doc) {
-    Map data = doc.data();
+    final Map<String, dynamic> data = doc.data();
 
     return ModelCompany(
       companyName: data['CompanyName'] ?? '',

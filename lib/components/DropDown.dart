@@ -2,17 +2,17 @@ import 'package:fleezy/Common/UiConstants.dart';
 import 'package:flutter/material.dart';
 
 class DropDown extends StatelessWidget {
+  const DropDown(
+      {this.onChanged, this.defaultValue, this.values, this.hintText});
   final Function onChanged;
   final String defaultValue;
   final List<String> values;
   final String hintText;
 
-  const DropDown(
-      {this.onChanged, this.defaultValue, this.values, this.hintText});
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
-      icon: Icon(
+      icon: const Icon(
         Icons.arrow_drop_down_circle_outlined,
         color: kHighlightColour,
       ),
@@ -21,7 +21,8 @@ class DropDown extends StatelessWidget {
       value: defaultValue,
       onChanged: onChanged,
       items: values
-          .map((value) => DropdownMenuItem(value: value, child: Text(value)))
+          .map((String value) =>
+              DropdownMenuItem<String>(value: value, child: Text(value)))
           .toList(),
     );
   }

@@ -3,13 +3,12 @@ import 'package:fleezy/components/LoadingDots.dart';
 import 'package:flutter/material.dart';
 
 class Alerts extends StatelessWidget {
+  const Alerts({
+    this.title,
+    this.actions,
+  });
   final String title;
   final List<Widget> actions;
-
-  Alerts({
-    this.title,
-    this.actions = const [],
-  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +16,7 @@ class Alerts extends StatelessWidget {
         title: Text(title),
         actions: actions,
         backgroundColor: kAlertColor,
-        shape: OutlineInputBorder(
+        shape: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20.0))));
   }
 }
@@ -25,10 +24,10 @@ class Alerts extends StatelessWidget {
 void showSendingDialogue(BuildContext context) {
   showDialog(
     context: context,
-    builder: (context) {
-      return Alerts(
+    builder: (BuildContext context) {
+      return const Alerts(
         title: 'Submitting...',
-        actions: [LoadingDots(size: 50)],
+        actions: <Widget>[LoadingDots(size: 50)],
       );
     },
   );
@@ -37,14 +36,12 @@ void showSendingDialogue(BuildContext context) {
 void showSubmitResponse(BuildContext context, String resp) {
   showDialog(
     context: context,
-    builder: (context) {
-      return Alerts(
-        title: resp,
-        actions: [
-          TextButton(
-              onPressed: () => Navigator.of(context).pop(), child: Text('OK'))
-        ],
-      );
+    builder: (BuildContext context) {
+      return Alerts(title: resp, actions: <Widget>[
+        TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('OK'))
+      ]);
     },
   );
 }
@@ -52,13 +49,14 @@ void showSubmitResponse(BuildContext context, String resp) {
 void showErrorAlert(BuildContext context, String errorMessage) {
   showDialog(
     context: context,
-    builder: (context) {
+    builder: (BuildContext context) {
       return Alerts(
         title: 'ERROR',
-        actions: [
-          Text(errorMessage, style: TextStyle(fontSize: 18)),
+        actions: <Widget>[
+          Text(errorMessage, style: const TextStyle(fontSize: 18)),
           TextButton(
-              onPressed: () => Navigator.of(context).pop(), child: Text('OK'))
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('OK'))
         ],
       );
     },
@@ -69,18 +67,18 @@ void showWarningAlert(
     BuildContext context, String errorMessage, Function onConfirmed) {
   showDialog(
     context: context,
-    builder: (context) {
+    builder: (BuildContext context) {
       return Alerts(
         title: 'Warning',
-        actions: [
-          Text(errorMessage, style: TextStyle(fontSize: 18)),
+        actions: <Widget>[
+          Text(errorMessage, style: const TextStyle(fontSize: 18)),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: [
+            children: <Widget>[
               TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: Text('No')),
-              TextButton(onPressed: onConfirmed, child: Text('Yes'))
+                  child: const Text('No')),
+              TextButton(onPressed: onConfirmed, child: const Text('Yes'))
             ],
           ),
         ],

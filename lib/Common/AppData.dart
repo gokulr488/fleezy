@@ -1,3 +1,5 @@
+// ignore_for_file: always_specify_types
+
 import 'package:fleezy/DataModels/ModelTrip.dart';
 import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/DataModels/ModelVehicle.dart';
@@ -26,8 +28,8 @@ class AppData extends ChangeNotifier {
   }
 
   List<ModelTrip> getAllPendingBalances() {
-    List<ModelTrip> pendingBals = [];
-    for (final vehicle in _availableVehicles) {
+    final List<ModelTrip> pendingBals = [];
+    for (final ModelVehicle vehicle in _availableVehicles) {
       pendingBals.addAll(_pendingBalance[vehicle.registrationNo] ?? []);
     }
     return pendingBals;
@@ -72,7 +74,7 @@ class AppData extends ChangeNotifier {
   void setDrivers(List<ModelUser> users) {
     _drivers ??= {};
 
-    for (final user in users) {
+    for (final ModelUser user in users) {
       _drivers[user.phoneNumber] = user;
     }
     notifyListeners();
@@ -94,7 +96,7 @@ class AppData extends ChangeNotifier {
   }
 
   void updateDriver(ModelUser user) {
-    _drivers.update(user.phoneNumber, (value) => user);
+    _drivers.update(user.phoneNumber, (ModelUser value) => user);
     notifyListeners();
   }
 }

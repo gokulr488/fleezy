@@ -2,12 +2,12 @@ import 'package:fleezy/Common/UiConstants.dart';
 import 'package:flutter/material.dart';
 
 class BaseCard extends StatelessWidget {
+  const BaseCard({this.onTap, this.cardChild, this.color, this.elevation});
   final Function onTap;
   final Widget cardChild;
   final Color color;
   final double elevation;
 
-  BaseCard({this.onTap, this.cardChild, this.color, this.elevation});
   @override
   InkWell build(BuildContext context) {
     return InkWell(

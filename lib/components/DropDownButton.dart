@@ -2,14 +2,14 @@ import 'package:fleezy/Common/UiConstants.dart';
 import 'package:flutter/material.dart';
 
 class DropDownButton extends StatelessWidget {
+  const DropDownButton(
+      {this.onChanged, this.value, this.values, this.hintText, this.icon});
   final Function onChanged;
   final String value;
   final List<String> values;
   final String hintText;
   final IconData icon;
 
-  const DropDownButton(
-      {this.onChanged, this.value, this.values, this.hintText, this.icon});
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -22,7 +22,8 @@ class DropDownButton extends StatelessWidget {
         value: value,
         onChanged: onChanged,
         items: values
-            .map((value) => DropdownMenuItem(value: value, child: Text(value)))
+            .map((String value) =>
+                DropdownMenuItem<String>(value: value, child: Text(value)))
             .toList(),
       ),
     );

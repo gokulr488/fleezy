@@ -2,7 +2,7 @@ import 'package:fleezy/Common/UiConstants.dart';
 import 'package:flutter/material.dart';
 
 class RoundedButton extends StatelessWidget {
-  RoundedButton(
+  const RoundedButton(
       {this.title,
       this.colour,
       @required this.onPressed,
@@ -25,6 +25,7 @@ class RoundedButton extends StatelessWidget {
             onPressed: onPressed,
             minWidth: width ?? MediaQuery.of(context).size.width * 0.75,
             child: Text(title,
-                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold))));
+                style: const TextStyle(
+                    fontSize: 17, fontWeight: FontWeight.bold))));
   }
 }
