@@ -18,13 +18,13 @@ class ManageCompanyScreen extends StatefulWidget {
 class _ManageCompanyScreenState extends State<ManageCompanyScreen> {
   @override
   Widget build(BuildContext context) {
-    final uiState = Provider.of<UiState>(context, listen: false);
+    final UiState uiState = Provider.of<UiState>(context, listen: false);
     return uiState.isAdmin
         ? Column(
-            children: [
-              Text('Manage Company', style: kHeaderTextStyle),
-              SizedBox(height: 10),
-              GridLayout(children: [
+            children: <Widget>[
+              const Text('Manage Company', style: kHeaderTextStyle),
+              const SizedBox(height: 10),
+              GridLayout(children: <Widget>[
                 ButtonCard(
                     text: 'Manage Vehicles',
                     icon: Icons.car_repair,
@@ -53,7 +53,7 @@ class _ManageCompanyScreenState extends State<ManageCompanyScreen> {
               ]),
             ],
           )
-        : BaseCard(
+        : const BaseCard(
             elevation: 1,
             cardChild: SizedBox(
               height: 100,

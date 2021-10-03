@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void dispose() {
     super.dispose();
-    ctrl.userSubscription.cancel();
+    ctrl.dispose();
   }
 
   @override
@@ -39,19 +39,19 @@ class _LoginScreenState extends State<LoginScreen> {
       headerText: '', //To Disable AppBar
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
+        children: <Widget>[
           Text('Fleezy',
               style: GoogleFonts.dancingScript(
                   color: kHighlightColour,
                   shadows: shadow,
                   fontWeight: FontWeight.bold,
                   fontSize: 60)),
-          if (message == 'Logging In...') LoadingDots(size: 50),
+          if (message == 'Logging In...') const LoadingDots(size: 50),
           Text(message, style: kMessagesTextStyle),
           TextField(
               keyboardType: TextInputType.number,
               textAlign: TextAlign.center,
-              onChanged: (value) {
+              onChanged: (String value) {
                 ctrl.phoneNo = '+91$value'; //TODO change this impl
               },
               decoration:
@@ -62,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   obscureText: true,
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
-                  onChanged: (value) {
+                  onChanged: (String value) {
                     ctrl.otp = value;
                   },
                   decoration: kTextFieldDecoration.copyWith(
@@ -78,9 +78,9 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void onUserStreamEvent(User user) async {
+  Future<void> onUserStreamEvent(User user) async {
     if (user == null) {
-      print('Login Screen :User is currently signed out!');
+      debugPrint('Login Screen :User is currently signed out!');
     } else {
       if (ctrl.verified) {
         ctrl.verified = false; //to avoid multiple entry into this code
@@ -88,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ctrl.disableButton = true;
         setState(() {});
         await ctrl.onVerificationCompleted(context);
-        print('Login Screen :User signed in!');
+        debugPrint('Login Screen :User signed in!');
       }
     }
   }

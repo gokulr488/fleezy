@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fleezy/Common/Authentication.dart';
 import 'package:fleezy/Common/CallContext.dart';
@@ -7,18 +9,18 @@ import 'package:fleezy/DataModels/ModelCompany.dart';
 import 'package:fleezy/DataModels/ModelUser.dart';
 
 class UserManagement {
-  CallContext callContext;
-  User user;
   UserManagement() {
     callContext = CallContext();
   }
+  CallContext callContext;
+  User user;
 
   Future<CallContext> addNewCompany(ModelCompany modelCompany) async {
     try {
       user = Authentication().getUser();
       if (user != null) {
         print('Adding Company to Database with default Admin user');
-        final adminUser = ModelUser(
+        final ModelUser adminUser = ModelUser(
             fullName: Constants.ADMIN,
             companyId: modelCompany.companyEmail,
             phoneNumber: modelCompany.phoneNumber,
@@ -26,7 +28,9 @@ class UserManagement {
             roleName: Constants.ADMIN,
             state: Constants.ACTIVE,
             uid: user.uid);
-        modelCompany.users = {adminUser.phoneNumber: adminUser};
+        modelCompany.users = <String, ModelUser>{
+          adminUser.phoneNumber: adminUser
+        };
         await Company().addCompany(modelCompany);
 
         callContext.setSuccess('Company & Admin user added to DB');

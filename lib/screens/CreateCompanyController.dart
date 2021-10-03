@@ -4,10 +4,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fleezy/Common/Alerts.dart';
 import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/Authentication.dart';
+import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/UiState.dart';
 import 'package:fleezy/DataAccess/DAOs/Roles.dart';
 import 'package:fleezy/DataAccess/UserManagement.dart';
 import 'package:fleezy/DataModels/ModelCompany.dart';
+import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
 import 'package:fleezy/screens/StartScreen.dart';
 import 'package:flutter/material.dart';
@@ -38,13 +40,14 @@ class CreateCompanyController {
   Future<void> onVerificationCompleted(BuildContext context) async {
     messageStream.add('Creating Your Company...');
     disableButton = true;
-    final callContext = await UserManagement().addNewCompany(company);
+    final CallContext callContext =
+        await UserManagement().addNewCompany(company);
     if (callContext.isError) {
       messageStream.add(callContext.errorMessage);
       return;
     }
-    final appData = Provider.of<AppData>(context, listen: false);
-    final adminUser = company.users[company.phoneNumber];
+    final AppData appData = Provider.of<AppData>(context, listen: false);
+    final ModelUser adminUser = company.users[company.phoneNumber];
     appData.setUser(adminUser);
     appData.addNewDriver(adminUser);
     Provider.of<UiState>(context, listen: false).setIsAdmin(isAdmin: true);
@@ -83,15 +86,15 @@ class CreateCompanyController {
       } catch (e) {
         showErrorAlert(context, 'Unable To Create Company');
         messageStream.add('Unable To Create Company');
-        print(e);
+        debugPrint(e.toString());
       }
       showSpinner = false;
       disableButton = false;
     }
   }
 
-  void verify(BuildContext context) async {
-    final user = await Roles().getUser(company.phoneNumber);
+  Future<void> verify(BuildContext context) async {
+    final ModelUser user = await Roles().getUser(company.phoneNumber);
     if (user != null) {
       showErrorAlert(context, 'Phone Number Already Exists');
       messageStream.add('Phone Number Already Exists');

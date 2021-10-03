@@ -16,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   PageController _pageController;
   int navBarIndex = 1;
-  final List<Widget> _screens = [
+  final List<Widget> _screens = <Widget>[
     ManageCompanyScreen(),
     ListVehiclesScreen(),
     CurrentUserScreen()
@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
       //Provider.of<AppData>(context, listen: false).user?.fullName ?? '',
       child: PageView(
           controller: _pageController,
-          onPageChanged: (index) {
+          onPageChanged: (int index) {
             navBarIndex = index;
             setState(() {});
           },

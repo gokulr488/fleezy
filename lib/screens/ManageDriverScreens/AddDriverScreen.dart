@@ -1,4 +1,5 @@
 import 'package:fleezy/Common/AppData.dart';
+import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/DataAccess/DAOs/Roles.dart';
@@ -11,7 +12,7 @@ import 'package:fleezy/components/ScrollableList.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-const _kHeaderTextStyle = TextStyle(
+const TextStyle _kHeaderTextStyle = TextStyle(
     fontSize: 30, fontWeight: FontWeight.bold, color: kHighlightColour);
 
 class AddDriverScreen extends StatefulWidget {
@@ -30,41 +31,45 @@ class _AddDriverScreenState extends State<AddDriverScreen> {
         headerText: 'Add New User',
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text('User Details', style: _kHeaderTextStyle),
-            SizedBox(height: 20),
+          children: <Widget>[
+            const Text('User Details', style: _kHeaderTextStyle),
+            const SizedBox(height: 20),
             Expanded(
-              child: ScrollableList(childrenHeight: 80, items: [
+              child: ScrollableList(childrenHeight: 80, items: <Widget>[
                 TextField(
                     textCapitalization: TextCapitalization.words,
-                    onChanged: (value) {
+                    onChanged: (String value) {
                       user.fullName = value;
                     },
                     decoration:
                         kTextFieldDecoration.copyWith(labelText: 'Full Name')),
                 TextField(
                     keyboardType: TextInputType.phone,
-                    onChanged: (value) {
-                      user.phoneNumber = '+91' + value; //TODO change this impl
+                    onChanged: (String value) {
+                      user.phoneNumber = '+91$value'; //TODO change this impl
                     },
                     decoration: kTextFieldDecoration.copyWith(
                         labelText: 'Phone Number')),
                 TextField(
                     keyboardType: TextInputType.emailAddress,
-                    onChanged: (value) {
+                    onChanged: (String value) {
                       user.userEmailId = value;
                     },
                     decoration:
                         kTextFieldDecoration.copyWith(labelText: 'Email ID')),
                 DropDown(
                     defaultValue: Constants.DRIVER,
-                    values: [Constants.ADMIN, Constants.DRIVER],
+                    values: const <String>[Constants.ADMIN, Constants.DRIVER],
                     hintText: 'User Type',
                     onChanged: (String value) {
                       user.roleName = value;
                     }),
-                showLoading ? LoadingDots(size: 80) : SizedBox(),
-                Center(child: Text(message, style: TextStyle(fontSize: 16)))
+                if (showLoading)
+                  const LoadingDots(size: 80)
+                else
+                  const SizedBox(),
+                Center(
+                    child: Text(message, style: const TextStyle(fontSize: 16)))
               ]),
             ),
             RoundedButton(
@@ -81,10 +86,10 @@ class _AddDriverScreenState extends State<AddDriverScreen> {
     if (valid()) {
       showLoading = true;
       setState(() {});
-      final appData = Provider.of<AppData>(context, listen: false);
+      final AppData appData = Provider.of<AppData>(context, listen: false);
       user.companyId = appData.user.companyId;
       user.state = Constants.ACTIVE;
-      final callContext = await Roles().addRole(user);
+      final CallContext callContext = await Roles().addRole(user);
       if (!callContext.isError) {
         appData.addNewDriver(user);
         Navigator.pop(context);

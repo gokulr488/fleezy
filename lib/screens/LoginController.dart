@@ -82,4 +82,8 @@ class LoginController {
     streamCtrl.add('Verifying, Enter your OTP');
     verified = true;
   }
+
+  void dispose() {
+    userSubscription.cancel();
+  }
 }

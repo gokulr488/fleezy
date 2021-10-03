@@ -1,14 +1,12 @@
-// ignore_for_file: always_specify_types
-
 import 'package:fleezy/DataModels/ModelTrip.dart';
 import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/DataModels/ModelVehicle.dart';
 import 'package:flutter/cupertino.dart';
 
 class AppData extends ChangeNotifier {
-  List<ModelVehicle> _availableVehicles = [];
-  final Map<String, List<ModelTrip>> _tripHistory = {};
-  Map<String, List<ModelTrip>> _pendingBalance = {};
+  List<ModelVehicle> _availableVehicles = <ModelVehicle>[];
+  final Map<String, List<ModelTrip>> _tripHistory = <String, List<ModelTrip>>{};
+  Map<String, List<ModelTrip>> _pendingBalance = <String, List<ModelTrip>>{};
   Map<String, ModelUser> _drivers;
   ModelUser _user;
   ModelTrip _trip;
@@ -28,9 +26,10 @@ class AppData extends ChangeNotifier {
   }
 
   List<ModelTrip> getAllPendingBalances() {
-    final List<ModelTrip> pendingBals = [];
+    final List<ModelTrip> pendingBals = <ModelTrip>[];
     for (final ModelVehicle vehicle in _availableVehicles) {
-      pendingBals.addAll(_pendingBalance[vehicle.registrationNo] ?? []);
+      pendingBals
+          .addAll(_pendingBalance[vehicle.registrationNo] ?? <ModelTrip>[]);
     }
     return pendingBals;
   }
@@ -49,14 +48,14 @@ class AppData extends ChangeNotifier {
 
   void addPendingBalance(String regNo, ModelTrip pendingBal) {
     if (_pendingBalance[regNo] == null) {
-      _pendingBalance[regNo] = [];
+      _pendingBalance[regNo] = <ModelTrip>[];
     }
     _pendingBalance[regNo].add(pendingBal);
     notifyListeners();
   }
 
   void resetPendingBalances() {
-    _pendingBalance = {};
+    _pendingBalance = <String, List<ModelTrip>>{};
     notifyListeners();
   }
 
@@ -66,13 +65,13 @@ class AppData extends ChangeNotifier {
   }
 
   void addNewDriver(ModelUser user) {
-    _drivers ??= {};
+    _drivers ??= <String, ModelUser>{};
     _drivers[user.phoneNumber] = user;
     notifyListeners();
   }
 
   void setDrivers(List<ModelUser> users) {
-    _drivers ??= {};
+    _drivers ??= <String, ModelUser>{};
 
     for (final ModelUser user in users) {
       _drivers[user.phoneNumber] = user;

@@ -15,16 +15,16 @@ import 'package:fleezy/screens/ManageVehiclesScreens/InsurancePaymentScreen.dart
 import 'package:fleezy/screens/ManageVehiclesScreens/ManageVehicleScreen.dart';
 import 'package:fleezy/screens/ManageVehiclesScreens/ManageVehiclesScreen.dart';
 import 'package:fleezy/screens/ManageVehiclesScreens/TaxPaymentScreen.dart';
+import 'package:fleezy/screens/StartScreen.dart';
+import 'package:fleezy/screens/VehicleOverviewScreens/StartNewTripScreen.dart';
+import 'package:fleezy/screens/VehicleOverviewScreens/VehicleOverviewScreen.dart';
+import 'package:fleezy/screens/VehicleOverviewScreens/addexpense/AddExpenseScreen.dart';
+import 'package:fleezy/screens/VehicleOverviewScreens/addfuel/AddFuelScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/pendingbalance/PendingBalanceDetailScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/pendingbalance/PendingBalanceScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/triphistory/TripHistoryDetailsScreen.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/triphistory/TripHistoryScreen.dart';
 import 'package:fleezy/screens/ontrip/OnTripScreen.dart';
-import 'package:fleezy/screens/StartScreen.dart';
-import 'package:fleezy/screens/VehicleOverviewScreens/addexpense/AddExpenseScreen.dart';
-import 'package:fleezy/screens/VehicleOverviewScreens/addfuel/AddFuelScreen.dart';
-import 'package:fleezy/screens/VehicleOverviewScreens/StartNewTripScreen.dart';
-import 'package:fleezy/screens/VehicleOverviewScreens/VehicleOverviewScreen.dart';
 import 'package:fleezy/screens/reports/ReportsScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -37,9 +37,9 @@ Future<void> main() async {
   await Firebase.initializeApp();
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (_) => AppData()),
-      ChangeNotifierProvider(create: (_) => UiState()),
-      ChangeNotifierProvider(create: (_) => ReportData()),
+      ChangeNotifierProvider<AppData>(create: (_) => AppData()),
+      ChangeNotifierProvider<UiState>(create: (_) => UiState()),
+      ChangeNotifierProvider<ReportData>(create: (_) => ReportData()),
     ],
     child: FleezyApp(),
   ));
@@ -48,7 +48,7 @@ Future<void> main() async {
 class FleezyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
+    SystemChrome.setPreferredOrientations(<DeviceOrientation>[
       DeviceOrientation.portraitDown,
       DeviceOrientation.portraitUp,
     ]);
@@ -60,30 +60,38 @@ class FleezyApp extends StatelessWidget {
             textTheme: GoogleFonts.koHoTextTheme(
                 ThemeData(brightness: Brightness.light).textTheme)),
         initialRoute: _isLoggedIn(context) ? HomeScreen.id : StartScreen.id,
-        routes: {
-          HomeScreen.id: (context) => HomeScreen(),
-          ListVehiclesScreen.id: (context) => ListVehiclesScreen(),
-          StartScreen.id: (context) => StartScreen(),
-          CreateCompanyScreen.id: (context) => CreateCompanyScreen(),
-          LoginScreen.id: (context) => LoginScreen(),
-          AddVehicleScreen.id: (context) => AddVehicleScreen(),
-          VehicleOverviewScreen.id: (context) => VehicleOverviewScreen(),
-          StartNewTripScreen.id: (context) => StartNewTripScreen(),
-          AddFuelScreen.id: (context) => AddFuelScreen(),
-          AddExpenseScreen.id: (context) => AddExpenseScreen(),
-          ManageVehicleScreen.id: (context) => ManageVehicleScreen(),
-          ManageVehiclesScreen.id: (context) => ManageVehiclesScreen(),
-          ManageDriversScreen.id: (context) => ManageDriversScreen(),
-          AddDriverScreen.id: (context) => AddDriverScreen(),
-          OnTripScreen.id: (context) => OnTripScreen(),
-          TripHistoryScreen.id: (context) => TripHistoryScreen(),
-          TripHistoryDetailsScreen.id: (context) => TripHistoryDetailsScreen(),
-          ReportsScreen.id: (context) => ReportsScreen(),
-          PendingBalanceScreen.id: (context) => PendingBalanceScreen(),
-          PendingBalanceDetailScreen.id: (context) =>
+        routes: <String, Widget Function(BuildContext)>{
+          HomeScreen.id: (BuildContext context) => HomeScreen(),
+          ListVehiclesScreen.id: (BuildContext context) => ListVehiclesScreen(),
+          StartScreen.id: (BuildContext context) => StartScreen(),
+          CreateCompanyScreen.id: (BuildContext context) =>
+              CreateCompanyScreen(),
+          LoginScreen.id: (BuildContext context) => LoginScreen(),
+          AddVehicleScreen.id: (BuildContext context) => AddVehicleScreen(),
+          VehicleOverviewScreen.id: (BuildContext context) =>
+              VehicleOverviewScreen(),
+          StartNewTripScreen.id: (BuildContext context) => StartNewTripScreen(),
+          AddFuelScreen.id: (BuildContext context) => AddFuelScreen(),
+          AddExpenseScreen.id: (BuildContext context) => AddExpenseScreen(),
+          ManageVehicleScreen.id: (BuildContext context) =>
+              ManageVehicleScreen(),
+          ManageVehiclesScreen.id: (BuildContext context) =>
+              ManageVehiclesScreen(),
+          ManageDriversScreen.id: (BuildContext context) =>
+              ManageDriversScreen(),
+          AddDriverScreen.id: (BuildContext context) => AddDriverScreen(),
+          OnTripScreen.id: (BuildContext context) => OnTripScreen(),
+          TripHistoryScreen.id: (BuildContext context) => TripHistoryScreen(),
+          TripHistoryDetailsScreen.id: (BuildContext context) =>
+              TripHistoryDetailsScreen(),
+          ReportsScreen.id: (BuildContext context) => ReportsScreen(),
+          PendingBalanceScreen.id: (BuildContext context) =>
+              PendingBalanceScreen(),
+          PendingBalanceDetailScreen.id: (BuildContext context) =>
               PendingBalanceDetailScreen(),
-          TaxPaymentScreen.id: (context) => TaxPaymentScreen(),
-          InsurancePaymentScreen.id: (context) => InsurancePaymentScreen(),
+          TaxPaymentScreen.id: (BuildContext context) => TaxPaymentScreen(),
+          InsurancePaymentScreen.id: (BuildContext context) =>
+              InsurancePaymentScreen(),
         });
   }
 }
@@ -91,7 +99,7 @@ class FleezyApp extends StatelessWidget {
 bool _isLoggedIn(BuildContext context) {
   // FirebaseFirestore.instance.settings =
   //     Settings(host: '10.0.2.2:8080', sslEnabled: false);
-  final _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   if (_auth.currentUser != null) {
     //Provider.of<UiState>(context, listen: false).setIsAdmin(true);
     return true;

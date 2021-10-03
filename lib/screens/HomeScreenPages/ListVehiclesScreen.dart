@@ -5,6 +5,7 @@ import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/Common/UiState.dart';
 import 'package:fleezy/DataAccess/DAOs/Roles.dart';
 import 'package:fleezy/DataAccess/DAOs/Vehicle.dart';
+import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/DataModels/ModelVehicle.dart';
 import 'package:fleezy/components/ScrollableList.dart';
 import 'package:fleezy/components/cards/VehicleCard.dart';
@@ -21,10 +22,11 @@ class ListVehiclesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     _getUserData(context);
     return Column(
-      children: [
-        Text('Our Vehicles', style: kHeaderTextStyle),
+      children: <Widget>[
+        const Text('Our Vehicles', style: kHeaderTextStyle),
         Expanded(
-          child: Consumer<AppData>(builder: (context, appData, _) {
+          child: Consumer<AppData>(
+              builder: (BuildContext context, AppData appData, _) {
             return ScrollableList(
               childrenHeight: 120,
               items: _populateVehicleCards(appData),
@@ -32,7 +34,7 @@ class ListVehiclesScreen extends StatelessWidget {
           }),
         ),
         TextField(
-            onChanged: (value) {
+            onChanged: (String value) {
               // searchKeyword = value;
             },
             decoration: kTextFieldDecoration.copyWith(labelText: 'Search')),
@@ -41,11 +43,11 @@ class ListVehiclesScreen extends StatelessWidget {
   }
 
   Future<void> _getUserData(BuildContext context) async {
-    final appData = Provider.of<AppData>(context,
+    final AppData appData = Provider.of<AppData>(context,
         listen: false); //check if listen false is causing issues here
     if (appData.user == null) {
-      print('Getting User basic Info.');
-      final user =
+      debugPrint('Getting User basic Info.');
+      final ModelUser user =
           await Roles().getUser(Authentication().getUser().phoneNumber);
       if (user?.state == Constants.INACTIVE) {
         _logoutUser(context);
@@ -66,8 +68,8 @@ class ListVehiclesScreen extends StatelessWidget {
   }
 
   List<VehicleCard> _populateVehicleCards(AppData appData) {
-    List<VehicleCard> vehicleCards = [];
-    for (final vehicle in appData.availableVehicles) {
+    final List<VehicleCard> vehicleCards = <VehicleCard>[];
+    for (final ModelVehicle vehicle in appData.availableVehicles) {
       vehicleCards.add(VehicleCard(
           vehicle: vehicle,
           vehicleName: vehicle.vehicleName,
