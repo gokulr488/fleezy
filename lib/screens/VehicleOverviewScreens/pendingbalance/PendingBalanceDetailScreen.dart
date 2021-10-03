@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:fleezy/Common/Alerts.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/Common/UiState.dart';
@@ -30,22 +32,22 @@ class _PendingBalanceDetailScreenState
   @override
   Widget build(BuildContext context) {
     trip = ModalRoute.of(context).settings.arguments as ModelTrip;
-    final uiState = Provider.of<UiState>(context, listen: false);
+    final UiState uiState = Provider.of<UiState>(context, listen: false);
     return BaseScreen(
       headerText: 'Balance Details',
       child: Column(
-        children: [
+        children: <Widget>[
           Expanded(
             child: SingleChildScrollView(
               child: Column(
-                children: [
+                children: <Widget>[
                   IgnorePointer(child: PendingBalanceCard(trip: trip)),
                   _TripDetailsCard(trip: trip),
                   HorLine(),
                   TextField(
                       keyboardType: TextInputType.number,
                       textAlign: TextAlign.center,
-                      onChanged: (value) {
+                      onChanged: (String value) {
                         balanceReceived = value;
                       },
                       decoration: kTextFieldDecoration.copyWith(
@@ -53,7 +55,7 @@ class _PendingBalanceDetailScreenState
                   if (uiState.isAdmin)
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
+                        children: <Widget>[
                           Text('Ignore Pending Amount',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -75,16 +77,19 @@ class _PendingBalanceDetailScreenState
           RoundedButton(
             title: 'Save',
             onPressed: () {
-              if (!ctrl.valid(context, trip, balanceReceived, ignorePending)) {
+              if (!ctrl.valid(context, trip, balanceReceived,
+                  ignorePending: ignorePending)) {
                 showErrorAlert(context, 'Incorrect Balance');
                 return;
               }
               if (ignorePending) {
-                ctrl.onPendingBalanceSave(context, trip,
-                    trip.balanceAmount.toString(), ignorePending, updateUi);
+                ctrl.onPendingBalanceSave(
+                    context, trip, trip.balanceAmount.toString(), updateUi,
+                    isIgnore: ignorePending);
               } else {
                 ctrl.onPendingBalanceSave(
-                    context, trip, balanceReceived, ignorePending, updateUi);
+                    context, trip, balanceReceived, updateUi,
+                    isIgnore: ignorePending);
               }
             },
           )
@@ -110,7 +115,7 @@ class _TripDetailsCard extends StatelessWidget {
         cardChild: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
-            children: [
+            children: <Widget>[
               DataRowWidget(
                 field: 'Party Phone No',
                 value: trip.customerPhone ?? 'Not available',

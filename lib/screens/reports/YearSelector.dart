@@ -9,7 +9,7 @@ class YearSelector extends StatelessWidget {
   final ReportsController ctrl = ReportsController();
   @override
   Widget build(BuildContext context) {
-    final repData = Provider.of<ReportData>(context, listen: false);
+    final ReportData repData = Provider.of<ReportData>(context, listen: false);
     return Padding(
       padding: const EdgeInsets.all(10),
       child: DropDownButton(

@@ -2,13 +2,13 @@ import 'package:fleezy/Common/UiConstants.dart';
 import 'package:flutter/material.dart';
 
 class DataRowWidget extends StatelessWidget {
+  const DataRowWidget(
+      {@required this.field, @required this.value, this.color, this.fontSize});
+
   final String field;
   final String value;
   final Color color;
   final double fontSize;
-
-  const DataRowWidget(
-      {@required this.field, @required this.value, this.color, this.fontSize});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class DataRowWidget extends StatelessWidget {
       padding: const EdgeInsets.all(5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
+        children: <Widget>[
           Text(field,
               style: TextStyle(
                   fontSize: fontSize ?? 18,

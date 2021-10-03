@@ -6,8 +6,9 @@ import 'package:fleezy/screens/reports/DataRowWidget.dart';
 import 'package:flutter/material.dart';
 
 class TripSummaryCard extends StatelessWidget {
-  final ModelReport report;
   const TripSummaryCard({@required this.report});
+
+  final ModelReport report;
   @override
   Widget build(BuildContext context) {
     return BaseCard(
@@ -15,8 +16,8 @@ class TripSummaryCard extends StatelessWidget {
       cardChild: Padding(
         padding: const EdgeInsets.all(8),
         child: Column(
-          children: [
-            Text('Trips Overview', style: kReportCardHeaderTS),
+          children: <Widget>[
+            const Text('Trips Overview', style: kReportCardHeaderTS),
             DataRowWidget(
                 field: 'Total Trips',
                 value: Utils.formatInt(report.totalTrips)),

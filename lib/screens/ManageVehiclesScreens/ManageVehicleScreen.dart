@@ -2,6 +2,7 @@ import 'package:fleezy/Common/Alerts.dart';
 import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/DataAccess/DAOs/Roles.dart';
 import 'package:fleezy/DataAccess/DAOs/Vehicle.dart';
+import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/DataModels/ModelVehicle.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/GridLayout.dart';
@@ -17,16 +18,16 @@ class ManageVehicleScreen extends StatelessWidget {
   static const String id = 'manageVehicleScreen';
   @override
   Widget build(BuildContext context) {
-    final vehicle =
+    final ManageVehicleCard vehicle =
         ModalRoute.of(context).settings.arguments as ManageVehicleCard;
     return BaseScreen(
         headerText: 'Manage Vehicle',
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+            children: <Widget>[
               IgnorePointer(child: vehicle),
-              SizedBox(height: 15),
-              GridLayout(children: [
+              const SizedBox(height: 15),
+              GridLayout(children: <Widget>[
                 ButtonCard(
                   text: 'Tax Payment',
                   icon: Icons.payment,
@@ -54,22 +55,22 @@ class ManageVehicleScreen extends StatelessWidget {
                     onTap: () {
                       showDialog(
                           context: context,
-                          builder: (context) {
+                          builder: (BuildContext context) {
                             return Alerts(
                                 title: 'Delete this vehicle ?',
-                                actions: [
+                                actions: <Widget>[
                                   TextButton(
                                       onPressed: () =>
                                           Navigator.of(context).pop(),
-                                      child: Text('NO')),
+                                      child: const Text('NO')),
                                   TextButton(
                                       onPressed: () async {
-                                        final resp = await deleteVehicle(
+                                        final String resp = await deleteVehicle(
                                             context, vehicle.vehicle);
                                         Navigator.of(context).pop();
                                         showSubmitResponse(context, resp);
                                       },
-                                      child: Text('YES'))
+                                      child: const Text('YES'))
                                 ]);
                           });
                     })
@@ -80,24 +81,25 @@ class ManageVehicleScreen extends StatelessWidget {
   Future<String> deleteVehicle(
       BuildContext context, ModelVehicle vehicle) async {
     showSendingDialogue(context);
-    final resp = await Vehicle().deleteVehicle(vehicle);
+    final String resp = await Vehicle().deleteVehicle(vehicle);
     Provider.of<AppData>(context, listen: false).deleteVehicle(vehicle);
     Navigator.of(context).pop();
     Navigator.of(context).pop();
     return resp;
   }
 
-  void allowedDrivers(BuildContext context, ModelVehicle vehicle) async {
-    final appData = Provider.of<AppData>(context, listen: false);
+  Future<void> allowedDrivers(
+      BuildContext context, ModelVehicle vehicle) async {
+    final AppData appData = Provider.of<AppData>(context, listen: false);
     if (appData.drivers == null) {
-      final drivers =
+      final List<ModelUser> drivers =
           await Roles().getAllUsersInCompany(appData.user.companyId);
       appData.setDrivers(drivers);
     }
-    final allowedDrivers = vehicle.allowedDrivers.toList();
+    final List<String> allowedDrivers = vehicle.allowedDrivers.toList();
     await showModalBottomSheet(
         context: context,
-        builder: (builder) {
+        builder: (BuildContext builder) {
           return AllowDriversSheet(
               allowedDrivers: allowedDrivers,
               allDrivers: appData.drivers,

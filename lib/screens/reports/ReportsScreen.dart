@@ -24,23 +24,24 @@ class ReportsScreen extends StatelessWidget {
     return BaseScreen(
       headerText: 'Reports',
       child: SingleChildScrollView(
-        child: Consumer<ReportData>(builder: (context, reportData, _) {
+        child: Consumer<ReportData>(
+            builder: (BuildContext context, ReportData reportData, _) {
           return ReportsController.reportReady
               ? Column(
-                  children: [
+                  children: <Widget>[
                     _FilterWidget(),
                     Text(_getSummaryName(reportData.generatedReport.reportId),
                         style: kReportCardHeaderTS),
                     SummaryReportCard(report: reportData.generatedReport),
                     TripSummaryCard(report: reportData.generatedReport),
-                    Text('Expenses', style: kReportCardHeaderTS),
-                    HorLine(),
+                    const Text('Expenses', style: kReportCardHeaderTS),
+                    const HorLine(),
                     FuelExpensesCard(report: reportData.generatedReport),
                     ServiceRepairCard(report: reportData.generatedReport),
                     FinesOtherExpensesCard(report: reportData.generatedReport),
                   ],
                 )
-              : LoadingDots(size: 100);
+              : const LoadingDots(size: 100);
         }),
       ),
     );
@@ -62,7 +63,7 @@ class _FilterWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+      children: <Widget>[
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.3,
           height: 40,
@@ -84,17 +85,17 @@ class _FilterWidget extends StatelessWidget {
               onChanged: (String value) {}),
         ),
         IconButton(
-            icon: Icon(Icons.filter_list),
+            icon: const Icon(Icons.filter_list),
             onPressed: () async => onFilterClicked(context)),
       ],
     );
   }
 
-  void onFilterClicked(BuildContext context) async {
+  Future<void> onFilterClicked(BuildContext context) async {
     await showModalBottomSheet(
         context: context,
-        builder: (builder) {
-          return FilterReportsSheet();
+        builder: (BuildContext builder) {
+          return const FilterReportsSheet();
         });
   }
 }

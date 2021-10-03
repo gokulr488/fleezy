@@ -1,20 +1,22 @@
 import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fleezy/Common/Alerts.dart';
 import 'package:fleezy/Common/AppData.dart';
-
+import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/Validator.dart';
 import 'package:fleezy/DataAccess/DAOs/Vehicle.dart';
 import 'package:fleezy/DataAccess/ExpenseApis.dart';
 import 'package:fleezy/DataModels/ModelExpense.dart';
+import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/DataModels/ModelVehicle.dart';
 import 'package:fleezy/services/FirebaseStorageService.dart';
 import 'package:fleezy/services/ImageService.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:path/path.dart';
+import 'package:provider/provider.dart';
 
 class AddFuelController {
   StatefulWidget screen;
@@ -32,19 +34,20 @@ class AddFuelController {
 
   Future<void> onAddFuel(BuildContext context, String regNumber) async {
     if (vehicleDo == null) {
-      final callContext = await Vehicle().getVehicleByRegNo(regNumber);
+      final CallContext callContext =
+          await Vehicle().getVehicleByRegNo(regNumber);
       vehicleDo = callContext.data as ModelVehicle;
     }
     if (_valid(context)) {
       showSendingDialogue(context);
       await _uploadPhoto(context);
       _enrichExpenseDo(context);
-      final callContext =
+      final CallContext callContext =
           await ExpenseApis().addNewExpense(expenseDo, vehicleDo, context);
       Navigator.pop(context);
       if (callContext.isError) {
         showErrorAlert(
-            context, 'Failed to Add Fuel.' + callContext.errorMessage);
+            context, 'Failed to Add Fuel.${callContext.errorMessage}');
       } else {
         Navigator.pop(context);
         showSubmitResponse(context, 'Fuel Added');
@@ -67,7 +70,7 @@ class AddFuelController {
         expenseDo?.fuelQty != null &&
         expenseDo.fuelUnitPrice > 0 &&
         expenseDo.fuelQty > 0) {
-      expenseDo.amount = (expenseDo.fuelQty * expenseDo.fuelUnitPrice);
+      expenseDo.amount = expenseDo.fuelQty * expenseDo.fuelUnitPrice;
       totalPriceController.text = expenseDo.amount.toStringAsFixed(3);
     }
   }
@@ -78,7 +81,7 @@ class AddFuelController {
   }
 
   bool _valid(BuildContext context) {
-    final validate = Validator();
+    final Validator validate = Validator();
     try {
       validate.fileObject(photo, 'Fuel Pump photo not added', context);
       validate.stringField(expenseDo.payMode, 'Choose Payment type', context);
@@ -95,8 +98,8 @@ class AddFuelController {
   }
 
   void _enrichExpenseDo(BuildContext context) {
-    final appData = Provider.of<AppData>(context, listen: false);
-    final user = appData.user;
+    final AppData appData = Provider.of<AppData>(context, listen: false);
+    final ModelUser user = appData.user;
 
     expenseDo.driverName = user.fullName ?? user.phoneNumber;
     expenseDo.expenseDetails = 'Fuel Added';
@@ -112,12 +115,13 @@ class AddFuelController {
 
   Future<void> _uploadPhoto(BuildContext context) async {
     if (photo != null) {
-      final filePath = Constants.FUEL_BILLS_FOLDER + basename(photo.path);
+      final String filePath =
+          Constants.FUEL_BILLS_FOLDER + basename(photo.path);
       uploadTask = FirebaseStorageService.uploadFile(filePath, photo);
-      final snapshot = await uploadTask.whenComplete(() {});
-      final urlDownload = await snapshot.ref.getDownloadURL();
+      final TaskSnapshot snapshot = await uploadTask.whenComplete(() {});
+      final String urlDownload = await snapshot.ref.getDownloadURL();
       expenseDo.imagePath = urlDownload;
-      print('Download-Link: $urlDownload');
+      debugPrint('Download-Link: $urlDownload');
     } else {
       showErrorAlert(context, 'Fuel Pump photo not added');
     }

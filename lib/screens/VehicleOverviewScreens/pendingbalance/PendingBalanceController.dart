@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleezy/Common/Alerts.dart';
 import 'package:fleezy/Common/AppData.dart';
+import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/DataAccess/DAOs/Trip.dart';
 import 'package:fleezy/DataAccess/TripApis.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
@@ -10,10 +11,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class PendingBalanceController {
-  List<PendingBalanceCard> pendingBalCards = [];
+  List<PendingBalanceCard> pendingBalCards = <PendingBalanceCard>[];
   DocumentSnapshot lastDoc;
 
-  void getData(String regNumber, BuildContext context, AppData appdata) async {
+  Future<void> getData(
+      String regNumber, BuildContext context, AppData appdata) async {
     List<ModelTrip> pendingBalTrips;
     if (regNumber == null) {
       if (appdata.getAllPendingBalances() == null ||
@@ -29,9 +31,9 @@ class PendingBalanceController {
       pendingBalTrips = appdata.getPendingBalanceOf(regNumber);
     }
 
-    pendingBalCards = [];
+    pendingBalCards = <PendingBalanceCard>[];
     if (pendingBalTrips != null) {
-      for (final trip in pendingBalTrips) {
+      for (final ModelTrip trip in pendingBalTrips) {
         pendingBalCards.add(_buildPendingBalCard(trip));
       }
     }
@@ -39,11 +41,11 @@ class PendingBalanceController {
 
   Future<void> _getDataFromDB(
       String regNumber, BuildContext context, AppData appdata) async {
-    final callContext =
+    final CallContext callContext =
         await TripApis().getPendingBalanceTrips(context, regNumber, lastDoc);
     if (!callContext.isError) {
-      final tripHistory = callContext.data as List<ModelTrip>;
-      for (final trip in tripHistory) {
+      final List<ModelTrip> tripHistory = callContext.data as List<ModelTrip>;
+      for (final ModelTrip trip in tripHistory) {
         appdata.addPendingBalance(trip.vehicleRegNo, trip);
       }
 
@@ -62,8 +64,9 @@ class PendingBalanceController {
     getData(regNumber, context, appdata);
   }
 
-  Future<void> onPendingBalanceSave(BuildContext context, ModelTrip trip,
-      String amount, bool isIgnore, Function updateUi) async {
+  Future<void> onPendingBalanceSave(
+      BuildContext context, ModelTrip trip, String amount, Function updateUi,
+      {bool isIgnore}) async {
     if (isIgnore) {
       showWarningAlert(context, 'Ignore the pending balance of $amount Rs ?',
           () async {
@@ -84,8 +87,9 @@ class PendingBalanceController {
     trip.billAmount -= trip.balanceAmount;
     trip.balanceAmount = 0;
     Navigator.pop(context);
-    final appData = Provider.of<AppData>(context, listen: false);
-    final callContext = await Trip().updateTrip(trip, appData?.user?.companyId);
+    final AppData appData = Provider.of<AppData>(context, listen: false);
+    final CallContext callContext =
+        await Trip().updateTrip(trip, appData?.user?.companyId);
     if (callContext.isError) {
       showErrorAlert(context, callContext.errorMessage);
     } else {
@@ -97,8 +101,9 @@ class PendingBalanceController {
       BuildContext context, ModelTrip trip, String amount) async {
     trip.balanceAmount -= int.parse(amount);
     Navigator.pop(context);
-    final appData = Provider.of<AppData>(context, listen: false);
-    final callContext = await Trip().updateTrip(trip, appData?.user?.companyId);
+    final AppData appData = Provider.of<AppData>(context, listen: false);
+    final CallContext callContext =
+        await Trip().updateTrip(trip, appData?.user?.companyId);
     if (callContext.isError) {
       showErrorAlert(context, callContext.errorMessage);
     } else {
@@ -107,7 +112,7 @@ class PendingBalanceController {
   }
 
   bool valid(BuildContext context, ModelTrip trip, String balanceReceived,
-      bool ignorePending) {
+      {bool ignorePending}) {
     if (!ignorePending) {
       if (trip.balanceAmount < int.parse(balanceReceived)) {
         return false;

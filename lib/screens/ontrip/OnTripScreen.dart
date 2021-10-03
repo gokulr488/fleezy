@@ -31,7 +31,7 @@ class _OnTripScreenState extends State<OnTripScreen> {
   void initState() {
     super.initState();
     controller = OnTripController();
-    Timer.periodic(Duration(seconds: 1), (t) {
+    Timer.periodic(const Duration(seconds: 1), (Timer t) {
       timer = t;
       setState(() {});
     });
@@ -53,20 +53,20 @@ class _OnTripScreenState extends State<OnTripScreen> {
         child: tripDo != null
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: <Widget>[
                     TripDetailCard(
                       tripDo: tripDo,
                       distance: controller.distance,
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Expanded(
                         child: ScrollableList(
                       childrenHeight: 75,
-                      items: [
+                      items: <Widget>[
                         TextField(
                             textAlign: TextAlign.center,
                             keyboardType: TextInputType.number,
-                            onChanged: (value) {
+                            onChanged: (String value) {
                               tripDo.billAmount = double.parse(value);
                             },
                             decoration: kTextFieldDecoration.copyWith(
@@ -74,7 +74,7 @@ class _OnTripScreenState extends State<OnTripScreen> {
                         TextField(
                             textAlign: TextAlign.center,
                             keyboardType: TextInputType.number,
-                            onChanged: (value) {
+                            onChanged: (String value) {
                               tripDo.paidAmount = double.parse(value);
                             },
                             decoration: kTextFieldDecoration.copyWith(
@@ -82,7 +82,7 @@ class _OnTripScreenState extends State<OnTripScreen> {
                         TextField(
                             textAlign: TextAlign.center,
                             keyboardType: TextInputType.number,
-                            onChanged: (value) {
+                            onChanged: (String value) {
                               tripDo.driverSalary = double.parse(value);
                             },
                             decoration: kTextFieldDecoration.copyWith(
@@ -90,15 +90,15 @@ class _OnTripScreenState extends State<OnTripScreen> {
                         TextField(
                             keyboardType: TextInputType.number,
                             textAlign: TextAlign.center,
-                            onChanged: (value) {
+                            onChanged: (String value) {
                               tripDo.endReading = int.parse(value);
                             },
                             decoration: kTextFieldDecoration.copyWith(
                                 labelText: 'Odometer Reading')),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text('Round Trip',
+                            children: <Widget>[
+                              const Text('Round Trip',
                                   style: TextStyle(
                                       fontSize: 20, color: kHighlightColour)),
                               Checkbox(
@@ -115,7 +115,7 @@ class _OnTripScreenState extends State<OnTripScreen> {
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
+                          children: <Widget>[
                             RoundedButton(
                               title: 'Cancel Trip',
                               onPressed: () =>
@@ -145,11 +145,11 @@ class _OnTripScreenState extends State<OnTripScreen> {
                           controller.endTrip(context, tripDo);
                         })
                   ])
-            : LoadingDots(size: 100));
+            : const LoadingDots(size: 100));
   }
 
-  void _getTripDo(BuildContext context) async {
-    final appData = Provider.of<AppData>(context, listen: false);
+  Future<void> _getTripDo(BuildContext context) async {
+    final AppData appData = Provider.of<AppData>(context, listen: false);
     if (appData.trip != null) {
       tripDo = appData.trip;
     } else {

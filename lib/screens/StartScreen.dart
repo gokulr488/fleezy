@@ -18,7 +18,7 @@ class StartScreen extends StatelessWidget {
     return BaseScreen(
       headerText: '',
       child: Column(
-        children: [
+        children: <Widget>[
           Expanded(
             child: Center(
               child: Text(
@@ -44,7 +44,7 @@ class StartScreen extends StatelessWidget {
             },
             title: 'Create Company',
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           RoundedButton(
             onPressed: () {
               Navigator.pushNamed(context, LoginScreen.id);
@@ -52,29 +52,10 @@ class StartScreen extends StatelessWidget {
             title: 'Log In',
             colour: kBlueColor,
           ),
-          SizedBox(
+          const SizedBox(
             height: 50,
           )
         ],
-      ),
-    );
-  }
-}
-
-class Button extends StatelessWidget {
-  final String buttonText;
-
-  const Button({this.buttonText});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 50,
-      child: Center(
-        child: Text(
-          buttonText,
-          style: buttonTextStyle,
-        ),
       ),
     );
   }

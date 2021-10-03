@@ -36,6 +36,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MultiProvider(
+    // ignore: always_specify_types
     providers: [
       ChangeNotifierProvider<AppData>(create: (_) => AppData()),
       ChangeNotifierProvider<UiState>(create: (_) => UiState()),

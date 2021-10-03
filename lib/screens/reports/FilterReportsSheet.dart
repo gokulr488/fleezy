@@ -16,17 +16,17 @@ class FilterReportsSheet extends StatefulWidget {
 class _FilterReportsSheetState extends State<FilterReportsSheet> {
   @override
   Widget build(BuildContext context) {
-    final repData = Provider.of<ReportData>(context, listen: false);
+    final ReportData repData = Provider.of<ReportData>(context, listen: false);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
-        children: [
-          Text('Report Filters', style: TextStyle(fontSize: 18)),
+        children: <Widget>[
+          const Text('Report Filters', style: TextStyle(fontSize: 18)),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
+              children: <Widget>[
                 _buildButton(repData, Constants.MONTHLY),
                 _buildButton(repData, Constants.QUARTERLY),
                 _buildButton(repData, Constants.YEARLY),
@@ -34,13 +34,13 @@ class _FilterReportsSheetState extends State<FilterReportsSheet> {
             ),
           ),
           Row(
-            children: [
+            children: <Widget>[
               Expanded(child: YearSelector()),
               if (repData.filterPeriod != Constants.YEARLY)
                 Expanded(child: TimePeriodSelector()),
             ],
           ),
-          Spacer(flex: 5),
+          const Spacer(flex: 5),
           RoundedButton(
             onPressed: () {
               Navigator.pop(context);

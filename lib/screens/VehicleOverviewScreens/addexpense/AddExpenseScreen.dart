@@ -19,7 +19,7 @@ class AddExpenseScreen extends StatefulWidget {
 
 class _AddExpenseScreenState extends State<AddExpenseScreen> {
   AddExpenseController ctrl;
-  final TextStyle _ts = TextStyle(
+  final TextStyle _ts = const TextStyle(
       fontWeight: FontWeight.bold, fontSize: 20, color: kHighlightColour);
 
   @override
@@ -30,13 +30,14 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final regNumber = ModalRoute.of(context).settings.arguments as String;
-    final appdata = Provider.of<AppData>(context, listen: false);
+    final String regNumber =
+        ModalRoute.of(context).settings.arguments as String;
+    final AppData appdata = Provider.of<AppData>(context, listen: false);
     return BaseScreen(
         headerText: 'Add Expense',
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+            children: <Widget>[
               IgnorePointer(
                 child: VehicleCard(
                   registrationNumber: regNumber,
@@ -44,9 +45,9 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                       appdata.user.fullName ?? appdata.user.phoneNumber,
                 ),
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               Expanded(
-                  child: ScrollableList(childrenHeight: 90, items: [
+                  child: ScrollableList(childrenHeight: 90, items: <Widget>[
                 DropDown(
                     defaultValue: ctrl.expenseDo.expenseType,
                     values: Constants.EXPENSE_TYPES,
@@ -57,7 +58,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                 TextField(
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
-                    onChanged: (value) {
+                    onChanged: (String value) {
                       ctrl.expenseDo.amount = double.parse(value);
                     },
                     decoration:
@@ -65,7 +66,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                 TextField(
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
-                    onChanged: (value) {
+                    onChanged: (String value) {
                       ctrl.expenseDo.odometerReading = int.parse(value);
                     },
                     decoration: kTextFieldDecoration.copyWith(
@@ -74,21 +75,21 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                     minLines: 4,
                     maxLines: 5,
                     textAlign: TextAlign.center,
-                    onChanged: (value) {
+                    onChanged: (String value) {
                       ctrl.expenseDo.expenseDetails = value;
                     },
                     decoration: kTextFieldDecoration.copyWith(
                         labelText: 'Details of Expense'))
               ])),
               Row(
-                children: [
+                children: <Widget>[
                   _getPhotoWidget(),
                   IconButton(
                       onPressed: () async {
                         await ctrl.takePhoto();
                         setState(() {});
                       },
-                      icon: Icon(Icons.camera_alt_outlined),
+                      icon: const Icon(Icons.camera_alt_outlined),
                       iconSize: 50),
                 ],
               ),
@@ -99,7 +100,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
   }
 
   Widget _getPhotoWidget() {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width - 100,
       child: ctrl.photo != null
           ? GestureDetector(
@@ -112,8 +113,8 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
               ),
               onTap: () => Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) =>
+                  MaterialPageRoute<ImageViewerScreen>(
+                      builder: (BuildContext context) =>
                           ImageViewerScreen(photo: ctrl.photo))),
             )
           : Center(child: Text('Add Expense Bill', style: _ts)),

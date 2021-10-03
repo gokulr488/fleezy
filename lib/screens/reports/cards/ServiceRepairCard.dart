@@ -6,8 +6,9 @@ import 'package:fleezy/screens/reports/DataRowWidget.dart';
 import 'package:flutter/material.dart';
 
 class ServiceRepairCard extends StatelessWidget {
-  final ModelReport report;
   const ServiceRepairCard({@required this.report});
+
+  final ModelReport report;
 
   @override
   Widget build(BuildContext context) {
@@ -16,21 +17,21 @@ class ServiceRepairCard extends StatelessWidget {
       cardChild: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
-          children: [
-            Text('Service, Repairs & Spares', style: kReportCardHeaderTS),
+          children: <Widget>[
+            const Text('Service, Repairs & Spares', style: kReportCardHeaderTS),
             DataRowWidget(
               field: 'Service Cost',
-              value: Utils.formatDouble(report.serviceCost) + ' Rs',
+              value: '${Utils.formatDouble(report.serviceCost)} Rs',
               color: Colors.red[500],
             ),
             DataRowWidget(
               field: 'Repair Cost',
-              value: Utils.formatDouble(report.repairCost) + ' Rs',
+              value: '${Utils.formatDouble(report.repairCost)} Rs',
               color: Colors.red[500],
             ),
             DataRowWidget(
               field: 'Spares Cost',
-              value: Utils.formatDouble(report.spareCost) + ' Rs',
+              value: '${Utils.formatDouble(report.spareCost)} Rs',
               color: Colors.red[500],
             ),
             DataRowWidget(

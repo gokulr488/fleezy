@@ -18,7 +18,7 @@ class AddFuelScreen extends StatefulWidget {
 
 class _AddFuelScreenState extends State<AddFuelScreen> {
   AddFuelController controller;
-  final TextStyle _ts = TextStyle(
+  final TextStyle _ts = const TextStyle(
       fontWeight: FontWeight.bold, fontSize: 20, color: kHighlightColour);
   @override
   void initState() {
@@ -35,13 +35,14 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final regNumber = ModalRoute.of(context).settings.arguments as String;
-    final appdata = Provider.of<AppData>(context, listen: false);
+    final String regNumber =
+        ModalRoute.of(context).settings.arguments as String;
+    final AppData appdata = Provider.of<AppData>(context, listen: false);
     return BaseScreen(
         headerText: 'Add Fuel',
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+            children: <Widget>[
               IgnorePointer(
                 child: VehicleCard(
                   registrationNumber: regNumber,
@@ -49,12 +50,12 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
                       appdata.user.fullName ?? appdata.user.phoneNumber,
                 ),
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               Expanded(
-                  child: ScrollableList(childrenHeight: 65, items: [
+                  child: ScrollableList(childrenHeight: 65, items: <Widget>[
                 DropDown(
                     defaultValue: controller.expenseDo.payMode,
-                    values: ['CASH', 'BPL Card', 'Debit Card'],
+                    values: const <String>['CASH', 'BPL Card', 'Debit Card'],
                     onChanged: (String value) {
                       controller.expenseDo.payMode = value;
                     },
@@ -62,7 +63,7 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
                 TextFormField(
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
-                  onChanged: (value) {
+                  onChanged: (String value) {
                     controller.expenseDo.amount = double.parse(value);
                     controller.calcLitresFilled();
                   },
@@ -73,7 +74,7 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
                 TextField(
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
-                    onChanged: (value) {
+                    onChanged: (String value) {
                       controller.expenseDo.fuelUnitPrice = double.parse(value);
                       controller.calcLitresFilled();
                     },
@@ -82,7 +83,7 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
                 TextFormField(
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
-                    onChanged: (value) {
+                    onChanged: (String value) {
                       controller.expenseDo.fuelQty = double.parse(value);
                       controller.calcTotalPrice();
                     },
@@ -92,14 +93,14 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
                 TextField(
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
-                    onChanged: (value) {
+                    onChanged: (String value) {
                       controller.expenseDo.odometerReading = int.parse(value);
                     },
                     decoration: kTextFieldDecoration.copyWith(
                         labelText: 'Odometer Reading')),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
+                    children: <Widget>[
                       Text('Full Tank', style: _ts),
                       Checkbox(
                           activeColor: kHighlightColour,
@@ -112,14 +113,14 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
                     ])
               ])),
               Row(
-                children: [
+                children: <Widget>[
                   _getPhotoWidget(),
                   IconButton(
                       onPressed: () async {
                         await controller.takePhoto();
                         setState(() {});
                       },
-                      icon: Icon(Icons.camera_alt_outlined),
+                      icon: const Icon(Icons.camera_alt_outlined),
                       iconSize: 50),
                 ],
               ),
@@ -130,7 +131,7 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
   }
 
   Widget _getPhotoWidget() {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width - 100,
       child: controller.photo != null
           ? GestureDetector(
@@ -143,8 +144,8 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
               ),
               onTap: () => Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) =>
+                  MaterialPageRoute<ImageViewerScreen>(
+                      builder: (BuildContext context) =>
                           ImageViewerScreen(photo: controller.photo))),
             )
           : Center(child: Text('Add Fuel Bill', style: _ts)),

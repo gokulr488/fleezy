@@ -29,19 +29,19 @@ class _TaxPaymentScreenState extends State<TaxPaymentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final vehicle =
+    final ManageVehicleCard vehicle =
         ModalRoute.of(context).settings.arguments as ManageVehicleCard;
     ctrl.vehicleDo ??= vehicle.vehicle;
     return BaseScreen(
         headerText: 'Tax Payment',
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+            children: <Widget>[
               IgnorePointer(child: vehicle),
               Expanded(
                   child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
-                child: ScrollableList(childrenHeight: 80, items: [
+                child: ScrollableList(childrenHeight: 80, items: <Widget>[
                   DatePicker(
                       text: 'Tax Expiry Date:  ${_getTaxExpiryDate()}',
                       onTap: onDatePickerTap),
@@ -49,7 +49,7 @@ class _TaxPaymentScreenState extends State<TaxPaymentScreen> {
                     child: TextField(
                         keyboardType: TextInputType.number,
                         textAlign: TextAlign.center,
-                        onChanged: (value) {
+                        onChanged: (String value) {
                           ctrl.expenseDo.amount = double.parse(value);
                         },
                         decoration:
@@ -59,7 +59,7 @@ class _TaxPaymentScreenState extends State<TaxPaymentScreen> {
                       minLines: 4,
                       maxLines: 5,
                       textAlign: TextAlign.center,
-                      onChanged: (value) {
+                      onChanged: (String value) {
                         ctrl.expenseDo.expenseDetails = value;
                       },
                       decoration:
@@ -69,7 +69,8 @@ class _TaxPaymentScreenState extends State<TaxPaymentScreen> {
               RoundedButton(
                   title: 'Save Tax Payment',
                   onPressed: () async {
-                    final isSuccess = await ctrl.onAddExpense(context, null);
+                    final bool isSuccess =
+                        await ctrl.onAddExpense(context, null);
                     if (isSuccess) {
                       vehicle.vehicle.taxExpiryDate =
                           ctrl.vehicleDo.taxExpiryDate;
@@ -81,8 +82,9 @@ class _TaxPaymentScreenState extends State<TaxPaymentScreen> {
   }
 
   Future<void> onDatePickerTap() async {
-    final currentDate = Utils.getDateTime(ctrl.vehicleDo?.taxExpiryDate);
-    final selectedDate =
+    final DateTime currentDate =
+        Utils.getDateTime(ctrl.vehicleDo?.taxExpiryDate);
+    final DateTime selectedDate =
         await Utils.pickDate(context, selectedDate: currentDate);
     ctrl.expenseDo.taxExpiryDate = Utils.getTimeStamp(selectedDate);
     ctrl.vehicleDo.taxExpiryDate = ctrl.expenseDo?.taxExpiryDate;
@@ -90,7 +92,7 @@ class _TaxPaymentScreenState extends State<TaxPaymentScreen> {
   }
 
   String _getTaxExpiryDate() {
-    var expiryDate = '';
+    String expiryDate = '';
     if (ctrl.vehicleDo?.taxExpiryDate != null) {
       expiryDate = Utils.getFormattedTimeStamp(
           ctrl.vehicleDo.taxExpiryDate, kDateFormat);
