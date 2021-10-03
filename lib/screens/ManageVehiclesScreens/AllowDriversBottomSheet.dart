@@ -1,4 +1,5 @@
 import 'package:fleezy/Common/Alerts.dart';
+import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/DataAccess/DAOs/Vehicle.dart';
 import 'package:fleezy/DataModels/ModelUser.dart';
@@ -8,11 +9,11 @@ import 'package:fleezy/components/ScrollableList.dart';
 import 'package:flutter/material.dart';
 
 class AllowDriversSheet extends StatefulWidget {
+  const AllowDriversSheet(
+      {@required this.allowedDrivers, this.allDrivers, this.vehicle});
   final List<ModelUser> allDrivers;
   final List<String> allowedDrivers;
   final ModelVehicle vehicle;
-  AllowDriversSheet(
-      {@required this.allowedDrivers, this.allDrivers, this.vehicle});
   @override
   _AllowDriversSheetState createState() => _AllowDriversSheetState();
 }
@@ -20,9 +21,8 @@ class AllowDriversSheet extends StatefulWidget {
 class _AllowDriversSheetState extends State<AllowDriversSheet> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Column(
-      children: [
+    return Column(
+      children: <Widget>[
         Expanded(
             child: ScrollableList(
                 childrenHeight: 50,
@@ -36,35 +36,36 @@ class _AllowDriversSheetState extends State<AllowDriversSheet> {
           title: 'Save',
         )
       ],
-    ));
+    );
   }
 
   List<Widget> getDriverChoosers(
       List<ModelUser> allDrivers, List<String> allowedDrivers) {
-    List<Widget> driverChoosers = [];
-    for (final driver in allDrivers) {
-      var allowed = allowedDrivers.contains(driver.phoneNumber);
+    final List<Widget> driverChoosers = <Widget>[];
+    for (final ModelUser driver in allDrivers) {
+      bool allowed = allowedDrivers.contains(driver.phoneNumber);
       driverChoosers.add(Padding(
         padding: const EdgeInsets.all(10.0),
-        child:
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text(
-            driver.fullName,
-            style: TextStyle(fontSize: 17),
-          ),
-          Checkbox(
-              activeColor: kHighlightColour,
-              value: allowed,
-              onChanged: (bool value) {
-                allowed = !allowed;
-                if (allowed) {
-                  allowedDrivers.add(driver.phoneNumber);
-                } else {
-                  allowedDrivers.remove(driver.phoneNumber);
-                }
-                setState(() {});
-              })
-        ]),
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                driver.fullName,
+                style: const TextStyle(fontSize: 17),
+              ),
+              Checkbox(
+                  activeColor: kHighlightColour,
+                  value: allowed,
+                  onChanged: (bool value) {
+                    allowed = !allowed;
+                    if (allowed) {
+                      allowedDrivers.add(driver.phoneNumber);
+                    } else {
+                      allowedDrivers.remove(driver.phoneNumber);
+                    }
+                    setState(() {});
+                  })
+            ]),
       ));
     }
     return driverChoosers;
@@ -72,9 +73,9 @@ class _AllowDriversSheetState extends State<AllowDriversSheet> {
 
   Future<void> saveAllowedDrivers(ModelVehicle vehicle,
       List<String> allowedDrivers, BuildContext context) async {
-    final currentList = vehicle.allowedDrivers.toList();
+    final List<String> currentList = vehicle.allowedDrivers.toList();
     vehicle.allowedDrivers = allowedDrivers;
-    final callContext = await Vehicle().updateVehicle(vehicle);
+    final CallContext callContext = await Vehicle().updateVehicle(vehicle);
     if (callContext.isError) {
       showSubmitResponse(context, callContext.message);
       vehicle.allowedDrivers = currentList;

@@ -21,14 +21,15 @@ class _TripHistoryScreenState extends State<TripHistoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final regNumber = ModalRoute.of(context).settings.arguments as String;
-    final appdata = Provider.of<AppData>(context, listen: false);
+    final String regNumber =
+        ModalRoute.of(context).settings.arguments as String;
+    final AppData appdata = Provider.of<AppData>(context, listen: false);
     ctrl.getData(regNumber, context, appdata);
     return BaseScreen(
         headerText: 'Trip History',
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+            children: <Widget>[
               IgnorePointer(
                 child: VehicleCard(
                   registrationNumber: regNumber,
@@ -42,7 +43,9 @@ class _TripHistoryScreenState extends State<TripHistoryScreen> {
                     onFilterClicked(context, appdata, regNumber);
                   }),
               Expanded(
-                child: Consumer<AppData>(builder: (context, misData, _) {
+                // ignore: lines_longer_than_80_chars
+                child: Consumer<AppData>(
+                    builder: (BuildContext context, AppData appData, _) {
                   return ScrollableList(
                       childrenHeight: 100, items: ctrl.tripDetailCards);
                 }),
@@ -54,13 +57,13 @@ class _TripHistoryScreenState extends State<TripHistoryScreen> {
             ]));
   }
 
-  void onFilterClicked(
+  Future<void> onFilterClicked(
       BuildContext context, AppData appData, String regNumber) async {
     ctrl.from = DateTime.now();
     ctrl.to = DateTime.now();
     await showModalBottomSheet(
         context: context,
-        builder: (builder) {
+        builder: (BuildContext builder) {
           return TripFilterSheet(
               ctrl: ctrl, appData: appData, regNumber: regNumber);
         });

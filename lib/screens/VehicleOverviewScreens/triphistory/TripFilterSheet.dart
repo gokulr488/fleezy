@@ -1,17 +1,20 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/Common/Utils.dart';
 import 'package:fleezy/components/DatePicker.dart';
 import 'package:fleezy/components/RoundedButton.dart';
-import 'package:flutter/material.dart';
 import 'package:fleezy/screens/VehicleOverviewScreens/triphistory/TripHistoryController.dart';
+import 'package:flutter/material.dart';
 
 class TripFilterSheet extends StatefulWidget {
+  const TripFilterSheet({@required this.ctrl, this.regNumber, this.appData});
+
   final TripHistoryController ctrl;
   final String regNumber;
   final AppData appData;
 
-  const TripFilterSheet({@required this.ctrl, this.regNumber, this.appData});
   @override
   _TripFilterSheetState createState() => _TripFilterSheetState();
 }
@@ -22,7 +25,7 @@ class _TripFilterSheetState extends State<TripFilterSheet> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
-        children: [
+        children: <Widget>[
           Expanded(
             child: DatePicker(
               text:
@@ -43,7 +46,7 @@ class _TripFilterSheetState extends State<TripFilterSheet> {
               },
             ),
           ),
-          Spacer(flex: 5),
+          const Spacer(flex: 5),
           RoundedButton(
             onPressed: () {
               widget.ctrl

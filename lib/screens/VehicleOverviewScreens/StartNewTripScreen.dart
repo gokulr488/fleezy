@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleezy/Common/Alerts.dart';
 import 'package:fleezy/Common/AppData.dart';
+import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/Common/Validator.dart';
 import 'package:fleezy/DataAccess/TripApis.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
+import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/components/ScrollableList.dart';
@@ -23,7 +25,7 @@ class StartNewTripScreen extends StatefulWidget {
 class _StartNewTripScreenState extends State<StartNewTripScreen> {
   String message = '';
   VehicleCard vehicle =
-      VehicleCard(message: '', currentDriver: '', registrationNumber: '');
+      const VehicleCard(message: '', currentDriver: '', registrationNumber: '');
   ModelTrip trip = ModelTrip();
   @override
   Widget build(BuildContext context) {
@@ -32,16 +34,16 @@ class _StartNewTripScreenState extends State<StartNewTripScreen> {
         headerText: 'Start New Trip',
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+            children: <Widget>[
               IgnorePointer(child: vehicle),
               Expanded(
                   child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
-                child: ScrollableList(childrenHeight: 80, items: [
+                child: ScrollableList(childrenHeight: 80, items: <Widget>[
                   TextField(
                       textCapitalization: TextCapitalization.words,
                       textAlign: TextAlign.center,
-                      onChanged: (value) {
+                      onChanged: (String value) {
                         trip.startingFrom = value;
                       },
                       decoration: kTextFieldDecoration.copyWith(
@@ -49,7 +51,7 @@ class _StartNewTripScreenState extends State<StartNewTripScreen> {
                   TextField(
                       textCapitalization: TextCapitalization.words,
                       textAlign: TextAlign.center,
-                      onChanged: (value) {
+                      onChanged: (String value) {
                         trip.destination = value;
                       },
                       decoration:
@@ -57,7 +59,7 @@ class _StartNewTripScreenState extends State<StartNewTripScreen> {
                   TextField(
                       keyboardType: TextInputType.number,
                       textAlign: TextAlign.center,
-                      onChanged: (value) {
+                      onChanged: (String value) {
                         trip.startReading = int.parse(value);
                       },
                       decoration: kTextFieldDecoration.copyWith(
@@ -65,7 +67,7 @@ class _StartNewTripScreenState extends State<StartNewTripScreen> {
                   TextField(
                       textCapitalization: TextCapitalization.words,
                       textAlign: TextAlign.center,
-                      onChanged: (value) {
+                      onChanged: (String value) {
                         trip.customerName = value;
                       },
                       decoration: kTextFieldDecoration.copyWith(
@@ -73,7 +75,7 @@ class _StartNewTripScreenState extends State<StartNewTripScreen> {
                   TextField(
                       keyboardType: TextInputType.number,
                       textAlign: TextAlign.center,
-                      onChanged: (value) {
+                      onChanged: (String value) {
                         trip.customerPhone = value;
                       },
                       decoration: kTextFieldDecoration.copyWith(
@@ -88,15 +90,15 @@ class _StartNewTripScreenState extends State<StartNewTripScreen> {
             ]));
   }
 
-  void _startTrip(BuildContext context) async {
+  Future<void> _startTrip(BuildContext context) async {
     if (valid()) {
-      final appData = Provider.of<AppData>(context, listen: false);
-      final user = appData.user;
+      final AppData appData = Provider.of<AppData>(context, listen: false);
+      final ModelUser user = appData.user;
       trip.driverName = user.fullName ?? user.phoneNumber;
       trip.driverUid = user.uid;
       trip.startDate = Timestamp.now();
       trip.vehicleRegNo = vehicle.registrationNumber;
-      final callContext =
+      final CallContext callContext =
           await TripApis().startNewTrip(trip, vehicle.vehicle, context);
       if (callContext.isError) {
         message = callContext.errorMessage;
@@ -110,7 +112,7 @@ class _StartNewTripScreenState extends State<StartNewTripScreen> {
   }
 
   bool valid() {
-    final validate = Validator();
+    final Validator validate = Validator();
     try {
       validate.stringField(trip.startingFrom, 'Enter Start Location', context);
       validate.stringField(trip.destination, 'Enter Destination', context);

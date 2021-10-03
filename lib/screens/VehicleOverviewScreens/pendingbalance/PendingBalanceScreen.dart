@@ -16,40 +16,45 @@ class PendingBalanceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     scrollCtrl.addListener(_scrollListener);
-    final regNumber = ModalRoute.of(context).settings.arguments as String;
-    final appdata = Provider.of<AppData>(context, listen: false);
+    final String regNumber =
+        ModalRoute.of(context).settings.arguments as String;
+    final AppData appdata = Provider.of<AppData>(context, listen: false);
     ctrl.getData(regNumber, context, appdata);
     return BaseScreen(
       headerText: 'Pending Balances',
-      child:
-          Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        if (regNumber != null)
-          IgnorePointer(
-            child: VehicleCard(
-              registrationNumber: regNumber,
-              currentDriver: appdata.user.fullName ?? appdata.user.phoneNumber,
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            if (regNumber != null)
+              IgnorePointer(
+                child: VehicleCard(
+                  registrationNumber: regNumber,
+                  currentDriver:
+                      appdata.user.fullName ?? appdata.user.phoneNumber,
+                ),
+              ),
+            Expanded(
+              child: Consumer<AppData>(
+                  builder: (BuildContext context, AppData appData, _) {
+                return ScrollableList(
+                    childrenHeight: 160,
+                    items: ctrl.pendingBalCards,
+                    scrollController: scrollCtrl);
+              }),
             ),
-          ),
-        Expanded(
-          child: Consumer<AppData>(builder: (context, misData, _) {
-            return ScrollableList(
-                childrenHeight: 160,
-                items: ctrl.pendingBalCards,
-                scrollController: scrollCtrl);
-          }),
-        ),
-        RoundedButton(
-          title: 'Refresh',
-          onPressed: () => ctrl.onRefreshPressed(regNumber, context, appdata),
-        )
-      ]),
+            RoundedButton(
+              title: 'Refresh',
+              onPressed: () =>
+                  ctrl.onRefreshPressed(regNumber, context, appdata),
+            )
+          ]),
     );
   }
 
   void _scrollListener() {
     if (scrollCtrl.offset >= scrollCtrl.position.maxScrollExtent &&
         !scrollCtrl.position.outOfRange) {
-      print('at the end of list');
+      debugPrint('at the end of list');
       //ctrl.getData();
     }
   }
