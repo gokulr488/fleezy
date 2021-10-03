@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/Constants.dart';
@@ -26,25 +28,25 @@ class Company {
         .collection(Constants.COMPANIES)
         .doc(company.companyEmail)
         .set(ModelCompany.getDocOf(company))
-        .then((value) => print('Company Added'))
-        .catchError((error) {
+        .then((dynamic value) => print('Company Added'))
+        .catchError((dynamic error) {
       callContext.setError('Failed to add company: $error');
       return callContext;
     });
-    callContext = await Roles().addRole(company.users.values.first);
-    return callContext;
+    return Roles().addRole(company.users.values.first);
   }
 
-  void updateCompany(ModelCompany company) async {
+  Future<void> updateCompany(ModelCompany company) async {
     return fireStore
         .collection(Constants.COMPANIES)
         .doc(company.companyEmail)
-        .update({
+        .update(<String, String>{
           'CompanyName': company.companyName,
           'CompanyEmail': company.companyEmail,
           'PhoneNumber': company.phoneNumber,
         })
-        .then((value) => print('Company details updated'))
-        .catchError((error) => print('Failed to update company: $error'));
+        .then((dynamic value) => print('Company details updated'))
+        .catchError(
+            (dynamic error) => print('Failed to update company: $error'));
   }
 }

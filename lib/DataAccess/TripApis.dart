@@ -10,18 +10,18 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TripApis {
-  FirebaseFirestore fireStore;
-  CallContext callContext;
   TripApis() {
     fireStore = FirebaseFirestore.instance;
     callContext = CallContext();
   }
+  FirebaseFirestore fireStore;
+  CallContext callContext;
 
   Future<CallContext> startNewTrip(
       ModelTrip trip, ModelVehicle vehicle, BuildContext context) async {
-    final user = Provider.of<AppData>(context, listen: false).user;
-    final batch = fireStore.batch();
-    final tripRef = fireStore
+    final ModelUser user = Provider.of<AppData>(context, listen: false).user;
+    final WriteBatch batch = fireStore.batch();
+    final DocumentReference<Map<String, dynamic>> tripRef = fireStore
         .collection(Constants.COMPANIES)
         .doc(user.companyId)
         .collection(Constants.TRIP)
@@ -30,31 +30,31 @@ class TripApis {
     trip.status = Constants.STARTED;
     batch.set(tripRef, ModelTrip.getDocOf(trip));
 
-    DocumentReference vehicleRef =
+    final DocumentReference<Map<String, dynamic>> vehicleRef =
         fireStore.collection(Constants.VEHICLES).doc(vehicle.registrationNo);
     vehicle.isInTrip = true;
     vehicle.latestOdometerReading = trip.startReading;
     vehicle.currentDriver = user.fullName ?? user.phoneNumber;
     batch.update(vehicleRef, ModelVehicle.getDocOf(vehicle));
 
-    DocumentReference driverRef =
+    final DocumentReference<Map<String, dynamic>> driverRef =
         fireStore.collection(Constants.USERS).doc(user.phoneNumber);
     user.tripId = tripRef.id;
     batch.update(driverRef, ModelUser.getDocOf(user));
 
     await batch
         .commit()
-        .then((value) => callContext.setSuccess('Trip STarted'))
-        .catchError((error) => callContext.setError('$error'));
+        .then((dynamic value) => callContext.setSuccess('Trip STarted'))
+        .catchError((dynamic error) => callContext.setError('$error'));
     return callContext;
   }
 
   Future<CallContext> endTrip(ModelTrip trip, BuildContext context) async {
-    final user = Provider.of<AppData>(context, listen: false).user;
+    final ModelUser user = Provider.of<AppData>(context, listen: false).user;
     try {
-      final batch = fireStore.batch();
+      final WriteBatch batch = fireStore.batch();
 
-      final tripRef = fireStore
+      final DocumentReference<Map<String, dynamic>> tripRef = fireStore
           .collection(Constants.COMPANIES)
           .doc(user.companyId)
           .collection(Constants.TRIP)
@@ -62,14 +62,15 @@ class TripApis {
       trip.status = Constants.ENDED;
       batch.update(tripRef, ModelTrip.getDocOf(trip));
 
-      final vehicleRef =
+      final DocumentReference<Map<String, dynamic>> vehicleRef =
           fireStore.collection(Constants.VEHICLES).doc(trip.vehicleRegNo);
-      final vehicle = ModelVehicle.getVehicleFromDoc(await vehicleRef.get());
+      final ModelVehicle vehicle =
+          ModelVehicle.getVehicleFromDoc(await vehicleRef.get());
       vehicle.isInTrip = false;
       vehicle.latestOdometerReading = trip.endReading;
       batch.update(vehicleRef, ModelVehicle.getDocOf(vehicle));
 
-      final driverRef =
+      final DocumentReference<Map<String, dynamic>> driverRef =
           fireStore.collection(Constants.USERS).doc(user.phoneNumber);
       user.tripId = null;
       batch.update(driverRef, ModelUser.getDocOf(user));
@@ -84,7 +85,7 @@ class TripApis {
   }
 
   Future<ModelTrip> getTripById(String id, String companyId) async {
-    DocumentSnapshot tripDoc = await fireStore
+    final DocumentSnapshot<Map<String, dynamic>> tripDoc = await fireStore
         .collection(Constants.COMPANIES)
         .doc(companyId)
         .collection(Constants.TRIP)
@@ -94,11 +95,11 @@ class TripApis {
   }
 
   Future<CallContext> cancelTrip(ModelTrip trip, BuildContext context) async {
-    final user = Provider.of<AppData>(context, listen: false).user;
+    final ModelUser user = Provider.of<AppData>(context, listen: false).user;
     try {
-      final batch = fireStore.batch();
+      final WriteBatch batch = fireStore.batch();
 
-      final tripRef = fireStore
+      final DocumentReference<Map<String, dynamic>> tripRef = fireStore
           .collection(Constants.COMPANIES)
           .doc(user.companyId)
           .collection(Constants.TRIP)
@@ -107,13 +108,14 @@ class TripApis {
       trip.endDate = Timestamp.now();
       batch.update(tripRef, ModelTrip.getDocOf(trip));
 
-      final vehicleRef =
+      final DocumentReference<Map<String, dynamic>> vehicleRef =
           fireStore.collection(Constants.VEHICLES).doc(trip.vehicleRegNo);
-      final vehicle = ModelVehicle.getVehicleFromDoc(await vehicleRef.get());
+      final ModelVehicle vehicle =
+          ModelVehicle.getVehicleFromDoc(await vehicleRef.get());
       vehicle.isInTrip = false;
       batch.update(vehicleRef, ModelVehicle.getDocOf(vehicle));
 
-      final driverRef =
+      final DocumentReference<Map<String, dynamic>> driverRef =
           fireStore.collection(Constants.USERS).doc(user.phoneNumber);
       user.tripId = null;
       batch.update(driverRef, ModelUser.getDocOf(user));
@@ -129,7 +131,7 @@ class TripApis {
 
   Future<CallContext> filterTrips(BuildContext context, int limit,
       {String regNo, DateTime from, DateTime to}) async {
-    final user = Provider.of<AppData>(context, listen: false).user;
+    final ModelUser user = Provider.of<AppData>(context, listen: false).user;
     Query reference = fireStore
         .collection(Constants.COMPANIES)
         .doc(user.companyId)
@@ -161,7 +163,7 @@ class TripApis {
   Future<CallContext> getPendingBalanceTrips(
       BuildContext context, String regNo, DocumentSnapshot page) async {
     try {
-      final user = Provider.of<AppData>(context, listen: false).user;
+      final ModelUser user = Provider.of<AppData>(context, listen: false).user;
       Query reference = fireStore
           .collection(Constants.COMPANIES)
           .doc(user.companyId)

@@ -4,13 +4,12 @@ import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
 
 class Trip {
-  FirebaseFirestore fireStore;
-  CallContext callContext;
-
   Trip() {
     fireStore = FirebaseFirestore.instance;
     callContext = CallContext();
   }
+  FirebaseFirestore fireStore;
+  CallContext callContext;
 
   Future<CallContext> updateTrip(ModelTrip trip, String companyId) async {
     await fireStore
@@ -19,8 +18,8 @@ class Trip {
         .collection(Constants.TRIP)
         .doc(trip.id)
         .update(ModelTrip.getDocOf(trip))
-        .then((value) => callContext.setSuccess('Trip updated'))
-        .catchError((error) =>
+        .then((dynamic value) => callContext.setSuccess('Trip updated'))
+        .catchError((dynamic error) =>
             callContext.setError('Error Updating Trip ${error.toString()}'));
     return callContext;
   }

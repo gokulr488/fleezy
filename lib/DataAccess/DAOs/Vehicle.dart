@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/CallContext.dart';
@@ -6,20 +8,19 @@ import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/DataModels/ModelVehicle.dart';
 
 class Vehicle {
-  FirebaseFirestore fireStore;
-  CallContext callContext;
-
   Vehicle() {
     fireStore = FirebaseFirestore.instance;
     callContext = CallContext();
   }
+  FirebaseFirestore fireStore;
+  CallContext callContext;
 
   Future<CallContext> addVehicle(ModelVehicle vehicle) async {
     if (vehicle.companyId == null) {
       callContext.setError('companyId is null for the vehicle');
       return callContext;
     }
-    DocumentSnapshot docSnap = await fireStore
+    final DocumentSnapshot docSnap = await fireStore
         .collection(Constants.VEHICLES)
         .doc(vehicle.registrationNo)
         .get();
@@ -32,8 +33,8 @@ class Vehicle {
         .collection(Constants.VEHICLES)
         .doc(vehicle.registrationNo)
         .set(ModelVehicle.getDocOf(vehicle))
-        .then((value) => callContext.setSuccess('Vehicle added'))
-        .catchError((error) => callContext.setError('$error'));
+        .then((dynamic value) => callContext.setSuccess('Vehicle added'))
+        .catchError((dynamic error) => callContext.setError('$error'));
 
     return callContext;
   }
@@ -57,9 +58,9 @@ class Vehicle {
         .collection(Constants.VEHICLES)
         .doc(vehicle.registrationNo)
         .update(ModelVehicle.getDocOf(vehicle))
-        .then((value) => callContext.setSuccess('Vehicle Updated'))
-        .catchError(
-            (error) => callContext.setError('Error Updating Vehicle $error'));
+        .then((dynamic value) => callContext.setSuccess('Vehicle Updated'))
+        .catchError((dynamic error) =>
+            callContext.setError('Error Updating Vehicle $error'));
 
     return callContext;
   }
@@ -90,15 +91,16 @@ class Vehicle {
     return ModelVehicle.getVehicleFrom(snapShot);
   }
 
-  void getVehicleList(AppData appData) async {
-    final vehiclesData = await _getVehiclesForUser(appData.user);
+  Future<void> getVehicleList(AppData appData) async {
+    final List<ModelVehicle> vehiclesData =
+        await _getVehiclesForUser(appData.user);
     if (vehiclesData != null && vehiclesData.isNotEmpty) {
       appData.setAvailableVehicles(vehiclesData);
     }
   }
 
   Future<CallContext> getVehicleByRegNo(String regNo) async {
-    DocumentSnapshot doc =
+    final DocumentSnapshot doc =
         await fireStore.collection(Constants.VEHICLES).doc(regNo).get();
     if (!doc.exists) {
       callContext.setError('Vehicle not found');
