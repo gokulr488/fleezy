@@ -1,15 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ModelUser {
-  String uid;
-  String roleName; //Avaiable roles Driver,Admin
-  String fullName;
-  String userEmailId;
-  String phoneNumber; // Never allow modification of Number
-  String password;
-  String companyId;
-  String state;
-  String tripId;
   ModelUser(
       {this.uid,
       this.roleName,
@@ -21,47 +12,45 @@ class ModelUser {
       this.state,
       this.tripId});
 
-  static Map<String, dynamic> getDocOf(ModelUser user) {
-    return {
-      'Uid': user.uid,
-      'RoleName': user.roleName,
-      'FullName': user.fullName,
-      'EmailId': user.userEmailId,
-      'PhoneNumber': user.phoneNumber,
-      'CompanyId': user.companyId,
-      'State': user.state,
-      'TripId': user.tripId
+  ModelUser.fromJson(Map<String, Object> json)
+      : this(
+          uid: json['Uid'] as String,
+          roleName: (json['RoleName'] ?? '') as String,
+          fullName: (json['FullName'] ?? '') as String,
+          userEmailId: (json['EmailId'] ?? '') as String,
+          phoneNumber: (json['PhoneNumber'] ?? '') as String,
+          companyId: (json['CompanyId'] ?? '') as String,
+          state: (json['State'] ?? '') as String,
+          tripId: json['TripId'] as String,
+        );
+  String uid;
+  String roleName; //Avaiable roles Driver,Admin
+  String fullName;
+  String userEmailId;
+  String phoneNumber; // Never allow modification of Number
+  String password;
+  String companyId;
+  String state;
+  String tripId;
+
+  Map<String, Object> toJson() {
+    return <String, Object>{
+      'Uid': uid,
+      'RoleName': roleName,
+      'FullName': fullName,
+      'EmailId': userEmailId,
+      'PhoneNumber': phoneNumber,
+      'CompanyId': companyId,
+      'State': state,
+      'TripId': tripId
     };
   }
 
-  static ModelUser getUserFromDoc(DocumentSnapshot doc) {
-    Map data = doc.data();
-
-    return ModelUser(
-      uid: data['Uid'],
-      roleName: data['RoleName'] ?? '',
-      fullName: data['FullName'] ?? '',
-      userEmailId: data['EmailId'] ?? '',
-      phoneNumber: data['PhoneNumber'] ?? '',
-      companyId: data['CompanyId'] ?? '',
-      state: data['State'] ?? '',
-      tripId: data['TripId'],
-    );
-  }
-
-  static List<ModelUser> getUsersFrom(QuerySnapshot snapshot) {
-    List<ModelUser> users = [];
-    for (final doc in snapshot.docs) {
-      users.add(getUserFromDoc(doc));
+  static List<ModelUser> getUsersFrom(QuerySnapshot<ModelUser> snapshot) {
+    final List<ModelUser> users = <ModelUser>[];
+    for (final QueryDocumentSnapshot<ModelUser> doc in snapshot.docs) {
+      users.add(doc.data());
     }
     return users;
-  }
-
-  static ModelUser getUserFromSnapshot(QuerySnapshot snapshot) {
-    if (snapshot.docs.isEmpty) {
-      return null;
-    }
-    final doc = snapshot.docs.first;
-    return getUserFromDoc(doc);
   }
 }

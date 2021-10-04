@@ -65,7 +65,7 @@ class ModelExpense {
   }
 
   static ModelExpense getExpenseFromDoc(DocumentSnapshot<dynamic> doc) {
-    final Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+    final Map<String, Object> data = doc.data() as Map<String, Object>;
 
     return ModelExpense(
       id: doc.id,

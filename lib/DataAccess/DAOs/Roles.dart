@@ -21,7 +21,7 @@ class Roles {
     await fireStore
         .collection(Constants.USERS)
         .doc(user.phoneNumber)
-        .set(ModelUser.getDocOf(user))
+        .set(user.toJson())
         .then((dynamic value) => callContext
             .setSuccess('User Added')) // check this if unknown error is thrown
         .catchError((dynamic error) =>
@@ -33,7 +33,7 @@ class Roles {
     await fireStore
         .collection(Constants.USERS)
         .doc(user.phoneNumber)
-        .update(ModelUser.getDocOf(user))
+        .update(user.toJson())
         .then((dynamic value) => callContext.setSuccess('User updated'))
         .catchError((dynamic error) =>
             callContext.setError('Error Updating User $error'));
@@ -49,16 +49,26 @@ class Roles {
   }
 
   Future<ModelUser> getUser(String phoneNumber) async {
-    final DocumentSnapshot snapShot =
-        await fireStore.collection(Constants.USERS).doc(phoneNumber).get();
+    final DocumentSnapshot<ModelUser> snapShot = await fireStore
+        .collection(Constants.USERS)
+        .doc(phoneNumber)
+        .withConverter<ModelUser>(
+            fromFirestore: (snapshots, _) =>
+                ModelUser.fromJson(snapshots.data()),
+            toFirestore: (modelUser, _) => modelUser.toJson())
+        .get();
     if (!snapShot.exists) return null;
-    return ModelUser.getUserFromDoc(snapShot);
+    return snapShot.data();
   }
 
   Future<List<ModelUser>> getAllUsersInCompany(String companyId) async {
-    final QuerySnapshot snapshot = await fireStore
+    final QuerySnapshot<ModelUser> snapshot = await fireStore
         .collection(Constants.USERS)
         .where('CompanyId', isEqualTo: companyId)
+        .withConverter<ModelUser>(
+          fromFirestore: (snapshots, _) => ModelUser.fromJson(snapshots.data()),
+          toFirestore: (modelUser, _) => modelUser.toJson(),
+        )
         .get();
 
     return ModelUser.getUsersFrom(snapshot);

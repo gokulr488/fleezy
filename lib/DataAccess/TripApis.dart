@@ -40,7 +40,7 @@ class TripApis {
     final DocumentReference<Map<String, dynamic>> driverRef =
         fireStore.collection(Constants.USERS).doc(user.phoneNumber);
     user.tripId = tripRef.id;
-    batch.update(driverRef, ModelUser.getDocOf(user));
+    batch.update(driverRef, user.toJson());
 
     await batch
         .commit()
@@ -73,7 +73,7 @@ class TripApis {
       final DocumentReference<Map<String, dynamic>> driverRef =
           fireStore.collection(Constants.USERS).doc(user.phoneNumber);
       user.tripId = null;
-      batch.update(driverRef, ModelUser.getDocOf(user));
+      batch.update(driverRef, user.toJson());
 
       await batch.commit();
       callContext.setSuccess('Trip Ended');
@@ -118,7 +118,7 @@ class TripApis {
       final DocumentReference<Map<String, dynamic>> driverRef =
           fireStore.collection(Constants.USERS).doc(user.phoneNumber);
       user.tripId = null;
-      batch.update(driverRef, ModelUser.getDocOf(user));
+      batch.update(driverRef, user.toJson());
 
       await batch.commit();
       callContext.setSuccess('Trip Cancelled');
