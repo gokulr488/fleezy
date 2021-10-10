@@ -22,7 +22,7 @@ class ExpenseApis {
       ModelExpense expense, ModelVehicle vehicle, BuildContext context) async {
     final ModelUser user = Provider.of<AppData>(context, listen: false).user;
     final WriteBatch batch = fireStore.batch();
-    final DocumentReference expenseRef = fireStore
+    final DocumentReference<Map<String, dynamic>> expenseRef = fireStore
         .collection(Constants.COMPANIES)
         .doc(user.companyId)
         .collection(Constants.EXPENSE)
@@ -30,7 +30,7 @@ class ExpenseApis {
     expense.id = expenseRef.id;
     batch.set(expenseRef, expense.toJson());
 
-    final DocumentReference vehicleRef =
+    final DocumentReference<Map<String, dynamic>> vehicleRef =
         fireStore.collection(Constants.VEHICLES).doc(vehicle.registrationNo);
     vehicle.latestOdometerReading = expense.odometerReading;
     batch.update(vehicleRef, vehicle.toJson());
@@ -58,7 +58,7 @@ class ExpenseApis {
   Future<CallContext> filterExpense(BuildContext context, int limit,
       {String regNo, DateTime from, DateTime to}) async {
     final ModelUser user = Provider.of<AppData>(context, listen: false).user;
-    Query reference = fireStore
+    Query<Map<String, dynamic>> reference = fireStore
         .collection(Constants.COMPANIES)
         .doc(user.companyId)
         .collection(Constants.EXPENSE);
@@ -72,7 +72,7 @@ class ExpenseApis {
           reference.where('timestamp', isLessThan: Utils.getEndOfDay(to));
     }
 
-    QuerySnapshot snapShot;
+    QuerySnapshot<Map<String, dynamic>> snapShot;
     if (limit == null && from != null && to != null) {
       snapShot = await reference.orderBy('timestamp', descending: true).get();
     } else {

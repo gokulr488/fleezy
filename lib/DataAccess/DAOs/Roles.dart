@@ -1,3 +1,5 @@
+// ignore_for_file: always_specify_types
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/Constants.dart';
@@ -12,7 +14,7 @@ class Roles {
   CallContext callContext;
 
   Future<CallContext> addRole(ModelUser user) async {
-    final DocumentSnapshot snapShot =
+    final DocumentSnapshot<Map<String, dynamic>> snapShot =
         await fireStore.collection(Constants.USERS).doc(user.phoneNumber).get();
     if (snapShot.exists) {
       callContext.setError('User already exists');

@@ -56,7 +56,7 @@ class ModelVehicle {
       isInTrip: (json['IsInTrip'] ?? false) as bool,
       currentDriver: (json['CurrentDriver'] ?? '') as String,
       allowedDrivers: List<String>.from(
-          (json['AllowedDrivers'] ?? <String>[]) as List<String>),
+          json['AllowedDrivers'] as List<dynamic> ?? <String>[]),
       companyId: (json['CompanyId'] ?? '') as String,
       avgMileage: (json['AvgMileage'] ?? 0) as double,
     );

@@ -15,7 +15,7 @@ class Company {
   CallContext callContext;
 
   Future<CallContext> addCompany(ModelCompany company) async {
-    final DocumentSnapshot snapShot = await fireStore
+    final DocumentSnapshot<Map<String, dynamic>> snapShot = await fireStore
         .collection(Constants.COMPANIES)
         .doc(company.companyEmail)
         .get();

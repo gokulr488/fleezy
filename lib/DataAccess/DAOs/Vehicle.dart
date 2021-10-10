@@ -20,7 +20,7 @@ class Vehicle {
       callContext.setError('companyId is null for the vehicle');
       return callContext;
     }
-    final DocumentSnapshot docSnap = await fireStore
+    final DocumentSnapshot<Map<String, dynamic>> docSnap = await fireStore
         .collection(Constants.VEHICLES)
         .doc(vehicle.registrationNo)
         .get();
@@ -70,7 +70,7 @@ class Vehicle {
       print('companyId or phoneNumber is null');
       return null;
     }
-    QuerySnapshot snapShot;
+    QuerySnapshot<Map<String, dynamic>> snapShot;
     if (user.roleName == Constants.ADMIN) {
       snapShot = await fireStore
           .collection(Constants.VEHICLES)
@@ -100,7 +100,7 @@ class Vehicle {
   }
 
   Future<CallContext> getVehicleByRegNo(String regNo) async {
-    final DocumentSnapshot doc =
+    final DocumentSnapshot<Map<String, dynamic>> doc =
         await fireStore.collection(Constants.VEHICLES).doc(regNo).get();
     if (!doc.exists) {
       callContext.setError('Vehicle not found');

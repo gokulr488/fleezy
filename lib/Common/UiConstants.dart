@@ -11,9 +11,9 @@ const String kDateFormat = 'dd-MM-yy';
 const String kTimeFormat = 'hh:mm dd-MM-yy';
 const Color kAlertColor = Color(0xFFfbe9e7);
 const Color kActiveTextColor = Color(0xFF000000);
-const Color kActiveCardColor = Color(0xFFffe97d);
+const Color kActiveCardColor = Color(0xFFdce775);
 
-const Color kCancelledCardColor = Color(0xffcb9ca1);
+const Color kCancelledCardColor = Color(0xffffccbc);
 
 const List<Shadow> shadow = <Shadow>[
   Shadow(offset: Offset(2, 2), blurRadius: 7)

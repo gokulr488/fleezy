@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 
 class PendingBalanceController {
   List<PendingBalanceCard> pendingBalCards = <PendingBalanceCard>[];
-  DocumentSnapshot lastDoc;
+  DocumentSnapshot<Object> lastDoc;
 
   Future<void> getData(
       String regNumber, BuildContext context, AppData appdata) async {

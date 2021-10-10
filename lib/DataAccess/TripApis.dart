@@ -130,7 +130,7 @@ class TripApis {
   Future<CallContext> filterTrips(BuildContext context, int limit,
       {String regNo, DateTime from, DateTime to}) async {
     final ModelUser user = Provider.of<AppData>(context, listen: false).user;
-    Query reference = fireStore
+    Query<Map<String, dynamic>> reference = fireStore
         .collection(Constants.COMPANIES)
         .doc(user.companyId)
         .collection(Constants.TRIP);
@@ -144,7 +144,7 @@ class TripApis {
           reference.where('StartDate', isLessThan: Utils.getEndOfDay(to));
     }
 
-    QuerySnapshot snapShot;
+    QuerySnapshot<Map<String, dynamic>> snapShot;
     if (limit == null && from != null && to != null) {
       snapShot = await reference.orderBy('StartDate', descending: true).get();
     } else {
@@ -159,10 +159,10 @@ class TripApis {
   }
 
   Future<CallContext> getPendingBalanceTrips(
-      BuildContext context, String regNo, DocumentSnapshot page) async {
+      BuildContext context, String regNo, DocumentSnapshot<Object> page) async {
     try {
       final ModelUser user = Provider.of<AppData>(context, listen: false).user;
-      Query reference = fireStore
+      Query<Map<String, dynamic>> reference = fireStore
           .collection(Constants.COMPANIES)
           .doc(user.companyId)
           .collection(Constants.TRIP);
@@ -171,7 +171,7 @@ class TripApis {
       }
 
       reference = reference.where('BalanceAmount', isGreaterThan: 0);
-      QuerySnapshot snapShot;
+      QuerySnapshot<Map<String, dynamic>> snapShot;
       if (page != null) {
         snapShot = await reference
             .orderBy('BalanceAmount')
