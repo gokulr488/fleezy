@@ -32,7 +32,7 @@ class Vehicle {
     await fireStore
         .collection(Constants.VEHICLES)
         .doc(vehicle.registrationNo)
-        .set(ModelVehicle.getDocOf(vehicle))
+        .set(vehicle.toJson())
         .then((dynamic value) => callContext.setSuccess('Vehicle added'))
         .catchError((dynamic error) => callContext.setError('$error'));
 
@@ -57,7 +57,7 @@ class Vehicle {
     await fireStore
         .collection(Constants.VEHICLES)
         .doc(vehicle.registrationNo)
-        .update(ModelVehicle.getDocOf(vehicle))
+        .update(vehicle.toJson())
         .then((dynamic value) => callContext.setSuccess('Vehicle Updated'))
         .catchError((dynamic error) =>
             callContext.setError('Error Updating Vehicle $error'));
@@ -88,7 +88,7 @@ class Vehicle {
       print('No Vehicles Found');
       return null;
     }
-    return ModelVehicle.getVehicleFrom(snapShot);
+    return ModelVehicle.fromDocs(snapShot);
   }
 
   Future<void> getVehicleList(AppData appData) async {
@@ -106,7 +106,7 @@ class Vehicle {
       callContext.setError('Vehicle not found');
       return callContext;
     }
-    callContext.data = ModelVehicle.getVehicleFromDoc(doc);
+    callContext.data = ModelVehicle.fromDoc(doc);
     return callContext;
   }
 }

@@ -1,9 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/Common/Utils.dart';
-import 'package:fleezy/DataModels/ModelTrip.dart';
 
 class ModelVehicle {
+  ModelVehicle(
+      {this.vehicleName,
+      this.registrationNo,
+      this.brand,
+      this.taxExpiryDate,
+      this.insuranceExpiryDate,
+      this.latestOdometerReading,
+      this.isInTrip,
+      this.allowedDrivers,
+      this.currentDriver,
+      this.companyId,
+      this.avgMileage});
   String vehicleName;
   String registrationNo;
   String brand;
@@ -14,81 +25,65 @@ class ModelVehicle {
   String companyId;
   bool isInTrip;
   List<String> allowedDrivers;
-  List<ModelTrip> trips;
   double avgMileage;
 
-  ModelVehicle(
-      {this.vehicleName,
-      this.registrationNo,
-      this.brand,
-      this.taxExpiryDate,
-      this.insuranceExpiryDate,
-      this.latestOdometerReading,
-      this.isInTrip,
-      this.trips,
-      this.allowedDrivers,
-      this.currentDriver,
-      this.companyId,
-      this.avgMileage});
-
-  static Map<String, dynamic> getDocOf(ModelVehicle vehicle) {
-    return {
-      'VehicleName': vehicle.vehicleName,
-      'RegistrationNo': vehicle.registrationNo,
-      'Brand': vehicle.brand,
-      'TaxExpiryDate': vehicle.taxExpiryDate,
-      'InsuranceExpiryDate': vehicle.insuranceExpiryDate,
-      'LatestOdometerReading': vehicle.latestOdometerReading,
-      'IsInTrip': vehicle.isInTrip,
-      'Trips': vehicle.trips,
-      'CurrentDriver': vehicle.currentDriver,
-      'AllowedDrivers': vehicle.allowedDrivers,
-      'CompanyId': vehicle.companyId,
-      'AvgMileage': vehicle.avgMileage
+  Map<String, Object> toJson() {
+    return <String, Object>{
+      'VehicleName': vehicleName,
+      'RegistrationNo': registrationNo,
+      'Brand': brand,
+      'TaxExpiryDate': taxExpiryDate,
+      'InsuranceExpiryDate': insuranceExpiryDate,
+      'LatestOdometerReading': latestOdometerReading,
+      'IsInTrip': isInTrip,
+      'CurrentDriver': currentDriver,
+      'AllowedDrivers': allowedDrivers,
+      'CompanyId': companyId,
+      'AvgMileage': avgMileage
     };
   }
 
-  static ModelVehicle getVehicleFromDoc(DocumentSnapshot doc) {
-    Map<String, dynamic> data = doc.data();
+  static ModelVehicle fromDoc(DocumentSnapshot<Object> doc) {
+    final Map<String, Object> json = doc.data() as Map<String, Object>;
 
     return ModelVehicle(
-      vehicleName: data['VehicleName'] ?? '',
-      registrationNo: data['RegistrationNo'] ?? '',
-      brand: data['Brand'] ?? '',
-      taxExpiryDate: data['TaxExpiryDate'],
-      insuranceExpiryDate: data['InsuranceExpiryDate'],
-      latestOdometerReading: data['LatestOdometerReading'] ?? 0,
-      isInTrip: data['IsInTrip'] ?? false,
-      trips: List<ModelTrip>.from(data['Trips'] ?? []),
-      currentDriver: data['CurrentDriver'] ?? '',
-      allowedDrivers: List<String>.from(data['AllowedDrivers'] ?? []),
-      companyId: data['CompanyId'] ?? '',
-      avgMileage: data['AvgMileage'] ?? 0,
+      vehicleName: (json['VehicleName'] ?? '') as String,
+      registrationNo: (json['RegistrationNo'] ?? '') as String,
+      brand: (json['Brand'] ?? '') as String,
+      taxExpiryDate: json['TaxExpiryDate'] as Timestamp,
+      insuranceExpiryDate: json['InsuranceExpiryDate'] as Timestamp,
+      latestOdometerReading: (json['LatestOdometerReading'] ?? 0) as int,
+      isInTrip: (json['IsInTrip'] ?? false) as bool,
+      currentDriver: (json['CurrentDriver'] ?? '') as String,
+      allowedDrivers: List<String>.from(
+          (json['AllowedDrivers'] ?? <String>[]) as List<String>),
+      companyId: (json['CompanyId'] ?? '') as String,
+      avgMileage: (json['AvgMileage'] ?? 0) as double,
     );
   }
 
-  static List<ModelVehicle> getVehicleFrom(QuerySnapshot snapshot) {
-    List<ModelVehicle> vehicles = [];
-    for (final doc in snapshot.docs) {
-      vehicles.add(getVehicleFromDoc(doc));
+  static List<ModelVehicle> fromDocs(QuerySnapshot<Object> snapshot) {
+    final List<ModelVehicle> vehicles = <ModelVehicle>[];
+    for (final QueryDocumentSnapshot<Object> doc in snapshot.docs) {
+      vehicles.add(fromDoc(doc));
     }
     return vehicles;
   }
 
-  static ModelVehicle getUserFromSnapshot(QuerySnapshot snapshot) {
-    final doc = snapshot.docs.first;
-    return getVehicleFromDoc(doc);
+  static ModelVehicle firstFromDocs(QuerySnapshot<Object> snapshot) {
+    final DocumentSnapshot<Object> doc = snapshot.docs.first;
+    return fromDoc(doc);
   }
 
-  static String getWarningMessage(ModelVehicle vehicle) {
-    var warning = '';
-    if (Utils.isWarningPeriod(vehicle.insuranceExpiryDate)) {
+  String getWarningMessage() {
+    String warning = '';
+    if (Utils.isWarningPeriod(insuranceExpiryDate)) {
       warning =
-          'Insurance Expires on ${Utils.getFormattedTimeStamp(vehicle.insuranceExpiryDate, kDateFormat)}. ';
+          'Insurance Expires on ${Utils.getFormattedTimeStamp(insuranceExpiryDate, kDateFormat)}. ';
     }
-    if (Utils.isWarningPeriod(vehicle.taxExpiryDate)) {
-      warning = warning +
-          'Tax Expires on ${Utils.getFormattedTimeStamp(vehicle.taxExpiryDate, kDateFormat)}';
+    if (Utils.isWarningPeriod(taxExpiryDate)) {
+      warning =
+          '${warning}Tax Expires on ${Utils.getFormattedTimeStamp(taxExpiryDate, kDateFormat)}';
     }
     return warning;
   }

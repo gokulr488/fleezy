@@ -43,66 +43,66 @@ class ModelReport {
   double taxInsuranceCost;
   double otherCost;
 
-  static Map<String, dynamic> getDocOf(ModelReport report) {
+  Map<String, dynamic> toJson() {
     return <String, dynamic>{
-      'reportId': report.reportId,
-      'income': report.income,
-      'pendingBal': report.pendingBal,
-      'driverSal': report.driverSal,
-      'expense': report.expense,
-      'totalTrips': report.totalTrips,
-      'pendingPayTrips': report.pendingPayTrips,
-      'cancelledTrips': report.cancelledTrips,
-      'kmsTravelled': report.kmsTravelled,
-      'fuelCost': report.fuelCost,
-      'ltrs': report.ltrs,
-      'serviceCost': report.serviceCost,
-      'repairCost': report.repairCost,
-      'spareCost': report.spareCost,
-      'noOfService': report.noOfService,
-      'noOfFines': report.noOfFines,
-      'fineCost': report.fineCost,
-      'otherCost': report.otherCost,
-      'taxInsuranceCost': report.taxInsuranceCost,
+      'reportId': reportId,
+      'income': income,
+      'pendingBal': pendingBal,
+      'driverSal': driverSal,
+      'expense': expense,
+      'totalTrips': totalTrips,
+      'pendingPayTrips': pendingPayTrips,
+      'cancelledTrips': cancelledTrips,
+      'kmsTravelled': kmsTravelled,
+      'fuelCost': fuelCost,
+      'ltrs': ltrs,
+      'serviceCost': serviceCost,
+      'repairCost': repairCost,
+      'spareCost': spareCost,
+      'noOfService': noOfService,
+      'noOfFines': noOfFines,
+      'fineCost': fineCost,
+      'otherCost': otherCost,
+      'taxInsuranceCost': taxInsuranceCost,
     };
   }
 
-  static ModelReport getReportFromDoc(DocumentSnapshot doc) {
-    final Map data = doc.data();
+  static ModelReport fromDoc(DocumentSnapshot<Object> doc) {
+    final Map<String, Object> json = doc.data() as Map<String, Object>;
 
     return ModelReport(
-      reportId: data['reportId'] ?? '',
-      income: data['income'] ?? 0,
-      pendingBal: data['pendingBal'] ?? 0,
-      driverSal: data['driverSal'] ?? 0,
-      expense: data['expense'] ?? 0,
-      totalTrips: data['totalTrips'] ?? 0,
-      pendingPayTrips: data['pendingPayTrips'] ?? 0,
-      cancelledTrips: data['cancelledTrips'] ?? 0,
-      kmsTravelled: data['kmsTravelled'] ?? 0,
-      fuelCost: data['fuelCost'] ?? 0,
-      ltrs: data['ltrs'] ?? 0,
-      serviceCost: data['serviceCost'] ?? 0,
-      repairCost: data['repairCost'] ?? 0,
-      spareCost: data['spareCost'] ?? 0,
-      noOfService: data['noOfService'] ?? 0,
-      noOfFines: data['noOfFines'] ?? 0,
-      fineCost: data['fineCost'] ?? 0,
-      otherCost: data['otherCost'] ?? 0,
-      taxInsuranceCost: data['taxInsuranceCost'] ?? 0,
+      reportId: (json['reportId'] ?? '') as String,
+      income: (json['income'] ?? 0) as double,
+      pendingBal: (json['pendingBal'] ?? 0) as double,
+      driverSal: (json['driverSal'] ?? 0) as double,
+      expense: (json['expense'] ?? 0) as double,
+      totalTrips: (json['totalTrips'] ?? 0) as int,
+      pendingPayTrips: (json['pendingPayTrips'] ?? 0) as int,
+      cancelledTrips: (json['cancelledTrips'] ?? 0) as int,
+      kmsTravelled: (json['kmsTravelled'] ?? 0) as double,
+      fuelCost: (json['fuelCost'] ?? 0) as double,
+      ltrs: (json['ltrs'] ?? 0) as double,
+      serviceCost: (json['serviceCost'] ?? 0) as double,
+      repairCost: (json['repairCost'] ?? 0) as double,
+      spareCost: (json['spareCost'] ?? 0) as double,
+      noOfService: (json['noOfService'] ?? 0) as int,
+      noOfFines: (json['noOfFines'] ?? 0) as int,
+      fineCost: (json['fineCost'] ?? 0) as double,
+      otherCost: (json['otherCost'] ?? 0) as double,
+      taxInsuranceCost: (json['taxInsuranceCost'] ?? 0) as double,
     );
   }
 
-  static List<ModelReport> getReportFrom(QuerySnapshot snapshot) {
+  static List<ModelReport> fromDocs(QuerySnapshot<Object> snapshot) {
     final List<ModelReport> reports = <ModelReport>[];
-    for (final DocumentSnapshot doc in snapshot.docs) {
-      reports.add(getReportFromDoc(doc));
+    for (final DocumentSnapshot<Object> doc in snapshot.docs) {
+      reports.add(fromDoc(doc));
     }
     return reports;
   }
 
-  static ModelReport getReportFromSnapshot(QuerySnapshot snapshot) {
-    final DocumentSnapshot doc = snapshot.docs.first;
-    return getReportFromDoc(doc);
+  static ModelReport firstFromDoc(QuerySnapshot<Object> snapshot) {
+    final DocumentSnapshot<Object> doc = snapshot.docs.first;
+    return fromDoc(doc);
   }
 }

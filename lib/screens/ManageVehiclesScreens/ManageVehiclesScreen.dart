@@ -47,6 +47,6 @@ class ManageVehiclesScreen extends StatelessWidget {
         color: vehicle.isInTrip ? kActiveCardColor : kCardOverlay[4],
         currentDriver: vehicle.currentDriver ?? '',
         vehicle: vehicle,
-        message: ModelVehicle.getWarningMessage(vehicle));
+        message: vehicle.getWarningMessage());
   }
 }

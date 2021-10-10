@@ -17,7 +17,7 @@ class Trip {
         .doc(companyId)
         .collection(Constants.TRIP)
         .doc(trip.id)
-        .update(ModelTrip.getDocOf(trip))
+        .update(trip.toJson())
         .then((dynamic value) => callContext.setSuccess('Trip updated'))
         .catchError((dynamic error) =>
             callContext.setError('Error Updating Trip ${error.toString()}'));

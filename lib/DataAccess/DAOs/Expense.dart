@@ -24,7 +24,7 @@ class Expense {
         .collection(Constants.COMPANIES)
         .doc(user.companyId)
         .collection(Constants.EXPENSE)
-        .add(ModelExpense.getDocOf(expense))
+        .add(expense.toJson())
         .then((dynamic value) => callContext.setSuccess('expense added'))
         .catchError((dynamic error) => callContext.setError('$error'));
     return callContext;

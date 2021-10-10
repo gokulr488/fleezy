@@ -28,12 +28,12 @@ class ExpenseApis {
         .collection(Constants.EXPENSE)
         .doc();
     expense.id = expenseRef.id;
-    batch.set(expenseRef, ModelExpense.getDocOf(expense));
+    batch.set(expenseRef, expense.toJson());
 
     final DocumentReference vehicleRef =
         fireStore.collection(Constants.VEHICLES).doc(vehicle.registrationNo);
     vehicle.latestOdometerReading = expense.odometerReading;
-    batch.update(vehicleRef, ModelVehicle.getDocOf(vehicle));
+    batch.update(vehicleRef, vehicle.toJson());
     callContext.data = expense.id;
     await batch
         .commit()
@@ -51,7 +51,7 @@ class ExpenseApis {
         .collection(Constants.EXPENSE)
         .where('tripNo', isEqualTo: trip.id)
         .get();
-    callContext.data = ModelExpense.getTripsFrom(snapShot);
+    callContext.data = ModelExpense.fromDocs(snapShot);
     return callContext;
   }
 
@@ -82,7 +82,7 @@ class ExpenseApis {
           .get();
     }
 
-    callContext.data = ModelExpense.getTripsFrom(snapShot);
+    callContext.data = ModelExpense.fromDocs(snapShot);
     return callContext;
   }
 }

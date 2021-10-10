@@ -23,6 +23,7 @@ class ModelUser {
           state: (json['State'] ?? '') as String,
           tripId: json['TripId'] as String,
         );
+
   String uid;
   String roleName; //Avaiable roles Driver,Admin
   String fullName;

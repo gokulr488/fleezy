@@ -1,6 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ModelExpense {
+  ModelExpense(
+      {this.id,
+      this.expenseType,
+      this.amount,
+      this.timestamp,
+      this.tripNo,
+      this.fuelUnitPrice,
+      this.fuelQty,
+      this.isFullTank,
+      this.insuranceExpiryDate,
+      this.policyNumber,
+      this.taxExpiryDate,
+      this.driverName,
+      this.expenseDetails,
+      this.vehicleRegNo,
+      this.payMode,
+      this.odometerReading,
+      this.imagePath});
+
   String id;
   String expenseType;
   double amount;
@@ -24,74 +43,55 @@ class ModelExpense {
   String vehicleRegNo; //Doc ID of Model vehicle
   String imagePath;
 
-  ModelExpense(
-      {this.id,
-      this.expenseType,
-      this.amount,
-      this.timestamp,
-      this.tripNo,
-      this.fuelUnitPrice,
-      this.fuelQty,
-      this.isFullTank,
-      this.insuranceExpiryDate,
-      this.policyNumber,
-      this.taxExpiryDate,
-      this.driverName,
-      this.expenseDetails,
-      this.vehicleRegNo,
-      this.payMode,
-      this.odometerReading,
-      this.imagePath});
-
-  static Map<String, dynamic> getDocOf(ModelExpense expense) {
-    return {
-      'expenseType': expense.expenseType,
-      'amount': expense.amount,
-      'timestamp': expense.timestamp,
-      'tripNo': expense.tripNo,
-      'payMode': expense.payMode,
-      'fuelUnitPrice': expense.fuelUnitPrice,
-      'fuelQty': expense.fuelQty,
-      'isFullTank': expense.isFullTank,
-      'odometerReading': expense.odometerReading,
-      'insuranceExpiryDate': expense.insuranceExpiryDate,
-      'policyNumber': expense.policyNumber,
-      'taxExpiryDate': expense.taxExpiryDate,
-      'driverName': expense.driverName,
-      'expenseDetails': expense.expenseDetails,
-      'vehicleRegNo': expense.vehicleRegNo,
-      'imagePath': expense.imagePath,
+  Map<String, Object> toJson() {
+    return <String, Object>{
+      'expenseType': expenseType,
+      'amount': amount,
+      'timestamp': timestamp,
+      'tripNo': tripNo,
+      'payMode': payMode,
+      'fuelUnitPrice': fuelUnitPrice,
+      'fuelQty': fuelQty,
+      'isFullTank': isFullTank,
+      'odometerReading': odometerReading,
+      'insuranceExpiryDate': insuranceExpiryDate,
+      'policyNumber': policyNumber,
+      'taxExpiryDate': taxExpiryDate,
+      'driverName': driverName,
+      'expenseDetails': expenseDetails,
+      'vehicleRegNo': vehicleRegNo,
+      'imagePath': imagePath,
     };
   }
 
-  static ModelExpense getExpenseFromDoc(DocumentSnapshot<dynamic> doc) {
-    final Map<String, Object> data = doc.data() as Map<String, Object>;
+  static ModelExpense fromDoc(DocumentSnapshot<Object> doc) {
+    final Map<String, Object> json = doc.data() as Map<String, Object>;
 
     return ModelExpense(
       id: doc.id,
-      expenseType: data['expenseType'],
-      amount: data['amount'],
-      timestamp: data['timestamp'] ?? '',
-      tripNo: data['tripNo'] ?? '',
-      payMode: data['payMode'] ?? '',
-      fuelUnitPrice: data['fuelUnitPrice'],
-      fuelQty: data['fuelQty'],
-      isFullTank: data['isFullTank'],
-      odometerReading: data['odometerReading'] ?? 0,
-      insuranceExpiryDate: data['insuranceExpiryDate'],
-      policyNumber: data['policyNumber'],
-      taxExpiryDate: data['taxExpiryDate'],
-      driverName: data['driverName'] ?? '',
-      expenseDetails: data['expenseDetails'] ?? '',
-      vehicleRegNo: data['vehicleRegNo'] ?? '',
-      imagePath: data['imagePath'],
+      expenseType: json['expenseType'] as String,
+      amount: json['amount'] as double,
+      timestamp: json['timestamp'] as Timestamp,
+      tripNo: (json['tripNo'] ?? '') as String,
+      payMode: (json['payMode'] ?? '') as String,
+      fuelUnitPrice: json['fuelUnitPrice'] as double,
+      fuelQty: json['fuelQty'] as double,
+      isFullTank: json['isFullTank'] as bool,
+      odometerReading: (json['odometerReading'] ?? 0) as int,
+      insuranceExpiryDate: json['insuranceExpiryDate'] as Timestamp,
+      policyNumber: json['policyNumber'] as String,
+      taxExpiryDate: json['taxExpiryDate'] as Timestamp,
+      driverName: (json['driverName'] ?? '') as String,
+      expenseDetails: (json['expenseDetails'] ?? '') as String,
+      vehicleRegNo: (json['vehicleRegNo'] ?? '') as String,
+      imagePath: json['imagePath'] as String,
     );
   }
 
-  static List<ModelExpense> getTripsFrom(QuerySnapshot<dynamic> snapshot) {
+  static List<ModelExpense> fromDocs(QuerySnapshot<Object> snapshot) {
     final List<ModelExpense> trips = <ModelExpense>[];
-    for (final DocumentSnapshot<dynamic> doc in snapshot?.docs) {
-      trips.add(getExpenseFromDoc(doc));
+    for (final DocumentSnapshot<Object> doc in snapshot?.docs) {
+      trips.add(fromDoc(doc));
     }
     return trips;
   }

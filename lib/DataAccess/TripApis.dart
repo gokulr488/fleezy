@@ -28,14 +28,14 @@ class TripApis {
         .doc();
     trip.id = tripRef.id;
     trip.status = Constants.STARTED;
-    batch.set(tripRef, ModelTrip.getDocOf(trip));
+    batch.set(tripRef, trip.toJson());
 
     final DocumentReference<Map<String, dynamic>> vehicleRef =
         fireStore.collection(Constants.VEHICLES).doc(vehicle.registrationNo);
     vehicle.isInTrip = true;
     vehicle.latestOdometerReading = trip.startReading;
     vehicle.currentDriver = user.fullName ?? user.phoneNumber;
-    batch.update(vehicleRef, ModelVehicle.getDocOf(vehicle));
+    batch.update(vehicleRef, vehicle.toJson());
 
     final DocumentReference<Map<String, dynamic>> driverRef =
         fireStore.collection(Constants.USERS).doc(user.phoneNumber);
@@ -60,15 +60,14 @@ class TripApis {
           .collection(Constants.TRIP)
           .doc(trip.id);
       trip.status = Constants.ENDED;
-      batch.update(tripRef, ModelTrip.getDocOf(trip));
+      batch.update(tripRef, trip.toJson());
 
       final DocumentReference<Map<String, dynamic>> vehicleRef =
           fireStore.collection(Constants.VEHICLES).doc(trip.vehicleRegNo);
-      final ModelVehicle vehicle =
-          ModelVehicle.getVehicleFromDoc(await vehicleRef.get());
+      final ModelVehicle vehicle = ModelVehicle.fromDoc(await vehicleRef.get());
       vehicle.isInTrip = false;
       vehicle.latestOdometerReading = trip.endReading;
-      batch.update(vehicleRef, ModelVehicle.getDocOf(vehicle));
+      batch.update(vehicleRef, vehicle.toJson());
 
       final DocumentReference<Map<String, dynamic>> driverRef =
           fireStore.collection(Constants.USERS).doc(user.phoneNumber);
@@ -91,7 +90,7 @@ class TripApis {
         .collection(Constants.TRIP)
         .doc(id)
         .get();
-    return ModelTrip.getTripFromDoc(tripDoc);
+    return ModelTrip.fromDoc(tripDoc);
   }
 
   Future<CallContext> cancelTrip(ModelTrip trip, BuildContext context) async {
@@ -106,14 +105,13 @@ class TripApis {
           .doc(trip.id);
       trip.status = Constants.CANCELLED;
       trip.endDate = Timestamp.now();
-      batch.update(tripRef, ModelTrip.getDocOf(trip));
+      batch.update(tripRef, trip.toJson());
 
       final DocumentReference<Map<String, dynamic>> vehicleRef =
           fireStore.collection(Constants.VEHICLES).doc(trip.vehicleRegNo);
-      final ModelVehicle vehicle =
-          ModelVehicle.getVehicleFromDoc(await vehicleRef.get());
+      final ModelVehicle vehicle = ModelVehicle.fromDoc(await vehicleRef.get());
       vehicle.isInTrip = false;
-      batch.update(vehicleRef, ModelVehicle.getDocOf(vehicle));
+      batch.update(vehicleRef, vehicle.toJson());
 
       final DocumentReference<Map<String, dynamic>> driverRef =
           fireStore.collection(Constants.USERS).doc(user.phoneNumber);
@@ -156,7 +154,7 @@ class TripApis {
           .get();
     }
 
-    callContext.data = ModelTrip.getTripsFrom(snapShot);
+    callContext.data = ModelTrip.fromDocs(snapShot);
     return callContext;
   }
 
@@ -187,7 +185,7 @@ class TripApis {
         callContext.pageInfo = snapShot.docs[snapShot.docs.length - 1];
       }
 
-      callContext.data = ModelTrip.getTripsFrom(snapShot);
+      callContext.data = ModelTrip.fromDocs(snapShot);
     } catch (e) {
       callContext.setError(e.toString());
     }

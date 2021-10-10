@@ -1,6 +1,27 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ModelTrip {
+  ModelTrip(
+      {this.id,
+      this.startDate,
+      this.endDate,
+      this.startReading,
+      this.endReading,
+      this.distance,
+      this.billAmount,
+      this.paidAmount,
+      this.balanceAmount,
+      this.driverSalary,
+      this.customerName,
+      this.tripNo,
+      this.vehicleRegNo,
+      this.driverName,
+      this.driverUid,
+      this.startingFrom,
+      this.destination,
+      this.status,
+      this.isRoundTrip,
+      this.customerPhone});
   String id;
   String driverName;
   String driverUid;
@@ -23,83 +44,61 @@ class ModelTrip {
   String status;
   bool isRoundTrip = false;
 
-  ModelTrip(
-      {this.id,
-      this.startDate,
-      this.endDate,
-      this.startReading,
-      this.endReading,
-      this.distance,
-      this.billAmount,
-      this.paidAmount,
-      this.balanceAmount,
-      this.driverSalary,
-      this.customerName,
-      this.tripNo,
-      this.vehicleRegNo,
-      this.driverName,
-      this.driverUid,
-      this.startingFrom,
-      this.destination,
-      this.status,
-      this.isRoundTrip,
-      this.customerPhone});
-
-  static Map<String, dynamic> getDocOf(ModelTrip trip) {
-    return {
-      'StartDate': trip.startDate,
-      'EndDate': trip.endDate,
-      'StartReading': trip.startReading,
-      'EndReading': trip.endReading,
-      'Distance': trip.distance,
-      'BillAmount': trip.billAmount,
-      'PaidAmount': trip.paidAmount,
-      'BalanceAmount': trip.balanceAmount,
-      'DriverSalary': trip.driverSalary,
-      'CustomerName': trip.customerName,
-      'TripNo': trip.tripNo,
-      'VehicleRegNo': trip.vehicleRegNo,
-      'StartingFrom': trip.startingFrom,
-      'Destination': trip.destination,
-      'DriverName': trip.driverName,
-      'DriverUid': trip.driverUid,
-      'Status': trip.status,
-      'IsRoundTrip': trip.isRoundTrip,
-      'CustomerPhone': trip.customerPhone,
+  Map<String, Object> toJson() {
+    return <String, Object>{
+      'StartDate': startDate,
+      'EndDate': endDate,
+      'StartReading': startReading,
+      'EndReading': endReading,
+      'Distance': distance,
+      'BillAmount': billAmount,
+      'PaidAmount': paidAmount,
+      'BalanceAmount': balanceAmount,
+      'DriverSalary': driverSalary,
+      'CustomerName': customerName,
+      'TripNo': tripNo,
+      'VehicleRegNo': vehicleRegNo,
+      'StartingFrom': startingFrom,
+      'Destination': destination,
+      'DriverName': driverName,
+      'DriverUid': driverUid,
+      'Status': status,
+      'IsRoundTrip': isRoundTrip,
+      'CustomerPhone': customerPhone,
     };
   }
 
-  static ModelTrip getTripFromDoc(DocumentSnapshot doc) {
-    Map data = doc.data();
+  static ModelTrip fromDoc(DocumentSnapshot<Object> doc) {
+    final Map<String, Object> json = doc.data() as Map<String, Object>;
 
     return ModelTrip(
       id: doc.id,
-      balanceAmount: data['BalanceAmount'],
-      billAmount: data['BillAmount'],
-      customerName: data['CustomerName'] ?? '',
-      destination: data['Destination'] ?? '',
-      distance: data['Distance'],
-      driverName: data['DriverName'] ?? '',
-      driverSalary: data['DriverSalary'],
-      driverUid: data['DriverUid'] ?? '',
-      endDate: data['EndDate'],
-      endReading: data['EndReading'],
-      paidAmount: data['PaidAmount'],
-      startDate: data['StartDate'],
-      startReading: data['StartReading'],
-      startingFrom: data['StartingFrom'] ?? '',
-      tripNo: data['TripNo'] ?? '',
-      vehicleRegNo: data['VehicleRegNo'] ?? '',
-      status: data['Status'] ?? '',
-      isRoundTrip: data['IsRoundTrip'] ?? false,
-      customerPhone: data['CustomerPhone'] ?? '',
+      balanceAmount: json['BalanceAmount'] as double,
+      billAmount: json['BillAmount'] as double,
+      customerName: (json['CustomerName'] ?? '') as String,
+      destination: (json['Destination'] ?? '') as String,
+      distance: json['Distance'] as int,
+      driverName: (json['DriverName'] ?? '') as String,
+      driverSalary: json['DriverSalary'] as double,
+      driverUid: (json['DriverUid'] ?? '') as String,
+      endDate: json['EndDate'] as Timestamp,
+      endReading: json['EndReading'] as int,
+      paidAmount: json['PaidAmount'] as double,
+      startDate: json['StartDate'] as Timestamp,
+      startReading: json['StartReading'] as int,
+      startingFrom: (json['StartingFrom'] ?? '') as String,
+      tripNo: (json['TripNo'] ?? '') as String,
+      vehicleRegNo: (json['VehicleRegNo'] ?? '') as String,
+      status: (json['Status'] ?? '') as String,
+      isRoundTrip: (json['IsRoundTrip'] ?? false) as bool,
+      customerPhone: (json['CustomerPhone'] ?? '') as String,
     );
   }
 
-  static List<ModelTrip> getTripsFrom(QuerySnapshot snapshot) {
-    List<ModelTrip> trips = [];
-    for (final doc in snapshot?.docs) {
-      trips.add(getTripFromDoc(doc));
+  static List<ModelTrip> fromDocs(QuerySnapshot<Object> snapshot) {
+    final List<ModelTrip> trips = <ModelTrip>[];
+    for (final QueryDocumentSnapshot<Object> doc in snapshot?.docs) {
+      trips.add(fromDoc(doc));
     }
     return trips;
   }
