@@ -135,5 +135,5 @@ class __EditNameWidgetState extends State<_EditNameWidget> {
     appData.setUser(user);
     isEditEnabled = !isEditEnabled;
     setState(() {});
-  }
+  } //TODO add company switching UI element
 }

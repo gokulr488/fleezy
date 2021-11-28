@@ -19,7 +19,7 @@ class ModelUser {
           fullName: (json['FullName'] ?? '') as String,
           userEmailId: (json['EmailId'] ?? '') as String,
           phoneNumber: (json['PhoneNumber'] ?? '') as String,
-          companyId: (json['CompanyId'] ?? '') as String,
+          companyId: List<String>.from(json['CompanyId'] as List<dynamic>),
           state: (json['State'] ?? '') as String,
           tripId: json['TripId'] as String,
         );
@@ -30,7 +30,7 @@ class ModelUser {
   String userEmailId;
   String phoneNumber; // Never allow modification of Number
   String password;
-  String companyId;
+  List<String> companyId;
   String state;
   String tripId;
 

@@ -43,8 +43,8 @@ class ManageDriversScreen extends StatelessWidget {
   Future<void> _getDrivers(BuildContext context) async {
     final AppData appData = Provider.of<AppData>(context, listen: false);
     if (appData.drivers == null) {
-      final List<ModelUser> drivers =
-          await Roles().getAllUsersInCompany(appData.user.companyId);
+      final List<ModelUser> drivers = await Roles()
+          .getAllUsersInCompany(appData.selectedCompany.companyEmail);
       appData.setDrivers(drivers);
     }
   }

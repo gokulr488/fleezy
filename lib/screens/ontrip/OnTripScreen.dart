@@ -154,8 +154,8 @@ class _OnTripScreenState extends State<OnTripScreen> {
       tripDo = appData.trip;
     } else {
       try {
-        tripDo = await TripApis()
-            .getTripById(appData.user.tripId, appData.user.companyId);
+        tripDo = await TripApis().getTripById(
+            appData.user.tripId, appData.selectedCompany.companyEmail);
       } catch (e) {
         showErrorAlert(context, 'Unable to get Trip Details');
       }

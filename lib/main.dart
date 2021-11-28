@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/ReportData.dart';
 import 'package:fleezy/Common/UiConstants.dart';
@@ -97,9 +99,14 @@ class FleezyApp extends StatelessWidget {
   }
 }
 
+const bool _isEmulator = false;
+
 bool _isLoggedIn(BuildContext context) {
-  // FirebaseFirestore.instance.settings =
-  //     Settings(host: '10.0.2.2:8080', sslEnabled: false);
+  if (_isEmulator) {
+    FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8080);
+    FirebaseStorage.instance.useStorageEmulator('localhost', 9199);
+    //await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+  }
   final FirebaseAuth _auth = FirebaseAuth.instance;
   if (_auth.currentUser != null) {
     //Provider.of<UiState>(context, listen: false).setIsAdmin(true);

@@ -22,7 +22,7 @@ class UserManagement {
         print('Adding Company to Database with default Admin user');
         final ModelUser adminUser = ModelUser(
             fullName: Constants.ADMIN,
-            companyId: modelCompany.companyEmail,
+            companyId: <String>[modelCompany.companyEmail],
             phoneNumber: modelCompany.phoneNumber,
             userEmailId: modelCompany.companyEmail,
             roleName: Constants.ADMIN,

@@ -1,3 +1,4 @@
+import 'package:fleezy/DataModels/ModelCompany.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
 import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/DataModels/ModelVehicle.dart';
@@ -10,12 +11,14 @@ class AppData extends ChangeNotifier {
   Map<String, ModelUser> _drivers;
   ModelUser _user;
   ModelTrip _trip;
+  ModelCompany _selectedCompany;
 
   //GETTERS
   List<ModelVehicle> get availableVehicles => _availableVehicles;
   List<ModelUser> get drivers => _drivers?.values?.toList();
   ModelUser get user => _user;
   ModelTrip get trip => _trip;
+  ModelCompany get selectedCompany => _selectedCompany;
 
   List<ModelTrip> getTripHistoryOf(String regNo) {
     return _tripHistory[regNo];
@@ -38,6 +41,11 @@ class AppData extends ChangeNotifier {
 
   void setUser(ModelUser user) {
     _user = user;
+    notifyListeners();
+  }
+
+  void setSelectedCompany(ModelCompany companyId) {
+    _selectedCompany = companyId;
     notifyListeners();
   }
 

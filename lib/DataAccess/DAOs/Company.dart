@@ -49,4 +49,15 @@ class Company {
         .catchError(
             (dynamic error) => print('Failed to update company: $error'));
   }
+
+  Future<CallContext> getCompanyById(String emailId) async {
+    final DocumentSnapshot<Map<String, dynamic>> doc =
+        await fireStore.collection(Constants.COMPANIES).doc(emailId).get();
+    if (!doc.exists) {
+      callContext.setError('Company not found');
+      return callContext;
+    }
+    callContext.data = ModelCompany.fromDoc(doc);
+    return callContext;
+  }
 }

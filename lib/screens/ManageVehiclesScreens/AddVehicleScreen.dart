@@ -100,7 +100,7 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
       return;
     }
     final AppData appData = Provider.of<AppData>(context, listen: false);
-    vehicle.companyId = appData.user.companyId;
+    vehicle.companyId = appData.selectedCompany.companyEmail;
     vehicle.isInTrip = false;
     vehicle.allowedDrivers = <String>[appData.user.phoneNumber];
     final CallContext callContext = await Vehicle().addVehicle(vehicle);

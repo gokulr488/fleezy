@@ -89,7 +89,7 @@ class PendingBalanceController {
     Navigator.pop(context);
     final AppData appData = Provider.of<AppData>(context, listen: false);
     final CallContext callContext =
-        await Trip().updateTrip(trip, appData?.user?.companyId);
+        await Trip().updateTrip(trip, appData.selectedCompany.companyEmail);
     if (callContext.isError) {
       showErrorAlert(context, callContext.errorMessage);
     } else {
@@ -103,7 +103,7 @@ class PendingBalanceController {
     Navigator.pop(context);
     final AppData appData = Provider.of<AppData>(context, listen: false);
     final CallContext callContext =
-        await Trip().updateTrip(trip, appData?.user?.companyId);
+        await Trip().updateTrip(trip, appData.selectedCompany.companyEmail);
     if (callContext.isError) {
       showErrorAlert(context, callContext.errorMessage);
     } else {

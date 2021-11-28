@@ -45,7 +45,22 @@ class ModelCompany {
     return userList;
   }
 
-  static ModelCompany getCompanyFromDoc(DocumentSnapshot<String> doc) {
+  static ModelCompany fromDoc(DocumentSnapshot<dynamic> doc) {
+    final Map<String, dynamic> json = doc.data() as Map<String, dynamic>;
+
+    return ModelCompany(
+      companyName: (json['CompanyName'] ?? '') as String,
+      companyEmail: (json['CompanyEmail'] ?? '') as String,
+      password: (json['Password'] ?? '') as String,
+      //vehicles: data['Vehicles'] ?? '',
+      phoneNumber: (json['PhoneNumber'] ?? '') as String,
+      //users: data['Users'] ?? '',
+      //expense: data['Expense'] ?? '',
+      //trip: data['Trip'] ?? '',
+    );
+  }
+
+  static ModelCompany getCompanyFromDoc(DocumentSnapshot<dynamic> doc) {
     final Map<String, String> data = doc.data() as Map<String, String>;
 
     return ModelCompany(

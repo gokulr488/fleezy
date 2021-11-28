@@ -92,8 +92,8 @@ class ManageVehicleScreen extends StatelessWidget {
       BuildContext context, ModelVehicle vehicle) async {
     final AppData appData = Provider.of<AppData>(context, listen: false);
     if (appData.drivers == null) {
-      final List<ModelUser> drivers =
-          await Roles().getAllUsersInCompany(appData.user.companyId);
+      final List<ModelUser> drivers = await Roles()
+          .getAllUsersInCompany(appData.selectedCompany.companyEmail);
       appData.setDrivers(drivers);
     }
     final List<String> allowedDrivers = vehicle.allowedDrivers.toList();
