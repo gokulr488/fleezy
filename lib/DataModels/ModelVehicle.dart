@@ -58,7 +58,7 @@ class ModelVehicle {
       allowedDrivers: List<String>.from(
           json['AllowedDrivers'] as List<dynamic> ?? <String>[]),
       companyId: (json['CompanyId'] ?? '') as String,
-      avgMileage: (json['AvgMileage'] ?? 0) as double,
+      avgMileage: ((json['AvgMileage'] as num) + .0 ?? 0.0),
     );
   }
 

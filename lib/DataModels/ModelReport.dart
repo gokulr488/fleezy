@@ -72,9 +72,9 @@ class ModelReport {
 
     return ModelReport(
       reportId: (json['reportId'] ?? '') as String,
-      income: (json['income'] ?? 0) as double,
-      pendingBal: (json['pendingBal'] ?? 0) as double,
-      driverSal: (json['driverSal'] ?? 0) as double,
+      income: (json['income'] as num) + .0 ?? 0.0,
+      pendingBal: (json['pendingBal'] as num) + .0 ?? 0.0,
+      driverSal: (json['driverSal'] as num) + .0 ?? 0.0,
       expense: (json['expense'] ?? 0) as double,
       totalTrips: (json['totalTrips'] ?? 0) as int,
       pendingPayTrips: (json['pendingPayTrips'] ?? 0) as int,

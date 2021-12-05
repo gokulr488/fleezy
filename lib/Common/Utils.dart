@@ -20,7 +20,7 @@ class Utils {
   }
 
   static String getFormattedTimeStamp(Timestamp timestamp, String format) {
-    if (timestamp == null) return null;
+    if (timestamp == null) return '00:00 00-00-00';
     return getFormattedDate(
         DateTime.fromMillisecondsSinceEpoch(timestamp.millisecondsSinceEpoch),
         format);

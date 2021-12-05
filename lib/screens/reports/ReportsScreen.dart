@@ -64,9 +64,8 @@ class _FilterWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.3,
-          height: 40,
+        Expanded(
+          flex: 2,
           child: DropDownButton(
               icon: Icons.calendar_today_outlined,
               hintText: 'Month',
@@ -74,9 +73,8 @@ class _FilterWidget extends StatelessWidget {
               values: ctrl.getMonths(),
               onChanged: (String value) {}),
         ),
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.45,
-          height: 40,
+        Expanded(
+          flex: 3,
           child: DropDownButton(
               icon: Icons.drive_eta_rounded,
               hintText: 'Vehicle',

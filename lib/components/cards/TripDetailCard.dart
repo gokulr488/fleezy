@@ -92,6 +92,9 @@ class TripDetailCard extends StatelessWidget {
 
   String _getTimeSpent() {
     if (tripDo.status == Constants.CANCELLED) return '00:00';
+    if (tripDo.status == Constants.ENDED && tripDo.endDate == null) {
+      return '00:00';
+    }
     int millisSpent;
     if (tripDo.endDate != null) {
       millisSpent = tripDo.endDate.millisecondsSinceEpoch -
