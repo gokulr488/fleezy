@@ -47,10 +47,10 @@ class ModelUser {
     };
   }
 
-  static List<ModelUser> getUsersFrom(QuerySnapshot<ModelUser> snapshot) {
+  static List<ModelUser> getUsersFrom(QuerySnapshot snapshot) {
     final List<ModelUser> users = [];
-    for (final QueryDocumentSnapshot<ModelUser> doc in snapshot.docs) {
-      users.add(doc.data());
+    for (final QueryDocumentSnapshot doc in snapshot.docs) {
+      users.add(ModelUser.fromJson(doc.data()));
     }
     return users;
   }
