@@ -22,32 +22,29 @@ class PendingBalanceScreen extends StatelessWidget {
     ctrl.getData(regNumber, context, appdata);
     return BaseScreen(
       headerText: 'Pending Balances',
-      child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            if (regNumber != null)
-              IgnorePointer(
-                child: VehicleCard(
-                  registrationNumber: regNumber,
-                  currentDriver:
-                      appdata.user.fullName ?? appdata.user.phoneNumber,
-                ),
-              ),
-            Expanded(
-              child: Consumer<AppData>(
-                  builder: (BuildContext context, AppData appData, _) {
-                return ScrollableList(
-                    childrenHeight: 160,
-                    items: ctrl.pendingBalCards,
-                    scrollController: scrollCtrl);
-              }),
+      child:
+          Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        if (regNumber != null)
+          IgnorePointer(
+            child: VehicleCard(
+              registrationNumber: regNumber,
+              currentDriver: appdata.user.fullName ?? appdata.user.phoneNumber,
             ),
-            RoundedButton(
-              title: 'Refresh',
-              onPressed: () =>
-                  ctrl.onRefreshPressed(regNumber, context, appdata),
-            )
-          ]),
+          ),
+        Expanded(
+          child: Consumer<AppData>(
+              builder: (BuildContext context, AppData appData, _) {
+            return ScrollableList(
+                childrenHeight: 160,
+                items: ctrl.pendingBalCards,
+                scrollController: scrollCtrl);
+          }),
+        ),
+        RoundedButton(
+          title: 'Refresh',
+          onPressed: () => ctrl.onRefreshPressed(regNumber, context, appdata),
+        )
+      ]),
     );
   }
 

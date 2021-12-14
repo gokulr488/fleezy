@@ -18,7 +18,7 @@ class StartScreen extends StatelessWidget {
     return BaseScreen(
       headerText: '',
       child: Column(
-        children: <Widget>[
+        children: [
           Expanded(
             child: Center(
               child: Text(

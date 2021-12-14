@@ -20,13 +20,13 @@ class _FilterReportsSheetState extends State<FilterReportsSheet> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
-        children: <Widget>[
+        children: [
           const Text('Report Filters', style: TextStyle(fontSize: 18)),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
+              children: [
                 _buildButton(repData, Constants.MONTHLY),
                 _buildButton(repData, Constants.QUARTERLY),
                 _buildButton(repData, Constants.YEARLY),
@@ -34,7 +34,7 @@ class _FilterReportsSheetState extends State<FilterReportsSheet> {
             ),
           ),
           Row(
-            children: <Widget>[
+            children: [
               Expanded(child: YearSelector()),
               if (repData.filterPeriod != Constants.YEARLY)
                 Expanded(child: TimePeriodSelector()),

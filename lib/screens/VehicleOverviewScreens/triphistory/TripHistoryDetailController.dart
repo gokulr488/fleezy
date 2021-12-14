@@ -14,7 +14,7 @@ Future<List<ModelExpense>> getExpenses(
 }
 
 List<ExpenseCard> buildCards(List<ModelExpense> expenses) {
-  final List<ExpenseCard> expenseCards = <ExpenseCard>[];
+  final List<ExpenseCard> expenseCards = [];
   for (final ModelExpense expense in expenses) {
     expenseCards.add(ExpenseCard(
       expense: expense,

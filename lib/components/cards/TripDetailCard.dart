@@ -27,14 +27,14 @@ class TripDetailCard extends StatelessWidget {
       cardChild: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
-          children: <Widget>[
+          children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
+              children: [
                 Text(_getTimeSpent(), style: _ktimerTextStyle),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
+                  children: [
                     Text(tripDo.vehicleRegNo ?? '',
                         style: _kRegistrationNumberTextStyle),
                     Text('Driver: ${tripDo.driverName}',
@@ -44,7 +44,7 @@ class TripDetailCard extends StatelessWidget {
               ],
             ),
             Row(
-              children: <Widget>[
+              children: [
                 Expanded(
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
@@ -73,7 +73,7 @@ class TripDetailCard extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
+                children: [
                   Text('Kms: ${distance?.toStringAsFixed(2) ?? 0}',
                       style: _kDetailsTextStyle),
                   Text('Party: ${tripDo.customerName ?? ''}',

@@ -25,7 +25,7 @@ class _TripFilterSheetState extends State<TripFilterSheet> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
-        children: <Widget>[
+        children: [
           Expanded(
             child: DatePicker(
               text:

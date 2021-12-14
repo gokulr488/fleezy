@@ -31,11 +31,11 @@ class _AddDriverScreenState extends State<AddDriverScreen> {
         headerText: 'Add New User',
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
+          children: [
             const Text('User Details', style: _kHeaderTextStyle),
             const SizedBox(height: 20),
             Expanded(
-              child: ScrollableList(childrenHeight: 80, items: <Widget>[
+              child: ScrollableList(childrenHeight: 80, items: [
                 TextField(
                     textCapitalization: TextCapitalization.words,
                     onChanged: (String value) {

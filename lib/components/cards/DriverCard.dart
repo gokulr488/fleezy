@@ -22,35 +22,30 @@ class DriverCard extends StatelessWidget {
     return BaseCard(
       cardChild: Padding(
           padding: const EdgeInsets.all(5.0),
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Text(user.fullName ?? '', style: _kDriverNameTextStyle),
-                      Text(user.phoneNumber ?? '', style: _kDriverNameTextStyle)
-                    ]),
-                Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      RoundedButton(
-                        onPressed: edit,
-                        title: 'Edit',
-                        width: 130,
-                        colour: kCardOverlay[8],
-                      ),
-                      RoundedButton(
-                          colour: kCardOverlay[8],
-                          onPressed: () {
-                            deactivate(context);
-                          },
-                          title: user.state == Constants.ACTIVE
-                              ? 'De-Activate'
-                              : 'Activate',
-                          width: 130)
-                    ])
-              ])),
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+              Text(user.fullName ?? '', style: _kDriverNameTextStyle),
+              Text(user.phoneNumber ?? '', style: _kDriverNameTextStyle)
+            ]),
+            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+              RoundedButton(
+                onPressed: edit,
+                title: 'Edit',
+                width: 130,
+                colour: kCardOverlay[8],
+              ),
+              RoundedButton(
+                  colour: kCardOverlay[8],
+                  onPressed: () {
+                    deactivate(context);
+                  },
+                  title: user.state == Constants.ACTIVE
+                      ? 'De-Activate'
+                      : 'Activate',
+                  width: 130)
+            ])
+          ])),
       color:
           user.state == Constants.ACTIVE ? kActiveCardColor : kCardOverlay[4],
     );

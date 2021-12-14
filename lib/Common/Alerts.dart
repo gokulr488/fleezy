@@ -27,7 +27,7 @@ void showSendingDialogue(BuildContext context) {
     builder: (BuildContext context) {
       return const Alerts(
         title: 'Submitting...',
-        actions: <Widget>[LoadingDots(size: 50)],
+        actions: [LoadingDots(size: 50)],
       );
     },
   );
@@ -37,7 +37,7 @@ void showSubmitResponse(BuildContext context, String resp) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
-      return Alerts(title: resp, actions: <Widget>[
+      return Alerts(title: resp, actions: [
         TextButton(
             onPressed: () => Navigator.of(context).pop(),
             child: const Text('OK'))
@@ -52,7 +52,7 @@ void showErrorAlert(BuildContext context, String errorMessage) {
     builder: (BuildContext context) {
       return Alerts(
         title: 'ERROR',
-        actions: <Widget>[
+        actions: [
           Text(errorMessage, style: const TextStyle(fontSize: 18)),
           TextButton(
               onPressed: () => Navigator.of(context).pop(),
@@ -70,11 +70,11 @@ void showWarningAlert(
     builder: (BuildContext context) {
       return Alerts(
         title: 'Warning',
-        actions: <Widget>[
+        actions: [
           Text(errorMessage, style: const TextStyle(fontSize: 18)),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
+            children: [
               TextButton(
                   onPressed: () => Navigator.of(context).pop(),
                   child: const Text('No')),

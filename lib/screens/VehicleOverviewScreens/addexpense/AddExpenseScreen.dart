@@ -37,7 +37,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
         headerText: 'Add Expense',
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
+            children: [
               IgnorePointer(
                 child: VehicleCard(
                   registrationNumber: regNumber,
@@ -47,7 +47,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
               ),
               const SizedBox(height: 15),
               Expanded(
-                  child: ScrollableList(childrenHeight: 90, items: <Widget>[
+                  child: ScrollableList(childrenHeight: 90, items: [
                 DropDown(
                     defaultValue: ctrl.expenseDo.expenseType,
                     values: Constants.EXPENSE_TYPES,
@@ -82,7 +82,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                         labelText: 'Details of Expense'))
               ])),
               Row(
-                children: <Widget>[
+                children: [
                   _getPhotoWidget(),
                   IconButton(
                       onPressed: () async {

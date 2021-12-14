@@ -96,7 +96,7 @@ class ModelTrip {
   }
 
   static List<ModelTrip> fromDocs(QuerySnapshot<Object> snapshot) {
-    final List<ModelTrip> trips = <ModelTrip>[];
+    final List<ModelTrip> trips = [];
     for (final QueryDocumentSnapshot<Object> doc in snapshot?.docs) {
       trips.add(fromDoc(doc));
     }

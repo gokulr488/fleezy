@@ -7,7 +7,7 @@ import 'package:fleezy/components/cards/TripOverviewCard.dart';
 import 'package:flutter/material.dart';
 
 class TripHistoryController {
-  List<TripOverviewCard> tripDetailCards = <TripOverviewCard>[];
+  List<TripOverviewCard> tripDetailCards = [];
   DateTime from;
   DateTime to;
 
@@ -25,7 +25,7 @@ class TripHistoryController {
       await _getDataFromDB(regNumber, context, appdata);
     }
     final List<ModelTrip> tripHistory = appdata.getTripHistoryOf(regNumber);
-    tripDetailCards = <TripOverviewCard>[];
+    tripDetailCards = [];
     for (final ModelTrip trip in tripHistory) {
       tripDetailCards.add(_buildTripDetailCard(trip));
     }

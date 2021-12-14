@@ -34,12 +34,12 @@ class _StartNewTripScreenState extends State<StartNewTripScreen> {
         headerText: 'Start New Trip',
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
+            children: [
               IgnorePointer(child: vehicle),
               Expanded(
                   child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
-                child: ScrollableList(childrenHeight: 80, items: <Widget>[
+                child: ScrollableList(childrenHeight: 80, items: [
                   TextField(
                       textCapitalization: TextCapitalization.words,
                       textAlign: TextAlign.center,

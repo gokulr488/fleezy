@@ -23,7 +23,7 @@ class CurrentUserScreen extends StatelessWidget {
     final AppData appData = Provider.of<AppData>(context, listen: false);
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
+      children: [
         const Text('User Info', style: kHeaderTextStyle),
         const Icon(
           Icons.account_circle,
@@ -35,9 +35,9 @@ class CurrentUserScreen extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
+                children: [
                   Row(
-                    children: const <Widget>[
+                    children: const [
                       Icon(Icons.account_circle, size: 18),
                       SizedBox(width: 10),
                       Text('Name', style: _kLabelTS),
@@ -46,7 +46,7 @@ class CurrentUserScreen extends StatelessWidget {
                   _EditNameWidget(),
                   const HorLine(),
                   Row(
-                    children: const <Widget>[
+                    children: const [
                       Icon(Icons.phone, size: 18),
                       SizedBox(width: 10),
                       Text('Phone Number', style: _kLabelTS),
@@ -56,7 +56,7 @@ class CurrentUserScreen extends StatelessWidget {
                   Text(appData.user?.phoneNumber ?? '', style: _kFieldTS),
                   const HorLine(),
                   Row(
-                    children: const <Widget>[
+                    children: const [
                       Icon(Icons.info_outline, size: 18),
                       SizedBox(width: 10),
                       Text('User Type', style: _kLabelTS),
@@ -100,7 +100,7 @@ class __EditNameWidgetState extends State<_EditNameWidget> {
     nameController = TextEditingController(text: appData.user.fullName ?? '');
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
+      children: [
         if (isEditEnabled)
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.8,

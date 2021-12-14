@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class PendingBalanceController {
-  List<PendingBalanceCard> pendingBalCards = <PendingBalanceCard>[];
+  List<PendingBalanceCard> pendingBalCards = [];
   DocumentSnapshot<Object> lastDoc;
 
   Future<void> getData(
@@ -31,7 +31,7 @@ class PendingBalanceController {
       pendingBalTrips = appdata.getPendingBalanceOf(regNumber);
     }
 
-    pendingBalCards = <PendingBalanceCard>[];
+    pendingBalCards = [];
     if (pendingBalTrips != null) {
       for (final ModelTrip trip in pendingBalTrips) {
         pendingBalCards.add(_buildPendingBalCard(trip));

@@ -39,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
       headerText: '', //To Disable AppBar
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
+        children: [
           Text('Fleezy',
               style: GoogleFonts.dancingScript(
                   color: kHighlightColour,

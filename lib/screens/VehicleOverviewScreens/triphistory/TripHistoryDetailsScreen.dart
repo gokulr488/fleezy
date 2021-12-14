@@ -24,7 +24,7 @@ class TripHistoryDetailsScreen extends StatelessWidget {
     return BaseScreen(
       headerText: 'Trip Summary',
       child: Column(
-        children: <Widget>[
+        children: [
           TripDetailCard(
             tripDo: tripDo,
             distance: tripDo.distance?.toDouble(),

@@ -36,12 +36,12 @@ class _InsurancePaymentScreenState extends State<InsurancePaymentScreen> {
         headerText: 'Insurance Payment',
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
+            children: [
               IgnorePointer(child: vehicle),
               Expanded(
                   child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
-                child: ScrollableList(childrenHeight: 80, items: <Widget>[
+                child: ScrollableList(childrenHeight: 80, items: [
                   DatePicker(
                       text: 'Insurance Expiry Date:  ${_getInsExpiryDate()}',
                       onTap: onDatePickerTap),

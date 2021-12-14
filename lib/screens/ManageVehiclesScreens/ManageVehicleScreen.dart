@@ -24,10 +24,10 @@ class ManageVehicleScreen extends StatelessWidget {
         headerText: 'Manage Vehicle',
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
+            children: [
               IgnorePointer(child: vehicle),
               const SizedBox(height: 15),
-              GridLayout(children: <Widget>[
+              GridLayout(children: [
                 ButtonCard(
                   text: 'Tax Payment',
                   icon: Icons.payment,
@@ -58,7 +58,7 @@ class ManageVehicleScreen extends StatelessWidget {
                           builder: (BuildContext context) {
                             return Alerts(
                                 title: 'Delete this vehicle ?',
-                                actions: <Widget>[
+                                actions: [
                                   TextButton(
                                       onPressed: () =>
                                           Navigator.of(context).pop(),

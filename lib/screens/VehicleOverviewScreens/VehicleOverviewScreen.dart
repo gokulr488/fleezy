@@ -20,11 +20,11 @@ class VehicleOverviewScreen extends StatelessWidget {
         ModalRoute.of(context).settings.arguments as VehicleCard;
     return BaseScreen(
         headerText: 'Vehicle Overview',
-        child: Column(children: <Widget>[
+        child: Column(children: [
           IgnorePointer(child: vehicle),
           const SizedBox(height: 15),
           GridLayout(
-            children: <Widget>[
+            children: [
               ButtonCard(
                   text: 'Start a Trip',
                   icon: Icons.add_road,

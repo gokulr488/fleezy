@@ -29,7 +29,7 @@ class _TripHistoryScreenState extends State<TripHistoryScreen> {
         headerText: 'Trip History',
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
+            children: [
               IgnorePointer(
                 child: VehicleCard(
                   registrationNumber: regNumber,

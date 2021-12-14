@@ -17,7 +17,7 @@ class FinesOtherExpensesCard extends StatelessWidget {
       cardChild: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
-          children: <Widget>[
+          children: [
             const Text('Fines & Other Expenses', style: kReportCardHeaderTS),
             DataRowWidget(
                 field: 'No Of Fines', value: Utils.formatInt(report.noOfFines)),

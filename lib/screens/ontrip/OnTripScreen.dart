@@ -53,7 +53,7 @@ class _OnTripScreenState extends State<OnTripScreen> {
         child: tripDo != null
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
+                children: [
                     TripDetailCard(
                       tripDo: tripDo,
                       distance: controller.distance,
@@ -62,7 +62,7 @@ class _OnTripScreenState extends State<OnTripScreen> {
                     Expanded(
                         child: ScrollableList(
                       childrenHeight: 75,
-                      items: <Widget>[
+                      items: [
                         TextField(
                             textAlign: TextAlign.center,
                             keyboardType: TextInputType.number,
@@ -97,7 +97,7 @@ class _OnTripScreenState extends State<OnTripScreen> {
                                 labelText: 'Odometer Reading')),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
+                            children: [
                               const Text('Round Trip',
                                   style: TextStyle(
                                       fontSize: 20, color: kHighlightColour)),
@@ -115,7 +115,7 @@ class _OnTripScreenState extends State<OnTripScreen> {
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
+                          children: [
                             RoundedButton(
                               title: 'Cancel Trip',
                               onPressed: () =>

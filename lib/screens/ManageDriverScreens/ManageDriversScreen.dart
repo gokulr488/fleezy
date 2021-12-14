@@ -17,13 +17,13 @@ class ManageDriversScreen extends StatelessWidget {
     return BaseScreen(
       headerText: 'Manage Drivers',
       child: Column(
-        children: <Widget>[
+        children: [
           Expanded(
               child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
             child: Consumer<AppData>(
                 builder: (BuildContext context, AppData appData, _) {
-              final List<DriverCard> driverCards = <DriverCard>[];
+              final List<DriverCard> driverCards = [];
               for (final ModelUser driver in appData.drivers ?? <ModelUser>[]) {
                 driverCards.add(buildDriverCard(driver));
               }

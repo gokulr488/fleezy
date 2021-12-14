@@ -22,11 +22,11 @@ class PaymentDetailsCard extends StatelessWidget {
           height: (trip.status != Constants.CANCELLED) ? 175 : 75,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
+            children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
+                children: [
                   if (trip.status != Constants.CANCELLED)
                     const Text('Total', style: _kLabelTS),
                   if (trip.status != Constants.CANCELLED)
@@ -45,7 +45,7 @@ class PaymentDetailsCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
+                children: [
                   if (trip.status != Constants.CANCELLED)
                     Text('${trip.billAmount} Rs', style: _kLabelTS),
                   if (trip.status != Constants.CANCELLED)

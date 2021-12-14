@@ -59,7 +59,7 @@ class ReportsController {
   }
 
   List<String> getYears() {
-    final List<String> years = <String>[];
+    final List<String> years = [];
     for (int i = 2018; i <= DateTime.now().year; i++) {
       years.add(i.toString());
     }
@@ -71,7 +71,7 @@ class ReportsController {
   }
 
   List<String> getMonths() {
-    final List<String> months = <String>[];
+    final List<String> months = [];
     for (int i = 1; i <= 12; i++) {
       final DateTime now = DateTime(DateTime.now().year, i);
       months.add(DateFormat('MMM').format(now));
@@ -80,7 +80,7 @@ class ReportsController {
   }
 
   List<String> getVehicleList(BuildContext context) {
-    final List<String> vehicles = <String>['All'];
+    final List<String> vehicles = ['All'];
     final AppData appData = Provider.of<AppData>(context, listen: false);
     for (final ModelVehicle vehicle in appData.availableVehicles) {
       vehicles.add(vehicle.registrationNo);

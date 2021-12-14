@@ -31,12 +31,12 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
       headerText: 'Add New Vehicle',
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
+        children: [
           // SizedBox(height: 20),
           const Text('Vehicle Details', style: _kHeaderTextStyle),
           const SizedBox(height: 30),
           Expanded(
-            child: ScrollableList(childrenHeight: 80, items: <Widget>[
+            child: ScrollableList(childrenHeight: 80, items: [
               TextField(
                   textCapitalization: TextCapitalization.words,
                   onChanged: (String value) {
@@ -102,7 +102,7 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
     final AppData appData = Provider.of<AppData>(context, listen: false);
     vehicle.companyId = appData.selectedCompany.companyEmail;
     vehicle.isInTrip = false;
-    vehicle.allowedDrivers = <String>[appData.user.phoneNumber];
+    vehicle.allowedDrivers = [appData.user.phoneNumber];
     final CallContext callContext = await Vehicle().addVehicle(vehicle);
     if (callContext.isError) {
       showErrorAlert(context, callContext.errorMessage);

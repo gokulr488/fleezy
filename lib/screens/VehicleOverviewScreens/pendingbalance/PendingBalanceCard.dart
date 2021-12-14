@@ -19,7 +19,7 @@ class PendingBalanceCard extends StatelessWidget {
       cardChild: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
-          children: <Widget>[
+          children: [
             DataRowWidget(
               field: 'Party',
               value: trip.customerName ?? '',

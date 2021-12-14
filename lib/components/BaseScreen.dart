@@ -15,7 +15,7 @@ class BaseScreen extends StatelessWidget {
           : AppBar(
               title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
+                  children: [
                     Text(headerText,
                         style: GoogleFonts.laila(
                           color: kTextColor,

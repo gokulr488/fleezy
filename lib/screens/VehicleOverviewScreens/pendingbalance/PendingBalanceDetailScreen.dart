@@ -36,11 +36,11 @@ class _PendingBalanceDetailScreenState
     return BaseScreen(
       headerText: 'Balance Details',
       child: Column(
-        children: <Widget>[
+        children: [
           Expanded(
             child: SingleChildScrollView(
               child: Column(
-                children: <Widget>[
+                children: [
                   IgnorePointer(child: PendingBalanceCard(trip: trip)),
                   _TripDetailsCard(trip: trip),
                   HorLine(),
@@ -55,7 +55,7 @@ class _PendingBalanceDetailScreenState
                   if (uiState.isAdmin)
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
+                        children: [
                           Text('Ignore Pending Amount',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -115,7 +115,7 @@ class _TripDetailsCard extends StatelessWidget {
         cardChild: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
-            children: <Widget>[
+            children: [
               DataRowWidget(
                 field: 'Party Phone No',
                 value: trip.customerPhone ?? 'Not available',

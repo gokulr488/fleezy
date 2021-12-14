@@ -36,12 +36,12 @@ class _TaxPaymentScreenState extends State<TaxPaymentScreen> {
         headerText: 'Tax Payment',
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
+            children: [
               IgnorePointer(child: vehicle),
               Expanded(
                   child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
-                child: ScrollableList(childrenHeight: 80, items: <Widget>[
+                child: ScrollableList(childrenHeight: 80, items: [
                   DatePicker(
                       text: 'Tax Expiry Date:  ${_getTaxExpiryDate()}',
                       onTap: onDatePickerTap),

@@ -21,10 +21,10 @@ class _ManageCompanyScreenState extends State<ManageCompanyScreen> {
     final UiState uiState = Provider.of<UiState>(context, listen: false);
     return uiState.isAdmin
         ? Column(
-            children: <Widget>[
+            children: [
               const Text('Manage Company', style: kHeaderTextStyle),
               const SizedBox(height: 10),
-              GridLayout(children: <Widget>[
+              GridLayout(children: [
                 ButtonCard(
                     text: 'Manage Vehicles',
                     icon: Icons.car_repair,

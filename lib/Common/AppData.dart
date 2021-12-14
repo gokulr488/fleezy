@@ -5,7 +5,7 @@ import 'package:fleezy/DataModels/ModelVehicle.dart';
 import 'package:flutter/cupertino.dart';
 
 class AppData extends ChangeNotifier {
-  List<ModelVehicle> _availableVehicles = <ModelVehicle>[];
+  List<ModelVehicle> _availableVehicles = [];
   final Map<String, List<ModelTrip>> _tripHistory = <String, List<ModelTrip>>{};
   Map<String, List<ModelTrip>> _pendingBalance = <String, List<ModelTrip>>{};
   Map<String, ModelUser> _drivers;
@@ -29,7 +29,7 @@ class AppData extends ChangeNotifier {
   }
 
   List<ModelTrip> getAllPendingBalances() {
-    final List<ModelTrip> pendingBals = <ModelTrip>[];
+    final List<ModelTrip> pendingBals = [];
     for (final ModelVehicle vehicle in _availableVehicles) {
       pendingBals
           .addAll(_pendingBalance[vehicle.registrationNo] ?? <ModelTrip>[]);
@@ -56,7 +56,7 @@ class AppData extends ChangeNotifier {
 
   void addPendingBalance(String regNo, ModelTrip pendingBal) {
     if (_pendingBalance[regNo] == null) {
-      _pendingBalance[regNo] = <ModelTrip>[];
+      _pendingBalance[regNo] = [];
     }
     _pendingBalance[regNo].add(pendingBal);
     notifyListeners();

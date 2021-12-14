@@ -28,7 +28,7 @@ class ReportsScreen extends StatelessWidget {
             builder: (BuildContext context, ReportData reportData, _) {
           return ReportsController.reportReady
               ? Column(
-                  children: <Widget>[
+                  children: [
                     _FilterWidget(),
                     Text(_getSummaryName(reportData.generatedReport.reportId),
                         style: kReportCardHeaderTS),
@@ -63,7 +63,7 @@ class _FilterWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
+      children: [
         Expanded(
           flex: 2,
           child: DropDownButton(

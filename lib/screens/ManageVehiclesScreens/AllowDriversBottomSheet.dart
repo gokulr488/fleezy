@@ -22,7 +22,7 @@ class _AllowDriversSheetState extends State<AllowDriversSheet> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: <Widget>[
+      children: [
         Expanded(
             child: ScrollableList(
                 childrenHeight: 50,
@@ -41,31 +41,30 @@ class _AllowDriversSheetState extends State<AllowDriversSheet> {
 
   List<Widget> getDriverChoosers(
       List<ModelUser> allDrivers, List<String> allowedDrivers) {
-    final List<Widget> driverChoosers = <Widget>[];
+    final List<Widget> driverChoosers = [];
     for (final ModelUser driver in allDrivers) {
       bool allowed = allowedDrivers.contains(driver.phoneNumber);
       driverChoosers.add(Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(
-                driver.fullName,
-                style: const TextStyle(fontSize: 17),
-              ),
-              Checkbox(
-                  activeColor: kHighlightColour,
-                  value: allowed,
-                  onChanged: (bool value) {
-                    allowed = !allowed;
-                    if (allowed) {
-                      allowedDrivers.add(driver.phoneNumber);
-                    } else {
-                      allowedDrivers.remove(driver.phoneNumber);
-                    }
-                    setState(() {});
-                  })
-            ]),
+        child:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Text(
+            driver.fullName,
+            style: const TextStyle(fontSize: 17),
+          ),
+          Checkbox(
+              activeColor: kHighlightColour,
+              value: allowed,
+              onChanged: (bool value) {
+                allowed = !allowed;
+                if (allowed) {
+                  allowedDrivers.add(driver.phoneNumber);
+                } else {
+                  allowedDrivers.remove(driver.phoneNumber);
+                }
+                setState(() {});
+              })
+        ]),
       ));
     }
     return driverChoosers;

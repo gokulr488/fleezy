@@ -63,7 +63,7 @@ class ModelVehicle {
   }
 
   static List<ModelVehicle> fromDocs(QuerySnapshot<Object> snapshot) {
-    final List<ModelVehicle> vehicles = <ModelVehicle>[];
+    final List<ModelVehicle> vehicles = [];
     for (final QueryDocumentSnapshot<Object> doc in snapshot.docs) {
       vehicles.add(fromDoc(doc));
     }

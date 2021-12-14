@@ -16,7 +16,7 @@ class DataRowWidget extends StatelessWidget {
       padding: const EdgeInsets.all(5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
+        children: [
           Text(field,
               style: TextStyle(
                   fontSize: fontSize ?? 18,

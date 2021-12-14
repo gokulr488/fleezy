@@ -34,7 +34,7 @@ class _ListVehiclesScreenState extends State<ListVehiclesScreen> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: <Widget>[
+      children: [
         const Text('Our Vehicles', style: kHeaderTextStyle),
         Expanded(
           child: Consumer<AppData>(
@@ -92,7 +92,7 @@ class _ListVehiclesScreenState extends State<ListVehiclesScreen> {
   }
 
   List<VehicleCard> _populateVehicleCards(AppData appData) {
-    final List<VehicleCard> vehicleCards = <VehicleCard>[];
+    final List<VehicleCard> vehicleCards = [];
     for (final ModelVehicle vehicle in appData.availableVehicles) {
       vehicleCards.add(VehicleCard(
           vehicle: vehicle,

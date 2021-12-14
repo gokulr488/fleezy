@@ -48,7 +48,7 @@ class ModelUser {
   }
 
   static List<ModelUser> getUsersFrom(QuerySnapshot<ModelUser> snapshot) {
-    final List<ModelUser> users = <ModelUser>[];
+    final List<ModelUser> users = [];
     for (final QueryDocumentSnapshot<ModelUser> doc in snapshot.docs) {
       users.add(doc.data());
     }

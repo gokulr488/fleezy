@@ -16,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   PageController _pageController;
   int navBarIndex = 1;
-  final List<Widget> _screens = <Widget>[
+  final List<Widget> _screens = [
     ManageCompanyScreen(),
     ListVehiclesScreen(),
     CurrentUserScreen()

@@ -28,7 +28,7 @@ class ButtonCard extends StatelessWidget {
   }
 
   List<Widget> _buildWidgets() {
-    final List<Widget> children = <Widget>[];
+    final List<Widget> children = [];
     if (icon != null) {
       children.add(Icon(
         icon,

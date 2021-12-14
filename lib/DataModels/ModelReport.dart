@@ -94,7 +94,7 @@ class ModelReport {
   }
 
   static List<ModelReport> fromDocs(QuerySnapshot<Object> snapshot) {
-    final List<ModelReport> reports = <ModelReport>[];
+    final List<ModelReport> reports = [];
     for (final DocumentSnapshot<Object> doc in snapshot.docs) {
       reports.add(fromDoc(doc));
     }

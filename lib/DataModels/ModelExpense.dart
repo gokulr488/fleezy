@@ -89,7 +89,7 @@ class ModelExpense {
   }
 
   static List<ModelExpense> fromDocs(QuerySnapshot<Object> snapshot) {
-    final List<ModelExpense> trips = <ModelExpense>[];
+    final List<ModelExpense> trips = [];
     for (final DocumentSnapshot<Object> doc in snapshot?.docs) {
       trips.add(fromDoc(doc));
     }

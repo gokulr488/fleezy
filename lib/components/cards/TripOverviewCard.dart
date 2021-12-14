@@ -25,10 +25,10 @@ class TripOverviewCard extends StatelessWidget {
       onTap: () => onTap(context),
       cardChild: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
+        children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
+            children: [
               Text(tripDo.startingFrom, style: _labelTS),
               const Icon(Icons.keyboard_arrow_right_outlined, size: 30),
               Text(tripDo.destination, style: _labelTS)
@@ -36,7 +36,7 @@ class TripOverviewCard extends StatelessWidget {
           ),
           Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
+              children: [
                 Text('Driver: ${tripDo.driverName}', style: _labelTS),
                 Text('Party: ${tripDo.customerName}', style: _labelTS),
               ]),

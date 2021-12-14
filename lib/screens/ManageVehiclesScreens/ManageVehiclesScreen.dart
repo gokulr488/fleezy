@@ -18,7 +18,7 @@ class ManageVehiclesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseScreen(
         headerText: 'Manage Vehicles',
-        child: Column(children: <Widget>[
+        child: Column(children: [
           Expanded(
               child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),

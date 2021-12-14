@@ -20,10 +20,10 @@ class ExpenseCard extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
+          children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
+              children: [
                 Text('Type: ${expense.expenseType}', style: _kLabelTS),
                 Text('Amount: ${expense.amount}', style: _kLabelTS),
                 Text(
@@ -36,7 +36,7 @@ class ExpenseCard extends StatelessWidget {
             if (expense.expenseType == Constants.FUEL)
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
+                children: [
                   Text('Litres: ${expense.fuelQty.toStringAsFixed(2)}',
                       style: _kLabelTS),
                   Text('Fuel Price: ${expense.fuelUnitPrice}',

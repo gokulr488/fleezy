@@ -42,7 +42,7 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
         headerText: 'Add Fuel',
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
+            children: [
               IgnorePointer(
                 child: VehicleCard(
                   registrationNumber: regNumber,
@@ -52,7 +52,7 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
               ),
               const SizedBox(height: 15),
               Expanded(
-                  child: ScrollableList(childrenHeight: 65, items: <Widget>[
+                  child: ScrollableList(childrenHeight: 65, items: [
                 DropDown(
                     defaultValue: controller.expenseDo.payMode,
                     values: const <String>['CASH', 'BPL Card', 'Debit Card'],
@@ -100,7 +100,7 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
                         labelText: 'Odometer Reading')),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
+                    children: [
                       Text('Full Tank', style: _ts),
                       Checkbox(
                           activeColor: kHighlightColour,
@@ -113,7 +113,7 @@ class _AddFuelScreenState extends State<AddFuelScreen> {
                     ])
               ])),
               Row(
-                children: <Widget>[
+                children: [
                   _getPhotoWidget(),
                   IconButton(
                       onPressed: () async {

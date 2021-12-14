@@ -15,7 +15,7 @@ class DatePicker extends StatelessWidget {
         height: 40,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
+          children: [
             Text(text,
                 style: const TextStyle(
                   fontSize: 20,
