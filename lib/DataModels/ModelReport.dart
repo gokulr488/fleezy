@@ -21,6 +21,7 @@ class ModelReport {
     this.fineCost = 0,
     this.taxInsuranceCost = 0,
     this.otherCost = 0,
+    this.fastagCost = 0,
   });
 
   String reportId;
@@ -42,6 +43,7 @@ class ModelReport {
   double fineCost;
   double taxInsuranceCost;
   double otherCost;
+  double fastagCost;
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
@@ -64,6 +66,7 @@ class ModelReport {
       'fineCost': fineCost,
       'otherCost': otherCost,
       'taxInsuranceCost': taxInsuranceCost,
+      'fastagCost': fastagCost,
     };
   }
 
@@ -90,6 +93,7 @@ class ModelReport {
       fineCost: (json['fineCost'] ?? 0) as double,
       otherCost: (json['otherCost'] ?? 0) as double,
       taxInsuranceCost: (json['taxInsuranceCost'] ?? 0) as double,
+      fastagCost: (json['fastagCost'] ?? 0) as double,
     );
   }
 

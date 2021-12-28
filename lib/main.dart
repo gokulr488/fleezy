@@ -6,6 +6,7 @@ import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/ReportData.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/Common/UiState.dart';
+import 'package:fleezy/firebase_options.dart';
 import 'package:fleezy/screens/CreateCompanyScreen.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
 import 'package:fleezy/screens/HomeScreenPages/ListVehiclesScreen.dart';
@@ -36,7 +37,7 @@ import 'package:provider/provider.dart';
 //flutter build  apk --target-platform android-arm
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(MultiProvider(
     // ignore: always_specify_types
     providers: [

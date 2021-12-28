@@ -17,12 +17,11 @@ class FuelExpensesCard extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            const Text('Fuel Expenses', style: kReportCardHeaderTS),
+            const Text('Fuel & Fastag', style: kReportCardHeaderTS),
             DataRowWidget(
-              field: 'Total Fuel Cost',
-              value: '${Utils.formatDouble(report.fuelCost)} Rs',
-              color: Colors.red[500],
-            ),
+                field: 'Total Fuel Cost',
+                value: '${Utils.formatDouble(report.fuelCost)} Rs',
+                color: Colors.red[500]),
             DataRowWidget(
                 field: 'Litres Filled',
                 value: '${Utils.formatDouble(report.ltrs)} Litres'),
@@ -33,6 +32,10 @@ class FuelExpensesCard extends StatelessWidget {
                 field: 'Average Mileage', value: '${_getAvgMileage()} Km/L'),
             DataRowWidget(
                 field: 'Cost per Km', value: '${_getAvgCost()} Rs/Km'),
+            DataRowWidget(
+                field: 'Fastag Expenses',
+                value: '${Utils.formatDouble(report.fastagCost)} Rs',
+                color: Colors.red[500]),
           ],
         ),
       ),

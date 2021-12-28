@@ -56,6 +56,7 @@ class ReportProcessor {
     target.fineCost += source.fineCost ?? 0;
     target.otherCost += source.otherCost ?? 0;
     target.taxInsuranceCost += source.taxInsuranceCost ?? 0;
+    target.fastagCost += source.fastagCost ?? 0;
     return target;
   }
 
@@ -91,32 +92,36 @@ class ReportProcessor {
     vehicleReport ??= ModelReport();
 
     vehicleReport.expense += expense.amount ?? 0;
-    if (expense.expenseType == Constants.FUEL) {
-      vehicleReport.fuelCost += expense.amount;
-      vehicleReport.ltrs += expense.fuelQty;
+    switch (expense.expenseType) {
+      case Constants.FUEL:
+        vehicleReport.fuelCost += expense.amount;
+        vehicleReport.ltrs += expense.fuelQty;
+        break;
+      case Constants.SERVICE:
+        vehicleReport.serviceCost += expense.amount;
+        vehicleReport.noOfService++;
+        break;
+      case Constants.REPAIR:
+        vehicleReport.repairCost += expense.amount;
+        break;
+      case Constants.SPARE_PARTS:
+        vehicleReport.spareCost += expense.amount;
+        break;
+      case Constants.FINES:
+        vehicleReport.fineCost += expense.amount;
+        vehicleReport.noOfFines++;
+        break;
+      case Constants.OTHER_EXP:
+        vehicleReport.otherCost += expense.amount;
+        break;
+      case Constants.TAX_EXP:
+      case Constants.INSURANCE_EXP:
+        vehicleReport.taxInsuranceCost += expense.amount;
+        break;
+      case Constants.FASTAG:
+        vehicleReport.fastagCost += expense.amount;
+        break;
     }
-    if (expense.expenseType == Constants.SERVICE) {
-      vehicleReport.serviceCost += expense.amount;
-      vehicleReport.noOfService++;
-    }
-    if (expense.expenseType == Constants.REPAIR) {
-      vehicleReport.repairCost += expense.amount;
-    }
-    if (expense.expenseType == Constants.SPARE_PARTS) {
-      vehicleReport.spareCost += expense.amount;
-    }
-    if (expense.expenseType == Constants.FINES) {
-      vehicleReport.fineCost += expense.amount;
-      vehicleReport.noOfFines++;
-    }
-    if (expense.expenseType == Constants.OTHER_EXP) {
-      vehicleReport.otherCost += expense.amount;
-    }
-    if (expense.expenseType == Constants.TAX_EXP ||
-        expense.expenseType == Constants.INSURANCE_EXP) {
-      vehicleReport.taxInsuranceCost += expense.amount;
-    }
-
     _reports[reportId] = vehicleReport;
   }
 }
