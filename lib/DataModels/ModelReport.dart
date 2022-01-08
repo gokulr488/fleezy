@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:objectbox/objectbox.dart';
 
+@Entity()
 class ModelReport {
   ModelReport({
     this.reportId,
@@ -24,6 +26,8 @@ class ModelReport {
     this.fastagCost = 0,
   });
 
+  @Id()
+  int id;
   String reportId;
   double income;
   double pendingBal;

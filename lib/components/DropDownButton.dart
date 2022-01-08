@@ -14,7 +14,7 @@ class DropDownButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: kCardOverlay[8],
-      elevation: 8,
+      elevation: 4,
       borderRadius: BorderRadius.circular(25),
       child: DropdownButtonFormField<String>(
         icon: Icon(icon ?? Icons.arrow_drop_down),

@@ -1,6 +1,5 @@
 import 'package:fleezy/Common/ReportData.dart';
 import 'package:fleezy/Common/UiConstants.dart';
-import 'package:fleezy/Common/Utils.dart';
 import 'package:fleezy/components/BaseScreen.dart';
 import 'package:fleezy/components/DropDownButton.dart';
 import 'package:fleezy/components/HorLine.dart';
@@ -15,12 +14,24 @@ import 'package:fleezy/screens/reports/cards/TripsSummaryCard.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ReportsScreen extends StatelessWidget {
+class ReportsScreen extends StatefulWidget {
   static const String id = 'ReportsScreen';
+
+  @override
+  State<ReportsScreen> createState() => _ReportsScreenState();
+}
+
+class _ReportsScreenState extends State<ReportsScreen> {
   final ReportsController ctrl = ReportsController();
+
+  @override
+  void initState() {
+    super.initState();
+    ctrl.getCurrentMonthData(context);
+  }
+
   @override
   Widget build(BuildContext context) {
-    ctrl.getCurrentMonthData(context);
     return BaseScreen(
       headerText: 'Reports',
       child: SingleChildScrollView(
@@ -65,22 +76,14 @@ class _FilterWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
-          flex: 2,
-          child: DropDownButton(
-              icon: Icons.calendar_today_outlined,
-              hintText: 'Month',
-              value: Utils.getFormattedDate(DateTime.now(), 'MMM'),
-              values: ctrl.getMonths(),
-              onChanged: (String value) {}),
-        ),
-        Expanded(
           flex: 3,
           child: DropDownButton(
               icon: Icons.drive_eta_rounded,
               hintText: 'Vehicle',
               value: 'All',
               values: ctrl.getVehicleList(context),
-              onChanged: (String value) {}),
+              onChanged: (String vehicle) =>
+                  ctrl.onVehicleSelected(vehicle, context)),
         ),
         IconButton(
             icon: const Icon(Icons.filter_list),

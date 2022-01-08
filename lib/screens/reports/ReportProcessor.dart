@@ -3,11 +3,14 @@ import 'package:fleezy/Common/Utils.dart';
 import 'package:fleezy/DataModels/ModelExpense.dart';
 import 'package:fleezy/DataModels/ModelReport.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
+import 'package:fleezy/main.dart';
 
 class ReportProcessor {
   static final Map<String, ModelReport> _reports = <String, ModelReport>{};
   static List<ModelTrip> _trips;
   static List<ModelExpense> _expenses;
+
+  final _reportsBox = objectbox.reportsBox;
 
   void processTrips(List<ModelTrip> trips) {
     _trips = trips;
@@ -64,7 +67,7 @@ class ReportProcessor {
     final String reportId = _getReportId(trip.vehicleRegNo);
     ModelReport vehicleReport = _reports[reportId];
     vehicleReport ??= ModelReport();
-
+    vehicleReport.reportId = reportId;
     vehicleReport.income += trip.billAmount ?? 0;
     vehicleReport.kmsTravelled += trip.distance ?? 0;
     vehicleReport.driverSal += trip.driverSalary ?? 0;
@@ -90,7 +93,7 @@ class ReportProcessor {
     final String reportId = _getReportId(expense.vehicleRegNo);
     ModelReport vehicleReport = _reports[reportId];
     vehicleReport ??= ModelReport();
-
+    vehicleReport.reportId = reportId;
     vehicleReport.expense += expense.amount ?? 0;
     switch (expense.expenseType) {
       case Constants.FUEL:

@@ -75,7 +75,6 @@ class CurrentUserScreen extends StatelessWidget {
             title: 'Logout',
             onPressed: () {
               Authentication().logout();
-
               Navigator.popUntil(context, ModalRoute.withName(HomeScreen.id));
               Navigator.pushReplacementNamed(context, StartScreen.id);
             })

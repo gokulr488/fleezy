@@ -29,14 +29,18 @@ import 'package:fleezy/screens/VehicleOverviewScreens/triphistory/TripHistoryDet
 import 'package:fleezy/screens/VehicleOverviewScreens/triphistory/TripHistoryScreen.dart';
 import 'package:fleezy/screens/ontrip/OnTripScreen.dart';
 import 'package:fleezy/screens/reports/ReportsScreen.dart';
+import 'package:fleezy/services/ObjectBox.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 //flutter build  apk --target-platform android-arm
+ObjectBox objectbox;
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  objectbox = await ObjectBox.create();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(MultiProvider(
     // ignore: always_specify_types

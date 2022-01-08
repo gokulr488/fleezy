@@ -1,0 +1,132 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:4900922487780503117",
+      "lastPropertyId": "21:8853050515371830580",
+      "name": "ModelReport",
+      "properties": [
+        {
+          "id": "1:2905701778793394399",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:282744498516048172",
+          "name": "reportId",
+          "type": 9
+        },
+        {
+          "id": "3:1864303905578543555",
+          "name": "income",
+          "type": 8
+        },
+        {
+          "id": "4:6338536966574793218",
+          "name": "pendingBal",
+          "type": 8
+        },
+        {
+          "id": "5:5386921636093419609",
+          "name": "driverSal",
+          "type": 8
+        },
+        {
+          "id": "6:7223996200506544325",
+          "name": "expense",
+          "type": 8
+        },
+        {
+          "id": "7:4013968525874644811",
+          "name": "totalTrips",
+          "type": 6
+        },
+        {
+          "id": "8:5812166643093027897",
+          "name": "pendingPayTrips",
+          "type": 6
+        },
+        {
+          "id": "9:997343046413598606",
+          "name": "cancelledTrips",
+          "type": 6
+        },
+        {
+          "id": "10:1323977385902354683",
+          "name": "kmsTravelled",
+          "type": 8
+        },
+        {
+          "id": "11:1930449870278088160",
+          "name": "fuelCost",
+          "type": 8
+        },
+        {
+          "id": "12:494713303425537184",
+          "name": "ltrs",
+          "type": 8
+        },
+        {
+          "id": "13:5636760950943428573",
+          "name": "serviceCost",
+          "type": 8
+        },
+        {
+          "id": "14:3390348448983058002",
+          "name": "repairCost",
+          "type": 8
+        },
+        {
+          "id": "15:1209474401456609378",
+          "name": "spareCost",
+          "type": 8
+        },
+        {
+          "id": "16:2631213897051956900",
+          "name": "noOfService",
+          "type": 6
+        },
+        {
+          "id": "17:7572459961524256010",
+          "name": "noOfFines",
+          "type": 6
+        },
+        {
+          "id": "18:4460842517603561329",
+          "name": "fineCost",
+          "type": 8
+        },
+        {
+          "id": "19:1608335200272161857",
+          "name": "taxInsuranceCost",
+          "type": 8
+        },
+        {
+          "id": "20:3398470707601595400",
+          "name": "otherCost",
+          "type": 8
+        },
+        {
+          "id": "21:8853050515371830580",
+          "name": "fastagCost",
+          "type": 8
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "1:4900922487780503117",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}
