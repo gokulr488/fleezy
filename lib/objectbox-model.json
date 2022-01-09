@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:4900922487780503117",
-      "lastPropertyId": "21:8853050515371830580",
+      "lastPropertyId": "25:5239119918162127178",
       "name": "ModelReport",
       "properties": [
         {
@@ -113,6 +113,26 @@
           "id": "21:8853050515371830580",
           "name": "fastagCost",
           "type": 8
+        },
+        {
+          "id": "22:4459552704691798398",
+          "name": "regNo",
+          "type": 9
+        },
+        {
+          "id": "23:4682363337431779364",
+          "name": "month",
+          "type": 9
+        },
+        {
+          "id": "24:1644435721783597296",
+          "name": "year",
+          "type": 6
+        },
+        {
+          "id": "25:5239119918162127178",
+          "name": "companyId",
+          "type": 9
         }
       ],
       "relations": []

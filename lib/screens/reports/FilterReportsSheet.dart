@@ -1,6 +1,6 @@
-import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/ReportData.dart';
 import 'package:fleezy/Common/UiConstants.dart';
+import 'package:fleezy/DataModels/ReportType.dart';
 import 'package:fleezy/components/RoundedButton.dart';
 import 'package:fleezy/screens/reports/TimePeriodSelector.dart';
 import 'package:fleezy/screens/reports/YearSelector.dart';
@@ -27,16 +27,16 @@ class _FilterReportsSheetState extends State<FilterReportsSheet> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _buildButton(repData, Constants.MONTHLY),
-                _buildButton(repData, Constants.QUARTERLY),
-                _buildButton(repData, Constants.YEARLY),
+                _buildButton(repData, ReportType.MONTHLY),
+                _buildButton(repData, ReportType.QUARTERLY),
+                _buildButton(repData, ReportType.YEARLY),
               ],
             ),
           ),
           Row(
             children: [
               Expanded(child: YearSelector()),
-              if (repData.filterPeriod != Constants.YEARLY)
+              if (repData.filterPeriod != ReportType.YEARLY)
                 Expanded(child: TimePeriodSelector()),
             ],
           ),
@@ -52,13 +52,13 @@ class _FilterReportsSheetState extends State<FilterReportsSheet> {
     );
   }
 
-  RoundedButton _buildButton(ReportData repData, String period) {
+  RoundedButton _buildButton(ReportData repData, ReportType period) {
     return RoundedButton(
       onPressed: () {
         repData.setFilterPeriod(period);
         setState(() {});
       },
-      title: period,
+      title: period.getString(),
       width: MediaQuery.of(context).size.width * 0.27,
       colour: repData.filterPeriod == period ? kHighlightColour : null,
       elevation: 4,

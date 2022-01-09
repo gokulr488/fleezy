@@ -1,33 +1,55 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fleezy/DataModels/ReportType.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:objectbox/objectbox.dart';
 
 @Entity()
 class ModelReport {
-  ModelReport({
-    this.reportId,
-    this.income = 0,
-    this.pendingBal = 0,
-    this.driverSal = 0,
-    this.expense = 0,
-    this.totalTrips = 0,
-    this.pendingPayTrips = 0,
-    this.cancelledTrips = 0,
-    this.kmsTravelled = 0,
-    this.fuelCost = 0,
-    this.ltrs = 0,
-    this.serviceCost = 0,
-    this.repairCost = 0,
-    this.spareCost = 0,
-    this.noOfService = 0,
-    this.noOfFines = 0,
-    this.fineCost = 0,
-    this.taxInsuranceCost = 0,
-    this.otherCost = 0,
-    this.fastagCost = 0,
-  });
+  ModelReport(
+      {@required this.reportId,
+      @required this.reportType,
+      this.companyId, //TODO need to make required
+      this.income = 0,
+      this.pendingBal = 0,
+      this.driverSal = 0,
+      this.expense = 0,
+      this.totalTrips = 0,
+      this.pendingPayTrips = 0,
+      this.cancelledTrips = 0,
+      this.kmsTravelled = 0,
+      this.fuelCost = 0,
+      this.ltrs = 0,
+      this.serviceCost = 0,
+      this.repairCost = 0,
+      this.spareCost = 0,
+      this.noOfService = 0,
+      this.noOfFines = 0,
+      this.fineCost = 0,
+      this.taxInsuranceCost = 0,
+      this.otherCost = 0,
+      this.fastagCost = 0,
+      this.month,
+      this.regNo,
+      this.year,
+      this.id}) {
+    //KL-01-BQ-4086_MAY-2021
+    if (reportType == ReportType.VEHICLE_MONTHLY) {
+      List<String> parts = reportId.split('_');
+      regNo = parts[0];
+      month = parts[1];
+      year = int.tryParse(parts[2]);
+    }
+  }
 
   @Id()
   int id;
+//for objectBox
+  ReportType reportType;
+  String regNo;
+  String month;
+  int year;
+  String companyId;
+
   String reportId;
   double income;
   double pendingBal;

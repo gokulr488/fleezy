@@ -17,7 +17,7 @@ final _entities = <ModelEntity>[
   ModelEntity(
       id: const IdUid(1, 4900922487780503117),
       name: 'ModelReport',
-      lastPropertyId: const IdUid(21, 8853050515371830580),
+      lastPropertyId: const IdUid(25, 5239119918162127178),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
@@ -124,6 +124,26 @@ final _entities = <ModelEntity>[
             id: const IdUid(21, 8853050515371830580),
             name: 'fastagCost',
             type: 8,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(22, 4459552704691798398),
+            name: 'regNo',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(23, 4682363337431779364),
+            name: 'month',
+            type: 9,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(24, 1644435721783597296),
+            name: 'year',
+            type: 6,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(25, 5239119918162127178),
+            name: 'companyId',
+            type: 9,
             flags: 0)
       ],
       relations: <ModelRelation>[],
@@ -174,7 +194,14 @@ ModelDefinition getObjectBoxModel() {
         objectToFB: (ModelReport object, fb.Builder fbb) {
           final reportIdOffset =
               object.reportId == null ? null : fbb.writeString(object.reportId);
-          fbb.startTable(22);
+          final regNoOffset =
+              object.regNo == null ? null : fbb.writeString(object.regNo);
+          final monthOffset =
+              object.month == null ? null : fbb.writeString(object.month);
+          final companyIdOffset = object.companyId == null
+              ? null
+              : fbb.writeString(object.companyId);
+          fbb.startTable(26);
           fbb.addInt64(0, object.id ?? 0);
           fbb.addOffset(1, reportIdOffset);
           fbb.addFloat64(2, object.income);
@@ -196,6 +223,10 @@ ModelDefinition getObjectBoxModel() {
           fbb.addFloat64(18, object.taxInsuranceCost);
           fbb.addFloat64(19, object.otherCost);
           fbb.addFloat64(20, object.fastagCost);
+          fbb.addOffset(21, regNoOffset);
+          fbb.addOffset(22, monthOffset);
+          fbb.addInt64(23, object.year);
+          fbb.addOffset(24, companyIdOffset);
           fbb.finish(fbb.endTable());
           return object.id ?? 0;
         },
@@ -206,6 +237,8 @@ ModelDefinition getObjectBoxModel() {
           final object = ModelReport(
               reportId: const fb.StringReader()
                   .vTableGetNullable(buffer, rootOffset, 6),
+              companyId: const fb.StringReader()
+                  .vTableGetNullable(buffer, rootOffset, 52),
               income: const fb.Float64Reader()
                   .vTableGetNullable(buffer, rootOffset, 8),
               pendingBal: const fb.Float64Reader()
@@ -222,10 +255,9 @@ ModelDefinition getObjectBoxModel() {
                   .vTableGetNullable(buffer, rootOffset, 20),
               kmsTravelled: const fb.Float64Reader()
                   .vTableGetNullable(buffer, rootOffset, 22),
-              fuelCost: const fb.Float64Reader()
-                  .vTableGetNullable(buffer, rootOffset, 24),
-              ltrs: const fb.Float64Reader()
-                  .vTableGetNullable(buffer, rootOffset, 26),
+              fuelCost:
+                  const fb.Float64Reader().vTableGetNullable(buffer, rootOffset, 24),
+              ltrs: const fb.Float64Reader().vTableGetNullable(buffer, rootOffset, 26),
               serviceCost: const fb.Float64Reader().vTableGetNullable(buffer, rootOffset, 28),
               repairCost: const fb.Float64Reader().vTableGetNullable(buffer, rootOffset, 30),
               spareCost: const fb.Float64Reader().vTableGetNullable(buffer, rootOffset, 32),
@@ -234,8 +266,11 @@ ModelDefinition getObjectBoxModel() {
               fineCost: const fb.Float64Reader().vTableGetNullable(buffer, rootOffset, 38),
               taxInsuranceCost: const fb.Float64Reader().vTableGetNullable(buffer, rootOffset, 40),
               otherCost: const fb.Float64Reader().vTableGetNullable(buffer, rootOffset, 42),
-              fastagCost: const fb.Float64Reader().vTableGetNullable(buffer, rootOffset, 44))
-            ..id = const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 4);
+              fastagCost: const fb.Float64Reader().vTableGetNullable(buffer, rootOffset, 44),
+              month: const fb.StringReader().vTableGetNullable(buffer, rootOffset, 48),
+              regNo: const fb.StringReader().vTableGetNullable(buffer, rootOffset, 46),
+              year: const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 50),
+              id: const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 4));
 
           return object;
         })
@@ -329,4 +364,20 @@ class ModelReport_ {
   /// see [ModelReport.fastagCost]
   static final fastagCost =
       QueryDoubleProperty<ModelReport>(_entities[0].properties[20]);
+
+  /// see [ModelReport.regNo]
+  static final regNo =
+      QueryStringProperty<ModelReport>(_entities[0].properties[21]);
+
+  /// see [ModelReport.month]
+  static final month =
+      QueryStringProperty<ModelReport>(_entities[0].properties[22]);
+
+  /// see [ModelReport.year]
+  static final year =
+      QueryIntegerProperty<ModelReport>(_entities[0].properties[23]);
+
+  /// see [ModelReport.companyId]
+  static final companyId =
+      QueryStringProperty<ModelReport>(_entities[0].properties[24]);
 }

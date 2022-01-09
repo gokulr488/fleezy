@@ -1,7 +1,6 @@
 import 'package:fleezy/Common/Alerts.dart';
 import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/CallContext.dart';
-import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/ReportData.dart';
 import 'package:fleezy/Common/Utils.dart';
 import 'package:fleezy/DataAccess/ExpenseApis.dart';
@@ -10,6 +9,8 @@ import 'package:fleezy/DataModels/ModelExpense.dart';
 import 'package:fleezy/DataModels/ModelReport.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
 import 'package:fleezy/DataModels/ModelVehicle.dart';
+import 'package:fleezy/DataModels/Quarters.dart';
+import 'package:fleezy/DataModels/ReportType.dart';
 import 'package:fleezy/screens/reports/ReportProcessor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
@@ -21,9 +22,9 @@ class ReportsController {
   final ReportProcessor processor = ReportProcessor();
 
   List<String> getFilterValues(ReportData repData) {
-    if (repData.filterPeriod == Constants.MONTHLY) return getMonths();
-    if (repData.filterPeriod == Constants.QUARTERLY) return _getQuarters();
-    if (repData.filterPeriod == Constants.YEARLY) return getYears();
+    if (repData.filterPeriod == ReportType.MONTHLY) return getMonths();
+    if (repData.filterPeriod == ReportType.QUARTERLY) return _getQuarters();
+    if (repData.filterPeriod == ReportType.YEARLY) return getYears();
     return <String>[];
   }
 
@@ -52,8 +53,8 @@ class ReportsController {
     }
     final ReportData reportData =
         Provider.of<ReportData>(context, listen: false);
-    final ModelReport report = processor
-        .getReportFor(Utils.getFormattedDate(DateTime.now(), 'MMM-yyyy'));
+    final ModelReport report = processor.getReportFor(
+        Utils.getFormattedDate(DateTime.now(), 'MMM-yyyy'), reportData);
     reportReady = true;
     reportData.setGeneratedReport(report);
   }
@@ -67,7 +68,12 @@ class ReportsController {
   }
 
   List<String> _getQuarters() {
-    return <String>[Constants.Q1, Constants.Q2, Constants.Q3, Constants.Q4];
+    return <String>[
+      Quarter.Jan_Mar.getString(),
+      Quarter.Apr_Jun.getString(),
+      Quarter.Jul_Sep.getString(),
+      Quarter.Oct_Dec.getString()
+    ];
   }
 
   List<String> getMonths() {
@@ -91,7 +97,8 @@ class ReportsController {
   void onVehicleSelected(String vehicle, BuildContext context) {
     final ReportData reportData =
         Provider.of<ReportData>(context, listen: false);
-    ModelReport report = processor.getReportFor('KL-11-AJ-1771_Jan-2022');
+    ModelReport report =
+        processor.getReportFor('KL-11-AJ-1771_Jan-2022', reportData);
     reportData.setGeneratedReport(report);
   }
 }

@@ -1,5 +1,6 @@
-import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/DataModels/ModelReport.dart';
+import 'package:fleezy/DataModels/Quarters.dart';
+import 'package:fleezy/DataModels/ReportType.dart';
 import 'package:flutter/cupertino.dart';
 
 class ReportData extends ChangeNotifier {
@@ -21,19 +22,31 @@ class ReportData extends ChangeNotifier {
       repairCost: 5000,
       reportId: 'KL-01-BQ-4086_JAN-MAR-2021',
       serviceCost: 3000,
-      spareCost: 2000);
+      spareCost: 2000,
+      reportType: ReportType.MONTHLY);
 
   DateTime _selectedYear = DateTime.now();
   // Timestamp _startDate = Utils.getStartOfMonth(DateTime.now());
   // Timestamp _endDate = Utils.getEndOfMonth(DateTime.now());
-  String _filterPeriod = Constants.MONTHLY;
+  ReportType _filterPeriod = ReportType.MONTHLY;
+  String _selectedVehicle;
+  String _selectedMonth;
+  Quarter _selectedQuarter;
 
   //Getters
-  String get filterPeriod => _filterPeriod;
+  ReportType get filterPeriod => _filterPeriod;
   DateTime get selectedYear => _selectedYear;
   ModelReport get generatedReport => _generatedReport;
+  String get selectedVehicle => _selectedVehicle;
+  String get selectedMonth => _selectedMonth;
+  Quarter get selectedQuarter => _selectedQuarter;
 
-  void setFilterPeriod(String filterPeriod) {
+  void setSelectedQuarter(Quarter quarter) {
+    _selectedQuarter = quarter;
+    notifyListeners();
+  }
+
+  void setFilterPeriod(ReportType filterPeriod) {
     _filterPeriod = filterPeriod;
     notifyListeners();
   }
@@ -45,6 +58,11 @@ class ReportData extends ChangeNotifier {
 
   void setGeneratedReport(ModelReport report) {
     _generatedReport = report;
+    notifyListeners();
+  }
+
+  void setSelectedVehicle(String selectedVehicle) {
+    _selectedVehicle = selectedVehicle;
     notifyListeners();
   }
 }

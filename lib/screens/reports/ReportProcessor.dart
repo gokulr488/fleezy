@@ -1,16 +1,17 @@
 import 'package:fleezy/Common/Constants.dart';
+import 'package:fleezy/Common/ReportData.dart';
 import 'package:fleezy/Common/Utils.dart';
 import 'package:fleezy/DataModels/ModelExpense.dart';
 import 'package:fleezy/DataModels/ModelReport.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
-import 'package:fleezy/main.dart';
+import 'package:fleezy/DataModels/ReportType.dart';
+import 'package:fleezy/services/ReportBox.dart';
 
 class ReportProcessor {
-  static final Map<String, ModelReport> _reports = <String, ModelReport>{};
+  //static final Map<String, ModelReport> _reports = <String, ModelReport>{};
   static List<ModelTrip> _trips;
   static List<ModelExpense> _expenses;
-
-  final _reportsBox = objectbox.reportsBox;
+  final ReportBox _reportBox = ReportBox();
 
   void processTrips(List<ModelTrip> trips) {
     _trips = trips;
@@ -26,47 +27,68 @@ class ReportProcessor {
     }
   }
 
-  ModelReport getReportFor(String reportId) {
-    if (_reports[reportId] != null) {
-      return _reports[reportId];
+  ModelReport getReportFor(String reportId, ReportData reportData) {
+    ModelReport report = _reportBox.getByReportId(reportId);
+    if (report != null) {
+      return report;
     }
-    final ModelReport newReport = ModelReport(reportId: reportId);
-    for (final MapEntry<String, ModelReport> entry in _reports.entries) {
-      if (entry.key.contains(reportId)) {
-        combineReports(newReport, entry.value);
-      }
-    }
-    _reports[reportId] = newReport;
+    final ModelReport newReport = _buildReport(reportId, reportData);
+    _reportBox.put(newReport);
     return newReport;
   }
 
-  ModelReport combineReports(ModelReport target, ModelReport source) {
-    target.income += source.income ?? 0;
-    target.pendingBal += source.pendingBal ?? 0;
-    target.driverSal += source.driverSal ?? 0;
-    target.expense += source.expense ?? 0;
-    target.totalTrips += source.totalTrips ?? 0;
-    target.pendingPayTrips += source.pendingPayTrips ?? 0;
-    target.cancelledTrips += source.cancelledTrips ?? 0;
-    target.kmsTravelled += source.kmsTravelled ?? 0;
-    target.fuelCost += source.fuelCost ?? 0;
-    target.ltrs += source.ltrs ?? 0;
-    target.serviceCost += source.serviceCost ?? 0;
-    target.repairCost += source.repairCost ?? 0;
-    target.spareCost += source.spareCost ?? 0;
-    target.noOfService += source.noOfService ?? 0;
-    target.noOfFines += source.noOfFines ?? 0;
-    target.fineCost += source.fineCost ?? 0;
-    target.otherCost += source.otherCost ?? 0;
-    target.taxInsuranceCost += source.taxInsuranceCost ?? 0;
-    target.fastagCost += source.fastagCost ?? 0;
+  ModelReport _buildReport(String reportId, ReportData reportData) {
+    ModelReport newReport;
+    switch (reportData.filterPeriod) {
+      case ReportType.MONTHLY:
+        List<ModelReport> reports = _reportBox.getReportsIn(
+            year: reportData.selectedYear.year,
+            month: reportData.selectedMonth);
+        newReport =
+            ModelReport(reportId: reportId, reportType: ReportType.MONTHLY);
+        combineReports(newReport, reports);
+        break;
+      case ReportType.QUARTERLY:
+        break;
+      case ReportType.YEARLY:
+        break;
+      default:
+    }
+    return newReport;
+  }
+
+  ModelReport combineReports(
+      ModelReport target, List<ModelReport> sourceReports) {
+    for (ModelReport source in sourceReports) {
+      target.income += source.income ?? 0;
+      target.pendingBal += source.pendingBal ?? 0;
+      target.driverSal += source.driverSal ?? 0;
+      target.expense += source.expense ?? 0;
+      target.totalTrips += source.totalTrips ?? 0;
+      target.pendingPayTrips += source.pendingPayTrips ?? 0;
+      target.cancelledTrips += source.cancelledTrips ?? 0;
+      target.kmsTravelled += source.kmsTravelled ?? 0;
+      target.fuelCost += source.fuelCost ?? 0;
+      target.ltrs += source.ltrs ?? 0;
+      target.serviceCost += source.serviceCost ?? 0;
+      target.repairCost += source.repairCost ?? 0;
+      target.spareCost += source.spareCost ?? 0;
+      target.noOfService += source.noOfService ?? 0;
+      target.noOfFines += source.noOfFines ?? 0;
+      target.fineCost += source.fineCost ?? 0;
+      target.otherCost += source.otherCost ?? 0;
+      target.taxInsuranceCost += source.taxInsuranceCost ?? 0;
+      target.fastagCost += source.fastagCost ?? 0;
+    }
+
     return target;
   }
 
   void _processTrip(ModelTrip trip) {
     final String reportId = _getReportId(trip.vehicleRegNo);
-    ModelReport vehicleReport = _reports[reportId];
-    vehicleReport ??= ModelReport();
+    ModelReport vehicleReport = _reportBox.getByReportId(reportId);
+    vehicleReport ??=
+        ModelReport(reportId: reportId, reportType: ReportType.VEHICLE_MONTHLY);
     vehicleReport.reportId = reportId;
     vehicleReport.income += trip.billAmount ?? 0;
     vehicleReport.kmsTravelled += trip.distance ?? 0;
@@ -80,8 +102,7 @@ class ReportProcessor {
     if (trip.status == Constants.CANCELLED) {
       vehicleReport.cancelledTrips++;
     }
-
-    _reports[reportId] = vehicleReport;
+    _reportBox.put(vehicleReport);
   }
 
   String _getReportId(String regNo) {
@@ -91,8 +112,9 @@ class ReportProcessor {
 
   void _processExpenses(ModelExpense expense) {
     final String reportId = _getReportId(expense.vehicleRegNo);
-    ModelReport vehicleReport = _reports[reportId];
-    vehicleReport ??= ModelReport();
+    ModelReport vehicleReport = _reportBox.getByReportId(reportId);
+    vehicleReport ??=
+        ModelReport(reportId: reportId, reportType: ReportType.VEHICLE_MONTHLY);
     vehicleReport.reportId = reportId;
     vehicleReport.expense += expense.amount ?? 0;
     switch (expense.expenseType) {
@@ -125,6 +147,6 @@ class ReportProcessor {
         vehicleReport.fastagCost += expense.amount;
         break;
     }
-    _reports[reportId] = vehicleReport;
+    _reportBox.put(vehicleReport);
   }
 }
