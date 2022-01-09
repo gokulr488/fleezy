@@ -100,27 +100,27 @@ class ModelReport {
     final Map<String, Object> json = doc.data() as Map<String, Object>;
 
     return ModelReport(
-      reportId: (json['reportId'] ?? '') as String,
-      income: (json['income'] as num) + .0 ?? 0.0,
-      pendingBal: (json['pendingBal'] as num) + .0 ?? 0.0,
-      driverSal: (json['driverSal'] as num) + .0 ?? 0.0,
-      expense: (json['expense'] ?? 0) as double,
-      totalTrips: (json['totalTrips'] ?? 0) as int,
-      pendingPayTrips: (json['pendingPayTrips'] ?? 0) as int,
-      cancelledTrips: (json['cancelledTrips'] ?? 0) as int,
-      kmsTravelled: (json['kmsTravelled'] ?? 0) as double,
-      fuelCost: (json['fuelCost'] ?? 0) as double,
-      ltrs: (json['ltrs'] ?? 0) as double,
-      serviceCost: (json['serviceCost'] ?? 0) as double,
-      repairCost: (json['repairCost'] ?? 0) as double,
-      spareCost: (json['spareCost'] ?? 0) as double,
-      noOfService: (json['noOfService'] ?? 0) as int,
-      noOfFines: (json['noOfFines'] ?? 0) as int,
-      fineCost: (json['fineCost'] ?? 0) as double,
-      otherCost: (json['otherCost'] ?? 0) as double,
-      taxInsuranceCost: (json['taxInsuranceCost'] ?? 0) as double,
-      fastagCost: (json['fastagCost'] ?? 0) as double,
-    );
+        reportId: (json['reportId'] ?? '') as String,
+        income: (json['income'] as num) + .0 ?? 0.0,
+        pendingBal: (json['pendingBal'] as num) + .0 ?? 0.0,
+        driverSal: (json['driverSal'] as num) + .0 ?? 0.0,
+        expense: (json['expense'] ?? 0) as double,
+        totalTrips: (json['totalTrips'] ?? 0) as int,
+        pendingPayTrips: (json['pendingPayTrips'] ?? 0) as int,
+        cancelledTrips: (json['cancelledTrips'] ?? 0) as int,
+        kmsTravelled: (json['kmsTravelled'] ?? 0) as double,
+        fuelCost: (json['fuelCost'] ?? 0) as double,
+        ltrs: (json['ltrs'] ?? 0) as double,
+        serviceCost: (json['serviceCost'] ?? 0) as double,
+        repairCost: (json['repairCost'] ?? 0) as double,
+        spareCost: (json['spareCost'] ?? 0) as double,
+        noOfService: (json['noOfService'] ?? 0) as int,
+        noOfFines: (json['noOfFines'] ?? 0) as int,
+        fineCost: (json['fineCost'] ?? 0) as double,
+        otherCost: (json['otherCost'] ?? 0) as double,
+        taxInsuranceCost: (json['taxInsuranceCost'] ?? 0) as double,
+        fastagCost: (json['fastagCost'] ?? 0) as double,
+        reportType: ReportType.VEHICLE_MONTHLY);
   }
 
   static List<ModelReport> fromDocs(QuerySnapshot<Object> snapshot) {
