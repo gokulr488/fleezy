@@ -97,8 +97,13 @@ class ReportsController {
   void onVehicleSelected(String vehicle, BuildContext context) {
     final ReportData reportData =
         Provider.of<ReportData>(context, listen: false);
-    ModelReport report =
-        processor.getReportFor('KL-11-AJ-1771_Jan-2022', reportData);
+    reportData.setSelectedVehicle(vehicle);
+    onFilterChanged(reportData);
+  }
+
+  void onFilterChanged(ReportData reportData) {
+    String reportId = reportData.getReportId();
+    ModelReport report = processor.getReportFor(reportId, reportData);
     reportData.setGeneratedReport(report);
   }
 }

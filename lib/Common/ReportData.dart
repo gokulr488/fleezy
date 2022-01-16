@@ -30,7 +30,7 @@ class ReportData extends ChangeNotifier {
   // Timestamp _startDate = Utils.getStartOfMonth(DateTime.now());
   // Timestamp _endDate = Utils.getEndOfMonth(DateTime.now());
   ReportType _filterPeriod = ReportType.MONTHLY;
-  String _selectedVehicle;
+  String _selectedVehicle = 'All';
   String _selectedMonth = Utils.getFormattedDate(DateTime.now(), 'MMM');
   Quarter _selectedQuarter;
 
@@ -69,7 +69,42 @@ class ReportData extends ChangeNotifier {
 
   void setSelectedVehicle(String selectedVehicle) {
     _selectedVehicle = selectedVehicle;
-    notifyListeners();
+  }
+
+  String getReportId() {
+    String reportId;
+    String year = Utils.getFormattedDate(_selectedYear, 'yyyy');
+    switch (_filterPeriod) {
+      case ReportType.MONTHLY:
+        if (_selectedVehicle == 'All') {
+          reportId = _selectedMonth + '-' + year;
+        } else {
+          reportId = _selectedVehicle + '_' + _selectedMonth + '-' + year;
+        }
+        break;
+      case ReportType.QUARTERLY:
+        if (_selectedVehicle == 'All') {
+          reportId = _selectedQuarter.getString() + '-' + year;
+        } else {
+          reportId = _selectedVehicle +
+              '_' +
+              _selectedQuarter.getString() +
+              '-' +
+              year;
+        }
+        break;
+      case ReportType.YEARLY:
+        if (_selectedVehicle == 'All') {
+          reportId = year;
+        } else {
+          reportId = _selectedVehicle + '_' + year;
+        }
+        break;
+      default:
+        reportId = '';
+    }
+    debugPrint('ReportID changed to : $reportId');
+    return reportId;
   }
 }
 // ReportID naming convention
