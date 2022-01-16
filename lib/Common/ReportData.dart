@@ -32,7 +32,7 @@ class ReportData extends ChangeNotifier {
   ReportType _filterPeriod = ReportType.MONTHLY;
   String _selectedVehicle = 'All';
   String _selectedMonth = Utils.getFormattedDate(DateTime.now(), 'MMM');
-  Quarter _selectedQuarter;
+  Quarter _selectedQuarter = Quarter.Jan_Mar;
 
   //Getters
   ReportType get filterPeriod => _filterPeriod;
@@ -44,22 +44,18 @@ class ReportData extends ChangeNotifier {
 
   void setSelectedQuarter(Quarter quarter) {
     _selectedQuarter = quarter;
-    notifyListeners();
   }
 
   void setFilterPeriod(ReportType filterPeriod) {
     _filterPeriod = filterPeriod;
-    notifyListeners();
   }
 
   void setSelectedYear(DateTime selectedYear) {
     _selectedYear = selectedYear;
-    notifyListeners();
   }
 
   void setSelectedMonth(String selectedMonth) {
     _selectedMonth = selectedMonth;
-    notifyListeners();
   }
 
   void setGeneratedReport(ModelReport report) {
