@@ -1,3 +1,4 @@
+import 'package:fleezy/Common/Utils.dart';
 import 'package:fleezy/DataModels/ModelReport.dart';
 import 'package:fleezy/DataModels/Quarters.dart';
 import 'package:fleezy/DataModels/ReportType.dart';
@@ -30,7 +31,7 @@ class ReportData extends ChangeNotifier {
   // Timestamp _endDate = Utils.getEndOfMonth(DateTime.now());
   ReportType _filterPeriod = ReportType.MONTHLY;
   String _selectedVehicle;
-  String _selectedMonth;
+  String _selectedMonth = Utils.getFormattedDate(DateTime.now(), 'MMM');
   Quarter _selectedQuarter;
 
   //Getters
@@ -53,6 +54,11 @@ class ReportData extends ChangeNotifier {
 
   void setSelectedYear(DateTime selectedYear) {
     _selectedYear = selectedYear;
+    notifyListeners();
+  }
+
+  void setSelectedMonth(String selectedMonth) {
+    _selectedMonth = selectedMonth;
     notifyListeners();
   }
 

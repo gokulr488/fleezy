@@ -60,6 +60,7 @@ class ReportProcessor {
   ModelReport combineReports(
       ModelReport target, List<ModelReport> sourceReports) {
     for (ModelReport source in sourceReports) {
+      target.companyId = source.companyId;
       target.income += source.income ?? 0;
       target.pendingBal += source.pendingBal ?? 0;
       target.driverSal += source.driverSal ?? 0;

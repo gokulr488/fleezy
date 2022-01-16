@@ -36,8 +36,9 @@ class ModelReport {
     if (reportType == ReportType.VEHICLE_MONTHLY) {
       List<String> parts = reportId.split('_');
       regNo = parts[0];
-      month = parts[1];
-      year = int.tryParse(parts[2]);
+      parts = parts[1].split('-');
+      month = parts[0];
+      year = int.tryParse(parts[1]);
     }
   }
 
