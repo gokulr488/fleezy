@@ -27,9 +27,10 @@ class ReportProcessor {
     }
   }
 
-  ModelReport getReportFor(String reportId, ReportData reportData) {
+  ModelReport getReportFor(String reportId, ReportData reportData,
+      {bool forceBuild = false}) {
     ModelReport report = _reportBox.getByReportId(reportId);
-    if (report != null) {
+    if (report != null && !forceBuild) {
       return report;
     }
     final ModelReport newReport = _buildReport(reportId, reportData);

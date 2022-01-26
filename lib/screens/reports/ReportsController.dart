@@ -54,7 +54,8 @@ class ReportsController {
     final ReportData reportData =
         Provider.of<ReportData>(context, listen: false);
     final ModelReport report = processor.getReportFor(
-        Utils.getFormattedDate(DateTime.now(), 'MMM-yyyy'), reportData);
+        Utils.getFormattedDate(DateTime.now(), 'MMM-yyyy'), reportData,
+        forceBuild: true);
     reportReady = true;
     reportData.setGeneratedReport(report);
   }
