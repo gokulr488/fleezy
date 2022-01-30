@@ -73,17 +73,18 @@ class ModelTrip {
 
     return ModelTrip(
       id: doc.id,
-      balanceAmount: (json['BalanceAmount'] as num) + .0 ?? 0.0,
-      billAmount: (json['BillAmount'] as num) + .0 ?? 0.0,
+      balanceAmount: ((json['BalanceAmount'] ?? 0.0) as num) + .0,
+      billAmount: ((json['BillAmount'] ?? 0.0) as num) +
+          .0, //((json['DriverSalary'] ?? 0.0) as num) + .0
       customerName: (json['CustomerName'] ?? '') as String,
       destination: (json['Destination'] ?? '') as String,
       distance: json['Distance'] as int,
       driverName: (json['DriverName'] ?? '') as String,
-      driverSalary: (json['DriverSalary'] as num) + .0 ?? 0.0,
+      driverSalary: ((json['DriverSalary'] ?? 0.0) as num) + .0,
       driverUid: (json['DriverUid'] ?? '') as String,
       endDate: json['EndDate'] as Timestamp,
       endReading: json['EndReading'] as int,
-      paidAmount: (json['PaidAmount'] as num) + .0 ?? 0.0,
+      paidAmount: ((json['PaidAmount'] ?? 0.0) as num) + .0,
       startDate: json['StartDate'] as Timestamp,
       startReading: json['StartReading'] as int,
       startingFrom: (json['StartingFrom'] ?? '') as String,

@@ -9,6 +9,11 @@ class ReportBox {
     _box.put(vehicleReport);
   }
 
+  void deleteByReportId(String reportId) {
+    ModelReport report = getByReportId(reportId);
+    if (report != null) _box.remove(report.id);
+  }
+
   ModelReport getByReportId(String reportId) {
     Query<ModelReport> query =
         _box.query(ModelReport_.reportId.equals(reportId)).build();

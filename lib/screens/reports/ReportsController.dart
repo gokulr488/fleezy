@@ -30,18 +30,16 @@ class ReportsController {
 
   Future<void> processTripsAndExpenses(
       DateTime date, BuildContext context) async {
-    CallContext callContext = await TripApis().filterTrips(context, null,
+    CallContext tripsCallContext = await TripApis().filterTrips(context, null,
         from: Utils.getStartOfMonth(date), to: Utils.getEndOfMonth(date));
-    if (!callContext.isError) {
-      processor.processTrips(callContext.data as List<ModelTrip>);
-    } else {
-      showErrorAlert(context, 'Error Generating Report');
-      return;
-    }
-    callContext = await ExpenseApis().filterExpense(context, null,
+    CallContext expenseCallContext = await ExpenseApis().filterExpense(
+        context, null,
         from: Utils.getStartOfMonth(date), to: Utils.getEndOfMonth(date));
-    if (!callContext.isError) {
-      processor.processExpenses(callContext.data as List<ModelExpense>);
+    if (!tripsCallContext.isError && !expenseCallContext.isError) {
+      processor.clearReports(
+          trips: tripsCallContext.data, expenses: expenseCallContext.data);
+      processor.processTrips(tripsCallContext.data as List<ModelTrip>);
+      processor.processExpenses(expenseCallContext.data as List<ModelExpense>);
     } else {
       showErrorAlert(context, 'Error Generating Report');
       return;
@@ -49,13 +47,13 @@ class ReportsController {
   }
 
   Future<void> getCurrentMonthData(BuildContext context) async {
+    //TODO need to recheck reports aggregation logic on loading current data
     if (!thisMnthDataLoaded) {
       thisMnthDataLoaded = true;
       processTripsAndExpenses(DateTime.now(), context);
     }
-    final ReportData reportData =
-        Provider.of<ReportData>(context, listen: false);
-    final ModelReport report = processor.getReportFor(
+    ReportData reportData = Provider.of<ReportData>(context, listen: false);
+    ModelReport report = processor.getReportFor(
         Utils.getFormattedDate(DateTime.now(), 'MMM-yyyy'), reportData,
         forceBuild: true);
     reportReady = true;
@@ -98,8 +96,7 @@ class ReportsController {
   }
 
   void onVehicleSelected(String vehicle, BuildContext context) {
-    final ReportData reportData =
-        Provider.of<ReportData>(context, listen: false);
+    ReportData reportData = Provider.of<ReportData>(context, listen: false);
     reportData.setSelectedVehicle(vehicle);
     onFilterChanged(reportData);
   }
@@ -111,12 +108,18 @@ class ReportsController {
   }
 
   Future<void> onBuildReportPressed(BuildContext context) async {
-    final ReportData reportData =
-        Provider.of<ReportData>(context, listen: false);
-    DateTime selecteDate =
-        DateTime(reportData.selectedYear.year, reportData.selectedMonth.month);
-
-    debugPrint(
-        'month: ${reportData.selectedMonth} year: ${reportData.selectedYear.year} date :$selecteDate');
+    showSendingDialogue(context);
+    try {
+      ReportData reportData = Provider.of<ReportData>(context, listen: false);
+      DateTime selecteDate = DateTime(
+          reportData.selectedYear.year, reportData.selectedMonth.month);
+      debugPrint('date :$selecteDate');
+      await processTripsAndExpenses(selecteDate, context);
+      Navigator.pop(context);
+    } catch (e) {
+      debugPrint(e.toString());
+      Navigator.pop(context);
+      showErrorAlert(context, 'Error building Report');
+    }
   }
 }

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/ReportData.dart';
 import 'package:fleezy/Common/Utils.dart';
@@ -8,10 +9,25 @@ import 'package:fleezy/DataModels/ReportType.dart';
 import 'package:fleezy/services/ReportBox.dart';
 
 class ReportProcessor {
-  //static final Map<String, ModelReport> _reports = <String, ModelReport>{};
   static List<ModelTrip> _trips;
   static List<ModelExpense> _expenses;
   final ReportBox _reportBox = ReportBox();
+
+  void clearReports({List<ModelTrip> trips, List<ModelExpense> expenses}) {
+    if (trips != null) {
+      for (final ModelTrip trip in trips) {
+        final String reportId = _getReportId(trip.vehicleRegNo, trip.startDate);
+        _reportBox.deleteByReportId(reportId);
+      }
+    }
+    if (expenses != null) {
+      for (final ModelExpense expense in expenses) {
+        final String reportId =
+            _getReportId(expense.vehicleRegNo, expense.timestamp);
+        _reportBox.deleteByReportId(reportId);
+      }
+    }
+  }
 
   void processTrips(List<ModelTrip> trips) {
     _trips = trips;
@@ -25,6 +41,10 @@ class ReportProcessor {
     for (final ModelExpense expense in _expenses) {
       _processExpenses(expense);
     }
+  }
+
+  void deleteReport(String reportId) {
+    _reportBox.deleteByReportId(reportId);
   }
 
   ModelReport getReportFor(String reportId, ReportData reportData,
@@ -87,7 +107,7 @@ class ReportProcessor {
   }
 
   void _processTrip(ModelTrip trip) {
-    final String reportId = _getReportId(trip.vehicleRegNo);
+    final String reportId = _getReportId(trip.vehicleRegNo, trip.startDate);
     ModelReport vehicleReport = _reportBox.getByReportId(reportId);
     vehicleReport ??=
         ModelReport(reportId: reportId, reportType: ReportType.VEHICLE_MONTHLY);
@@ -107,13 +127,14 @@ class ReportProcessor {
     _reportBox.put(vehicleReport);
   }
 
-  String _getReportId(String regNo) {
+  String _getReportId(String regNo, Timestamp startDate) {
     //KL-01-BQ-4086_MAY-2021
-    return '${regNo}_${Utils.getFormattedDate(DateTime.now(), 'MMM-yyyy')}';
+    return '${regNo}_${Utils.getFormattedTimeStamp(startDate, 'MMM-yyyy')}';
   }
 
   void _processExpenses(ModelExpense expense) {
-    final String reportId = _getReportId(expense.vehicleRegNo);
+    final String reportId =
+        _getReportId(expense.vehicleRegNo, expense.timestamp);
     ModelReport vehicleReport = _reportBox.getByReportId(reportId);
     vehicleReport ??=
         ModelReport(reportId: reportId, reportType: ReportType.VEHICLE_MONTHLY);

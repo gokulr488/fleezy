@@ -1,10 +1,8 @@
 import 'package:fleezy/Common/ReportData.dart';
-import 'package:fleezy/DataModels/Quarters.dart';
 import 'package:fleezy/DataModels/ReportType.dart';
 import 'package:fleezy/components/DropDownButton.dart';
 import 'package:fleezy/screens/reports/ReportsController.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class TimePeriodSelector extends StatelessWidget {
