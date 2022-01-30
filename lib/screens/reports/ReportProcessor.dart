@@ -7,6 +7,7 @@ import 'package:fleezy/DataModels/ModelReport.dart';
 import 'package:fleezy/DataModels/ModelTrip.dart';
 import 'package:fleezy/DataModels/ReportType.dart';
 import 'package:fleezy/services/ReportBox.dart';
+import 'package:flutter/material.dart';
 
 class ReportProcessor {
   static List<ModelTrip> _trips;
@@ -49,6 +50,7 @@ class ReportProcessor {
 
   ModelReport getReportFor(String reportId, ReportData reportData,
       {bool forceBuild = false}) {
+    debugPrint('Getting report by ID: $reportId');
     ModelReport report = _reportBox.getByReportId(reportId);
     if (report != null && !forceBuild) {
       return report;
