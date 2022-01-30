@@ -66,7 +66,7 @@ class _FilterReportsSheetState extends State<FilterReportsSheet> {
   RoundedButton _buildButton(ReportData repData, ReportType period) {
     return RoundedButton(
       onPressed: () {
-        repData.setFilterPeriod(period);
+        repData.filterPeriod = period;
         setState(() {});
       },
       title: period.getString(),

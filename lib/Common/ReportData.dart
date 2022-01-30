@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_getters_setters
+
 import 'package:fleezy/Common/Utils.dart';
 import 'package:fleezy/DataModels/ModelReport.dart';
 import 'package:fleezy/DataModels/Quarters.dart';
@@ -43,20 +45,20 @@ class ReportData extends ChangeNotifier {
   DateParams get selectedMonth => _selectedMonth;
   DateParams get selectedQuarter => _selectedQuarter;
 
-  void setSelectedQuarter(Quarter quarter) {
-    _selectedQuarter.quarter = quarter;
+  set selectedQuarter(DateParams quarter) {
+    _selectedQuarter = quarter;
   }
 
-  void setFilterPeriod(ReportType filterPeriod) {
+  set filterPeriod(ReportType filterPeriod) {
     _filterPeriod = filterPeriod;
   }
 
-  void setSelectedYear(DateTime selectedYear) {
+  set selectedYear(DateTime selectedYear) {
     _selectedYear = selectedYear;
   }
 
-  void setSelectedMonth(String selectedMonth) {
-    _selectedMonth.monthStr = selectedMonth;
+  set selectedMonth(DateParams selectedMonth) {
+    _selectedMonth = selectedMonth;
   }
 
   void setGeneratedReport(ModelReport report) {

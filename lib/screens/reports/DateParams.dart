@@ -30,6 +30,24 @@ class DateParams {
     }
   }
 
+  set quarterStr(String quarterStr) {
+    _quarterStr = quarterStr;
+    switch (quarterStr) {
+      case 'Jan-Mar':
+        quarter = Quarter.Jan_Mar;
+        break;
+      case 'Apr-Jun':
+        quarter = Quarter.Apr_Jun;
+        break;
+      case 'Jul-Sep':
+        quarter = Quarter.Jul_Sep;
+        break;
+      case 'Oct-Dec':
+        quarter = Quarter.Oct_Dec;
+        break;
+    }
+  }
+
   set month(int month) {
     _month = month;
     final date = DateTime(2022, month);

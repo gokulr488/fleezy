@@ -19,7 +19,7 @@ class YearSelector extends StatelessWidget {
           values: ctrl.getYears(),
           onChanged: (String value) {
             DateTime date = DateTime(int.tryParse(value));
-            repData.setSelectedYear(date);
+            repData.selectedYear = date;
           }),
     );
   }

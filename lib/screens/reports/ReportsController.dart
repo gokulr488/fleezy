@@ -113,13 +113,9 @@ class ReportsController {
   Future<void> onBuildReportPressed(BuildContext context) async {
     final ReportData reportData =
         Provider.of<ReportData>(context, listen: false);
-    DateTime selecteDate = DateTime(reportData.selectedYear.year);
-    for (int i = 1; i <= 12; i++) {
-      selecteDate = DateTime(reportData.selectedYear.year, i);
-      if (reportData.selectedMonth == DateFormat('MMM').format(selecteDate)) {
-        break;
-      }
-    }
+    DateTime selecteDate =
+        DateTime(reportData.selectedYear.year, reportData.selectedMonth.month);
+
     debugPrint(
         'month: ${reportData.selectedMonth} year: ${reportData.selectedYear.year} date :$selecteDate');
   }
