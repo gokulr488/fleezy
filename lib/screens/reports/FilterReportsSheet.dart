@@ -1,7 +1,9 @@
 import 'package:fleezy/Common/ReportData.dart';
 import 'package:fleezy/Common/UiConstants.dart';
 import 'package:fleezy/DataModels/ReportType.dart';
+import 'package:fleezy/components/HorLine.dart';
 import 'package:fleezy/components/RoundedButton.dart';
+import 'package:fleezy/screens/reports/ReportsController.dart';
 import 'package:fleezy/screens/reports/TimePeriodSelector.dart';
 import 'package:fleezy/screens/reports/YearSelector.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,7 @@ class FilterReportsSheet extends StatefulWidget {
 }
 
 class _FilterReportsSheetState extends State<FilterReportsSheet> {
+  final ReportsController ctrl = ReportsController();
   @override
   Widget build(BuildContext context) {
     final ReportData repData = Provider.of<ReportData>(context, listen: false);
@@ -40,7 +43,15 @@ class _FilterReportsSheetState extends State<FilterReportsSheet> {
                 Expanded(child: TimePeriodSelector()),
             ],
           ),
-          const Spacer(flex: 5),
+          const HorLine(),
+          if (repData.filterPeriod == ReportType.MONTHLY)
+            RoundedButton(
+                onPressed: () => ctrl.onBuildReportPressed(context),
+                title: 'Build Report in server',
+                width: MediaQuery.of(context).size.width * 0.27,
+                colour: Colors.grey,
+                elevation: 1),
+          const Spacer(),
           RoundedButton(
             onPressed: () {
               Navigator.pop(context);

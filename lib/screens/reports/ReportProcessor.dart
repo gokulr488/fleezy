@@ -44,7 +44,7 @@ class ReportProcessor {
       case ReportType.MONTHLY:
         List<ModelReport> reports = _reportBox.getReportsIn(
             year: reportData.selectedYear.year,
-            month: reportData.selectedMonth);
+            month: reportData.selectedMonth.monthStr);
         newReport =
             ModelReport(reportId: reportId, reportType: ReportType.MONTHLY);
         combineReports(newReport, reports);

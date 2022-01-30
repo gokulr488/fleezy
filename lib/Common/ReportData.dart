@@ -2,6 +2,7 @@ import 'package:fleezy/Common/Utils.dart';
 import 'package:fleezy/DataModels/ModelReport.dart';
 import 'package:fleezy/DataModels/Quarters.dart';
 import 'package:fleezy/DataModels/ReportType.dart';
+import 'package:fleezy/screens/reports/DateParams.dart';
 import 'package:flutter/cupertino.dart';
 
 class ReportData extends ChangeNotifier {
@@ -31,19 +32,19 @@ class ReportData extends ChangeNotifier {
   // Timestamp _endDate = Utils.getEndOfMonth(DateTime.now());
   ReportType _filterPeriod = ReportType.MONTHLY;
   String _selectedVehicle = 'All';
-  String _selectedMonth = Utils.getFormattedDate(DateTime.now(), 'MMM');
-  Quarter _selectedQuarter = Quarter.Jan_Mar;
+  DateParams _selectedMonth = DateParams(month: DateTime.now().month);
+  DateParams _selectedQuarter = DateParams(quarter: Quarter.Jan_Mar);
 
   //Getters
   ReportType get filterPeriod => _filterPeriod;
   DateTime get selectedYear => _selectedYear;
   ModelReport get generatedReport => _generatedReport;
   String get selectedVehicle => _selectedVehicle;
-  String get selectedMonth => _selectedMonth;
-  Quarter get selectedQuarter => _selectedQuarter;
+  DateParams get selectedMonth => _selectedMonth;
+  DateParams get selectedQuarter => _selectedQuarter;
 
   void setSelectedQuarter(Quarter quarter) {
-    _selectedQuarter = quarter;
+    _selectedQuarter.quarter = quarter;
   }
 
   void setFilterPeriod(ReportType filterPeriod) {
@@ -55,7 +56,7 @@ class ReportData extends ChangeNotifier {
   }
 
   void setSelectedMonth(String selectedMonth) {
-    _selectedMonth = selectedMonth;
+    _selectedMonth.monthStr = selectedMonth;
   }
 
   void setGeneratedReport(ModelReport report) {
@@ -73,20 +74,18 @@ class ReportData extends ChangeNotifier {
     switch (_filterPeriod) {
       case ReportType.MONTHLY:
         if (_selectedVehicle == 'All') {
-          reportId = _selectedMonth + '-' + year;
+          reportId = _selectedMonth.monthStr + '-' + year;
         } else {
-          reportId = _selectedVehicle + '_' + _selectedMonth + '-' + year;
+          reportId =
+              _selectedVehicle + '_' + _selectedMonth.monthStr + '-' + year;
         }
         break;
       case ReportType.QUARTERLY:
         if (_selectedVehicle == 'All') {
-          reportId = _selectedQuarter.getString() + '-' + year;
+          reportId = _selectedQuarter.quarterStr + '-' + year;
         } else {
-          reportId = _selectedVehicle +
-              '_' +
-              _selectedQuarter.getString() +
-              '-' +
-              year;
+          reportId =
+              _selectedVehicle + '_' + _selectedQuarter.quarterStr + '-' + year;
         }
         break;
       case ReportType.YEARLY:

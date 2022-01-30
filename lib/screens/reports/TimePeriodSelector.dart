@@ -19,7 +19,13 @@ class TimePeriodSelector extends StatelessWidget {
           hintText: getHint(repData),
           value: getDefaultValue(repData),
           values: ctrl.getFilterValues(repData),
-          onChanged: (String value) {}),
+          onChanged: (String value) {
+            if (repData.filterPeriod == ReportType.MONTHLY) {
+              repData.setSelectedMonth(value);
+            } else {
+              //repData.setselq
+            }
+          }),
     );
   }
 
@@ -36,11 +42,6 @@ class TimePeriodSelector extends StatelessWidget {
 
     if (repData.filterPeriod == ReportType.QUARTERLY) {
       return Quarter.Jan_Mar.getString();
-    }
-    if (repData.filterPeriod == ReportType.YEARLY) {
-      final DateTime now = DateTime.now();
-      final String year = DateFormat('yyyy').format(now);
-      return year;
     }
     return '';
   }

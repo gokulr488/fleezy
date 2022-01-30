@@ -28,28 +28,30 @@ class ReportsController {
     return <String>[];
   }
 
+  Future<void> processTripsAndExpenses(
+      DateTime date, BuildContext context) async {
+    CallContext callContext = await TripApis().filterTrips(context, null,
+        from: Utils.getStartOfMonth(date), to: Utils.getEndOfMonth(date));
+    if (!callContext.isError) {
+      processor.processTrips(callContext.data as List<ModelTrip>);
+    } else {
+      showErrorAlert(context, 'Error Generating Report');
+      return;
+    }
+    callContext = await ExpenseApis().filterExpense(context, null,
+        from: Utils.getStartOfMonth(date), to: Utils.getEndOfMonth(date));
+    if (!callContext.isError) {
+      processor.processExpenses(callContext.data as List<ModelExpense>);
+    } else {
+      showErrorAlert(context, 'Error Generating Report');
+      return;
+    }
+  }
+
   Future<void> getCurrentMonthData(BuildContext context) async {
     if (!thisMnthDataLoaded) {
       thisMnthDataLoaded = true;
-      final DateTime now = DateTime.now();
-
-      CallContext callContext = await TripApis().filterTrips(context, null,
-          from: Utils.getStartOfMonth(now), to: Utils.getEndOfMonth(now));
-      if (!callContext.isError) {
-        processor.processTrips(callContext.data as List<ModelTrip>);
-      } else {
-        showErrorAlert(context, 'Error Generating Report');
-        return;
-      }
-
-      callContext = await ExpenseApis().filterExpense(context, null,
-          from: Utils.getStartOfMonth(now), to: Utils.getEndOfMonth(now));
-      if (!callContext.isError) {
-        processor.processExpenses(callContext.data as List<ModelExpense>);
-      } else {
-        showErrorAlert(context, 'Error Generating Report');
-        return;
-      }
+      processTripsAndExpenses(DateTime.now(), context);
     }
     final ReportData reportData =
         Provider.of<ReportData>(context, listen: false);
@@ -106,5 +108,19 @@ class ReportsController {
     String reportId = reportData.getReportId();
     ModelReport report = processor.getReportFor(reportId, reportData);
     reportData.setGeneratedReport(report);
+  }
+
+  Future<void> onBuildReportPressed(BuildContext context) async {
+    final ReportData reportData =
+        Provider.of<ReportData>(context, listen: false);
+    DateTime selecteDate = DateTime(reportData.selectedYear.year);
+    for (int i = 1; i <= 12; i++) {
+      selecteDate = DateTime(reportData.selectedYear.year, i);
+      if (reportData.selectedMonth == DateFormat('MMM').format(selecteDate)) {
+        break;
+      }
+    }
+    debugPrint(
+        'month: ${reportData.selectedMonth} year: ${reportData.selectedYear.year} date :$selecteDate');
   }
 }

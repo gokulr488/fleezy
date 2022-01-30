@@ -1,5 +1,4 @@
 import 'package:fleezy/Common/ReportData.dart';
-import 'package:fleezy/Common/Utils.dart';
 import 'package:fleezy/components/DropDownButton.dart';
 import 'package:fleezy/screens/reports/ReportsController.dart';
 import 'package:flutter/material.dart';
@@ -18,9 +17,10 @@ class YearSelector extends StatelessWidget {
           hintText: 'Year',
           value: DateFormat('yyyy').format(repData.selectedYear),
           values: ctrl.getYears(),
-          onChanged: (String value) {}),
+          onChanged: (String value) {
+            DateTime date = DateTime(int.tryParse(value));
+            repData.setSelectedYear(date);
+          }),
     );
   }
 }
-// TODO make date range selection work across screens
-// date range should update in reports screen and filter sheet
