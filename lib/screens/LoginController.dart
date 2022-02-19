@@ -4,8 +4,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fleezy/Common/Alerts.dart';
 import 'package:fleezy/Common/AppData.dart';
 import 'package:fleezy/Common/Authentication.dart';
+import 'package:fleezy/Common/CallContext.dart';
 import 'package:fleezy/Common/Constants.dart';
 import 'package:fleezy/Common/UiState.dart';
+import 'package:fleezy/DataAccess/DAOs/Company.dart';
 import 'package:fleezy/DataAccess/DAOs/Roles.dart';
 import 'package:fleezy/DataModels/ModelUser.dart';
 import 'package:fleezy/screens/HomeScreen.dart';
@@ -34,7 +36,14 @@ class LoginController {
   }
 
   Future<void> onVerificationCompleted(BuildContext context) async {
-    Provider.of<AppData>(context, listen: false).setUser(user);
+    AppData appData = Provider.of<AppData>(context, listen: false);
+    appData.setUser(user);
+    CallContext callContext =
+        await Company().getCompanyById(appData.user.companyId.first);
+    if (!callContext.isError) {
+      appData.setSelectedCompany(callContext.data);
+    }
+
     if (user.uid == null) {
       user.uid = Authentication().getUser()?.uid;
       await Roles().updateRole(user);
