@@ -37,12 +37,11 @@ const InputDecoration kTextFieldDecoration = InputDecoration(
 );
 
 const InputDecoration kDropDownDecoration = InputDecoration(
-    labelStyle: TextStyle(fontSize: 18, color: kHighlightColour),
-    contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-    enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Color(0x00000000)),
-      borderRadius: BorderRadius.all(Radius.circular(25)),
-    ));
+  labelStyle: TextStyle(fontSize: 18, color: kHighlightColour),
+  contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+  focusedBorder:
+      UnderlineInputBorder(borderSide: BorderSide(color: Color(0x00000000))),
+);
 
 const Map<int, Color> kCardOverlay = <int, Color>{
   1: Color(0xFFffffe5),
