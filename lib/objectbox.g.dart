@@ -29,7 +29,8 @@ final _entities = <ModelEntity>[
             id: const IdUid(2, 282744498516048172),
             name: 'reportId',
             type: 9,
-            flags: 0),
+            flags: 2080,
+            indexId: const IdUid(1, 738668213379392975)),
         ModelProperty(
             id: const IdUid(3, 1864303905578543555),
             name: 'income',
@@ -171,7 +172,7 @@ ModelDefinition getObjectBoxModel() {
   final model = ModelInfo(
       entities: _entities,
       lastEntityId: const IdUid(1, 4900922487780503117),
-      lastIndexId: const IdUid(0, 0),
+      lastIndexId: const IdUid(1, 738668213379392975),
       lastRelationId: const IdUid(0, 0),
       lastSequenceId: const IdUid(0, 0),
       retiredEntityUids: const [],

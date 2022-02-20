@@ -36,6 +36,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 //flutter build  apk --target-platform android-arm
+//flutter pub run build_runner watch --delete-conflicting-outputs
 ObjectBox objectbox;
 
 Future<void> main() async {

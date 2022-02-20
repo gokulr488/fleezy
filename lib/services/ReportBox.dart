@@ -6,6 +6,7 @@ class ReportBox {
   final Box<ModelReport> _box = objectbox.reportsBox;
 
   void put(ModelReport vehicleReport) {
+    // if duplicate entry exception is occuring, get report by report ID and update ID before inserting so that doc gets updated
     _box.put(vehicleReport);
   }
 

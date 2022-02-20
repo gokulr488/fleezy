@@ -49,15 +49,15 @@ class ReportsController {
   Future<void> getCurrentMonthData(BuildContext context) async {
     //TODO need to recheck reports aggregation logic on loading current data
     if (!thisMnthDataLoaded) {
-      thisMnthDataLoaded = true;
       processTripsAndExpenses(DateTime.now(), context);
+      thisMnthDataLoaded = true;
     }
     ReportData reportData = Provider.of<ReportData>(context, listen: false);
     ModelReport report = processor.getReportFor(
         Utils.getFormattedDate(DateTime.now(), 'MMM-yyyy'), reportData,
         forceBuild: true);
     reportReady = true;
-    reportData.setGeneratedReport(report);
+    reportData.setGeneratedReport(report, reBuild: false);
   }
 
   List<String> getYears() {

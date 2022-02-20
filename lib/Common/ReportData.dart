@@ -61,9 +61,9 @@ class ReportData extends ChangeNotifier {
     _selectedMonth = selectedMonth;
   }
 
-  void setGeneratedReport(ModelReport report) {
+  void setGeneratedReport(ModelReport report, {bool reBuild = true}) {
     _generatedReport = report;
-    notifyListeners();
+    if (reBuild) notifyListeners();
   }
 
   void setSelectedVehicle(String selectedVehicle) {

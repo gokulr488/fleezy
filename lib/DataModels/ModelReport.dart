@@ -51,6 +51,8 @@ class ModelReport {
   int year;
   String companyId;
 
+  @Index()
+  @Unique()
   String reportId;
   double income;
   double pendingBal;

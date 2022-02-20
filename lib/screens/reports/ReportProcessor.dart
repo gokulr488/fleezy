@@ -56,6 +56,7 @@ class ReportProcessor {
       return report;
     }
     final ModelReport newReport = _buildReport(reportId, reportData);
+    newReport.id = report?.id;
     _reportBox.put(newReport);
     return newReport;
   }
