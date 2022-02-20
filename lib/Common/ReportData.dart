@@ -45,6 +45,14 @@ class ReportData extends ChangeNotifier {
   DateParams get selectedMonth => _selectedMonth;
   DateParams get selectedQuarter => _selectedQuarter;
 
+  void reset() {
+    _selectedVehicle = 'All';
+    _selectedMonth = DateParams(month: DateTime.now().month);
+    _selectedQuarter = DateParams(quarter: Quarter.Jan_Mar);
+    _filterPeriod = ReportType.MONTHLY;
+    _selectedYear = DateTime.now();
+  }
+
   set selectedQuarter(DateParams quarter) {
     _selectedQuarter = quarter;
   }

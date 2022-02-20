@@ -27,7 +27,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
   @override
   void initState() {
     super.initState();
-    ctrl.getCurrentMonthData(context);
+    ctrl.init(context);
   }
 
   @override

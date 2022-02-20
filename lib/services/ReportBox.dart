@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:fleezy/DataModels/ModelReport.dart';
 import 'package:fleezy/main.dart';
 import 'package:fleezy/objectbox.g.dart';
@@ -27,6 +29,11 @@ class ReportBox {
             ModelReport_.month.equals(month)) //try with contains in reportId
         .build();
     return query.find();
+  }
+
+  void deleteAll() {
+    print('Deleting All Reports from Local DB');
+    _box.removeAll();
   }
 }
 

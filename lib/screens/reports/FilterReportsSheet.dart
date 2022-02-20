@@ -51,6 +51,12 @@ class _FilterReportsSheetState extends State<FilterReportsSheet> {
                 width: MediaQuery.of(context).size.width * 0.27,
                 colour: Colors.grey,
                 elevation: 1),
+          RoundedButton(
+              onPressed: () => ctrl.deleteAllReports(),
+              title: 'Delete local reports',
+              width: MediaQuery.of(context).size.width * 0.27,
+              colour: Colors.red,
+              elevation: 1),
           const Spacer(),
           RoundedButton(
             onPressed: () {

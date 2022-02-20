@@ -46,6 +46,12 @@ class ReportsController {
     }
   }
 
+  Future<void> init(BuildContext context) async {
+    ReportData reportData = Provider.of<ReportData>(context, listen: false);
+    reportData.reset();
+    await getCurrentMonthData(context);
+  }
+
   Future<void> getCurrentMonthData(BuildContext context) async {
     //TODO need to recheck reports aggregation logic on loading current data
     if (!thisMnthDataLoaded) {
@@ -121,5 +127,10 @@ class ReportsController {
       Navigator.pop(context);
       showErrorAlert(context, 'Error building Report');
     }
+  }
+
+  void deleteAllReports() {
+    processor.deleteAllReports();
+    thisMnthDataLoaded = false;
   }
 }

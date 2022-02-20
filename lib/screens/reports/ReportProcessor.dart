@@ -55,6 +55,13 @@ class ReportProcessor {
     if (report != null && !forceBuild) {
       return report;
     }
+    if (reportData.filterPeriod == ReportType.MONTHLY &&
+        reportData.selectedVehicle != 'All') {
+      final ModelReport emptyReport = ModelReport(
+          reportId: reportId, reportType: ReportType.VEHICLE_MONTHLY);
+      _reportBox.put(emptyReport);
+      return emptyReport;
+    }
     final ModelReport newReport = _buildReport(reportId, reportData);
     newReport.id = report?.id;
     _reportBox.put(newReport);
@@ -174,5 +181,9 @@ class ReportProcessor {
         break;
     }
     _reportBox.put(vehicleReport);
+  }
+
+  void deleteAllReports() {
+    _reportBox.deleteAll();
   }
 }
