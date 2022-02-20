@@ -53,17 +53,16 @@ class ReportsController {
   }
 
   Future<void> getCurrentMonthData(BuildContext context) async {
-    //TODO need to recheck reports aggregation logic on loading current data
     if (!thisMnthDataLoaded) {
-      processTripsAndExpenses(DateTime.now(), context);
       thisMnthDataLoaded = true;
+      await processTripsAndExpenses(DateTime.now(), context);
     }
     ReportData reportData = Provider.of<ReportData>(context, listen: false);
     ModelReport report = processor.getReportFor(
         Utils.getFormattedDate(DateTime.now(), 'MMM-yyyy'), reportData,
         forceBuild: true);
+    reportData.setGeneratedReport(report, reBuild: !reportReady);
     reportReady = true;
-    reportData.setGeneratedReport(report, reBuild: false);
   }
 
   List<String> getYears() {
@@ -132,5 +131,6 @@ class ReportsController {
   void deleteAllReports() {
     processor.deleteAllReports();
     thisMnthDataLoaded = false;
+    reportReady = false;
   }
 }
